@@ -123,6 +123,15 @@ Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan 
 
 Kata sandi atau kunci service-role tidak pernah ditulis di README, commit, log publik, maupun antarmuka. Bila akun Auth sudah dibuat melalui dashboard, gunakan `supabase/bootstrap-admin.example.sql` untuk menambahkan keanggotaan Admin secara manual.
 
+### Akun Admin awal
+
+- Email: `lanxnashiry@gmail.com`
+- Nama peran: `Pemilik Wawangian Pelajar`
+- Status: undangan Supabase Auth telah dikirim dan keanggotaan `pengguna_admin` sudah aktif.
+- Kata sandi dibuat sendiri melalui tautan undangan Supabase dan tidak boleh ditulis di README, `.env.example`, commit, atau percakapan.
+
+Metode undangan dashboard dipakai untuk akun awal agar tidak perlu menyimpan `SUPABASE_SERVICE_ROLE_KEY` atau kata sandi sementara. Skrip `npm run buat-admin` tetap tersedia untuk bootstrap terkontrol pada lingkungan lain.
+
 ## Rute Admin M2
 
 - `/admin/masuk` — login satu peran Admin.
@@ -152,4 +161,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M1 selesai dan telah digabungkan. M2 aktif di branch `codex/m2-panel-admin-data-nyata`; aktivasi hosted menunggu migrasi Supabase dan bootstrap akun Admin.
+M1 selesai dan telah digabungkan. M2 aktif di branch `codex/m2-panel-admin-data-nyata`; migrasi hosted dan akun Admin sudah aktif, sedangkan validasi login/CRUD menunggu penerimaan undangan oleh pemilik.

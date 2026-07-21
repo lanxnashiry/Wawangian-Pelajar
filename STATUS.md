@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 21 Juli 2026
 **Milestone aktif:** M2 — Panel Admin + Data Nyata
-**Status milestone aktif:** Berjalan; implementasi lokal selesai, aktivasi hosted menunggu akses pemilik
+**Status milestone aktif:** Berjalan; implementasi dan aktivasi hosted selesai, validasi login/CRUD menunggu penerimaan undangan Admin
 
 ---
 
@@ -12,14 +12,14 @@
 
 M1 telah digabungkan ke `main`. Implementasi M2 berada pada branch `codex/m2-panel-admin-data-nyata` dan mencakup schema Supabase, RLS, Storage, autentikasi Admin, CRUD Produk, CRUD Artikel, koneksi data publik, serta fondasi Analitik Klik-Keluar.
 
-URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang diabaikan Git. Database hosted belum menerima migrasi karena kunci publishable tidak memiliki hak mengubah schema. Akun Admin juga belum dibuat karena email pemilik dan service-role lokal belum tersedia.
+URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang diabaikan Git. Migrasi M2 sudah diterapkan pada proyek hosted. Undangan Auth telah dikirim ke `lanxnashiry@gmail.com` dan pengguna tersebut sudah tercatat aktif sebagai `Pemilik Wawangian Pelajar` pada `pengguna_admin`; kata sandi dibuat sendiri oleh pemilik melalui tautan undangan dan tidak dicatat di repository.
 
 ## Task M2
 
-1. 🟡 Login Admin — kode login/logout, pembaruan sesi, proteksi rute, dan pemeriksaan keanggotaan selesai; akun hosted belum dibuat.
-2. 🟡 CRUD Produk — daftar, tambah, edit, nonaktifkan, unggah foto, data karakter/okasi, dan validasi BR-4 selesai; uji hosted menunggu migrasi.
-3. 🟡 Editor Konten — CRUD artikel, draft/terbit, gambar, share, dan CTA otomatis selesai; uji hosted menunggu migrasi.
-4. 🟡 Data nyata publik — repositori Supabase dan pembatasan aktif/terbit selesai; data bisnis final belum diberikan.
+1. 🟡 Login Admin — kode, proteksi, akun hosted, dan keanggotaan aktif selesai; uji login menunggu pemilik menerima undangan dan membuat kata sandi.
+2. 🟡 CRUD Produk — daftar, tambah, edit, nonaktifkan, unggah foto, data karakter/okasi, dan validasi BR-4 selesai; uji end-to-end menunggu login Admin.
+3. 🟡 Editor Konten — CRUD artikel, draft/terbit, gambar, share, dan CTA otomatis selesai; uji end-to-end menunggu login Admin.
+4. 🟡 Data nyata publik — repositori Supabase, schema hosted, dan pembatasan aktif/terbit selesai; data bisnis final belum diberikan.
 5. 🟡 Analitik Klik-Keluar — tabel, RPC, route handler, dasbor, dan empty state selesai; tombol nyata baru dihubungkan pada M4.
 
 ## Validasi yang sudah dilakukan
@@ -32,14 +32,15 @@ URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang d
 - Konsol browser — tidak ada galat atau peringatan aplikasi.
 - `.env.local` — terkonfirmasi diabaikan oleh `.gitignore`.
 - Pemindaian repository — tidak menemukan kunci publishable aktual, service-role terisi, atau kata sandi Admin pada berkas terlacak.
+- Migrasi hosted — berhasil tanpa baris hasil; 4 tabel M2 tersedia dan seluruhnya mengaktifkan RLS.
+- Struktur hosted — 15 kebijakan akses, 2 bucket publik terbatas media, dan 5 fungsi database tersedia.
+- Bootstrap Admin — satu pengguna `lanxnashiry@gmail.com` aktif sebagai `Pemilik Wawangian Pelajar`.
 
 ## Langkah berikutnya
 
-1. Pemilik memberikan email yang dapat dipakai sebagai akun Admin (tanpa mengirim kata sandi di chat).
-2. Pemilik menerapkan `supabase/migrations/202607210001_m2_panel_admin.sql` melalui SQL Editor Supabase.
-3. Pemilik mengisi service-role, email, dan kata sandi sementara di `.env.local`, lalu menjalankan `npm run buat-admin` atau memberi akses lokal agar Agent menjalankannya.
-4. Agent menguji login, RLS, CRUD, upload Storage, status draft/terbit, dan BR-4 terhadap Supabase hosted.
-5. Setelah validasi hosted berhasil, M2 dapat ditandai selesai dan draft PR disiapkan untuk tinjauan.
+1. Pemilik menerima undangan Supabase pada `lanxnashiry@gmail.com` dan membuat kata sandi sendiri.
+2. Agent menguji login, RLS, CRUD, upload Storage, status draft/terbit, dan BR-4 terhadap Supabase hosted.
+3. Setelah validasi end-to-end berhasil, M2 dapat ditandai selesai dan draft PR disiapkan untuk tinjauan akhir.
 
 ## Asumsi yang berlaku
 
@@ -59,7 +60,7 @@ URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang d
 
 ## Catatan dan kendala
 
-- Kunci publishable tidak dapat menjalankan migrasi schema atau membuat pengguna Admin dengan email terkonfirmasi. Hal itu memerlukan SQL Editor/dashboard atau service-role yang hanya disimpan lokal.
+- Undangan Admin sudah dikirim, tetapi login aplikasi belum dapat diuji sampai pemilik menerima undangan dan membuat kata sandi.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

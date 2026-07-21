@@ -32,14 +32,14 @@ Setup awal sebelum fitur apa pun.
 - ✅ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
 - ✅ Responsif mobile-first diverifikasi
 
-## M2 — Panel Admin + Data Nyata  🟡 (implementasi lokal selesai; aktivasi Supabase hosted tertunda)
-- 🟡 Login admin (kode dan proteksi selesai; akun hosted menunggu email + service-role lokal)
+## M2 — Panel Admin + Data Nyata  🟡 (implementasi dan aktivasi hosted selesai; validasi end-to-end berjalan)
+- 🟡 Login admin (akun hosted dan peran aktif; pemilik perlu menerima undangan dan menguji login)
 - 🟡 CRUD Produk + validasi anti-brand-asli (BR-4) + data karakter/okasi
 - 🟡 Editor Konten (CRUD artikel)
 - 🟡 Sambungkan data nyata ke website publik
 - 🟡 Pencatatan & halaman Analitik Klik-keluar
 
-Seluruh task M2 telah dibangun dan lolos validasi lokal. Status tetap berjalan sampai migrasi diterapkan pada proyek Supabase, akun Admin dibuat, dan CRUD/RLS diuji end-to-end terhadap database hosted.
+Seluruh task M2 telah dibangun dan lolos validasi lokal. Migrasi hosted, RLS, Storage, fungsi database, dan akun Admin sudah aktif. Status tetap berjalan sampai pemilik menerima undangan serta login, CRUD, unggah Storage, dan RLS diuji end-to-end.
 
 ## M3 — Donasi (fitur andalan)  ⬜
 - ⬜ Rekap penjualan → hitung donasi 20% (BR-1, read-only)

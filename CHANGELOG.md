@@ -18,6 +18,7 @@
 - Konfigurasi Supabase menerima kunci publishable baru dengan kompatibilitas kunci anon lama.
 - Homepage, Katalog, Detail Produk, daftar Konten, dan Artikel dapat membaca data aktif/terbit dari Supabase.
 - Data contoh M1 menjadi fallback berlabel saat schema Supabase belum diterapkan.
+- Migrasi M2 diterapkan pada proyek Supabase hosted dan akun Admin awal diundang melalui dashboard tanpa menyimpan kata sandi atau service-role.
 
 ### Diperbaiki
 
