@@ -2,7 +2,7 @@
 
 Website resmi brand parfum lokal bermisi pendidikan. **“Wangi yang berpihak pada pendidikan.”**
 
-Website ini adalah pusat brand, bukan tempat transaksi. Website akan menampilkan katalog, cerita, transparansi Dana Cahaya Pendidikan, dan portal afiliasi, lalu mengarahkan pembeli ke Shopee atau TikTok Shop.
+Website ini adalah pusat brand, bukan tempat transaksi. Website menampilkan katalog dan konten publik, serta secara bertahap menyiapkan transparansi Dana Cahaya Pendidikan dan portal afiliasi sebelum mengarahkan pembeli ke marketplace resmi.
 
 ## Dokumen Wajib Dibaca
 
@@ -61,17 +61,31 @@ Server pengembangan tersedia di `http://localhost:3000`.
 
 ```text
 /app
-  /(publik)      # rute publik mulai M1
-  /afiliasi      # portal afiliasi mulai M5
-  /admin         # panel admin mulai M2
+  /(publik)      # layout dan seluruh rute publik
+    /katalog     # katalog dengan filter dan pencarian
+    /produk      # detail produk berdasarkan slug
+    /cerita      # daftar dan detail artikel
+    /donasi      # state sementara sampai M3
+    /afiliasi    # state sementara sampai M5
+  /afiliasi      # portal afiliasi dengan login mulai M5
+  /admin         # panel admin dengan login mulai M2
   /layout.tsx    # tata letak global
-  /page.tsx      # halaman penanda fondasi M0
 /components      # komponen antarmuka yang dapat digunakan ulang
+/data            # data contoh produk dan artikel M1
 /lib/supabase    # konfigurasi dan pembuat klien Supabase
 /public          # aset statis dan ikon sementara
 ```
 
-Direktori milestone berikutnya hanya diberi catatan struktur. Fitur di dalamnya belum dibangun pada M0.
+## Rute Publik M1
+
+- `/` — Homepage lengkap.
+- `/katalog` — pencarian, filter, pengurutan, dan state kosong.
+- `/produk/[slug]` — detail produk contoh dan produk terkait.
+- `/cerita` — daftar artikel dan filter kategori.
+- `/cerita/[slug]` — isi artikel, share, dan CTA kontekstual.
+- `/donasi` dan `/afiliasi` — halaman sementara sampai milestone fiturnya aktif.
+
+Data M1 berada di `data/produk.ts` dan `data/artikel.ts`. Seluruh data tersebut adalah contoh, bukan data bisnis final.
 
 ## Variabel Lingkungan
 
@@ -111,4 +125,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-Fondasi M0 selesai di branch `codex/m0-fondasi-proyek`. M1 tidak boleh dimulai sebelum konfirmasi pemilik.
+M1 selesai di branch `codex/m1-website-publik-statis`. M2 tidak boleh dimulai sebelum tinjauan dan konfirmasi pemilik.

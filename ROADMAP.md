@@ -3,8 +3,8 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M0 selesai; menunggu konfirmasi pemilik sebelum M1.
-**Milestone aktif:** M0 — Fondasi Proyek.
+**Status keseluruhan:** M1 selesai; menunggu tinjauan pemilik sebelum M2.
+**Milestone aktif:** M1 — Website Publik Statis.
 
 ---
 
@@ -16,7 +16,7 @@
 
 ---
 
-## M0 — Fondasi Proyek  ✅ (selesai; menunggu konfirmasi)
+## M0 — Fondasi Proyek  ✅ (selesai)
 Setup awal sebelum fitur apa pun.
 - ✅ Inisialisasi Next.js (App Router + TypeScript) + Tailwind CSS
 - ✅ Setup repositori GitHub + struktur folder
@@ -24,13 +24,13 @@ Setup awal sebelum fitur apa pun.
 - ✅ Siapkan konfigurasi dan panduan deploy Vercel (deployment nyata menunggu akses pemilik)
 - ✅ Pastikan 6 dokumen tata kelola tersedia dan diperbarui (BUILD_SPEC, ROADMAP, STATUS, DECISIONS, CHANGELOG, README)
 
-## M1 — Website Publik Statis (data contoh)  ⬜
-- ⬜ Layout global (navbar + drawer mobile + footer)
-- ⬜ Homepage (semua bagian + state Rp 0 + state tanpa review)
-- ⬜ Katalog (grid + filter + urutkan + pencarian + state kosong)
-- ⬜ Detail Produk (galeri, profil aroma, tombol beli, produk terkait)
-- ⬜ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
-- ⬜ Responsif mobile-first diverifikasi
+## M1 — Website Publik Statis (data contoh)  ✅ (selesai; menunggu tinjauan)
+- ✅ Layout global (navbar + drawer mobile + footer)
+- ✅ Homepage (semua bagian + state Rp 0 + state tanpa review)
+- ✅ Katalog (grid + filter + urutkan + pencarian + state kosong)
+- ✅ Detail Produk (galeri, profil aroma, tombol beli, produk terkait)
+- ✅ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
+- ✅ Responsif mobile-first diverifikasi
 
 ## M2 — Panel Admin + Data Nyata  ⬜
 - ⬜ Login admin (Supabase Auth)

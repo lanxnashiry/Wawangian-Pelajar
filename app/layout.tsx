@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Wawangian Pelajar",
+  title: {
+    default: "Wawangian Pelajar",
+    template: "%s · Wawangian Pelajar",
+  },
   description:
     "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
 };

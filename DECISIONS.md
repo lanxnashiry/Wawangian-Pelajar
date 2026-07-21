@@ -89,6 +89,12 @@
 **Alasan:** Fondasi dan identitas dasar perlu dapat diuji tanpa mengarang aset produk. SVG lokal ringan, dapat diakses, dan tidak bergantung pada layanan eksternal.
 **Konsekuensi:** Wordmark “Wawangian Pelajar” tetap menjadi identitas utama selama logo resmi belum tersedia; larangan gambar produk AI tetap berlaku.
 
+### KEP-017 — Disiplin data contoh dan batas integrasi pada M1
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Semua produk, harga, artikel, dan visual M1 diberi status contoh. Angka donasi dan testimoni wireframe tidak dipakai. Tombol marketplace tetap nonaktif sampai M4, sedangkan rute Donasi dan Afiliasi hanya menampilkan state “segera hadir”.
+**Alasan:** M1 bertujuan memvalidasi pengalaman publik statis tanpa mengarang bukti sosial, data dampak, tautan transaksi, atau perilaku milestone berikutnya.
+**Konsekuensi:** Seluruh data contoh harus diganti atau diverifikasi saat M2 menyediakan sumber data nyata; fitur integrasi tetap mengikuti urutan ROADMAP.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

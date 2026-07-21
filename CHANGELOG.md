@@ -2,6 +2,31 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-21] — Milestone M1
+
+### Ditambah
+
+- Layout publik global dengan navbar desktop, drawer mobile, dan footer.
+- Homepage lengkap berdasarkan wireframe, termasuk state donasi awal dan penyembunyian otomatis blok ulasan kosong.
+- Katalog data contoh dengan pencarian, filter kategori, pengurutan, grid responsif, dan state kosong.
+- Detail Produk dengan galeri placeholder, profil aroma, label “Racikan Sendiri”, pesan misi, dan produk terkait.
+- Daftar Konten dengan filter kategori serta halaman Artikel dengan share dan CTA kontekstual.
+- Halaman “segera hadir” untuk Donasi dan Afiliasi agar cabang navigasi tidak buntu tanpa mendahului milestone.
+- Data contoh produk dan artikel yang dipusatkan dalam modul terpisah.
+
+### Diubah
+
+- Halaman penanda fondasi M0 diganti dengan website publik statis M1.
+- Struktur rute publik mengikuti route group App Router.
+- Placeholder visual dan ikon digunakan secara konsisten sampai aset asli tersedia.
+
+### Diperbaiki
+
+- Angka donasi contoh pada wireframe tidak digunakan; Homepage menampilkan “Perjalanan baru dimulai”.
+- Testimoni contoh tidak ditampilkan untuk mencegah fabrikasi bukti sosial.
+- Tombol marketplace dinonaktifkan sampai integrasi dan pencatatan KlikKeluar dibangun pada M4.
+- Bilah scrollbar chip filter disembunyikan tanpa menghilangkan fungsi geser mobile.
+
 ## [2026-07-21] — Milestone M0
 
 ### Ditambah
