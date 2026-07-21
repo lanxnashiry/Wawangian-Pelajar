@@ -32,14 +32,14 @@ Setup awal sebelum fitur apa pun.
 - ✅ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
 - ✅ Responsif mobile-first diverifikasi
 
-## M2 — Panel Admin + Data Nyata  🟡 (implementasi dan aktivasi hosted selesai; validasi end-to-end berjalan)
-- 🟡 Login admin (akun dan peran aktif; alur pembuatan kata sandi selesai, pemilik perlu membuka tautan pemulihan dan menguji login)
+## M2 — Panel Admin + Data Nyata  🟡 (login hosted selesai; validasi mutasi data menunggu data bisnis)
+- ✅ Login admin (akun, kata sandi, peran aktif, RLS, dan akses dasbor hosted berhasil diuji)
 - 🟡 CRUD Produk + validasi anti-brand-asli (BR-4) + data karakter/okasi
 - 🟡 Editor Konten (CRUD artikel)
 - 🟡 Sambungkan data nyata ke website publik
 - 🟡 Pencatatan & halaman Analitik Klik-keluar
 
-Seluruh task M2 telah dibangun dan lolos validasi lokal. Migrasi hosted, RLS, Storage, fungsi database, akun Admin, dan alur aktivasi kata sandi sudah aktif. Status tetap berjalan sampai pemilik menyelesaikan pemulihan kata sandi serta login, CRUD, unggah Storage, dan RLS diuji end-to-end.
+Seluruh task M2 telah dibangun dan lolos validasi lokal. Migrasi hosted, hak tabel, RLS, Storage, fungsi database, akun Admin, dan login sudah aktif. Status tetap berjalan sampai kata sandi sementara diganti serta mutasi CRUD, unggah Storage, dan aturan BR-4 diuji memakai data bisnis asli.
 
 ## M3 — Donasi (fitur andalan)  ⬜
 - ⬜ Rekap penjualan → hitung donasi 20% (BR-1, read-only)

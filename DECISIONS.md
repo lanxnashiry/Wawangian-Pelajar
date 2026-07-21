@@ -119,6 +119,12 @@
 **Alasan:** Tautan bawaan sebelumnya mengarah ke localhost tanpa halaman penyelesaian sehingga email terkonfirmasi tetapi pemilik tidak dapat membuat kata sandi. Kata sandi harus tetap dibuat sendiri oleh pemilik dan tidak boleh melewati chat, README, atau repository.
 **Konsekuensi:** Server lokal port 3000 harus aktif saat memakai Site URL lokal. Setelah domain Vercel tersedia, Site URL dan daftar pengalihan Supabase wajib diganti ke domain produksi/preview yang sah.
 
+### KEP-022 — Kata sandi sementara Admin melalui SDK resmi
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Karena email undangan dan pemulihan tidak diterima, pemilik menyetujui kata sandi sementara minimal 12 karakter untuk ditetapkan satu kali melalui SDK Admin resmi Supabase. Nilainya hanya boleh berada di memori proses, tidak boleh ditulis ke berkas, dokumentasi, log, atau repository, dan wajib segera diganti oleh pemilik.
+**Alasan:** Akun Auth dan keanggotaan Admin sudah aktif, tetapi pemilik tidak dapat menyelesaikan pembuatan kata sandi lewat email. Jalur SDK resmi memungkinkan aktivasi terkontrol tanpa menurunkan aturan panjang kata sandi.
+**Konsekuensi:** Login awal harus diuji, pemilik mengganti kata sandi melalui `/admin/undangan`, dan secret key tidak boleh dipertahankan setelah operasi selesai.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

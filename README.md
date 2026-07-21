@@ -116,10 +116,11 @@ Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan 
 
 1. Buka SQL Editor pada proyek Supabase.
 2. Jalankan isi `supabase/migrations/202607210001_m2_panel_admin.sql` satu kali.
-3. Isi `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, dan kata sandi acak minimal 12 karakter pada `.env.local`.
-4. Jalankan `npm run buat-admin`.
-5. Setelah berhasil, hapus nilai `ADMIN_PASSWORD` dan `SUPABASE_SERVICE_ROLE_KEY` dari mesin yang tidak memerlukannya.
-6. Masuk melalui `/admin/masuk` dan uji Produk, Konten, serta Analitik.
+3. Jalankan isi `supabase/migrations/202607210002_m2_hak_akses.sql` untuk memberikan hak tabel dasar; RLS tetap menentukan baris yang boleh diakses.
+4. Isi `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, dan kata sandi acak minimal 12 karakter pada `.env.local`.
+5. Jalankan `npm run buat-admin`.
+6. Setelah berhasil, hapus nilai `ADMIN_PASSWORD` dan `SUPABASE_SERVICE_ROLE_KEY` dari mesin yang tidak memerlukannya.
+7. Masuk melalui `/admin/masuk` dan uji Produk, Konten, serta Analitik.
 
 Kata sandi atau kunci service-role tidak pernah ditulis di README, commit, log publik, maupun antarmuka. Bila akun Auth sudah dibuat melalui dashboard, gunakan `supabase/bootstrap-admin.example.sql` untuk menambahkan keanggotaan Admin secara manual.
 
@@ -127,10 +128,11 @@ Kata sandi atau kunci service-role tidak pernah ditulis di README, commit, log p
 
 - Email: `lanxnashiry@gmail.com`
 - Nama peran: `Pemilik Wawangian Pelajar`
-- Status: undangan Supabase Auth telah dikirim dan keanggotaan `pengguna_admin` sudah aktif.
-- Kata sandi dibuat sendiri melalui tautan undangan Supabase dan tidak boleh ditulis di README, `.env.example`, commit, atau percakapan.
+- Status: akun Supabase Auth terkonfirmasi, keanggotaan `pengguna_admin` aktif, dan login panel sudah teruji.
+- Kata sandi sementara dibuat melalui SDK Admin resmi dengan persetujuan pemilik, hanya dipakai di memori proses, dan tidak ditulis di README, `.env.example`, commit, atau log.
+- Pemilik wajib segera mengganti kata sandi sementara melalui `/admin/undangan` saat sudah masuk.
 
-Metode undangan dashboard dipakai untuk akun awal agar tidak perlu menyimpan `SUPABASE_SERVICE_ROLE_KEY` atau kata sandi sementara. Skrip `npm run buat-admin` tetap tersedia untuk bootstrap terkontrol pada lingkungan lain.
+Metode undangan dashboard dipakai untuk akun awal. Karena email pemulihan tidak diterima, kata sandi sementara ditetapkan satu kali melalui SDK Admin resmi tanpa menyimpannya ke repository. Skrip `npm run buat-admin` tetap tersedia untuk bootstrap terkontrol pada lingkungan lain.
 
 Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:3000/admin/undangan`. Jalankan `npm run dev` pada port 3000 sebelum membuka tautan undangan atau pemulihan kata sandi. Halaman tersebut menerima sesi Supabase dari alur tautan standar, meminta kata sandi minimal 12 karakter, memeriksa keanggotaan Admin aktif, lalu membuka panel. Saat aplikasi sudah memiliki domain Vercel, ganti `Site URL` dengan domain produksi dan tambahkan URL preview yang diperlukan ke daftar pengalihan Supabase.
 
