@@ -132,6 +132,8 @@ Kata sandi atau kunci service-role tidak pernah ditulis di README, commit, log p
 
 Metode undangan dashboard dipakai untuk akun awal agar tidak perlu menyimpan `SUPABASE_SERVICE_ROLE_KEY` atau kata sandi sementara. Skrip `npm run buat-admin` tetap tersedia untuk bootstrap terkontrol pada lingkungan lain.
 
+Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:3000/admin/undangan`. Jalankan `npm run dev` pada port 3000 sebelum membuka tautan undangan atau pemulihan kata sandi. Halaman tersebut menerima sesi Supabase dari alur tautan standar, meminta kata sandi minimal 12 karakter, memeriksa keanggotaan Admin aktif, lalu membuka panel. Saat aplikasi sudah memiliki domain Vercel, ganti `Site URL` dengan domain produksi dan tambahkan URL preview yang diperlukan ke daftar pengalihan Supabase.
+
 ## Rute Admin M2
 
 - `/admin/masuk` — login satu peran Admin.

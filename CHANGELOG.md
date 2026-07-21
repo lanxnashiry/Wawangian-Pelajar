@@ -25,6 +25,7 @@
 - Rute Admin menolak sesi tanpa keanggotaan `pengguna_admin` aktif.
 - Produk racikan sendiri ditolak bila profil aromanya memuat nama merek asli.
 - Produk nonaktif dan artikel draft tidak dapat tampil melalui kebijakan publik setelah schema diaktifkan.
+- Tautan undangan atau pemulihan Admin kini diproses pada `/admin/undangan`, mendukung sesi implicit maupun PKCE, dan tidak lagi berhenti pada halaman localhost tanpa alur pembuatan kata sandi.
 
 ## [2026-07-21] — Milestone M1
 

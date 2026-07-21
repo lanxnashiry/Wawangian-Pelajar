@@ -113,6 +113,12 @@
 **Alasan:** Build dan preview harus tetap hidup sebelum migrasi hosted diterapkan, sementara data bisnis final memang belum tersedia.
 **Konsekuensi:** Fallback harus dihapus pada M6 setelah data produksi dan konfigurasi deploy terverifikasi.
 
+### KEP-021 — Aktivasi Admin melalui tautan Supabase dan halaman aplikasi
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Undangan dan pemulihan kata sandi Admin diarahkan ke `/admin/undangan`. Halaman aplikasi menerima sesi implicit atau PKCE dari Supabase, meminta kata sandi minimal 12 karakter, dan memeriksa keanggotaan `pengguna_admin` aktif sebelum membuka panel.
+**Alasan:** Tautan bawaan sebelumnya mengarah ke localhost tanpa halaman penyelesaian sehingga email terkonfirmasi tetapi pemilik tidak dapat membuat kata sandi. Kata sandi harus tetap dibuat sendiri oleh pemilik dan tidak boleh melewati chat, README, atau repository.
+**Konsekuensi:** Server lokal port 3000 harus aktif saat memakai Site URL lokal. Setelah domain Vercel tersedia, Site URL dan daftar pengalihan Supabase wajib diganti ke domain produksi/preview yang sah.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
