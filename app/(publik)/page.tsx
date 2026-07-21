@@ -3,8 +3,7 @@ import { KartuArtikel } from "@/components/kartu-artikel";
 import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
 import { TajukBagian } from "@/components/tajuk-bagian";
-import { daftarArtikel } from "@/data/artikel";
-import { daftarProduk } from "@/data/produk";
+import { ambilDaftarArtikelPublik, ambilDaftarProdukPublik } from "@/lib/data/publik";
 
 type Ulasan = {
   nama: string;
@@ -33,9 +32,16 @@ const alasanBerbeda = [
   },
 ];
 
-export default function Beranda() {
+export const dynamic = "force-dynamic";
+
+export default async function Beranda() {
+  const [daftarProduk, daftarArtikel] = await Promise.all([
+    ambilDaftarProdukPublik(), ambilDaftarArtikelPublik(),
+  ]);
   const produkUnggulan = daftarProduk.filter((produk) => produk.unggulan);
   const artikelTerbaru = daftarArtikel.slice(0, 3);
+  const memakaiDataContoh = daftarProduk.some((produk) => produk.sumberData === "contoh") || daftarArtikel.some((artikel) => artikel.sumberData === "contoh");
+  const tautanCeritaMisi = daftarArtikel.some((artikel) => artikel.slug === "berawal-dari-pelajar") ? "/cerita/berawal-dari-pelajar" : "/cerita";
 
   return (
     <main>
@@ -67,7 +73,7 @@ export default function Beranda() {
               </Link>
             </div>
             <p className="mt-5 text-xs leading-5 text-slate-400">
-              Produk dan harga pada M1 masih berupa data contoh. Transaksi belum aktif.
+              {memakaiDataContoh ? "Sebagian katalog masih berupa data contoh sampai schema M2 diaktifkan." : "Produk aktif dibaca dari sumber data Supabase."} Transaksi belum aktif.
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-xl">
@@ -122,9 +128,9 @@ export default function Beranda() {
         <div className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <TajukBagian
-              label="Katalog contoh"
+              label={memakaiDataContoh ? "Katalog contoh" : "Katalog nyata"}
               judul="Produk unggulan"
-              deskripsi="Kenali karakter aromanya dulu. Foto dan data nyata akan menggantikan placeholder pada milestone data nyata."
+              deskripsi="Kenali karakter aromanya dulu. Hanya produk aktif yang tampil ke publik."
             />
             <Link
               href="/katalog"
@@ -133,11 +139,11 @@ export default function Beranda() {
               Lihat semua produk →
             </Link>
           </div>
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+          {produkUnggulan.length ? <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
             {produkUnggulan.map((produk) => (
               <KartuProduk key={produk.slug} produk={produk} />
             ))}
-          </div>
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#cbd4e1] bg-white p-8 text-center text-sm text-slate-600">Produk unggulan nyata belum ditambahkan.</p>}
         </div>
       </section>
 
@@ -189,7 +195,7 @@ export default function Beranda() {
               perjalanan ini baru dimulai, dan setiap cerita akan disertai sumber yang jelas.
             </p>
             <Link
-              href="/cerita/berawal-dari-pelajar"
+              href={tautanCeritaMisi}
               className="mt-6 inline-flex rounded-full bg-[#14223d] px-5 py-3 text-sm font-black text-white hover:bg-[#263958] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#14223d]"
             >
               Baca cerita kami →
@@ -213,11 +219,11 @@ export default function Beranda() {
               Lihat semua cerita →
             </Link>
           </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {artikelTerbaru.length ? <div className="mt-8 grid gap-5 md:grid-cols-3">
             {artikelTerbaru.map((artikel) => (
               <KartuArtikel key={artikel.slug} artikel={artikel} />
             ))}
-          </div>
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#cbd4e1] bg-[#f9fafc] p-8 text-center text-sm text-slate-600">Artikel terbit belum tersedia.</p>}
         </div>
       </section>
 

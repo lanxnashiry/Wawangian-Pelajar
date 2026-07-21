@@ -3,7 +3,7 @@ import {
   labelKategoriArtikel,
   type Artikel,
 } from "@/data/artikel";
-import { PlaceholderVisual } from "./placeholder-visual";
+import { VisualArtikel } from "./visual-data";
 
 export function KartuArtikel({ artikel }: { artikel: Artikel }) {
   return (
@@ -13,11 +13,7 @@ export function KartuArtikel({ artikel }: { artikel: Artikel }) {
         className="block overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f6b62]"
         aria-label={`Baca ${artikel.judul}`}
       >
-        <PlaceholderVisual
-          judul="Ilustrasi artikel sementara"
-          warna={artikel.warna}
-          ringkas
-        />
+        <VisualArtikel artikel={artikel} ringkas />
       </Link>
       <div className="p-5">
         <div className="flex items-center justify-between gap-3 text-xs">

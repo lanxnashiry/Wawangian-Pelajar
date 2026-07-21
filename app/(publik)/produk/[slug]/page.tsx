@@ -3,26 +3,24 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
+import { VisualProduk } from "@/components/visual-data";
 import {
-  ambilProduk,
-  daftarProduk,
   formatRupiah,
   labelKategori,
 } from "@/data/produk";
+import { ambilDaftarProdukPublik, ambilProdukPublik } from "@/lib/data/publik";
 
 type ParameterHalaman = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return daftarProduk.map((produk) => ({ slug: produk.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: ParameterHalaman): Promise<Metadata> {
   const { slug } = await params;
-  const produk = ambilProduk(slug);
+  const produk = await ambilProdukPublik(slug);
 
   if (!produk) return { title: "Produk tidak ditemukan" };
 
@@ -34,7 +32,9 @@ export async function generateMetadata({
 
 export default async function HalamanDetailProduk({ params }: ParameterHalaman) {
   const { slug } = await params;
-  const produk = ambilProduk(slug);
+  const [produk, daftarProduk] = await Promise.all([
+    ambilProdukPublik(slug), ambilDaftarProdukPublik(),
+  ]);
 
   if (!produk) notFound();
 
@@ -71,7 +71,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
         <div className="mt-7 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
           <section aria-label="Galeri produk" className="space-y-3">
             <div className="overflow-hidden rounded-[2rem] border border-[#e3e8ef] bg-white p-3 shadow-sm">
-              <PlaceholderVisual warna={produk.warna} />
+              <VisualProduk produk={produk} />
             </div>
             <div className="grid grid-cols-3 gap-3">
               {["Tampak depan", "Detail botol", "Kemasan"].map((label) => (
@@ -84,8 +84,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
               ))}
             </div>
             <p className="text-xs leading-5 text-slate-400">
-              Seluruh galeri masih placeholder. Foto produk asli wajib menggantikannya
-              sebelum data dipublikasikan sebagai produk nyata.
+              {produk.foto?.length ? "Foto produk dibaca dari penyimpanan resmi." : "Galeri masih placeholder; foto produk asli wajib ditambahkan sebelum publikasi final."}
             </p>
           </section>
 
@@ -100,7 +99,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                 </span>
               ) : null}
               <span className="rounded-full bg-slate-100 px-3 py-1.5 text-slate-500">
-                Data contoh
+                {produk.sumberData === "supabase" ? "Data terverifikasi" : "Data contoh"}
               </span>
             </div>
             <h1 className="mt-5 text-4xl leading-tight font-black tracking-[-0.05em] text-[#14223d] sm:text-5xl">

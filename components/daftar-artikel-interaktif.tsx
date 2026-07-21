@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import {
-  daftarArtikel,
   labelKategoriArtikel,
+  type Artikel,
   type KategoriArtikel,
 } from "@/data/artikel";
 import { KartuArtikel } from "./kartu-artikel";
@@ -18,7 +18,7 @@ const filterArtikel: Array<{ nilai: FilterArtikel; label: string }> = [
   })),
 ];
 
-export function DaftarArtikelInteraktif() {
+export function DaftarArtikelInteraktif({ daftarArtikel }: { daftarArtikel: Artikel[] }) {
   const [filterAktif, setFilterAktif] = useState<FilterArtikel>("semua");
   const artikelTampil = daftarArtikel.filter(
     (artikel) => filterAktif === "semua" || artikel.kategori === filterAktif,

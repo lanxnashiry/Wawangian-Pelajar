@@ -3,8 +3,8 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M1 selesai; menunggu tinjauan pemilik sebelum M2.
-**Milestone aktif:** M1 — Website Publik Statis.
+**Status keseluruhan:** M1 selesai dan digabungkan; M2 sedang dikerjakan.
+**Milestone aktif:** M2 — Panel Admin + Data Nyata.
 
 ---
 
@@ -24,7 +24,7 @@ Setup awal sebelum fitur apa pun.
 - ✅ Siapkan konfigurasi dan panduan deploy Vercel (deployment nyata menunggu akses pemilik)
 - ✅ Pastikan 6 dokumen tata kelola tersedia dan diperbarui (BUILD_SPEC, ROADMAP, STATUS, DECISIONS, CHANGELOG, README)
 
-## M1 — Website Publik Statis (data contoh)  ✅ (selesai; menunggu tinjauan)
+## M1 — Website Publik Statis (data contoh)  ✅ (selesai dan digabungkan)
 - ✅ Layout global (navbar + drawer mobile + footer)
 - ✅ Homepage (semua bagian + state Rp 0 + state tanpa review)
 - ✅ Katalog (grid + filter + urutkan + pencarian + state kosong)
@@ -32,12 +32,14 @@ Setup awal sebelum fitur apa pun.
 - ✅ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
 - ✅ Responsif mobile-first diverifikasi
 
-## M2 — Panel Admin + Data Nyata  ⬜
-- ⬜ Login admin (Supabase Auth)
-- ⬜ CRUD Produk + validasi anti-brand-asli (BR-4) + data karakter/okasi
-- ⬜ Editor Konten (CRUD artikel)
-- ⬜ Sambungkan data nyata ke website publik
-- ⬜ Pencatatan & halaman Analitik Klik-keluar
+## M2 — Panel Admin + Data Nyata  🟡 (implementasi lokal selesai; aktivasi Supabase hosted tertunda)
+- 🟡 Login admin (kode dan proteksi selesai; akun hosted menunggu email + service-role lokal)
+- 🟡 CRUD Produk + validasi anti-brand-asli (BR-4) + data karakter/okasi
+- 🟡 Editor Konten (CRUD artikel)
+- 🟡 Sambungkan data nyata ke website publik
+- 🟡 Pencatatan & halaman Analitik Klik-keluar
+
+Seluruh task M2 telah dibangun dan lolos validasi lokal. Status tetap berjalan sampai migrasi diterapkan pada proyek Supabase, akun Admin dibuat, dan CRUD/RLS diuji end-to-end terhadap database hosted.
 
 ## M3 — Donasi (fitur andalan)  ⬜
 - ⬜ Rekap penjualan → hitung donasi 20% (BR-1, read-only)

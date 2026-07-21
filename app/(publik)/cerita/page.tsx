@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DaftarArtikelInteraktif } from "@/components/daftar-artikel-interaktif";
+import { ambilDaftarArtikelPublik } from "@/lib/data/publik";
 
 export const metadata: Metadata = {
   title: "Cerita & Edukasi",
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
     "Cerita misi, edukasi aroma, dan tips parfum dari Wawangian Pelajar.",
 };
 
-export default function HalamanDaftarCerita() {
+export const dynamic = "force-dynamic";
+
+export default async function HalamanDaftarCerita() {
+  const daftarArtikel = await ambilDaftarArtikelPublik();
   return (
     <main>
       <section className="bg-[#14223d] px-5 py-14 text-white sm:px-8 sm:py-20 lg:px-10">
@@ -28,7 +32,7 @@ export default function HalamanDaftarCerita() {
 
       <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
-          <DaftarArtikelInteraktif />
+          <DaftarArtikelInteraktif daftarArtikel={daftarArtikel} />
           <div className="mt-12 flex flex-col gap-5 rounded-3xl border border-[#ead9a6] bg-[#fffaf0] p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-xl font-black text-[#14223d]">

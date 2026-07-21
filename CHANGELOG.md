@@ -2,6 +2,29 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-21] — Milestone M2 (berjalan)
+
+### Ditambah
+
+- Migrasi Supabase untuk Admin, Produk, Artikel, KlikKeluar, RLS, Storage, dan fungsi pencatatan klik.
+- Login/logout Admin, proteksi sesi, dasbor, dan navigasi panel yang responsif.
+- CRUD Produk dengan unggah foto asli, soft-delete, data karakter/okasi, serta validasi BR-4 di server dan database.
+- CRUD Artikel dengan draft/terbit, editor teks terstruktur, gambar utama, share, dan CTA otomatis.
+- Halaman Analitik Klik-Keluar dengan kondisi nol yang jujur.
+- Skrip bootstrap akun Admin yang hanya membaca rahasia dari `.env.local`.
+
+### Diubah
+
+- Konfigurasi Supabase menerima kunci publishable baru dengan kompatibilitas kunci anon lama.
+- Homepage, Katalog, Detail Produk, daftar Konten, dan Artikel dapat membaca data aktif/terbit dari Supabase.
+- Data contoh M1 menjadi fallback berlabel saat schema Supabase belum diterapkan.
+
+### Diperbaiki
+
+- Rute Admin menolak sesi tanpa keanggotaan `pengguna_admin` aktif.
+- Produk racikan sendiri ditolak bila profil aromanya memuat nama merek asli.
+- Produk nonaktif dan artikel draft tidak dapat tampil melalui kebijakan publik setelah schema diaktifkan.
+
 ## [2026-07-21] — Milestone M1
 
 ### Ditambah

@@ -10,6 +10,7 @@ export type BagianArtikel = {
 };
 
 export type Artikel = {
+  id?: string;
   slug: string;
   judul: string;
   kategori: KategoriArtikel;
@@ -18,6 +19,11 @@ export type Artikel = {
   menitBaca: number;
   warna: "tosca" | "emas" | "navy" | "merahMuda";
   bagian: BagianArtikel[];
+  fotoUtama?: string;
+  shareAktif?: boolean;
+  penulis?: string;
+  status?: "draft" | "terbit";
+  sumberData?: "contoh" | "supabase";
 };
 
 export const labelKategoriArtikel: Record<KategoriArtikel, string> = {
@@ -138,6 +144,10 @@ export const daftarArtikel: Artikel[] = [
     ],
   },
 ];
+
+daftarArtikel.forEach((artikel) => {
+  artikel.sumberData = "contoh";
+});
 
 export function ambilArtikel(slug: string) {
   return daftarArtikel.find((artikel) => artikel.slug === slug);

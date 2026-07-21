@@ -95,6 +95,24 @@
 **Alasan:** M1 bertujuan memvalidasi pengalaman publik statis tanpa mengarang bukti sosial, data dampak, tautan transaksi, atau perilaku milestone berikutnya.
 **Konsekuensi:** Seluruh data contoh harus diganti atau diverifikasi saat M2 menyediakan sumber data nyata; fitur integrasi tetap mengikuti urutan ROADMAP.
 
+### KEP-018 — Otorisasi Admin berlapis dengan tabel keanggotaan dan RLS
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Supabase Auth menangani identitas, sedangkan akses panel dan mutasi data hanya diberikan kepada pengguna aktif yang tercatat di `pengguna_admin`. Server Action memeriksa ulang keanggotaan dan database menegakkannya melalui RLS.
+**Alasan:** Status `authenticated` saja tidak membuktikan bahwa pengguna adalah Admin. Pemeriksaan berlapis mencegah akun biasa mengakses data pengelolaan.
+**Konsekuensi:** Admin pertama dibuat memakai service-role hanya dari lingkungan lokal atau dashboard Supabase; kata sandi tidak disimpan di repository/README.
+
+### KEP-019 — Pembagian analitik klik antara M2 dan M4
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** M2 menyediakan tabel, RPC pencatatan, route handler, dan halaman analitik. M4 menghubungkan tombol marketplace nyata ke pencatatan tersebut.
+**Alasan:** ROADMAP menyebut analitik pada M2 dan pencatatan pada M4. Pembagian ini menyiapkan fondasi tanpa mengaktifkan jembatan marketplace lebih awal.
+**Konsekuensi:** Halaman analitik M2 menampilkan kondisi nol sampai M4 mengirim klik nyata; data klik tidak pernah menjadi dasar komisi afiliasi.
+
+### KEP-020 — Data contoh sebagai fallback terbatas sebelum Supabase aktif
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Data contoh M1 tetap digunakan dan diberi label hanya ketika konfigurasi/schema Supabase belum dapat dibaca. Setelah kueri Supabase berhasil, termasuk hasil kosong, website memakai hasil tersebut tanpa mengarang isi.
+**Alasan:** Build dan preview harus tetap hidup sebelum migrasi hosted diterapkan, sementara data bisnis final memang belum tersedia.
+**Konsekuensi:** Fallback harus dihapus pada M6 setelah data produksi dan konfigurasi deploy terverifikasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

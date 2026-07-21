@@ -4,7 +4,7 @@ import {
   labelKategori,
   type Produk,
 } from "@/data/produk";
-import { PlaceholderVisual } from "./placeholder-visual";
+import { VisualProduk } from "./visual-data";
 
 export function KartuProduk({ produk }: { produk: Produk }) {
   return (
@@ -14,7 +14,7 @@ export function KartuProduk({ produk }: { produk: Produk }) {
         className="block overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#0f6b62]"
         aria-label={`Lihat detail ${produk.nama}`}
       >
-        <PlaceholderVisual warna={produk.warna} ringkas />
+        <VisualProduk produk={produk} ringkas />
       </Link>
       <div className="flex flex-1 flex-col p-4 sm:p-5">
         <div className="flex flex-wrap items-center gap-2 text-[11px] font-black tracking-wide uppercase">
@@ -37,9 +37,7 @@ export function KartuProduk({ produk }: { produk: Produk }) {
         </p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
           <div>
-            <p className="text-[10px] font-bold tracking-wide text-slate-400 uppercase">
-              Data contoh
-            </p>
+            <p className="text-[10px] font-bold tracking-wide text-slate-400 uppercase">{produk.sumberData === "supabase" ? "Data terverifikasi" : "Data contoh"}</p>
             <p className="mt-1 font-black text-[#14223d]">
               {produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"}
             </p>
