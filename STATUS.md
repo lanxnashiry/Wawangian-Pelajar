@@ -3,71 +3,69 @@
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
 **Terakhir diperbarui:** 21 Juli 2026
-**Milestone aktif:** M2 — Panel Admin + Data Nyata
-**Status milestone aktif:** Berjalan; login hosted berhasil, akses baca-saja teruji, validasi mutasi CRUD menunggu data bisnis
+**Milestone aktif:** M3 — Donasi (fitur andalan)
+**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M4
 
 ---
 
 ## Posisi saat ini
 
-M1 telah digabungkan ke `main`. Implementasi M2 berada pada branch `codex/m2-panel-admin-data-nyata` dan mencakup schema Supabase, RLS, Storage, autentikasi Admin, CRUD Produk, CRUD Artikel, koneksi data publik, serta fondasi Analitik Klik-Keluar.
+M3 selesai dibangun pada branch `codex/m3-donasi-transparan`. Migrasi telah diterapkan pada Supabase hosted dan menyediakan rekap donasi 20%, penyaluran berbukti, integritas saldo amanah, transparansi publik, detail bukti, serta Log Audit.
 
-URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang diabaikan Git. Migrasi schema dan migrasi hak akses M2 sudah diterapkan pada proyek hosted. `lanxnashiry@gmail.com` sudah terkonfirmasi, tercatat aktif sebagai `Pemilik Wawangian Pelajar` pada `pengguna_admin`, dan berhasil masuk ke panel. Kata sandi sementara ditetapkan satu kali melalui SDK Admin resmi dengan persetujuan pemilik tanpa ditulis ke berkas atau repository.
+Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan aturan BR-1, BR-2, BR-3, dan BR-9. Seluruh rekap, penyaluran, log, dan berkas bukti teknis kemudian dihapus sehingga database bisnis dan halaman publik kembali menampilkan keadaan nol yang jujur.
 
-## Task M2
+## Task M3
 
-1. ✅ Login Admin — kata sandi, proteksi, akun hosted, keanggotaan aktif, RLS, dan akses dasbor berhasil diuji.
-2. 🟡 CRUD Produk — daftar, tambah, edit, nonaktifkan, unggah foto, data karakter/okasi, dan validasi BR-4 selesai; empty state hosted teruji, mutasi menunggu data bisnis.
-3. 🟡 Editor Konten — CRUD artikel, draft/terbit, gambar, share, dan CTA otomatis selesai; empty state hosted teruji, mutasi menunggu data bisnis.
-4. 🟡 Data nyata publik — kueri hosted dan pembatasan aktif/terbit selesai; hasil kosong tampil jujur karena data bisnis final belum diberikan.
-5. 🟡 Analitik Klik-Keluar — tabel, RPC, route handler, dasbor, dan empty state selesai; tombol nyata baru dihubungkan pada M4.
+1. ✅ Rekap penjualan dan donasi 20% — `jumlah_donasi` dihitung sebagai kolom generated database dan tidak memiliki input bebas.
+2. ✅ Penyaluran berbukti — draft didukung; publikasi wajib memiliki minimal satu bukti JPEG/PNG/WebP maksimal 5 MB.
+3. ✅ Saldo amanah — database menolak penyaluran atau perubahan rekap yang membuat saldo negatif.
+4. ✅ Transparansi publik — tiga angka, riwayat berbukti, metode per periode, dan keadaan kosong tersedia.
+5. ✅ Detail penyaluran — bukti ukuran penuh dan tautan opsional ke Artikel Cerita Misi tersedia.
+6. ✅ Log Audit — aksi donasi, penyaluran, perubahan harga, penonaktifan Produk, dan penghapusan Artikel dicatat tanpa aksi ubah/hapus dari aplikasi.
 
 ## Validasi yang sudah dilakukan
 
-- `npm.cmd run lint` tahap awal — tanpa galat; dua peringatan ditemukan lalu diperbaiki.
-- `npm.cmd run build` final — berhasil, seluruh rute M2 terkompilasi.
-- Homepage pada 360px — HTTP 200, tanpa overflow, fallback M1 tetap tampil saat schema belum aktif.
-- `/admin` tanpa sesi — dialihkan ke `/admin/masuk` dengan pesan yang benar.
-- Login Admin pada 360px dan 1440px — satu input email, satu input kata sandi, tanpa overflow.
-- Konsol browser — tidak ada galat atau peringatan aplikasi.
-- `.env.local` — terkonfirmasi diabaikan oleh `.gitignore`.
-- Pemindaian repository — tidak menemukan kunci publishable aktual, service-role terisi, atau kata sandi Admin pada berkas terlacak.
-- Migrasi hosted — berhasil tanpa baris hasil; 4 tabel M2 tersedia dan seluruhnya mengaktifkan RLS.
-- Struktur hosted — 15 kebijakan akses, 2 bucket publik terbatas media, dan 5 fungsi database tersedia.
-- Bootstrap Admin — satu pengguna `lanxnashiry@gmail.com` aktif sebagai `Pemilik Wawangian Pelajar`.
-- Alur undangan — `/admin/undangan` dan `/auth/konfirmasi` lolos lint/build; Site URL Supabase menunjuk ke halaman aktivasi lokal.
-- Pemulihan kata sandi — permintaan email terbaru dikirim ke `lanxnashiry@gmail.com` setelah Site URL diperbaiki.
-- Kata sandi sementara — berhasil ditetapkan melalui SDK Admin resmi hanya di memori proses; nilainya tidak dicatat pada berkas proyek.
-- Hak akses tabel — migrasi `202607210002_m2_hak_akses.sql` diterapkan setelah uji awal menemukan `permission denied`; RLS tetap aktif.
-- Login hosted — berhasil membuka dasbor sebagai `Pemilik Wawangian Pelajar`.
-- Halaman Admin — Produk, Konten, dan Analitik berhasil dibaca dengan empty state dan nilai nol tanpa membuat data contoh baru.
-- Website publik — kueri Supabase berhasil dengan hasil kosong, tidak memakai fallback data contoh, dan tidak mengarang produk atau artikel.
+- `npm.cmd run lint` — berhasil tanpa galat.
+- `npm.cmd run build` — berhasil; seluruh rute M0–M3 terkompilasi.
+- Migrasi `202607210003_m3_donasi_transparan.sql` — berhasil diterapkan pada Supabase hosted.
+- Akses publik — RPC ringkasan dan metode berhasil, sedangkan laba bersih mentah tidak menghasilkan baris karena RLS.
+- BR-1 — laba teknis Rp100.000 menghasilkan donasi read-only Rp20.000 di database dan halaman publik.
+- BR-2 — publikasi tanpa bukti ditolak dengan pesan Bahasa Indonesia.
+- BR-3 — penyaluran Rp25.000 pada saldo Rp20.000 ditolak database; penyaluran berbukti Rp15.000 berhasil dan menghasilkan saldo Rp5.000.
+- BR-9 — penambahan rekap dan penyaluran muncul pada Log Audit; aplikasi tidak menyediakan mutasi Log Audit.
+- Halaman `/donasi`, `/donasi/[id]`, `/admin/donasi`, formulir rekap/penyaluran, dan `/admin/log` berhasil diuji melalui browser.
+- Responsif 360px dan 1440px — halaman publik dan panel Donasi tidak mengalami overflow horizontal.
+- Data teknis sementara — satu rekap, satu penyaluran, dua log, dan satu berkas bukti telah dihapus; hitungan akhir hosted `0/0/0`.
+- Storage — bukti tetap dapat dibuka melalui URL publik, tetapi kebijakan untuk membuat daftar seluruh nama berkas publik dihapus.
+- `git diff --check` — bersih; `.env.local` tetap diabaikan dan tidak ada rahasia yang ditambahkan ke perubahan.
 
 ## Langkah berikutnya
 
-1. Pemilik segera mengganti kata sandi sementara melalui `/admin/undangan` saat sesi Admin aktif.
-2. Setelah data bisnis dan foto asli diberikan, agent menguji mutasi CRUD, upload Storage, status draft/terbit, serta BR-4 pada Supabase hosted.
-3. Setelah validasi end-to-end berhasil, M2 dapat ditandai selesai dan draft PR disiapkan untuk tinjauan akhir.
+1. Selesaikan pembaruan dokumentasi, commit, push, dan draft pull request M3.
+2. Pemilik meninjau M3 dan mengganti kata sandi Admin sementara sebelum penggunaan produksi.
+3. M4 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
+4. Data penjualan, penerima, bukti, Produk, dan Artikel nyata dimasukkan oleh pemilik saat sudah tersedia.
 
 ## Asumsi yang berlaku
 
-- Data produk, artikel, harga, dan foto bisnis final menyusul; database M2 dimulai kosong.
-- Data contoh M1 tetap menjadi fallback berlabel hanya bila schema/config Supabase belum dapat dibaca.
-- Daftar kata merek terlarang awal disimpan terpusat pada validasi server dan trigger database; daftar dapat ditambah setelah pemilik meninjau.
-- Produk dihapus secara lunak dengan `aktif=false`; artikel dapat dihapus karena Log Audit baru menjadi kewajiban pada M3.
-- Tautan Shopee/TikTok boleh disimpan pada M2 tetapi tidak diaktifkan sebagai tombol beli sampai M4.
-- Kuis tidak dibangun pada M2; hanya field `karakter` dan `cocok_untuk` yang disiapkan untuk M4.
+- Persentase donasi M3 tetap 20% sesuai BR-1 dan hanya dapat berubah melalui requirement serta migrasi baru.
+- Publik hanya memperoleh jumlah donasi, metode, dan penyaluran terpublikasi; `untung_bersih` tidak diekspos.
+- Hanya penyaluran berstatus `terpublikasi` yang mengurangi saldo publik dan wajib memiliki bukti.
+- Bucket `bukti-donasi` bersifat publik untuk URL bukti, tetapi daftar objek tidak dibuka kepada pengunjung.
+- Tautan Cerita Misi bersifat opsional sampai Artikel dampak nyata tersedia.
+- Database bisnis tetap kosong sampai data nyata diberikan; angka nol tidak diganti data contoh.
+- M3 selesai secara teknis, tetapi M4 belum aktif sebelum konfirmasi pemilik.
 
 ## Batas scope yang tetap dijaga
 
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
-- Tidak ada modul Donasi M3, jembatan marketplace/kuis M4, atau Portal Afiliasi M5.
-- Tidak ada analitik yang diklaim sebagai penjualan/komisi; KlikKeluar hanya mengukur minat.
-- Tidak ada foto produk AI atau angka/testimoni/dampak buatan.
+- Tidak ada pelacakan komisi afiliasi buatan sendiri.
+- Tidak ada jembatan marketplace/kuis M4 atau Portal Afiliasi M5.
+- Tidak ada foto produk AI, angka donasi palsu, penerima palsu, testimoni, atau cerita dampak buatan.
 
 ## Catatan dan kendala
 
-- Kata sandi sementara sudah berfungsi dan wajib segera diganti oleh pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
+- Kata sandi sementara Admin sudah berfungsi dan wajib segera diganti oleh pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

@@ -125,6 +125,18 @@
 **Alasan:** Akun Auth dan keanggotaan Admin sudah aktif, tetapi pemilik tidak dapat menyelesaikan pembuatan kata sandi lewat email. Jalur SDK resmi memungkinkan aktivasi terkontrol tanpa menurunkan aturan panjang kata sandi.
 **Konsekuensi:** Login awal harus diuji, pemilik mengganti kata sandi melalui `/admin/undangan`, dan secret key tidak boleh dipertahankan setelah operasi selesai.
 
+### KEP-023 — Donasi 20% dihitung database dan laba mentah tetap privat
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** `jumlah_donasi` disimpan sebagai kolom generated sebesar `untung_bersih × 20 / 100`. Publik memperoleh total dan metode melalui fungsi `SECURITY DEFINER` yang hanya mengembalikan data aman; tabel rekap mentah hanya dapat dibaca Admin.
+**Alasan:** Perhitungan database mencegah angka donasi diketik atau diubah bebas, sedangkan RPC mempertahankan transparansi tanpa membuka rincian laba bisnis.
+**Konsekuensi:** Perubahan persentase memerlukan keputusan requirement dan migrasi baru. Aplikasi tidak menyediakan input jumlah donasi maupun akses publik ke `untung_bersih`.
+
+### KEP-024 — Penyaluran terpublikasi menjadi satu-satunya pengurang saldo
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Penyaluran draft tidak tampil atau mengurangi saldo publik. Status `terpublikasi` wajib memiliki minimal satu bukti dan ditolak database bila totalnya melebihi donasi terkumpul. Log Audit bersifat append-only bagi aplikasi. Bucket bukti memakai URL publik tanpa izin daftar objek publik.
+**Alasan:** Pemisahan draft menjaga proses operasional, sedangkan bukti wajib dan validasi saldo menegakkan BR-2/BR-3. Pembatasan daftar objek mengurangi paparan nama berkas tanpa menghalangi pemeriksaan bukti yang dipublikasikan.
+**Konsekuensi:** Koreksi angka sensitif tetap meninggalkan jejak audit. Penghapusan data teknis hanya dilakukan oleh pemilik database dalam transaksi terkontrol setelah pengujian.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
