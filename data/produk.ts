@@ -1,6 +1,7 @@
 export type KategoriProduk = "ori" | "decant" | "inspirasi" | "signature";
 
 export type Produk = {
+  id?: string;
   slug: string;
   nama: string;
   kategori: KategoriProduk;
@@ -17,7 +18,11 @@ export type Produk = {
   };
   unggulan: boolean;
   tersedia: boolean;
+  aktif?: boolean;
   warna: "tosca" | "emas" | "navy" | "merahMuda";
+  foto?: string[];
+  linkMarketplace?: { shopee?: string; tiktok?: string };
+  sumberData?: "contoh" | "supabase";
 };
 
 export const labelKategori: Record<KategoriProduk, string> = {
@@ -189,6 +194,10 @@ export const daftarProduk: Produk[] = [
     warna: "merahMuda",
   },
 ];
+
+daftarProduk.forEach((produk) => {
+  produk.sumberData = "contoh";
+});
 
 export function formatRupiah(nilai: number) {
   return new Intl.NumberFormat("id-ID", {

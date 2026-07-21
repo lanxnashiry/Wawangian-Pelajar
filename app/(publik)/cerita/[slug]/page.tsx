@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KartuArtikel } from "@/components/kartu-artikel";
-import { PlaceholderVisual } from "@/components/placeholder-visual";
+import { VisualArtikel } from "@/components/visual-data";
 import { TombolBagikan } from "@/components/tombol-bagikan";
 import {
-  ambilArtikel,
-  daftarArtikel,
   labelKategoriArtikel,
 } from "@/data/artikel";
+import { ambilArtikelPublik, ambilDaftarArtikelPublik } from "@/lib/data/publik";
 
 type ParameterHalaman = {
   params: Promise<{ slug: string }>;
@@ -41,15 +40,13 @@ const tujuanTindakan = {
   },
 };
 
-export function generateStaticParams() {
-  return daftarArtikel.map((artikel) => ({ slug: artikel.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: ParameterHalaman): Promise<Metadata> {
   const { slug } = await params;
-  const artikel = ambilArtikel(slug);
+  const artikel = await ambilArtikelPublik(slug);
 
   if (!artikel) return { title: "Artikel tidak ditemukan" };
 
@@ -61,7 +58,9 @@ export async function generateMetadata({
 
 export default async function HalamanArtikel({ params }: ParameterHalaman) {
   const { slug } = await params;
-  const artikel = ambilArtikel(slug);
+  const [artikel, daftarArtikel] = await Promise.all([
+    ambilArtikelPublik(slug), ambilDaftarArtikelPublik(),
+  ]);
 
   if (!artikel) notFound();
 
@@ -104,19 +103,15 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
             {artikel.judul}
           </h1>
           <p className="mt-5 text-sm text-slate-500">
-            {artikel.tanggal} · {artikel.menitBaca} menit baca · Konten contoh M1
+            {artikel.tanggal} · {artikel.menitBaca} menit baca · {artikel.sumberData === "supabase" ? artikel.penulis : "Konten contoh M1"}
           </p>
         </header>
 
         <div className="mt-9 overflow-hidden rounded-[2rem] border border-[#e3e8ef] bg-white p-3 shadow-sm sm:p-4">
-          <PlaceholderVisual
-            judul="Visual editorial sementara"
-            warna={artikel.warna}
-            ringkas
-          />
+          <VisualArtikel artikel={artikel} />
         </div>
         <p className="mt-3 text-center text-xs leading-5 text-slate-400">
-          Visual sementara; foto asli wajib digunakan untuk cerita dampak nyata.
+          {artikel.fotoUtama ? "Gambar dibaca dari penyimpanan resmi." : "Visual sementara; foto asli wajib digunakan untuk cerita dampak nyata."}
         </p>
 
         <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-slate-700">
@@ -137,7 +132,7 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
 
           <div className="mt-10 border-t border-[#dfe5ed] pt-7">
             <p className="mb-4 text-sm font-black text-[#14223d]">Bagikan:</p>
-            <TombolBagikan judul={artikel.judul} />
+            {artikel.shareAktif !== false ? <TombolBagikan judul={artikel.judul} /> : <p className="text-sm text-slate-500">Tombol berbagi dinonaktifkan oleh Admin.</p>}
           </div>
 
           <aside className="mt-10 rounded-3xl border border-[#ead9a6] bg-[#fffaf0] p-6">

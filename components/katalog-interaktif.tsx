@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import {
-  daftarProduk,
   labelKategori,
+  type Produk,
   type KategoriProduk,
 } from "@/data/produk";
 import { KartuProduk } from "./kartu-produk";
@@ -19,7 +19,7 @@ const kategori: Array<{ nilai: PilihanKategori; label: string }> = [
   })),
 ];
 
-export function KatalogInteraktif() {
+export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) {
   const [kategoriAktif, setKategoriAktif] =
     useState<PilihanKategori>("semua");
   const [kataKunci, setKataKunci] = useState("");
@@ -54,7 +54,7 @@ export function KatalogInteraktif() {
       if (urutan === "nama") return produkA.nama.localeCompare(produkB.nama, "id-ID");
       return Number(produkB.unggulan) - Number(produkA.unggulan);
     });
-  }, [kataKunci, kategoriAktif, urutan]);
+  }, [daftarProduk, kataKunci, kategoriAktif, urutan]);
 
   function resetFilter() {
     setKategoriAktif("semua");
@@ -119,8 +119,8 @@ export function KatalogInteraktif() {
       </div>
 
       <div className="mt-6 flex items-center justify-between gap-4 text-sm text-slate-500">
-        <p aria-live="polite">{hasil.length} produk contoh ditemukan</p>
-        <p className="hidden sm:block">Foto produk asli belum tersedia.</p>
+        <p aria-live="polite">{hasil.length} produk ditemukan</p>
+        <p className="hidden sm:block">Data aktif dari sumber katalog.</p>
       </div>
 
       {hasil.length > 0 ? (
@@ -138,8 +138,8 @@ export function KatalogInteraktif() {
             Belum ada yang cocok
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600">
-            Coba kata kunci lain atau reset filter. Katalog contoh kami terus
-            bertambah—produk baru segera hadir.
+            Coba kata kunci lain atau reset filter. Produk nyata akan ditambahkan
+            setelah data bisnis dan foto asli tersedia.
           </p>
           <button
             type="button"

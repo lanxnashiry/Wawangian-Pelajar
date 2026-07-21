@@ -68,11 +68,15 @@ Server pengembangan tersedia di `http://localhost:3000`.
     /donasi      # state sementara sampai M3
     /afiliasi    # state sementara sampai M5
   /afiliasi      # portal afiliasi dengan login mulai M5
-  /admin         # panel admin dengan login mulai M2
+  /admin         # login, dasbor, Produk, Konten, dan Analitik M2
   /layout.tsx    # tata letak global
 /components      # komponen antarmuka yang dapat digunakan ulang
 /data            # data contoh produk dan artikel M1
 /lib/supabase    # konfigurasi dan pembuat klien Supabase
+/lib/admin       # otorisasi dan validasi Admin
+/lib/data        # repositori data publik Supabase + fallback berlabel
+/supabase        # migrasi database dan contoh bootstrap Admin
+/scripts         # utilitas lokal, termasuk pembuatan Admin
 /public          # aset statis dan ikon sementara
 ```
 
@@ -93,16 +97,39 @@ Salin `.env.example` menjadi `.env.local`, lalu isi:
 
 ```dotenv
 NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
 ```
 
-- URL dan kunci anon digunakan oleh klien browser serta server.
+- URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
+- `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
 - Jangan pernah commit `.env.local` atau kunci rahasia ke GitHub.
 - Pasang nilai yang sama melalui pengaturan Environment Variables di Vercel.
 
 Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan memberikan galat berbahasa Indonesia bila dipanggil sebelum konfigurasi tersedia.
+
+## Mengaktifkan Supabase M2
+
+1. Buka SQL Editor pada proyek Supabase.
+2. Jalankan isi `supabase/migrations/202607210001_m2_panel_admin.sql` satu kali.
+3. Isi `SUPABASE_SERVICE_ROLE_KEY`, `ADMIN_EMAIL`, dan kata sandi acak minimal 12 karakter pada `.env.local`.
+4. Jalankan `npm run buat-admin`.
+5. Setelah berhasil, hapus nilai `ADMIN_PASSWORD` dan `SUPABASE_SERVICE_ROLE_KEY` dari mesin yang tidak memerlukannya.
+6. Masuk melalui `/admin/masuk` dan uji Produk, Konten, serta Analitik.
+
+Kata sandi atau kunci service-role tidak pernah ditulis di README, commit, log publik, maupun antarmuka. Bila akun Auth sudah dibuat melalui dashboard, gunakan `supabase/bootstrap-admin.example.sql` untuk menambahkan keanggotaan Admin secara manual.
+
+## Rute Admin M2
+
+- `/admin/masuk` — login satu peran Admin.
+- `/admin` — dasbor berbasis data Supabase.
+- `/admin/produk` — daftar, tambah, edit, unggah foto, dan nonaktifkan produk.
+- `/admin/konten` — daftar, tambah, edit, terbitkan, dan hapus artikel.
+- `/admin/analitik` — ringkasan minat klik-keluar; tetap nol sebelum M4.
 
 ## Deploy ke Vercel
 
@@ -125,4 +152,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M1 selesai di branch `codex/m1-website-publik-statis`. M2 tidak boleh dimulai sebelum tinjauan dan konfirmasi pemilik.
+M1 selesai dan telah digabungkan. M2 aktif di branch `codex/m2-panel-admin-data-nyata`; aktivasi hosted menunggu migrasi Supabase dan bootstrap akun Admin.
