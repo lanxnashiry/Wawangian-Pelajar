@@ -12,18 +12,23 @@
 - CRUD Artikel dengan draft/terbit, editor teks terstruktur, gambar utama, share, dan CTA otomatis.
 - Halaman Analitik Klik-Keluar dengan kondisi nol yang jujur.
 - Skrip bootstrap akun Admin yang hanya membaca rahasia dari `.env.local`.
+- Migrasi hak tabel dasar untuk peran `anon` dan `authenticated` dengan RLS tetap sebagai pembatas baris.
 
 ### Diubah
 
 - Konfigurasi Supabase menerima kunci publishable baru dengan kompatibilitas kunci anon lama.
 - Homepage, Katalog, Detail Produk, daftar Konten, dan Artikel dapat membaca data aktif/terbit dari Supabase.
 - Data contoh M1 menjadi fallback berlabel saat schema Supabase belum diterapkan.
+- Migrasi M2 diterapkan pada proyek Supabase hosted dan akun Admin awal diundang melalui dashboard tanpa menyimpan kata sandi atau service-role.
+- Kata sandi sementara akun Admin ditetapkan satu kali melalui SDK Admin resmi di lingkungan server sementara, lalu login panel berhasil diuji.
 
 ### Diperbaiki
 
 - Rute Admin menolak sesi tanpa keanggotaan `pengguna_admin` aktif.
 - Produk racikan sendiri ditolak bila profil aromanya memuat nama merek asli.
 - Produk nonaktif dan artikel draft tidak dapat tampil melalui kebijakan publik setelah schema diaktifkan.
+- Tautan undangan atau pemulihan Admin kini diproses pada `/admin/undangan`, mendukung sesi implicit maupun PKCE, dan tidak lagi berhenti pada halaman localhost tanpa alur pembuatan kata sandi.
+- Hak `SELECT`, `INSERT`, `UPDATE`, dan `DELETE` yang diperlukan diberikan pada tabel M2 sehingga kebijakan RLS dapat bekerja dan profil Admin tidak lagi gagal dengan `permission denied`.
 
 ## [2026-07-21] — Milestone M1
 
