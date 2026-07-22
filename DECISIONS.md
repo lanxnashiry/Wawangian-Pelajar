@@ -155,6 +155,30 @@
 **Alasan:** URL menjaga kuis ringan, hemat data, dan sesuai Non-Scope akun pembeli. Alasan kecocokan dapat dijelaskan langsung dari data katalog.
 **Konsekuensi:** Jawaban tidak dianggap data pribadi dan tidak disimpan di Supabase. Hasil adalah panduan selera, bukan klaim mutlak; kualitas rekomendasi mengikuti kelengkapan data Produk yang diisi Admin.
 
+### KEP-028 — Identitas Afiliasi memakai Supabase Auth dan profil berstatus menunggu
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Afiliasi mendaftar serta masuk dengan email dan kata sandi Supabase Auth. Trigger database membuat profil dari metadata tervalidasi dengan status awal `menunggu`; Admin memverifikasi atau mengoreksi minimal satu handle sebelum mengaktifkan akses penuh. WhatsApp hanya menjadi kontak operasional, bukan metode login SMS.
+**Alasan:** Autentikasi email sudah tersedia pada fondasi Supabase, sedangkan SMS memerlukan konfigurasi dan biaya tambahan yang tidak termasuk requirement. Status menunggu menjaga pencocokan handle sebelum materi serta leaderboard dibuka.
+**Konsekuensi:** Redirect URL `/auth/konfirmasi?next=/afiliasi/dashboard` wajib diizinkan di Supabase. Afiliasi nonaktif atau belum diverifikasi hanya dapat melihat status pendaftarannya.
+
+### KEP-029 — Tarif bonus nyata dikonfigurasi Admin dan laporan hanya membawa handle serta pcs
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Migrasi tidak menanam tarif, tingkat, penjualan, atau payout contoh. Admin menetapkan tingkat berdasarkan minimal pcs dan bonus per pcs nyata sebelum mengunggah CSV berkolom `handle,jumlah_pcs`. Database mencocokkan handle aktif, memilih tingkat tertinggi yang memenuhi batas, lalu menghitung bonus; payout `dibayar` wajib bukti transfer.
+**Alasan:** BUILD_SPEC menetapkan basis per pcs tetapi tidak menetapkan nominal. Nilai contoh wireframe tidak boleh berubah menjadi janji pendapatan atau data bisnis palsu.
+**Konsekuensi:** Laporan tidak dapat diproses tanpa minimal satu tingkat aktif. Website tidak menyimpan nilai komisi dasar, omzet, atau data dompet marketplace; komisi resmi tetap diperiksa dan dibayar platform.
+
+### KEP-030 — Data operasional Afiliasi privat dan leaderboard beralias
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Laporan platform, materi, dan bukti payout disimpan pada bucket privat. Afiliasi memperoleh materi melalui URL bertanda tangan selama 10 menit. Leaderboard terautentikasi hanya mengembalikan alias, jumlah pcs, urutan, serta penanda baris sendiri.
+**Alasan:** Handle, laporan, bukti transfer, dan identitas asli adalah data operasional yang tidak perlu dibuka ke publik. Materi tetap mudah diunduh tanpa membuat bucket menjadi publik.
+**Konsekuensi:** Email, WhatsApp, nama asli, handle, lokasi laporan, dan bukti transfer tidak tersedia melalui leaderboard atau halaman publik. RLS dan Log Audit tetap menjadi lapisan pengamanan utama.
+
+### KEP-031 — Simulasi Afiliasi hanya untuk akun uji pada mode pengembangan
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** `MODE_PRATINJAU_DATA_CONTOH=true` dapat menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, status payout, dan leaderboard contoh hanya ketika `NODE_ENV=development` serta identitas pengguna cocok dengan email dan alias akun `AfiliasiUji`. Dashboard dan leaderboard wajib menampilkan pemberitahuan “Data Contoh”.
+**Alasan:** Pemilik perlu meninjau keadaan portal yang terisi, tetapi KEP-029 melarang tarif, penjualan, bonus, atau payout contoh masuk ke database dan terlihat sebagai janji bisnis nyata.
+**Konsekuensi:** Simulasi tidak menjalankan RPC, tidak membuat atau mengubah baris Supabase, tidak berlaku untuk akun lain, dan otomatis mati pada build produksi. Nilai contoh wajib dihapus bersama mode pratinjau sebelum rilis M6 setelah data nyata terverifikasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

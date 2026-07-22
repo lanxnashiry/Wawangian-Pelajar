@@ -3,8 +3,8 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M4 selesai secara teknis; menunggu tinjauan pemilik sebelum M5.
-**Milestone aktif:** M4 — Jembatan Marketplace + Temukan Wangimu, tahap tinjauan.
+**Status keseluruhan:** M5 selesai secara teknis; menunggu tinjauan pemilik sebelum M6.
+**Milestone aktif:** M5 — Portal Afiliasi, tahap tinjauan.
 
 ---
 
@@ -53,22 +53,28 @@ Seluruh task M3 telah dibangun dan diuji terhadap Supabase hosted. Data teknis m
 
 Penyempurnaan tinjauan 22 Juli 2026 menambahkan mode pratinjau lokal berlabel agar komposisi Produk, Artikel, dan transparansi Donasi dapat diperiksa saat database bisnis masih kosong. Perubahan ini tidak membuka task M4 dan tidak mengubah data Supabase hosted.
 
-## M4 — Jembatan Marketplace + Temukan Wangimu  ✅ (selesai; menunggu konfirmasi)
+## M4 — Jembatan Marketplace + Temukan Wangimu  ✅ (selesai dan dikonfirmasi)
 - ✅ Tombol beli hybrid (1 marketplace langsung / 2 popup) (BR-5)
 - ✅ Pencatatan KlikKeluar
 - ✅ Pesan misi permanen di halaman produk
 - ✅ Halaman kuis "Temukan Wangimu" + hasil shareable
 
-Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat untuk analitik tanpa menahan pembukaan tab, sedangkan data contoh tidak mencemari analitik. Kuis tiga pertanyaan mencocokkan karakter, waktu, dan okasi dengan data Produk serta memuat kembali hasil dari URL shareable. Tautan Produk marketplace asli tetap menunggu data pemilik; M5 belum boleh dimulai sebelum M4 dikonfirmasi.
+Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat untuk analitik tanpa menahan pembukaan tab, sedangkan data contoh tidak mencemari analitik. Kuis tiga pertanyaan mencocokkan karakter, waktu, dan okasi dengan data Produk serta memuat kembali hasil dari URL shareable. Pemilik mengonfirmasi kelanjutan ke M5 pada 22 Juli 2026.
 
-## M5 — Portal Afiliasi  ⬜
-- ⬜ Landing "Jadi Afiliasi"
-- ⬜ Pendaftaran + input handle marketplace (BR-6)
-- ⬜ Login afiliasi + Dashboard (pemisahan komisi platform vs bonus)
-- ⬜ Panduan onboarding (ringkas + link resmi)
-- ⬜ Materi promosi (unduh)
-- ⬜ Leaderboard
-- ⬜ Admin: verifikasi handle + rekonsiliasi + hitung bonus per pcs (BR-7)
+## M5 — Portal Afiliasi  ✅ (selesai; menunggu konfirmasi)
+- ✅ Landing "Jadi Afiliasi"
+- ✅ Pendaftaran + input handle marketplace (BR-6)
+- ✅ Login afiliasi + Dashboard (pemisahan komisi platform vs bonus)
+- ✅ Panduan onboarding (ringkas + link resmi)
+- ✅ Materi promosi (unduh privat bertautan sementara)
+- ✅ Leaderboard beralias
+- ✅ Admin: verifikasi/koreksi handle + rekonsiliasi CSV + hitung bonus per pcs + payout berbukti (BR-7)
+
+Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga bucket privat. Transaksi uji membuktikan pencocokan handle, status belum cocok, hitung bonus per pcs, leaderboard beralias, serta penolakan payout tanpa bukti; seluruh data dan Log Audit uji dibatalkan dengan rollback. Tarif bonus, afiliasi, materi, laporan, dan bukti nyata tetap menunggu input pemilik. M6 belum boleh dimulai sebelum M5 dikonfirmasi.
+
+Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa login dan seluruh portal terlindungi tanpa laporan, bonus, payout, atau posisi leaderboard. Trigger profil juga dikoreksi agar pengguna Auth non-Afiliasi tidak menggagalkan pembuatan akun. Akun teknis wajib dihapus sebelum rilis produksi M6.
+
+Untuk peninjauan visual, mode pratinjau pengembangan mengisi akun `AfiliasiUji` dengan bonus top-up, progres tingkat, riwayat rekonsiliasi, dan leaderboard yang semuanya berlabel “Data Contoh”. Simulasi tidak tersedia pada produksi atau akun lain serta tidak membuat data hosted.
 
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar

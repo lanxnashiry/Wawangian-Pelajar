@@ -10,6 +10,7 @@ const kelompokTautan = [
       { label: "Transparansi Donasi", href: "/donasi" },
       { label: "Cerita & Edukasi", href: "/cerita" },
       { label: "Jadi Afiliasi", href: "/afiliasi" },
+      { label: "Masuk Portal Afiliasi", href: "/afiliasi/masuk" },
     ],
   },
   {

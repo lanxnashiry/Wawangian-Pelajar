@@ -3,68 +3,86 @@
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
 **Terakhir diperbarui:** 22 Juli 2026
-**Milestone aktif:** M4 — Jembatan Marketplace + Temukan Wangimu
-**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M5
+**Milestone aktif:** M5 — Portal Afiliasi
+**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
 
 ---
 
 ## Posisi saat ini
 
-M3 telah dikonfirmasi pemilik dan M4 dibangun pada branch `codex/m4-jembatan-marketplace-kuis`, bertumpuk di atas penyempurnaan preview M3. Detail Produk kini mendukung alur marketplace hybrid, pencatatan KlikKeluar untuk Produk nyata, pesan misi permanen, dan simulasi aman saat data contoh belum memiliki URL toko.
+M4 telah dikonfirmasi pemilik dan M5 dibangun pada branch `codex/m5-portal-afiliasi` dari hasil gabungan M4. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
-Rute `/temukan` menyediakan kuis tiga pertanyaan tanpa login. Hasil dihitung dari data `karakter` dan `cocok_untuk`, menjelaskan alasan rekomendasi, serta dapat dimuat kembali dan dibagikan melalui parameter URL.
+Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
-## Task M4
+Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Supabase hosted tetap tidak memiliki laporan, bonus, payout, atau posisi leaderboard untuk akun tersebut. Saat mode pratinjau lokal aktif, aplikasi menggantinya dengan simulasi berlabel agar Dashboard, progres tingkat, riwayat, dan leaderboard dapat ditinjau tanpa dianggap sebagai aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
 
-1. ✅ Tombol beli hybrid — satu URL valid membuka marketplace langsung; dua URL valid menampilkan dialog pilihan.
-2. ✅ Pencatatan KlikKeluar — klik Produk Supabase dikirim tanpa menghambat pembukaan tab; data contoh tidak dicatat.
-3. ✅ Pesan misi permanen — komitmen Dana Cahaya Pendidikan tetap terlihat sebelum tombol marketplace.
-4. ✅ Temukan Wangimu — karakter, waktu, dan okasi dicocokkan dengan data Produk serta diberi alasan.
-5. ✅ Hasil shareable — jawaban tervalidasi disimpan dalam URL dan mendukung Web Share atau salin tautan.
-6. ✅ Navigasi — Temukan Wangimu tersedia pada navbar, footer, Beranda, dan Katalog.
+## Task M5
+
+1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
+2. ✅ Pendaftaran — email, WhatsApp, alias, persetujuan aturan, serta minimal satu handle TikTok Shop/Shopee wajib.
+3. ✅ Login dan Dashboard — status verifikasi, bonus per pcs, progres tingkat, riwayat, dan penegasan komisi dasar tetap di platform.
+4. ✅ Panduan onboarding — langkah ringkas dengan tautan resmi TikTok Shop dan Shopee.
+5. ✅ Materi promosi — teks/berkas privat dengan tautan unduh sementara dan rambu BR-8.
+6. ✅ Leaderboard — agregasi pcs bulan berjalan dengan alias saja.
+7. ✅ Admin — verifikasi/koreksi handle, konfigurasi tingkat nyata, unggah CSV, pencocokan, bonus per pcs, payout berbukti, dan materi.
+8. ✅ Keamanan — RLS, bucket privat, validasi payout, dan Log Audit untuk aksi sensitif.
 
 ## Validasi yang sudah dilakukan
 
-- `npm.cmd run lint` — berhasil setelah jembatan marketplace dan setelah integrasi kuis.
-- `npm.cmd run build` — berhasil; rute `/temukan` dan seluruh rute M0–M4 terkompilasi.
-- URL hasil `?karakter=fresh&waktu=siang&okasi=kuliah-kerja` — menghasilkan Inspirasi Fresh Pagi, Inspirasi Citrus Sport, dan Decant Woody Siang beserta alasan kecocokan.
-- Responsif 360px — halaman kuis dan detail Produk tidak mengalami overflow horizontal.
-- Responsif 1440px — halaman kuis tidak mengalami overflow horizontal dan susunan tiga pertanyaan melebar dengan benar.
-- Detail Produk contoh — tombol simulasi dialog tersedia, pilihan toko tetap nonaktif, tidak membuka URL palsu, dan tidak mengirim analitik.
-- API KlikKeluar — muatan kosong ditolak HTTP 400; Produk tidak sah ditolak HTTP 422 tanpa membuat entri.
-- URL Admin — tautan non-HTTPS atau di luar domain resmi Shopee/TikTok ditolak sebelum Produk disimpan.
-- Konsol browser localhost — tidak ada galat aplikasi.
-- `git diff --check` — bersih sebelum pembaruan dokumentasi.
+- Migrasi `202607220004_m5_portal_afiliasi.sql` berhasil diterapkan pada Supabase hosted.
+- Lima tabel M5, 10 kebijakan RLS, tiga bucket privat, fungsi rekonsiliasi, dan fungsi leaderboard tersedia.
+- Transaksi uji hosted menghasilkan satu handle cocok dan satu belum cocok sesuai masukan.
+- Empat pcs dengan tarif uji Rp1.250 menghasilkan bonus Rp5.000; angka hanya berada dalam transaksi uji.
+- Payout tanpa bukti transfer ditolak constraint database.
+- Leaderboard hanya mengembalikan alias, jumlah pcs, urutan, dan penanda milik sendiri.
+- Transaksi uji diakhiri `ROLLBACK`; panel Admin kembali menunjukkan nol afiliasi, tingkat, laporan, bonus, dan materi.
+- Pendaftaran tanpa kedua handle ditolak sebelum membuat pengguna Supabase.
+- Panel `/admin/afiliasi` berhasil membaca schema hosted melalui sesi Admin.
+- Migrasi koreksi `202607220005_perbaiki_pemicu_afiliasi.sql` berhasil diterapkan; pengguna Auth tanpa metadata Afiliasi kini diabaikan trigger tanpa menggagalkan pembuatan akun.
+- Akun `AfiliasiUji` terkonfirmasi, berstatus aktif, memiliki satu Log Audit aktivasi dengan UID Admin, serta tetap memiliki 0 bonus.
+- Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
+- Mode pratinjau akun uji menampilkan 37 pcs, bonus top-up Rp67.500, Rp48.000 berstatus dibayar, tingkat “Kreator Contoh”, empat riwayat, dan peringkat ketiga; seluruh halaman membawa label “Data Contoh”.
+- Mode pratinjau Afiliasi tidak aktif pada produksi, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
+- Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
+- Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
+- `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
 
 ## Langkah berikutnya
 
-1. Pemilik meninjau M4 melalui server lokal dan draft pull request.
-2. Pemilik memberikan URL Produk Shopee/TikTok asli; setelah diisi melalui Admin, alur satu/dua marketplace dan angka analitik dapat ditinjau dengan data nyata.
-3. Pemilik mengganti kata sandi Admin sementara sebelum penggunaan produksi.
-4. M5 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
+1. Pemilik meninjau M5 melalui server lokal dan draft pull request.
+2. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
+3. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
+4. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
+5. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
+6. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
+7. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
-- URL Produk marketplace asli belum tersedia dan tidak boleh digantikan tautan buatan.
-- Hanya HTTPS pada domain resmi Shopee/TikTok yang dianggap tujuan marketplace valid.
-- Data contoh boleh memperlihatkan bentuk dialog, tetapi tidak boleh bernavigasi atau menambah KlikKeluar.
-- Jawaban kuis tidak disimpan di Supabase; parameter URL hanya memuat pilihan katalog non-pribadi.
-- Kualitas hasil kuis mengikuti kelengkapan `karakter` dan `cocok_untuk` yang diisi Admin.
-- KlikKeluar hanya untuk analitik minat dan tidak digunakan sebagai atribusi atau pembayaran komisi afiliasi.
-- M4 selesai secara teknis, tetapi aktivasi M5 tetap menunggu konfirmasi pemilik.
+- Email dan kata sandi dipakai untuk autentikasi Afiliasi; WhatsApp hanya data kontak karena autentikasi SMS tidak dikonfigurasi.
+- Minimal salah satu handle TikTok Shop atau Shopee wajib dan disimpan tanpa awalan `@` untuk pencocokan stabil.
+- Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
+- Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
+- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode pengembangan aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
+- CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
+- Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
+- Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
+- Data produk, afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik; `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 
 ## Batas scope yang tetap dijaga
 
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
-- Tidak ada pelacakan atau pembayaran komisi afiliasi buatan sendiri.
-- Tidak ada pendaftaran, login, dashboard, materi, leaderboard, atau rekonsiliasi Afiliasi M5.
-- Tidak ada foto produk AI, tautan produk palsu, testimoni, atau cerita dampak buatan.
-- Tidak ada penyimpanan profil atau riwayat jawaban kuis.
+- Tidak ada pelacakan atau pembayaran komisi dasar buatan website.
+- Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, klaim anggota nyata, atau leaderboard palsu.
+- Tidak ada Sales Academy, sertifikat, notifikasi otomatis, loyalitas, atau peran Admin granular.
+- Tidak ada foto produk AI, klaim organisasi, banting harga, atau klaim promosi palsu.
+- M6 belum dimulai.
 
 ## Catatan dan kendala
 
-- Pengujian klik-keluar sukses menuju marketplace nyata menunggu URL Produk resmi; seluruh logika satu/dua tautan dan RPC sudah terhubung.
-- Kata sandi sementara Admin sudah berfungsi dan wajib segera diganti oleh pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
+- Redirect URL konfirmasi Afiliasi harus ditambahkan ke konfigurasi Supabase untuk domain Vercel ketika domain tersedia.
+- Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
+- Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---
