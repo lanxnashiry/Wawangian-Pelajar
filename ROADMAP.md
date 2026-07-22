@@ -69,6 +69,7 @@ Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat
 - ✅ Materi promosi (unduh privat bertautan sementara)
 - ✅ Leaderboard beralias
 - ✅ Admin: verifikasi/koreksi handle + rekonsiliasi CSV + hitung bonus per pcs + payout berbukti (BR-7)
+- ✅ Data Contoh berlabel pada Production MVP tertutup tanpa mutasi Supabase
 
 Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga bucket privat. Transaksi uji membuktikan pencocokan handle, status belum cocok, hitung bonus per pcs, leaderboard beralias, serta penolakan payout tanpa bukti; seluruh data dan Log Audit uji dibatalkan dengan rollback. Tarif bonus, afiliasi, materi, laporan, dan bukti nyata tetap menunggu input pemilik. M6 belum boleh dimulai sebelum M5 dikonfirmasi.
 
@@ -78,7 +79,9 @@ Untuk peninjauan visual, mode pratinjau berlabel mengisi akun `AfiliasiUji` deng
 
 Penyempurnaan tinjauan M5 memperkuat `/temukan` dengan form GET yang tetap dapat dipakai tanpa bergantung penuh pada hidrasi JavaScript serta tautan “Coba contoh” khusus mode data contoh. Seluruh 32 kombinasi jawaban tervalidasi menghasilkan rekomendasi dari Produk contoh berlabel tanpa menulis data ke Supabase. Perubahan ini tidak membuka kembali M4 dan tidak memulai M6.
 
-Mode Data Contoh juga dapat diaktifkan secara eksplisit pada deployment Vercel Preview agar pemilik dapat meninjau branch M5 yang terisi. Pengamanan lingkungan memastikan mode tetap mati pada Vercel Production dan seluruh simulasi tetap tanpa mutasi Supabase. Perubahan ini merupakan penyempurnaan tinjauan M5 dan tidak memulai M6.
+Mode Data Contoh mula-mula diaktifkan pada deployment Vercel Preview agar pemilik dapat meninjau branch M5 yang terisi. Seluruh simulasi tetap tanpa mutasi Supabase dan perubahan ini tidak membuka kembali M4 maupun memulai M6.
+
+Atas keputusan pemilik untuk tahap MVP tertutup, mode berlabel diperluas ke Vercel Production ketika sakelar eksplisit aktif. Production ditujukan untuk pemilik dan reviewer tepercaya, seluruh simulasi tetap tanpa mutasi Supabase, dan sakelar wajib dimatikan sebelum rilis publik M6. Perubahan ini tetap merupakan penyempurnaan tinjauan M5.
 
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar

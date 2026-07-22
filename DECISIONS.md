@@ -185,6 +185,12 @@
 **Alasan:** Pemilik perlu meninjau website yang terisi melalui deployment branch/PR Vercel, bukan hanya dari server lokal. `NODE_ENV` bernilai `production` pada build Vercel Preview sehingga pembatas lama mematikan simulasi meskipun sakelar sudah dipasang.
 **Konsekuensi:** KEP-025 dan KEP-031 diperluas hanya untuk lingkungan Vercel Preview. Vercel Production tetap membaca data Supabase nyata atau keadaan kosong; pemilik wajib membatasi variabel ke lingkungan Preview dan melakukan deployment ulang setelah konfigurasi berubah.
 
+### KEP-033 — Data contoh boleh aktif pada Production MVP terbatas
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Selama tahap peninjauan MVP, `MODE_PRATINJAU_DATA_CONTOH=true` mengaktifkan seluruh simulasi berlabel pada pengembangan lokal, Vercel Preview, dan Vercel Production. Sakelar tetap `false` secara default, simulasi Afiliasi tetap khusus akun `AfiliasiUji`, dan tidak ada data contoh yang ditulis ke Supabase.
+**Alasan:** Website belum dirilis untuk konsumsi publik dan pemilik ingin meninjau serta membagikan Production kepada orang tepercaya dengan keadaan antarmuka yang terisi.
+**Konsekuensi:** KEP-032 diperluas untuk Production MVP. Akses Production disarankan dilindungi melalui Deployment Protection Vercel, seluruh reviewer wajib memahami label “Data Contoh”, dan sakelar wajib dimatikan sebelum rilis publik M6.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

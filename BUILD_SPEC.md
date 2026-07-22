@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.1
+- **Versi spesifikasi:** 2.2
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -259,7 +259,7 @@ Pengaturan { key, value }   // persentase_donasi, dll
 - Perhitungan donasi & bonus afiliasi = logika server (Next.js server actions / route handlers), bukan di sisi klien.
 - Bahasa: seluruh kode, komentar, penamaan variabel, dan pesan commit dalam **Bahasa Indonesia**.
 - Environment variable (kunci Supabase, dll) disimpan di `.env.local` dan Vercel — TIDAK di-commit ke repo.
-- Data contoh berlabel boleh diaktifkan melalui sakelar khusus pada pengembangan lokal dan deployment **Vercel Preview** untuk peninjauan. Mode ini wajib mati pada **Vercel Production**, tidak boleh melakukan mutasi ke Supabase, dan tidak boleh disajikan sebagai data bisnis nyata.
+- Data contoh berlabel boleh diaktifkan melalui sakelar khusus pada pengembangan lokal, **Vercel Preview**, dan **Vercel Production MVP** yang aksesnya dibatasi untuk peninjauan. Mode tidak boleh melakukan mutasi ke Supabase, tidak boleh disajikan sebagai data bisnis nyata, dan wajib dimatikan sebelum rilis publik M6.
 
 ---
 
@@ -433,4 +433,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.1 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.2 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
