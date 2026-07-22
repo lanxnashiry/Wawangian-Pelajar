@@ -1,3 +1,4 @@
+import { modePratinjauDataContohAktif } from "@/lib/pratinjau/data-contoh";
 import { konfigurasiSupabasePublikTersedia } from "@/lib/supabase/konfigurasi";
 import { buatKlienSupabaseServer } from "@/lib/supabase/klien-server";
 
@@ -8,6 +9,7 @@ export type RingkasanDonasi = {
   saldoAmanah: number;
   jumlahRekap: number;
   jumlahPenyaluran: number;
+  sumberData: "contoh" | "supabase";
 };
 
 export type MetodeDonasi = {
@@ -18,6 +20,7 @@ export type MetodeDonasi = {
   persentase: number;
   jumlahDonasi: number;
   catatanMetode: string;
+  sumberData: "contoh" | "supabase";
 };
 
 export type PenyaluranPublik = {
@@ -29,6 +32,7 @@ export type PenyaluranPublik = {
   tujuanDeskripsi: string;
   bukti: string[];
   artikel?: { judul: string; slug: string };
+  sumberData: "contoh" | "supabase";
 };
 
 type BarisRingkasan = {
@@ -67,9 +71,71 @@ const ringkasanKosong: RingkasanDonasi = {
   saldoAmanah: 0,
   jumlahRekap: 0,
   jumlahPenyaluran: 0,
+  sumberData: "supabase",
 };
 
+const ringkasanDonasiContoh: RingkasanDonasi = {
+  tersedia: true,
+  terkumpul: 2_400_000,
+  tersalurkan: 1_650_000,
+  saldoAmanah: 750_000,
+  jumlahRekap: 2,
+  jumlahPenyaluran: 2,
+  sumberData: "contoh",
+};
+
+const metodeDonasiContoh: MetodeDonasi[] = [
+  {
+    id: "contoh-rekap-semester-1-2026",
+    periodeMulai: "2026-01-01",
+    periodeSelesai: "2026-06-30",
+    sumber: "gabungan",
+    persentase: 20,
+    jumlahDonasi: 1_400_000,
+    catatanMetode: "Simulasi tampilan rekap gabungan semester pertama. Angka ini bukan hasil penjualan nyata.",
+    sumberData: "contoh",
+  },
+  {
+    id: "contoh-rekap-juli-2026",
+    periodeMulai: "2026-07-01",
+    periodeSelesai: "2026-07-20",
+    sumber: "shopee",
+    persentase: 20,
+    jumlahDonasi: 1_000_000,
+    catatanMetode: "Simulasi tampilan rekap periode Juli. Angka ini hanya menguji keterbacaan halaman.",
+    sumberData: "contoh",
+  },
+];
+
+const penyaluranDonasiContoh: PenyaluranPublik[] = [
+  {
+    id: "contoh-penyaluran-002",
+    tanggal: "2026-07-15",
+    jumlah: 950_000,
+    penerimaNama: "Penerima Contoh A",
+    penerimaJenis: "pelajar",
+    tujuanDeskripsi: "Simulasi bantuan perlengkapan belajar untuk memeriksa susunan kartu, angka, dan detail bukti. Bukan penyaluran nyata.",
+    bukti: ["/placeholder-bukti-contoh.svg"],
+    artikel: {
+      judul: "Mengapa bukti donasi penting?",
+      slug: "mengapa-bukti-donasi-penting",
+    },
+    sumberData: "contoh",
+  },
+  {
+    id: "contoh-penyaluran-001",
+    tanggal: "2026-06-18",
+    jumlah: 700_000,
+    penerimaNama: "Lembaga Pendidikan Contoh",
+    penerimaJenis: "lembaga",
+    tujuanDeskripsi: "Simulasi dukungan bahan bacaan untuk mengisi preview transparansi. Nama, jumlah, dan tujuan bukan data bisnis nyata.",
+    bukti: ["/placeholder-bukti-contoh.svg"],
+    sumberData: "contoh",
+  },
+];
+
 export async function ambilRingkasanDonasiPublik(): Promise<RingkasanDonasi> {
+  if (modePratinjauDataContohAktif()) return ringkasanDonasiContoh;
   if (!konfigurasiSupabasePublikTersedia()) return ringkasanKosong;
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase.rpc("ringkasan_donasi_publik");
@@ -82,10 +148,12 @@ export async function ambilRingkasanDonasiPublik(): Promise<RingkasanDonasi> {
     saldoAmanah: Number(baris.saldo_amanah),
     jumlahRekap: Number(baris.jumlah_rekap),
     jumlahPenyaluran: Number(baris.jumlah_penyaluran),
+    sumberData: "supabase",
   };
 }
 
 export async function ambilMetodeDonasiPublik(): Promise<MetodeDonasi[]> {
+  if (modePratinjauDataContohAktif()) return metodeDonasiContoh;
   if (!konfigurasiSupabasePublikTersedia()) return [];
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase.rpc("daftar_metode_donasi_publik");
@@ -98,6 +166,7 @@ export async function ambilMetodeDonasiPublik(): Promise<MetodeDonasi[]> {
     persentase: Number(baris.persentase),
     jumlahDonasi: Number(baris.jumlah_donasi),
     catatanMetode: baris.catatan_metode,
+    sumberData: "supabase",
   }));
 }
 
@@ -114,12 +183,14 @@ function petakanPenyaluran(baris: BarisPenyaluran): PenyaluranPublik {
     tujuanDeskripsi: baris.tujuan_deskripsi,
     bukti: baris.bukti ?? [],
     artikel,
+    sumberData: "supabase",
   };
 }
 
 const pilihanPenyaluran = "id,tanggal,jumlah,penerima_nama,penerima_jenis,tujuan_deskripsi,bukti,artikel:artikel_id(judul,slug,status)";
 
 export async function ambilPenyaluranPublik(): Promise<PenyaluranPublik[]> {
+  if (modePratinjauDataContohAktif()) return penyaluranDonasiContoh;
   if (!konfigurasiSupabasePublikTersedia()) return [];
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase
@@ -132,6 +203,9 @@ export async function ambilPenyaluranPublik(): Promise<PenyaluranPublik[]> {
 }
 
 export async function ambilPenyaluranPublikBerdasarkanId(id: string): Promise<PenyaluranPublik | undefined> {
+  if (modePratinjauDataContohAktif()) {
+    return penyaluranDonasiContoh.find((item) => item.id === id);
+  }
   if (!konfigurasiSupabasePublikTersedia()) return undefined;
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase

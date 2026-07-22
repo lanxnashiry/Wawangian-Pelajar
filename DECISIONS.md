@@ -137,6 +137,12 @@
 **Alasan:** Pemisahan draft menjaga proses operasional, sedangkan bukti wajib dan validasi saldo menegakkan BR-2/BR-3. Pembatasan daftar objek mengurangi paparan nama berkas tanpa menghalangi pemeriksaan bukti yang dipublikasikan.
 **Konsekuensi:** Koreksi angka sensitif tetap meninggalkan jejak audit. Penghapusan data teknis hanya dilakukan oleh pemilik database dalam transaksi terkontrol setelah pengujian.
 
+### KEP-025 — Mode pratinjau lokal dengan data contoh berlabel
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Data contoh Produk dan Artikel M1 serta simulasi Donasi M3 dapat dipakai kembali hanya ketika `MODE_PRATINJAU_DATA_CONTOH=true` dan aplikasi berjalan dalam mode pengembangan. Seluruh halaman publik menampilkan pemberitahuan “Data Contoh”; angka, penerima, tujuan, dan visual bukti simulasi juga ditandai sebagai bukan transaksi nyata. Mode ini tidak membuat atau mengubah data Supabase.
+**Alasan:** Database bisnis sengaja masih kosong, sedangkan pemilik perlu meninjau komposisi website yang terisi sebelum menyediakan data final. Pengecualian eksplisit ini menjaga preview berguna tanpa menyamarkan simulasi sebagai dampak nyata.
+**Konsekuensi:** KEP-020 tetap berlaku untuk build produksi, Vercel, dan pengembangan lokal saat sakelar mati. Mode contoh tidak dapat aktif saat `NODE_ENV=production`, tidak digunakan di panel Admin, dan wajib dihapus bersama fallback pada M6 setelah data produksi terverifikasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

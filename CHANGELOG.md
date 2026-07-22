@@ -2,6 +2,24 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-22] — Penyempurnaan pratinjau M3
+
+### Ditambah
+
+- Mode pratinjau lokal berlabel untuk menampilkan delapan Produk contoh dan lima Artikel contoh saat Supabase bisnis masih kosong.
+- Simulasi transparansi Donasi dengan dua rekap, dua penyaluran, saldo aritmetis yang konsisten, serta SVG bukti bertuliskan “Bukan Transaksi Nyata”.
+- Banner global “Data Contoh” pada seluruh halaman publik ketika mode pratinjau aktif.
+
+### Diubah
+
+- README dan `.env.example` mendokumentasikan `MODE_PRATINJAU_DATA_CONTOH` serta batas penggunaannya.
+- Sumber data Donasi membedakan data Supabase dan simulasi lokal agar antarmuka dapat memberi label yang sesuai.
+
+### Diperbaiki
+
+- Preview lokal tidak lagi terlihat kosong ketika kueri Supabase berhasil tetapi belum memiliki Produk, Artikel, atau data Donasi.
+- Mode contoh secara teknis dinonaktifkan pada build produksi dan tidak melakukan mutasi ke Supabase.
+
 ## [2026-07-21] — Milestone M3
 
 ### Ditambah

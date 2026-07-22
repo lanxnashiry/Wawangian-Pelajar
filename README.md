@@ -75,6 +75,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 /lib/supabase    # konfigurasi dan pembuat klien Supabase
 /lib/admin       # otorisasi dan validasi Admin
 /lib/data        # repositori data publik Supabase + fallback berlabel
+/lib/pratinjau   # sakelar data contoh khusus pengembangan lokal
 /supabase        # migrasi database dan contoh bootstrap Admin
 /scripts         # utilitas lokal, termasuk pembuatan Admin
 /public          # aset statis dan ikon sementara
@@ -104,15 +105,23 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_EMAIL=
 ADMIN_PASSWORD=
+MODE_PRATINJAU_DATA_CONTOH=false
 ```
 
 - URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
 - `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
+- `MODE_PRATINJAU_DATA_CONTOH=true` hanya berlaku saat `npm run dev` untuk mengisi preview lokal dengan Produk, Artikel, dan simulasi Donasi berlabel.
 - Jangan pernah commit `.env.local` atau kunci rahasia ke GitHub.
 - Pasang nilai yang sama melalui pengaturan Environment Variables di Vercel.
 
 Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan memberikan galat berbahasa Indonesia bila dipanggil sebelum konfigurasi tersedia.
+
+### Mode pratinjau data contoh
+
+Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` ke `.env.local`, lalu jalankan `npm run dev`. Website publik akan memakai delapan Produk contoh, lima Artikel contoh, serta simulasi transparansi Donasi yang jumlahnya konsisten. Banner kuning dan label pada data Donasi menegaskan bahwa semua nilai hanya untuk pemeriksaan tampilan.
+
+Mode ini secara teknis dibatasi pada `NODE_ENV=development`. Build produksi dan Vercel tetap membaca data Supabase apa adanya, termasuk keadaan kosong, walaupun variabel tersebut tidak sengaja dipasang. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, atau bukti ke Supabase. Untuk kembali memeriksa data nyata lokal, ubah nilainya menjadi `false` atau hapus variabel tersebut.
 
 ## Mengaktifkan Supabase M2
 
