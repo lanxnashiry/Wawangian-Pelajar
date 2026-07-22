@@ -3,8 +3,8 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M3 selesai secara teknis; menunggu konfirmasi pemilik sebelum M4.
-**Milestone aktif:** M3 — Donasi (fitur andalan), tahap tinjauan.
+**Status keseluruhan:** M4 selesai secara teknis; menunggu tinjauan pemilik sebelum M5.
+**Milestone aktif:** M4 — Jembatan Marketplace + Temukan Wangimu, tahap tinjauan.
 
 ---
 
@@ -41,7 +41,7 @@ Setup awal sebelum fitur apa pun.
 
 Seluruh task M2 telah dibangun dan diuji terhadap Supabase hosted. Data uji sementara membuktikan alur Produk, unggah Storage, BR-4, Artikel draft/terbit/hapus, dan visibilitas publik; seluruh data serta berkas uji kemudian dihapus. Kata sandi sementara tetap wajib diganti pemilik sebelum produksi.
 
-## M3 — Donasi (fitur andalan)  ✅ (selesai; menunggu konfirmasi)
+## M3 — Donasi (fitur andalan)  ✅ (selesai dan dikonfirmasi)
 - ✅ Rekap penjualan → hitung donasi 20% (BR-1, read-only)
 - ✅ Input penyaluran + unggah bukti wajib (BR-2)
 - ✅ Integritas saldo amanah (BR-3)
@@ -49,15 +49,17 @@ Seluruh task M2 telah dibangun dan diuji terhadap Supabase hosted. Data uji seme
 - ✅ Detail penyaluran + tautan cerita ke Konten
 - ✅ Log Audit (BR-9)
 
-Seluruh task M3 telah dibangun dan diuji terhadap Supabase hosted. Data teknis membuktikan hitung 20%, penolakan publikasi tanpa bukti, penolakan saldo negatif, publikasi berbukti, detail publik, dan Log Audit; seluruh data serta berkas teknis kemudian dihapus. M4 tetap belum dimulai sampai pemilik mengonfirmasi M3.
+Seluruh task M3 telah dibangun dan diuji terhadap Supabase hosted. Data teknis membuktikan hitung 20%, penolakan publikasi tanpa bukti, penolakan saldo negatif, publikasi berbukti, detail publik, dan Log Audit; seluruh data serta berkas teknis kemudian dihapus. Pemilik mengonfirmasi kelanjutan ke M4 pada 22 Juli 2026.
 
 Penyempurnaan tinjauan 22 Juli 2026 menambahkan mode pratinjau lokal berlabel agar komposisi Produk, Artikel, dan transparansi Donasi dapat diperiksa saat database bisnis masih kosong. Perubahan ini tidak membuka task M4 dan tidak mengubah data Supabase hosted.
 
-## M4 — Jembatan Marketplace + Temukan Wangimu  ⬜
-- ⬜ Tombol beli hybrid (1 marketplace langsung / 2 popup) (BR-5)
-- ⬜ Pencatatan KlikKeluar
-- ⬜ Pesan misi permanen di halaman produk
-- ⬜ Halaman kuis "Temukan Wangimu" + hasil shareable
+## M4 — Jembatan Marketplace + Temukan Wangimu  ✅ (selesai; menunggu konfirmasi)
+- ✅ Tombol beli hybrid (1 marketplace langsung / 2 popup) (BR-5)
+- ✅ Pencatatan KlikKeluar
+- ✅ Pesan misi permanen di halaman produk
+- ✅ Halaman kuis "Temukan Wangimu" + hasil shareable
+
+Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat untuk analitik tanpa menahan pembukaan tab, sedangkan data contoh tidak mencemari analitik. Kuis tiga pertanyaan mencocokkan karakter, waktu, dan okasi dengan data Produk serta memuat kembali hasil dari URL shareable. Tautan Produk marketplace asli tetap menunggu data pemilik; M5 belum boleh dimulai sebelum M4 dikonfirmasi.
 
 ## M5 — Portal Afiliasi  ⬜
 - ⬜ Landing "Jadi Afiliasi"

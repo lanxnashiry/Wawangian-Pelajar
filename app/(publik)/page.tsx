@@ -66,6 +66,12 @@ export default async function Beranda() {
                 Lihat katalog
               </Link>
               <Link
+                href="/temukan"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#0f6b62] bg-[#e7f4f1] px-6 py-3 text-sm font-black text-[#0f6b62] transition hover:bg-[#d8eeea] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
+              >
+                Temukan wangimu
+              </Link>
+              <Link
                 href="/donasi"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#cbd4e1] bg-white px-6 py-3 text-sm font-black text-[#14223d] transition hover:border-[#0f6b62] hover:text-[#0f6b62] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
               >
@@ -73,7 +79,7 @@ export default async function Beranda() {
               </Link>
             </div>
             <p className="mt-5 text-xs leading-5 text-slate-400">
-              {memakaiDataContoh ? "Sebagian katalog masih berupa data contoh sampai schema M2 diaktifkan." : "Produk aktif dibaca dari sumber data Supabase."} Transaksi belum aktif.
+              {memakaiDataContoh ? "Katalog masih berupa data contoh; tautan produk marketplace asli menyusul." : "Produk aktif dibaca dari Supabase; tombol beli tersedia saat tautan toko resmi sudah diisi."}
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-xl">
@@ -142,6 +148,15 @@ export default async function Beranda() {
               className="shrink-0 text-sm font-black text-[#0f6b62] hover:underline"
             >
               Lihat semua produk →
+            </Link>
+          </div>
+          <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#e7f4f1] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-black text-[#14223d]">Belum yakin memilih aroma?</p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">Jawab tiga pertanyaan ringan tanpa login dan lihat rekomendasi berdasarkan data katalog.</p>
+            </div>
+            <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e]">
+              Mulai kuis →
             </Link>
           </div>
           {produkUnggulan.length ? <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">

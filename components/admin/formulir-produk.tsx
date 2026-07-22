@@ -70,10 +70,10 @@ export function FormulirProduk({ produk, pesan }: Properti) {
         </label>
         <div className="space-y-4">
           <label className="block text-sm font-bold text-[#14223d]">Link Shopee
-            <input className={kelasInput} name="link_shopee" type="url" defaultValue={produk?.linkMarketplace?.shopee} placeholder="Disimpan sekarang, diaktifkan pada M4" />
+            <input className={kelasInput} name="link_shopee" type="url" defaultValue={produk?.linkMarketplace?.shopee} placeholder="https://shopee.co.id/..." />
           </label>
           <label className="block text-sm font-bold text-[#14223d]">Link TikTok Shop
-            <input className={kelasInput} name="link_tiktok" type="url" defaultValue={produk?.linkMarketplace?.tiktok} placeholder="Disimpan sekarang, diaktifkan pada M4" />
+            <input className={kelasInput} name="link_tiktok" type="url" defaultValue={produk?.linkMarketplace?.tiktok} placeholder="https://www.tiktok.com/..." />
           </label>
         </div>
         <div className="flex flex-wrap gap-5 lg:col-span-2">

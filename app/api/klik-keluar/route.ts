@@ -12,11 +12,18 @@ export async function POST(permintaan: Request) {
     return NextResponse.json({ pesan: "Produk dan marketplace wajib diisi." }, { status: 400 });
   }
 
-  const supabase = await buatKlienSupabaseServer();
-  const { error } = await supabase.rpc("catat_klik_keluar", {
-    id_produk: muatan.produkId,
-    tujuan: muatan.marketplace,
-  });
-  if (error) return NextResponse.json({ pesan: "Klik belum dapat dicatat." }, { status: 422 });
-  return NextResponse.json({ berhasil: true }, { status: 201 });
+  try {
+    const supabase = await buatKlienSupabaseServer();
+    const { error } = await supabase.rpc("catat_klik_keluar", {
+      id_produk: muatan.produkId,
+      tujuan: muatan.marketplace,
+    });
+    if (error) return NextResponse.json({ pesan: "Klik belum dapat dicatat." }, { status: 422 });
+    return NextResponse.json({ berhasil: true }, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { pesan: "Layanan pencatatan klik belum tersedia." },
+      { status: 503 },
+    );
+  }
 }

@@ -64,6 +64,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
   /(publik)      # layout dan seluruh rute publik
     /katalog     # katalog dengan filter dan pencarian
     /produk      # detail produk berdasarkan slug
+    /temukan     # kuis karakter, waktu, okasi, dan hasil shareable M4
     /cerita      # daftar dan detail artikel
     /donasi      # transparansi dan detail bukti M3
     /afiliasi    # state sementara sampai M5
@@ -76,6 +77,8 @@ Server pengembangan tersedia di `http://localhost:3000`.
 /lib/admin       # otorisasi dan validasi Admin
 /lib/data        # repositori data publik Supabase + fallback berlabel
 /lib/pratinjau   # sakelar data contoh khusus pengembangan lokal
+/lib/marketplace # validasi tujuan toko resmi M4
+/lib/kuis        # pemeringkatan rekomendasi Temukan Wangimu
 /supabase        # migrasi database dan contoh bootstrap Admin
 /scripts         # utilitas lokal, termasuk pembuatan Admin
 /public          # aset statis dan ikon sementara
@@ -86,6 +89,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 - `/` — Homepage lengkap.
 - `/katalog` — pencarian, filter, pengurutan, dan state kosong.
 - `/produk/[slug]` — detail produk contoh dan produk terkait.
+- `/temukan` — kuis tiga pertanyaan dan hasil rekomendasi yang dapat dibagikan.
 - `/cerita` — daftar artikel dan filter kategori.
 - `/cerita/[slug]` — isi artikel, share, dan CTA kontekstual.
 - `/donasi` — transparansi tiga angka, riwayat penyaluran, dan metode perhitungan M3.
@@ -153,7 +157,7 @@ Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:30
 - `/admin` — dasbor berbasis data Supabase.
 - `/admin/produk` — daftar, tambah, edit, unggah foto, dan nonaktifkan produk.
 - `/admin/konten` — daftar, tambah, edit, terbitkan, dan hapus artikel.
-- `/admin/analitik` — ringkasan minat klik-keluar; tetap nol sebelum M4.
+- `/admin/analitik` — ringkasan minat KlikKeluar dari Produk marketplace nyata.
 
 ## Mengaktifkan Supabase M3
 
@@ -168,6 +172,14 @@ Data bisnis tidak dibuat oleh migrasi. Admin memasukkan data nyata melalui panel
 - `/admin/donasi/penyaluran` — input draft atau penyaluran terpublikasi berbukti.
 - `/admin/donasi/penyaluran/[id]` — edit penyaluran dan periksa bukti tersimpan.
 - `/admin/log` — daftar Log Audit tanpa aksi ubah atau hapus.
+
+## Jembatan Marketplace dan Kuis M4
+
+Admin mengisi URL Produk melalui `/admin/produk`. Tautan wajib memakai HTTPS dan domain resmi Shopee atau TikTok. Pada halaman Produk, satu marketplace membuka tab langsung, sedangkan dua marketplace menampilkan dialog pilihan. Setiap klik Produk Supabase dikirim ke `/api/klik-keluar`; data contoh tidak dikirim ke analitik.
+
+Rute `/temukan` mencocokkan tiga jawaban dengan data `karakter` dan `cocok_untuk` Produk. Hasil dapat dibagikan melalui URL seperti `/temukan?karakter=fresh&waktu=siang&okasi=kuliah-kerja` tanpa login atau penyimpanan jawaban baru.
+
+Saat mode data contoh aktif dan URL Produk asli belum tersedia, detail Produk hanya menampilkan simulasi dialog dengan pilihan nonaktif. Masukkan tautan Produk resmi melalui Admin untuk menguji pembukaan tab dan pencatatan KlikKeluar nyata.
 
 ## Deploy ke Vercel
 
@@ -190,4 +202,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M3 selesai secara teknis di branch `codex/m3-donasi-transparan` dan menunggu tinjauan pemilik. M4 tidak dimulai sebelum konfirmasi eksplisit.
+M4 selesai secara teknis di branch `codex/m4-jembatan-marketplace-kuis` dan menunggu tinjauan pemilik. M5 tidak dimulai sebelum konfirmasi eksplisit.

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KartuProduk } from "@/components/kartu-produk";
+import { JembatanMarketplace } from "@/components/jembatan-marketplace";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
 import { VisualProduk } from "@/components/visual-data";
 import {
@@ -146,8 +147,8 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                 Pesan misi
               </p>
               <p className="mt-2 text-sm leading-6 text-[#70510a]">
-                Setiap pembelian nantinya menyisihkan 20% keuntungan bersih untuk
-                Dana Cahaya Pendidikan. Angka baru ditampilkan setelah memiliki sumber nyata.
+                Setiap pembelian melalui marketplace menyisihkan 20% keuntungan bersih untuk
+                Dana Cahaya Pendidikan. Pelaporannya tetap dihitung dari sumber nyata.
               </p>
               <Link
                 href="/donasi"
@@ -157,15 +158,13 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
               </Link>
             </div>
 
-            <button
-              type="button"
-              disabled
-              className="mt-6 min-h-13 w-full cursor-not-allowed rounded-full bg-slate-200 px-6 py-3 text-sm font-black text-slate-500"
-            >
-              {produk.tersedia
-                ? "Tautan marketplace tersedia pada M4"
-                : "Produk belum tersedia"}
-            </button>
+            <JembatanMarketplace
+              produkId={produk.id}
+              namaProduk={produk.nama}
+              tersedia={produk.tersedia}
+              linkMarketplace={produk.linkMarketplace}
+              sumberData={produk.sumberData}
+            />
             <p className="mt-3 text-center text-xs leading-5 text-slate-400">
               Website tidak menyediakan checkout atau pembayaran sendiri.
             </p>

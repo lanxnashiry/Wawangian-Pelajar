@@ -6,6 +6,7 @@ const kelompokTautan = [
     judul: "Jelajah",
     tautan: [
       { label: "Katalog", href: "/katalog" },
+      { label: "Temukan Wangimu", href: "/temukan" },
       { label: "Transparansi Donasi", href: "/donasi" },
       { label: "Cerita & Edukasi", href: "/cerita" },
       { label: "Jadi Afiliasi", href: "/afiliasi" },
