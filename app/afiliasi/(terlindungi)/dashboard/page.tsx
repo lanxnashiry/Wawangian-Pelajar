@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { PemberitahuanDataContohAfiliasi } from "@/components/afiliasi/pemberitahuan-data-contoh";
 import { formatRupiahAfiliasi, formatTanggal } from "@/lib/afiliasi/format";
 import { wajibAfiliasi } from "@/lib/afiliasi/otorisasi";
+import {
+  buatRiwayatBonusAfiliasiContoh,
+  pratinjauAfiliasiAktif,
+  tingkatBonusAfiliasiContoh,
+} from "@/lib/pratinjau/data-afiliasi-contoh";
 
 type Bonus = {
   id: string;
@@ -13,21 +19,28 @@ type Bonus = {
 
 export default async function DasborAfiliasi({ searchParams }: { searchParams: Promise<{ pesan?: string }> }) {
   const { pesan } = await searchParams;
-  const { supabase, afiliasi } = await wajibAfiliasi();
+  const { supabase, pengguna, afiliasi } = await wajibAfiliasi();
+  const memakaiDataContoh = pratinjauAfiliasiAktif(pengguna.email, afiliasi.alias_publik);
   const awalBulan = new Date();
   awalBulan.setDate(1);
   awalBulan.setHours(0, 0, 0, 0);
   const akhirBulan = new Date(awalBulan);
   akhirBulan.setMonth(akhirBulan.getMonth() + 1);
 
-  const [{ data: dataBonus }, { data: tingkat }] = await Promise.all([
-    supabase.from("bonus_afiliasi").select("id,jumlah_pcs,tingkat_nama,bonus_dihitung,status_payout,laporan_afiliasi(platform,periode_mulai,periode_selesai)").eq("afiliasi_id", afiliasi.id).order("dibuat_pada", { ascending: false }),
-    supabase.from("tingkat_bonus_afiliasi").select("nama,minimal_pcs,bonus_per_pcs").eq("aktif", true).order("minimal_pcs"),
-  ]);
-  const bonus = (dataBonus ?? []).map((item) => ({
+  const hasilData = memakaiDataContoh
+    ? { dataBonus: buatRiwayatBonusAfiliasiContoh(), tingkat: tingkatBonusAfiliasiContoh }
+    : await (async () => {
+        const [{ data: dataBonus }, { data: tingkat }] = await Promise.all([
+          supabase.from("bonus_afiliasi").select("id,jumlah_pcs,tingkat_nama,bonus_dihitung,status_payout,laporan_afiliasi(platform,periode_mulai,periode_selesai)").eq("afiliasi_id", afiliasi.id).order("dibuat_pada", { ascending: false }),
+          supabase.from("tingkat_bonus_afiliasi").select("nama,minimal_pcs,bonus_per_pcs").eq("aktif", true).order("minimal_pcs"),
+        ]);
+        return { dataBonus, tingkat: tingkat ?? [] };
+      })();
+  const bonus = (hasilData.dataBonus ?? []).map((item) => ({
     ...item,
     laporan_afiliasi: Array.isArray(item.laporan_afiliasi) ? item.laporan_afiliasi[0] ?? null : item.laporan_afiliasi,
   })) as Bonus[];
+  const tingkat = hasilData.tingkat;
   const bonusBulanIni = bonus.filter((item) => {
     if (!item.laporan_afiliasi) return false;
     return new Date(`${item.laporan_afiliasi.periode_selesai}T23:59:59`) >= awalBulan
@@ -46,6 +59,7 @@ export default async function DasborAfiliasi({ searchParams }: { searchParams: P
       <h1 className="mt-3 text-3xl font-black tracking-tight text-[#14223d] sm:text-4xl">Halo, {afiliasi.nama}</h1>
       <p className="mt-3 text-sm leading-6 text-slate-600">Alias publik: <strong>{afiliasi.alias_publik}</strong> · Status: <strong className="capitalize">{afiliasi.status}</strong></p>
       {pesan ? <p role="status" className="mt-5 rounded-2xl border border-[#ead9a6] bg-[#fffaf0] px-4 py-3 text-sm text-[#70510a]">{pesan}</p> : null}
+      {memakaiDataContoh ? <PemberitahuanDataContohAfiliasi /> : null}
 
       {afiliasi.status !== "aktif" ? (
         <section className="mt-8 rounded-3xl border border-[#ead9a6] bg-white p-6 sm:p-8">

@@ -14,7 +14,7 @@ M4 telah dikonfirmasi pemilik dan M5 dibangun pada branch `codex/m5-portal-afili
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
-Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Akun terkonfirmasi dan aktif, tetapi tidak memiliki laporan, bonus, payout, atau posisi leaderboard sehingga tidak boleh dianggap sebagai anggota maupun aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
+Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Supabase hosted tetap tidak memiliki laporan, bonus, payout, atau posisi leaderboard untuk akun tersebut. Saat mode pratinjau lokal aktif, aplikasi menggantinya dengan simulasi berlabel agar Dashboard, progres tingkat, riwayat, dan leaderboard dapat ditinjau tanpa dianggap sebagai aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
 
 ## Task M5
 
@@ -41,6 +41,8 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 - Migrasi koreksi `202607220005_perbaiki_pemicu_afiliasi.sql` berhasil diterapkan; pengguna Auth tanpa metadata Afiliasi kini diabaikan trigger tanpa menggagalkan pembuatan akun.
 - Akun `AfiliasiUji` terkonfirmasi, berstatus aktif, memiliki satu Log Audit aktivasi dengan UID Admin, serta tetap memiliki 0 bonus.
 - Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
+- Mode pratinjau akun uji menampilkan 37 pcs, bonus top-up Rp67.500, Rp48.000 berstatus dibayar, tingkat “Kreator Contoh”, empat riwayat, dan peringkat ketiga; seluruh halaman membawa label “Data Contoh”.
+- Mode pratinjau Afiliasi tidak aktif pada produksi, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
 - Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
 - Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
@@ -61,6 +63,7 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 - Minimal salah satu handle TikTok Shop atau Shopee wajib dan disimpan tanpa awalan `@` untuk pencocokan stabil.
 - Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
 - Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
+- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode pengembangan aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
@@ -78,7 +81,7 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 ## Catatan dan kendala
 
 - Redirect URL konfirmasi Afiliasi harus ditambahkan ke konfigurasi Supabase untuk domain Vercel ketika domain tersedia.
-- Data bisnis M5 masih kosong secara sengaja; akun uji teknis tidak disertai tingkat, laporan, bonus, materi, atau payout.
+- Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
 - Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 

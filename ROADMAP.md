@@ -74,6 +74,8 @@ Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga
 
 Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa login dan seluruh portal terlindungi tanpa laporan, bonus, payout, atau posisi leaderboard. Trigger profil juga dikoreksi agar pengguna Auth non-Afiliasi tidak menggagalkan pembuatan akun. Akun teknis wajib dihapus sebelum rilis produksi M6.
 
+Untuk peninjauan visual, mode pratinjau pengembangan mengisi akun `AfiliasiUji` dengan bonus top-up, progres tingkat, riwayat rekonsiliasi, dan leaderboard yang semuanya berlabel “Data Contoh”. Simulasi tidak tersedia pada produksi atau akun lain serta tidak membuat data hosted.
+
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
 - ⬜ Aksesibilitas + uji lintas perangkat

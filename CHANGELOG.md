@@ -11,12 +11,14 @@
 - Panel Admin Afiliasi untuk koreksi/verifikasi handle, konfigurasi tingkat nyata, unggah CSV, payout berbukti, dan materi promosi.
 - Rekonsiliasi CSV `handle,jumlah_pcs` dengan penggabungan handle ganda dan batas 5.000 baris.
 - Akun Afiliasi teknis berlabel uji untuk validasi login dan seluruh portal terlindungi tanpa transaksi bisnis fiktif.
+- Simulasi lokal berlabel untuk bonus top-up, tiga tingkat, empat riwayat rekonsiliasi, dan leaderboard lima alias pada akun `AfiliasiUji`.
 
 ### Diubah
 
 - Navigasi publik, footer, dasbor Admin, dan navigasi Admin terhubung ke Portal Afiliasi M5.
 - Alur konfirmasi Supabase menerima pendaftaran Afiliasi selain undangan Admin.
 - Dashboard memisahkan komisi dasar marketplace dari bonus top-up Wawangian Pelajar secara tegas.
+- Mode `MODE_PRATINJAU_DATA_CONTOH` mencakup portal akun Afiliasi uji tanpa membuat laporan, bonus, atau payout di Supabase.
 
 ### Diperbaiki
 

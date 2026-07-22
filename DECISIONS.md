@@ -173,6 +173,12 @@
 **Alasan:** Handle, laporan, bukti transfer, dan identitas asli adalah data operasional yang tidak perlu dibuka ke publik. Materi tetap mudah diunduh tanpa membuat bucket menjadi publik.
 **Konsekuensi:** Email, WhatsApp, nama asli, handle, lokasi laporan, dan bukti transfer tidak tersedia melalui leaderboard atau halaman publik. RLS dan Log Audit tetap menjadi lapisan pengamanan utama.
 
+### KEP-031 — Simulasi Afiliasi hanya untuk akun uji pada mode pengembangan
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** `MODE_PRATINJAU_DATA_CONTOH=true` dapat menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, status payout, dan leaderboard contoh hanya ketika `NODE_ENV=development` serta identitas pengguna cocok dengan email dan alias akun `AfiliasiUji`. Dashboard dan leaderboard wajib menampilkan pemberitahuan “Data Contoh”.
+**Alasan:** Pemilik perlu meninjau keadaan portal yang terisi, tetapi KEP-029 melarang tarif, penjualan, bonus, atau payout contoh masuk ke database dan terlihat sebagai janji bisnis nyata.
+**Konsekuensi:** Simulasi tidak menjalankan RPC, tidak membuat atau mengubah baris Supabase, tidak berlaku untuk akun lain, dan otomatis mati pada build produksi. Nilai contoh wajib dihapus bersama mode pratinjau sebelum rilis M6 setelah data nyata terverifikasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
