@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { KatalogInteraktif } from "@/components/katalog-interaktif";
 import { ambilDaftarProdukPublik } from "@/lib/data/publik";
 
@@ -27,6 +28,15 @@ export default async function HalamanKatalog() {
             Cari berdasarkan nama atau karakter aroma, lalu gunakan filter untuk
             mempersempit pilihan. Hanya produk berstatus aktif yang ditampilkan.
           </p>
+        </div>
+        <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-[#c8e2dd] bg-[#e7f4f1] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+          <div>
+            <p className="font-black text-[#14223d]">Ingin rekomendasi yang lebih cepat?</p>
+            <p className="mt-1 text-sm leading-6 text-slate-600">Temukan Wangimu mencocokkan karakter, waktu, dan kegiatan dengan data Produk.</p>
+          </div>
+          <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e]">
+            Coba kuis →
+          </Link>
         </div>
         <div className="mt-10">
           <KatalogInteraktif daftarProduk={daftarProduk} />

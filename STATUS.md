@@ -2,72 +2,87 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 21 Juli 2026
-**Milestone aktif:** M2 — Panel Admin + Data Nyata
-**Status milestone aktif:** Berjalan; login hosted berhasil, akses baca-saja teruji, validasi mutasi CRUD menunggu data bisnis
+**Terakhir diperbarui:** 22 Juli 2026
+**Milestone aktif:** M5 — Portal Afiliasi
+**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
 
 ---
 
 ## Posisi saat ini
 
-M1 telah digabungkan ke `main`. Implementasi M2 berada pada branch `codex/m2-panel-admin-data-nyata` dan mencakup schema Supabase, RLS, Storage, autentikasi Admin, CRUD Produk, CRUD Artikel, koneksi data publik, serta fondasi Analitik Klik-Keluar.
+M4 telah dikonfirmasi pemilik dan M5 dibangun pada branch `codex/m5-portal-afiliasi` dari hasil gabungan M4. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
-URL dan kunci publishable Supabase telah dipasang hanya pada `.env.local` yang diabaikan Git. Migrasi schema dan migrasi hak akses M2 sudah diterapkan pada proyek hosted. `lanxnashiry@gmail.com` sudah terkonfirmasi, tercatat aktif sebagai `Pemilik Wawangian Pelajar` pada `pengguna_admin`, dan berhasil masuk ke panel. Kata sandi sementara ditetapkan satu kali melalui SDK Admin resmi dengan persetujuan pemilik tanpa ditulis ke berkas atau repository.
+Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
-## Task M2
+Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Supabase hosted tetap tidak memiliki laporan, bonus, payout, atau posisi leaderboard untuk akun tersebut. Saat mode pratinjau lokal aktif, aplikasi menggantinya dengan simulasi berlabel agar Dashboard, progres tingkat, riwayat, dan leaderboard dapat ditinjau tanpa dianggap sebagai aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
 
-1. ✅ Login Admin — kata sandi, proteksi, akun hosted, keanggotaan aktif, RLS, dan akses dasbor berhasil diuji.
-2. 🟡 CRUD Produk — daftar, tambah, edit, nonaktifkan, unggah foto, data karakter/okasi, dan validasi BR-4 selesai; empty state hosted teruji, mutasi menunggu data bisnis.
-3. 🟡 Editor Konten — CRUD artikel, draft/terbit, gambar, share, dan CTA otomatis selesai; empty state hosted teruji, mutasi menunggu data bisnis.
-4. 🟡 Data nyata publik — kueri hosted dan pembatasan aktif/terbit selesai; hasil kosong tampil jujur karena data bisnis final belum diberikan.
-5. 🟡 Analitik Klik-Keluar — tabel, RPC, route handler, dasbor, dan empty state selesai; tombol nyata baru dihubungkan pada M4.
+## Task M5
+
+1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
+2. ✅ Pendaftaran — email, WhatsApp, alias, persetujuan aturan, serta minimal satu handle TikTok Shop/Shopee wajib.
+3. ✅ Login dan Dashboard — status verifikasi, bonus per pcs, progres tingkat, riwayat, dan penegasan komisi dasar tetap di platform.
+4. ✅ Panduan onboarding — langkah ringkas dengan tautan resmi TikTok Shop dan Shopee.
+5. ✅ Materi promosi — teks/berkas privat dengan tautan unduh sementara dan rambu BR-8.
+6. ✅ Leaderboard — agregasi pcs bulan berjalan dengan alias saja.
+7. ✅ Admin — verifikasi/koreksi handle, konfigurasi tingkat nyata, unggah CSV, pencocokan, bonus per pcs, payout berbukti, dan materi.
+8. ✅ Keamanan — RLS, bucket privat, validasi payout, dan Log Audit untuk aksi sensitif.
 
 ## Validasi yang sudah dilakukan
 
-- `npm.cmd run lint` tahap awal — tanpa galat; dua peringatan ditemukan lalu diperbaiki.
-- `npm.cmd run build` final — berhasil, seluruh rute M2 terkompilasi.
-- Homepage pada 360px — HTTP 200, tanpa overflow, fallback M1 tetap tampil saat schema belum aktif.
-- `/admin` tanpa sesi — dialihkan ke `/admin/masuk` dengan pesan yang benar.
-- Login Admin pada 360px dan 1440px — satu input email, satu input kata sandi, tanpa overflow.
-- Konsol browser — tidak ada galat atau peringatan aplikasi.
-- `.env.local` — terkonfirmasi diabaikan oleh `.gitignore`.
-- Pemindaian repository — tidak menemukan kunci publishable aktual, service-role terisi, atau kata sandi Admin pada berkas terlacak.
-- Migrasi hosted — berhasil tanpa baris hasil; 4 tabel M2 tersedia dan seluruhnya mengaktifkan RLS.
-- Struktur hosted — 15 kebijakan akses, 2 bucket publik terbatas media, dan 5 fungsi database tersedia.
-- Bootstrap Admin — satu pengguna `lanxnashiry@gmail.com` aktif sebagai `Pemilik Wawangian Pelajar`.
-- Alur undangan — `/admin/undangan` dan `/auth/konfirmasi` lolos lint/build; Site URL Supabase menunjuk ke halaman aktivasi lokal.
-- Pemulihan kata sandi — permintaan email terbaru dikirim ke `lanxnashiry@gmail.com` setelah Site URL diperbaiki.
-- Kata sandi sementara — berhasil ditetapkan melalui SDK Admin resmi hanya di memori proses; nilainya tidak dicatat pada berkas proyek.
-- Hak akses tabel — migrasi `202607210002_m2_hak_akses.sql` diterapkan setelah uji awal menemukan `permission denied`; RLS tetap aktif.
-- Login hosted — berhasil membuka dasbor sebagai `Pemilik Wawangian Pelajar`.
-- Halaman Admin — Produk, Konten, dan Analitik berhasil dibaca dengan empty state dan nilai nol tanpa membuat data contoh baru.
-- Website publik — kueri Supabase berhasil dengan hasil kosong, tidak memakai fallback data contoh, dan tidak mengarang produk atau artikel.
+- Migrasi `202607220004_m5_portal_afiliasi.sql` berhasil diterapkan pada Supabase hosted.
+- Lima tabel M5, 10 kebijakan RLS, tiga bucket privat, fungsi rekonsiliasi, dan fungsi leaderboard tersedia.
+- Transaksi uji hosted menghasilkan satu handle cocok dan satu belum cocok sesuai masukan.
+- Empat pcs dengan tarif uji Rp1.250 menghasilkan bonus Rp5.000; angka hanya berada dalam transaksi uji.
+- Payout tanpa bukti transfer ditolak constraint database.
+- Leaderboard hanya mengembalikan alias, jumlah pcs, urutan, dan penanda milik sendiri.
+- Transaksi uji diakhiri `ROLLBACK`; panel Admin kembali menunjukkan nol afiliasi, tingkat, laporan, bonus, dan materi.
+- Pendaftaran tanpa kedua handle ditolak sebelum membuat pengguna Supabase.
+- Panel `/admin/afiliasi` berhasil membaca schema hosted melalui sesi Admin.
+- Migrasi koreksi `202607220005_perbaiki_pemicu_afiliasi.sql` berhasil diterapkan; pengguna Auth tanpa metadata Afiliasi kini diabaikan trigger tanpa menggagalkan pembuatan akun.
+- Akun `AfiliasiUji` terkonfirmasi, berstatus aktif, memiliki satu Log Audit aktivasi dengan UID Admin, serta tetap memiliki 0 bonus.
+- Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
+- Mode pratinjau akun uji menampilkan 37 pcs, bonus top-up Rp67.500, Rp48.000 berstatus dibayar, tingkat “Kreator Contoh”, empat riwayat, dan peringkat ketiga; seluruh halaman membawa label “Data Contoh”.
+- Mode pratinjau Afiliasi tidak aktif pada produksi, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
+- Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
+- Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
+- `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
 
 ## Langkah berikutnya
 
-1. Pemilik segera mengganti kata sandi sementara melalui `/admin/undangan` saat sesi Admin aktif.
-2. Setelah data bisnis dan foto asli diberikan, agent menguji mutasi CRUD, upload Storage, status draft/terbit, serta BR-4 pada Supabase hosted.
-3. Setelah validasi end-to-end berhasil, M2 dapat ditandai selesai dan draft PR disiapkan untuk tinjauan akhir.
+1. Pemilik meninjau M5 melalui server lokal dan draft pull request.
+2. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
+3. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
+4. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
+5. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
+6. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
+7. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
-- Data produk, artikel, harga, dan foto bisnis final menyusul; database M2 dimulai kosong.
-- Data contoh M1 tetap menjadi fallback berlabel hanya bila schema/config Supabase belum dapat dibaca.
-- Daftar kata merek terlarang awal disimpan terpusat pada validasi server dan trigger database; daftar dapat ditambah setelah pemilik meninjau.
-- Produk dihapus secara lunak dengan `aktif=false`; artikel dapat dihapus karena Log Audit baru menjadi kewajiban pada M3.
-- Tautan Shopee/TikTok boleh disimpan pada M2 tetapi tidak diaktifkan sebagai tombol beli sampai M4.
-- Kuis tidak dibangun pada M2; hanya field `karakter` dan `cocok_untuk` yang disiapkan untuk M4.
+- Email dan kata sandi dipakai untuk autentikasi Afiliasi; WhatsApp hanya data kontak karena autentikasi SMS tidak dikonfigurasi.
+- Minimal salah satu handle TikTok Shop atau Shopee wajib dan disimpan tanpa awalan `@` untuk pencocokan stabil.
+- Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
+- Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
+- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode pengembangan aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
+- CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
+- Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
+- Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
+- Data produk, afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik; `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 
 ## Batas scope yang tetap dijaga
 
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
-- Tidak ada modul Donasi M3, jembatan marketplace/kuis M4, atau Portal Afiliasi M5.
-- Tidak ada analitik yang diklaim sebagai penjualan/komisi; KlikKeluar hanya mengukur minat.
-- Tidak ada foto produk AI atau angka/testimoni/dampak buatan.
+- Tidak ada pelacakan atau pembayaran komisi dasar buatan website.
+- Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, klaim anggota nyata, atau leaderboard palsu.
+- Tidak ada Sales Academy, sertifikat, notifikasi otomatis, loyalitas, atau peran Admin granular.
+- Tidak ada foto produk AI, klaim organisasi, banting harga, atau klaim promosi palsu.
+- M6 belum dimulai.
 
 ## Catatan dan kendala
 
-- Kata sandi sementara sudah berfungsi dan wajib segera diganti oleh pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
+- Redirect URL konfirmasi Afiliasi harus ditambahkan ke konfigurasi Supabase untuk domain Vercel ketika domain tersedia.
+- Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
+- Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

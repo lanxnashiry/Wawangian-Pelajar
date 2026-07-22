@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const tautanNavigasi = [
   { href: "/katalog", label: "Katalog" },
+  { href: "/temukan", label: "Temukan Wangimu" },
   { href: "/donasi", label: "Dana Cahaya" },
   { href: "/cerita", label: "Cerita" },
   { href: "/afiliasi", label: "Jadi Afiliasi" },
@@ -111,9 +112,10 @@ export function NavigasiUtama() {
               />
             ))}
           </nav>
-          <p className="mx-auto mt-4 max-w-7xl rounded-xl bg-[#f4f6f9] px-4 py-3 text-xs leading-5 text-slate-500">
-            Portal masuk afiliasi dan admin akan tersedia pada milestone terkait.
-          </p>
+          <div className="mx-auto mt-4 grid max-w-7xl grid-cols-2 gap-2">
+            <Link href="/afiliasi/masuk" onClick={() => setMenuTerbuka(false)} className="rounded-full border border-[#0f6b62] px-4 py-2 text-center text-xs font-black text-[#0f6b62]">Masuk Afiliasi</Link>
+            <Link href="/afiliasi/daftar" onClick={() => setMenuTerbuka(false)} className="rounded-full bg-[#0f6b62] px-4 py-2 text-center text-xs font-black text-white">Daftar Afiliasi</Link>
+          </div>
         </div>
       ) : null}
     </header>

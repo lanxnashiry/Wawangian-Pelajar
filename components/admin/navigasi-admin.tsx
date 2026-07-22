@@ -4,8 +4,11 @@ import { keluarAdmin } from "@/app/admin/masuk/tindakan";
 const menu = [
   { href: "/admin", label: "Dasbor" },
   { href: "/admin/produk", label: "Produk" },
+  { href: "/admin/donasi", label: "Donasi" },
+  { href: "/admin/afiliasi", label: "Afiliasi" },
   { href: "/admin/konten", label: "Konten" },
   { href: "/admin/analitik", label: "Analitik Klik" },
+  { href: "/admin/log", label: "Log Audit" },
 ];
 
 export function NavigasiAdmin({ nama }: { nama: string }) {

@@ -4,6 +4,8 @@ import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
 import { TajukBagian } from "@/components/tajuk-bagian";
 import { ambilDaftarArtikelPublik, ambilDaftarProdukPublik } from "@/lib/data/publik";
+import { ambilRingkasanDonasiPublik } from "@/lib/data/donasi";
+import { formatRupiah } from "@/data/produk";
 
 type Ulasan = {
   nama: string;
@@ -12,8 +14,6 @@ type Ulasan = {
 };
 
 const ulasan: Ulasan[] = [];
-const jumlahDonasiTerkumpul = 0;
-
 const alasanBerbeda = [
   {
     simbol: "✓",
@@ -35,8 +35,8 @@ const alasanBerbeda = [
 export const dynamic = "force-dynamic";
 
 export default async function Beranda() {
-  const [daftarProduk, daftarArtikel] = await Promise.all([
-    ambilDaftarProdukPublik(), ambilDaftarArtikelPublik(),
+  const [daftarProduk, daftarArtikel, ringkasanDonasi] = await Promise.all([
+    ambilDaftarProdukPublik(), ambilDaftarArtikelPublik(), ambilRingkasanDonasiPublik(),
   ]);
   const produkUnggulan = daftarProduk.filter((produk) => produk.unggulan);
   const artikelTerbaru = daftarArtikel.slice(0, 3);
@@ -66,6 +66,12 @@ export default async function Beranda() {
                 Lihat katalog
               </Link>
               <Link
+                href="/temukan"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#0f6b62] bg-[#e7f4f1] px-6 py-3 text-sm font-black text-[#0f6b62] transition hover:bg-[#d8eeea] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
+              >
+                Temukan wangimu
+              </Link>
+              <Link
                 href="/donasi"
                 className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#cbd4e1] bg-white px-6 py-3 text-sm font-black text-[#14223d] transition hover:border-[#0f6b62] hover:text-[#0f6b62] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
               >
@@ -73,7 +79,7 @@ export default async function Beranda() {
               </Link>
             </div>
             <p className="mt-5 text-xs leading-5 text-slate-400">
-              {memakaiDataContoh ? "Sebagian katalog masih berupa data contoh sampai schema M2 diaktifkan." : "Produk aktif dibaca dari sumber data Supabase."} Transaksi belum aktif.
+              {memakaiDataContoh ? "Katalog masih berupa data contoh; tautan produk marketplace asli menyusul." : "Produk aktif dibaca dari Supabase; tombol beli tersedia saat tautan toko resmi sudah diisi."}
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-xl">
@@ -103,7 +109,12 @@ export default async function Beranda() {
             <p className="text-xs font-black tracking-[0.16em] text-[#e8cb76] uppercase">
               Dana Cahaya Pendidikan — transparan
             </p>
-            {jumlahDonasiTerkumpul === 0 ? (
+            {!ringkasanDonasi.tersedia ? (
+              <>
+                <h2 className="mt-2 text-2xl font-black sm:text-3xl">Data transparansi belum tersedia.</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">Angka tidak diganti perkiraan saat sumber data tidak dapat dibaca.</p>
+              </>
+            ) : ringkasanDonasi.terkumpul === 0 ? (
               <>
                 <h2 className="mt-2 text-2xl font-black sm:text-3xl">
                   Perjalanan baru dimulai.
@@ -113,7 +124,7 @@ export default async function Beranda() {
                   setiap rupiah akan dihitung dari sumber yang jelas dan dapat diperiksa.
                 </p>
               </>
-            ) : null}
+            ) : <><h2 className="mt-2 text-2xl font-black sm:text-3xl">{formatRupiah(ringkasanDonasi.terkumpul)} terkumpul.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">{formatRupiah(ringkasanDonasi.tersalurkan)} telah disalurkan dan {formatRupiah(ringkasanDonasi.saldoAmanah)} tetap tercatat sebagai saldo amanah.</p></>}
           </div>
           <Link
             href="/donasi"
@@ -137,6 +148,15 @@ export default async function Beranda() {
               className="shrink-0 text-sm font-black text-[#0f6b62] hover:underline"
             >
               Lihat semua produk →
+            </Link>
+          </div>
+          <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#e7f4f1] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-black text-[#14223d]">Belum yakin memilih aroma?</p>
+              <p className="mt-1 text-sm leading-6 text-slate-600">Jawab tiga pertanyaan ringan tanpa login dan lihat rekomendasi berdasarkan data katalog.</p>
+            </div>
+            <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e]">
+              Mulai kuis →
             </Link>
           </div>
           {produkUnggulan.length ? <div className="mt-8 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">

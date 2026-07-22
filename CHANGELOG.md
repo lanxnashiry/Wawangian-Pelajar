@@ -2,7 +2,99 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
-## [2026-07-21] — Milestone M2 (berjalan)
+## [2026-07-22] — Milestone M5
+
+### Ditambah
+
+- Landing “Jadi Afiliasi”, pendaftaran ber-handle, login, dashboard, panduan resmi, materi privat, dan leaderboard beralias.
+- Migrasi Supabase untuk profil Afiliasi, tingkat bonus, laporan, rekonsiliasi bonus, materi, RLS, Log Audit, serta tiga bucket privat.
+- Panel Admin Afiliasi untuk koreksi/verifikasi handle, konfigurasi tingkat nyata, unggah CSV, payout berbukti, dan materi promosi.
+- Rekonsiliasi CSV `handle,jumlah_pcs` dengan penggabungan handle ganda dan batas 5.000 baris.
+- Akun Afiliasi teknis berlabel uji untuk validasi login dan seluruh portal terlindungi tanpa transaksi bisnis fiktif.
+- Simulasi lokal berlabel untuk bonus top-up, tiga tingkat, empat riwayat rekonsiliasi, dan leaderboard lima alias pada akun `AfiliasiUji`.
+
+### Diubah
+
+- Navigasi publik, footer, dasbor Admin, dan navigasi Admin terhubung ke Portal Afiliasi M5.
+- Alur konfirmasi Supabase menerima pendaftaran Afiliasi selain undangan Admin.
+- Dashboard memisahkan komisi dasar marketplace dari bonus top-up Wawangian Pelajar secara tegas.
+- Mode `MODE_PRATINJAU_DATA_CONTOH` mencakup portal akun Afiliasi uji tanpa membuat laporan, bonus, atau payout di Supabase.
+
+### Diperbaiki
+
+- Tarif bonus dan angka penjualan contoh wireframe tidak ditanam ke database atau antarmuka sebagai data nyata.
+- Pendaftaran tanpa handle ditolak sebelum akun dibuat; payout tanpa bukti ditolak oleh database.
+- Laporan, materi, dan bukti bonus tidak tersedia secara publik; leaderboard tidak mengekspos identitas atau handle.
+- Data serta Log Audit uji rekonsiliasi tidak tertinggal karena seluruh validasi hosted dijalankan dalam transaksi rollback.
+- Trigger profil Afiliasi kini mengabaikan pengguna Auth tanpa metadata `jenis_akun=afiliasi`; migrasi koreksi terpisah diterapkan pada database hosted.
+
+## [2026-07-22] — Milestone M4
+
+### Ditambah
+
+- Jembatan marketplace hybrid: satu tautan membuka toko langsung dan dua tautan menampilkan dialog pilihan.
+- Simulasi dialog marketplace khusus data contoh tanpa tautan keluar atau pencatatan analitik palsu.
+- Halaman `/temukan` dengan tiga pertanyaan, pemeringkatan rekomendasi, alasan kecocokan, dan hasil shareable melalui URL.
+- Tautan Temukan Wangimu pada navbar, footer, Beranda, dan Katalog.
+- Validasi URL HTTPS serta domain resmi Shopee dan TikTok Shop pada penyimpanan Produk.
+
+### Diubah
+
+- Detail Produk mengaktifkan tombol marketplace M4 dan mempertahankan pesan misi Dana Cahaya Pendidikan sebelum tombol beli.
+- Halaman Analitik menjelaskan bahwa KlikKeluar mengukur minat dan bukan komisi afiliasi.
+- API KlikKeluar memberikan respons terkontrol ketika layanan Supabase belum tersedia.
+
+### Diperbaiki
+
+- Klik data contoh tidak dikirim ke Supabase sehingga analitik bisnis tetap hanya berisi interaksi Produk nyata.
+- Hasil kuis tidak membutuhkan akun atau penyimpanan jawaban; kombinasi dapat dimuat kembali dari parameter URL yang divalidasi.
+
+## [2026-07-22] — Penyempurnaan pratinjau M3
+
+### Ditambah
+
+- Mode pratinjau lokal berlabel untuk menampilkan delapan Produk contoh dan lima Artikel contoh saat Supabase bisnis masih kosong.
+- Simulasi transparansi Donasi dengan dua rekap, dua penyaluran, saldo aritmetis yang konsisten, serta SVG bukti bertuliskan “Bukan Transaksi Nyata”.
+- Banner global “Data Contoh” pada seluruh halaman publik ketika mode pratinjau aktif.
+
+### Diubah
+
+- README dan `.env.example` mendokumentasikan `MODE_PRATINJAU_DATA_CONTOH` serta batas penggunaannya.
+- Sumber data Donasi membedakan data Supabase dan simulasi lokal agar antarmuka dapat memberi label yang sesuai.
+
+### Diperbaiki
+
+- Preview lokal tidak lagi terlihat kosong ketika kueri Supabase berhasil tetapi belum memiliki Produk, Artikel, atau data Donasi.
+- Mode contoh secara teknis dinonaktifkan pada build produksi dan tidak melakukan mutasi ke Supabase.
+
+## [2026-07-21] — Milestone M3
+
+### Ditambah
+
+- Migrasi Supabase untuk rekap donasi, penyaluran berbukti, saldo amanah, Log Audit, RLS, RPC publik, dan bucket `bukti-donasi`.
+- Panel Admin Donasi untuk rekap untung bersih, pratinjau 20%, penyaluran draft/terpublikasi, unggah bukti, dan tautan Cerita Misi.
+- Halaman Transparansi Donasi publik dengan angka terkumpul, tersalurkan, saldo amanah, metode periode, riwayat, dan detail bukti.
+- Halaman Log Audit untuk memeriksa aksi sensitif Produk, Artikel, rekap, dan penyaluran.
+
+### Diubah
+
+- Homepage dan dasbor Admin membaca ringkasan donasi nyata dari Supabase.
+- Navigasi Admin menambahkan Donasi dan Log Audit.
+- Supabase hosted menerima migrasi M3 dan hak akses tabel yang dibatasi sesuai peran.
+
+### Diperbaiki
+
+- Jumlah donasi tidak dapat diketik bebas karena dihitung database sebagai 20% dari untung bersih.
+- Publikasi penyaluran tanpa bukti dan penyaluran yang melebihi saldo amanah ditolak di server serta database.
+- Laba bersih mentah tidak diekspos ke publik; pengunjung hanya memakai RPC ringkasan dan metode aman.
+- Kegagalan membaca Supabase ditandai sebagai data belum tersedia dan tidak lagi disamarkan sebagai angka nol.
+- Bucket bukti tidak mengizinkan pengunjung membuat daftar seluruh nama berkas meskipun URL bukti terpublikasi dapat dibuka.
+
+### Dihapus
+
+- Seluruh data, Log Audit, dan berkas bukti teknis sementara setelah validasi end-to-end berhasil.
+
+## [2026-07-21] — Milestone M2
 
 ### Ditambah
 

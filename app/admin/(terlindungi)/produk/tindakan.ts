@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import type { KategoriProduk, Produk } from "@/data/produk";
 import { wajibAdmin } from "@/lib/admin/otorisasi";
 import { buatSlug, periksaProfilAroma, pisahkanDaftar } from "@/lib/admin/validasi-produk";
+import { pesanGalatTautanMarketplace } from "@/lib/marketplace/tautan";
 
 function kembaliDenganPesan(tujuan: string, pesan: string): never {
   const aman = tujuan.startsWith("/admin/produk") ? tujuan : "/admin/produk";
@@ -27,6 +28,13 @@ export async function simpanProduk(formulir: FormData) {
   const harga = Number(formulir.get("harga"));
   if (!nama || !Number.isFinite(harga) || harga < 0) kembaliDenganPesan(tujuan, "Nama dan harga produk tidak valid.");
 
+  const linkShopee = String(formulir.get("link_shopee") ?? "").trim();
+  const linkTiktok = String(formulir.get("link_tiktok") ?? "").trim();
+  const galatTautan =
+    pesanGalatTautanMarketplace("shopee", linkShopee) ??
+    pesanGalatTautanMarketplace("tiktok", linkTiktok);
+  if (galatTautan) kembaliDenganPesan(tujuan, galatTautan);
+
   let fotoTersimpan: string[] = [];
   try { fotoTersimpan = JSON.parse(String(formulir.get("foto_tersimpan") ?? "[]")); } catch { fotoTersimpan = []; }
   const muatan = {
@@ -43,8 +51,8 @@ export async function simpanProduk(formulir: FormData) {
     karakter,
     cocok_untuk: pisahkanDaftar(formulir.get("cocok_untuk")),
     foto: fotoTersimpan,
-    link_shopee: String(formulir.get("link_shopee") ?? "").trim() || null,
-    link_tiktok: String(formulir.get("link_tiktok") ?? "").trim() || null,
+    link_shopee: linkShopee || null,
+    link_tiktok: linkTiktok || null,
     unggulan: formulir.get("unggulan") === "on",
     tersedia: formulir.get("tersedia") === "on",
     aktif: formulir.get("aktif") === "on",

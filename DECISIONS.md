@@ -125,6 +125,60 @@
 **Alasan:** Akun Auth dan keanggotaan Admin sudah aktif, tetapi pemilik tidak dapat menyelesaikan pembuatan kata sandi lewat email. Jalur SDK resmi memungkinkan aktivasi terkontrol tanpa menurunkan aturan panjang kata sandi.
 **Konsekuensi:** Login awal harus diuji, pemilik mengganti kata sandi melalui `/admin/undangan`, dan secret key tidak boleh dipertahankan setelah operasi selesai.
 
+### KEP-023 — Donasi 20% dihitung database dan laba mentah tetap privat
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** `jumlah_donasi` disimpan sebagai kolom generated sebesar `untung_bersih × 20 / 100`. Publik memperoleh total dan metode melalui fungsi `SECURITY DEFINER` yang hanya mengembalikan data aman; tabel rekap mentah hanya dapat dibaca Admin.
+**Alasan:** Perhitungan database mencegah angka donasi diketik atau diubah bebas, sedangkan RPC mempertahankan transparansi tanpa membuka rincian laba bisnis.
+**Konsekuensi:** Perubahan persentase memerlukan keputusan requirement dan migrasi baru. Aplikasi tidak menyediakan input jumlah donasi maupun akses publik ke `untung_bersih`.
+
+### KEP-024 — Penyaluran terpublikasi menjadi satu-satunya pengurang saldo
+**Tanggal:** 2026-07-21 · **Status:** Diterima
+**Keputusan:** Penyaluran draft tidak tampil atau mengurangi saldo publik. Status `terpublikasi` wajib memiliki minimal satu bukti dan ditolak database bila totalnya melebihi donasi terkumpul. Log Audit bersifat append-only bagi aplikasi. Bucket bukti memakai URL publik tanpa izin daftar objek publik.
+**Alasan:** Pemisahan draft menjaga proses operasional, sedangkan bukti wajib dan validasi saldo menegakkan BR-2/BR-3. Pembatasan daftar objek mengurangi paparan nama berkas tanpa menghalangi pemeriksaan bukti yang dipublikasikan.
+**Konsekuensi:** Koreksi angka sensitif tetap meninggalkan jejak audit. Penghapusan data teknis hanya dilakukan oleh pemilik database dalam transaksi terkontrol setelah pengujian.
+
+### KEP-025 — Mode pratinjau lokal dengan data contoh berlabel
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Data contoh Produk dan Artikel M1 serta simulasi Donasi M3 dapat dipakai kembali hanya ketika `MODE_PRATINJAU_DATA_CONTOH=true` dan aplikasi berjalan dalam mode pengembangan. Seluruh halaman publik menampilkan pemberitahuan “Data Contoh”; angka, penerima, tujuan, dan visual bukti simulasi juga ditandai sebagai bukan transaksi nyata. Mode ini tidak membuat atau mengubah data Supabase.
+**Alasan:** Database bisnis sengaja masih kosong, sedangkan pemilik perlu meninjau komposisi website yang terisi sebelum menyediakan data final. Pengecualian eksplisit ini menjaga preview berguna tanpa menyamarkan simulasi sebagai dampak nyata.
+**Konsekuensi:** KEP-020 tetap berlaku untuk build produksi, Vercel, dan pengembangan lokal saat sakelar mati. Mode contoh tidak dapat aktif saat `NODE_ENV=production`, tidak digunakan di panel Admin, dan wajib dihapus bersama fallback pada M6 setelah data produksi terverifikasi.
+
+### KEP-026 — Jembatan marketplace aman dan analitik hanya untuk Produk nyata
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Satu tautan marketplace valid dibuka langsung di tab baru; dua tautan valid menampilkan dialog pilihan. Tautan wajib memakai HTTPS serta domain resmi Shopee/TikTok. Pencatatan KlikKeluar dikirim tanpa menahan pembukaan tab dan hanya dilakukan untuk Produk Supabase; data contoh hanya menampilkan simulasi dialog tanpa navigasi atau pencatatan.
+**Alasan:** Alur harus cepat sesuai BR-5, tetapi tautan salah atau data contoh tidak boleh mengarahkan pengunjung dan mencemari analitik bisnis.
+**Konsekuensi:** Produk tanpa tautan valid tetap menampilkan tombol nonaktif. Pengujian klik-keluar nyata membutuhkan URL Produk resmi dari pemilik; data KlikKeluar tidak pernah dipakai untuk atribusi atau pembayaran komisi afiliasi.
+
+### KEP-027 — Hasil kuis disimpan dalam URL tanpa akun
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Temukan Wangimu memakai tiga jawaban—karakter, waktu, dan okasi—untuk memberi skor pada `karakter` serta `cocok_untuk` Produk. Pilihan disimpan sebagai parameter URL tervalidasi agar hasil dapat dibagikan dan dimuat kembali tanpa akun atau tabel baru.
+**Alasan:** URL menjaga kuis ringan, hemat data, dan sesuai Non-Scope akun pembeli. Alasan kecocokan dapat dijelaskan langsung dari data katalog.
+**Konsekuensi:** Jawaban tidak dianggap data pribadi dan tidak disimpan di Supabase. Hasil adalah panduan selera, bukan klaim mutlak; kualitas rekomendasi mengikuti kelengkapan data Produk yang diisi Admin.
+
+### KEP-028 — Identitas Afiliasi memakai Supabase Auth dan profil berstatus menunggu
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Afiliasi mendaftar serta masuk dengan email dan kata sandi Supabase Auth. Trigger database membuat profil dari metadata tervalidasi dengan status awal `menunggu`; Admin memverifikasi atau mengoreksi minimal satu handle sebelum mengaktifkan akses penuh. WhatsApp hanya menjadi kontak operasional, bukan metode login SMS.
+**Alasan:** Autentikasi email sudah tersedia pada fondasi Supabase, sedangkan SMS memerlukan konfigurasi dan biaya tambahan yang tidak termasuk requirement. Status menunggu menjaga pencocokan handle sebelum materi serta leaderboard dibuka.
+**Konsekuensi:** Redirect URL `/auth/konfirmasi?next=/afiliasi/dashboard` wajib diizinkan di Supabase. Afiliasi nonaktif atau belum diverifikasi hanya dapat melihat status pendaftarannya.
+
+### KEP-029 — Tarif bonus nyata dikonfigurasi Admin dan laporan hanya membawa handle serta pcs
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Migrasi tidak menanam tarif, tingkat, penjualan, atau payout contoh. Admin menetapkan tingkat berdasarkan minimal pcs dan bonus per pcs nyata sebelum mengunggah CSV berkolom `handle,jumlah_pcs`. Database mencocokkan handle aktif, memilih tingkat tertinggi yang memenuhi batas, lalu menghitung bonus; payout `dibayar` wajib bukti transfer.
+**Alasan:** BUILD_SPEC menetapkan basis per pcs tetapi tidak menetapkan nominal. Nilai contoh wireframe tidak boleh berubah menjadi janji pendapatan atau data bisnis palsu.
+**Konsekuensi:** Laporan tidak dapat diproses tanpa minimal satu tingkat aktif. Website tidak menyimpan nilai komisi dasar, omzet, atau data dompet marketplace; komisi resmi tetap diperiksa dan dibayar platform.
+
+### KEP-030 — Data operasional Afiliasi privat dan leaderboard beralias
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Laporan platform, materi, dan bukti payout disimpan pada bucket privat. Afiliasi memperoleh materi melalui URL bertanda tangan selama 10 menit. Leaderboard terautentikasi hanya mengembalikan alias, jumlah pcs, urutan, serta penanda baris sendiri.
+**Alasan:** Handle, laporan, bukti transfer, dan identitas asli adalah data operasional yang tidak perlu dibuka ke publik. Materi tetap mudah diunduh tanpa membuat bucket menjadi publik.
+**Konsekuensi:** Email, WhatsApp, nama asli, handle, lokasi laporan, dan bukti transfer tidak tersedia melalui leaderboard atau halaman publik. RLS dan Log Audit tetap menjadi lapisan pengamanan utama.
+
+### KEP-031 — Simulasi Afiliasi hanya untuk akun uji pada mode pengembangan
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** `MODE_PRATINJAU_DATA_CONTOH=true` dapat menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, status payout, dan leaderboard contoh hanya ketika `NODE_ENV=development` serta identitas pengguna cocok dengan email dan alias akun `AfiliasiUji`. Dashboard dan leaderboard wajib menampilkan pemberitahuan “Data Contoh”.
+**Alasan:** Pemilik perlu meninjau keadaan portal yang terisi, tetapi KEP-029 melarang tarif, penjualan, bonus, atau payout contoh masuk ke database dan terlihat sebagai janji bisnis nyata.
+**Konsekuensi:** Simulasi tidak menjalankan RPC, tidak membuat atau mengubah baris Supabase, tidak berlaku untuk akun lain, dan otomatis mati pada build produksi. Nilai contoh wajib dihapus bersama mode pratinjau sebelum rilis M6 setelah data nyata terverifikasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
