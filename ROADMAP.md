@@ -76,6 +76,8 @@ Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa logi
 
 Untuk peninjauan visual, mode pratinjau pengembangan mengisi akun `AfiliasiUji` dengan bonus top-up, progres tingkat, riwayat rekonsiliasi, dan leaderboard yang semuanya berlabel “Data Contoh”. Simulasi tidak tersedia pada produksi atau akun lain serta tidak membuat data hosted.
 
+Penyempurnaan tinjauan M5 memperkuat `/temukan` dengan form GET yang tetap dapat dipakai tanpa bergantung penuh pada hidrasi JavaScript serta tautan “Coba contoh” khusus mode pengembangan. Seluruh 32 kombinasi jawaban tervalidasi menghasilkan rekomendasi dari Produk contoh berlabel tanpa menulis data ke Supabase. Perubahan ini tidak membuka kembali M4 dan tidak memulai M6.
+
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
 - ⬜ Aksesibilitas + uji lintas perangkat

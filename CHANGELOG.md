@@ -12,6 +12,7 @@
 - Rekonsiliasi CSV `handle,jumlah_pcs` dengan penggabungan handle ganda dan batas 5.000 baris.
 - Akun Afiliasi teknis berlabel uji untuk validasi login dan seluruh portal terlindungi tanpa transaksi bisnis fiktif.
 - Simulasi lokal berlabel untuk bonus top-up, tiga tingkat, empat riwayat rekonsiliasi, dan leaderboard lima alias pada akun `AfiliasiUji`.
+- Tautan “Coba contoh” pada `/temukan` untuk membuka skenario `Fresh · Siang · Kuliah / Kerja` beserta tiga rekomendasi Produk contoh.
 
 ### Diubah
 
@@ -19,6 +20,7 @@
 - Alur konfirmasi Supabase menerima pendaftaran Afiliasi selain undangan Admin.
 - Dashboard memisahkan komisi dasar marketplace dari bonus top-up Wawangian Pelajar secara tegas.
 - Mode `MODE_PRATINJAU_DATA_CONTOH` mencakup portal akun Afiliasi uji tanpa membuat laporan, bonus, atau payout di Supabase.
+- Kuis “Temukan Wangimu” memakai form GET dan parameter URL sebagai alur utama sehingga pilihan manual, demo cepat, muat ulang, dan pengulangan tetap konsisten.
 
 ### Diperbaiki
 
@@ -27,6 +29,7 @@
 - Laporan, materi, dan bukti bonus tidak tersedia secara publik; leaderboard tidak mengekspos identitas atau handle.
 - Data serta Log Audit uji rekonsiliasi tidak tertinggal karena seluruh validasi hosted dijalankan dalam transaksi rollback.
 - Trigger profil Afiliasi kini mengabaikan pengguna Auth tanpa metadata `jenis_akun=afiliasi`; migrasi koreksi terpisah diterapkan pada database hosted.
+- Kontrol kuis tidak lagi bergantung penuh pada hidrasi JavaScript; seluruh 32 kombinasi jawaban tervalidasi menghasilkan rekomendasi Produk contoh tanpa mutasi data hosted.
 
 ## [2026-07-22] — Milestone M4
 

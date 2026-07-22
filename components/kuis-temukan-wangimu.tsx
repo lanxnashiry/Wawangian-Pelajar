@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 import { KartuProduk } from "@/components/kartu-produk";
 import type { Produk } from "@/data/produk";
 import {
@@ -26,52 +27,29 @@ const pertanyaan: Array<{
   { kunci: "okasi", judul: "Untuk kegiatan apa?", opsi: opsiOkasi },
 ];
 
+const jawabanContoh: JawabanKuis = {
+  karakter: "fresh",
+  waktu: "siang",
+  okasi: "kuliah-kerja",
+};
+
+const tautanJawabanContoh = `/temukan?${new URLSearchParams(
+  jawabanContoh,
+).toString()}#hasil-kuis`;
+
 export function KuisTemukanWangimu({
   daftarProduk,
   jawabanAwal,
+  memakaiDataContoh,
 }: {
   daftarProduk: Produk[];
   jawabanAwal: JawabanKuis;
+  memakaiDataContoh: boolean;
 }) {
-  const [jawaban, setJawaban] = useState(jawabanAwal);
-  const [hasilTerbuka, setHasilTerbuka] = useState(
-    jawabanKuisLengkap(jawabanAwal),
-  );
   const [pesan, setPesan] = useState("");
-  const hasil = useMemo(
-    () => rekomendasikanProduk(daftarProduk, jawaban),
-    [daftarProduk, jawaban],
-  );
-  const labelJawaban = labelJawabanKuis(jawaban);
-
-  function pilihJawaban(kunci: KunciJawaban, nilai: string) {
-    setJawaban((jawabanSaatIni) => ({ ...jawabanSaatIni, [kunci]: nilai }));
-    setHasilTerbuka(false);
-    setPesan("");
-  }
-
-  function bukaHasil() {
-    if (!jawabanKuisLengkap(jawaban)) {
-      setPesan("Jawab ketiga pertanyaan terlebih dahulu.");
-      return;
-    }
-
-    const parameter = new URLSearchParams(jawaban);
-    window.history.replaceState(null, "", `/temukan?${parameter.toString()}`);
-    setHasilTerbuka(true);
-    setPesan("Rekomendasi sudah disiapkan.");
-    window.requestAnimationFrame(() => {
-      document.getElementById("hasil-kuis")?.scrollIntoView({ behavior: "smooth" });
-    });
-  }
-
-  function ulangiKuis() {
-    setJawaban({ karakter: "", waktu: "", okasi: "" });
-    setHasilTerbuka(false);
-    setPesan("");
-    window.history.replaceState(null, "", "/temukan");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  const hasilTerbuka = jawabanKuisLengkap(jawabanAwal);
+  const hasil = rekomendasikanProduk(daftarProduk, jawabanAwal);
+  const labelJawaban = labelJawabanKuis(jawabanAwal);
 
   async function bagikanHasil() {
     const teks = `Wangiku: ${labelJawaban.karakter}, ${labelJawaban.waktu}, ${labelJawaban.okasi}.`;
@@ -101,51 +79,56 @@ export function KuisTemukanWangimu({
 
   return (
     <div>
-      <div className="grid gap-4 lg:grid-cols-3">
-        {pertanyaan.map((item, indeks) => (
-          <fieldset
-            key={item.kunci}
-            className="rounded-3xl border border-[#e3e8ef] bg-white p-5 shadow-sm sm:p-6"
-          >
-            <legend className="px-2 text-sm font-black text-[#14223d]">
-              {indeks + 1}. {item.judul}
-            </legend>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {item.opsi.map((opsi) => {
-                const aktif = jawaban[item.kunci] === opsi.nilai;
-                return (
-                  <button
-                    key={opsi.nilai}
-                    type="button"
-                    aria-pressed={aktif}
-                    onClick={() => pilihJawaban(item.kunci, opsi.nilai)}
-                    className={`rounded-full border px-4 py-2.5 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62] ${
-                      aktif
-                        ? "border-[#0f6b62] bg-[#0f6b62] text-white"
-                        : "border-[#d8dee8] bg-[#f9fafc] text-slate-600 hover:border-[#0f6b62] hover:text-[#0f6b62]"
-                    }`}
-                  >
-                    {opsi.label}
-                  </button>
-                );
-              })}
-            </div>
-          </fieldset>
-        ))}
-      </div>
+      <form action="/temukan#hasil-kuis" method="get">
+        <div className="grid gap-4 lg:grid-cols-3">
+          {pertanyaan.map((item, indeks) => (
+            <fieldset
+              key={item.kunci}
+              className="rounded-3xl border border-[#e3e8ef] bg-white p-5 shadow-sm sm:p-6"
+            >
+              <legend className="px-2 text-sm font-black text-[#14223d]">
+                {indeks + 1}. {item.judul}
+              </legend>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {item.opsi.map((opsi) => (
+                  <label key={opsi.nilai} className="cursor-pointer">
+                    <input
+                      type="radio"
+                      name={item.kunci}
+                      value={opsi.nilai}
+                      defaultChecked={jawabanAwal[item.kunci] === opsi.nilai}
+                      required
+                      className="peer sr-only"
+                    />
+                    <span className="block rounded-full border border-[#d8dee8] bg-[#f9fafc] px-4 py-2.5 text-sm font-bold text-slate-600 transition hover:border-[#0f6b62] hover:text-[#0f6b62] peer-checked:border-[#0f6b62] peer-checked:bg-[#0f6b62] peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#0f6b62]">
+                      {opsi.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+        </div>
 
-      <div className="mt-6 flex flex-col items-center">
-        <button
-          type="button"
-          onClick={bukaHasil}
-          className="min-h-13 w-full rounded-full bg-[#0f6b62] px-7 py-3 text-sm font-black text-white shadow-lg shadow-[#0f6b62]/20 hover:bg-[#0b554e] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62] sm:w-auto"
-        >
-          Lihat rekomendasi →
-        </button>
-        <p className="mt-3 min-h-5 text-center text-sm text-slate-500" aria-live="polite">
-          {pesan}
-        </p>
-      </div>
+        <div className="mt-6 flex flex-col items-center">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <button
+              type="submit"
+              className="min-h-13 w-full rounded-full bg-[#0f6b62] px-7 py-3 text-sm font-black text-white shadow-lg shadow-[#0f6b62]/20 hover:bg-[#0b554e] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62] sm:w-auto"
+            >
+              Lihat rekomendasi →
+            </button>
+            {memakaiDataContoh ? (
+              <Link
+                href={tautanJawabanContoh}
+                className="flex min-h-13 w-full items-center justify-center rounded-full border border-[#b8860b] bg-[#fff8df] px-7 py-3 text-sm font-black text-[#765808] hover:bg-[#ffefb8] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#b8860b] sm:w-auto"
+              >
+                Coba contoh
+              </Link>
+            ) : null}
+          </div>
+        </div>
+      </form>
 
       {hasilTerbuka ? (
         <section id="hasil-kuis" className="mt-12 scroll-mt-28 border-t border-[#dfe5ed] pt-12">
@@ -188,14 +171,16 @@ export function KuisTemukanWangimu({
             >
               Bagikan hasil
             </button>
-            <button
-              type="button"
-              onClick={ulangiKuis}
+            <Link
+              href="/temukan"
               className="min-h-12 rounded-full border border-[#cbd4e1] bg-white px-6 py-3 text-sm font-black text-[#14223d] hover:border-[#0f6b62] hover:text-[#0f6b62] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
             >
               Ulangi kuis
-            </button>
+            </Link>
           </div>
+          <p className="mt-3 min-h-5 text-sm text-slate-500" aria-live="polite">
+            {pesan}
+          </p>
         </section>
       ) : null}
     </div>

@@ -54,7 +54,11 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
           </p>
         </div>
         <div className="mt-10">
-          <KuisTemukanWangimu daftarProduk={daftarProduk} jawabanAwal={jawabanAwal} />
+          <KuisTemukanWangimu
+            daftarProduk={daftarProduk}
+            jawabanAwal={jawabanAwal}
+            memakaiDataContoh={memakaiDataContoh}
+          />
         </div>
       </div>
     </main>

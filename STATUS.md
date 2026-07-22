@@ -16,6 +16,8 @@ Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afil
 
 Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Supabase hosted tetap tidak memiliki laporan, bonus, payout, atau posisi leaderboard untuk akun tersebut. Saat mode pratinjau lokal aktif, aplikasi menggantinya dengan simulasi berlabel agar Dashboard, progres tingkat, riwayat, dan leaderboard dapat ditinjau tanpa dianggap sebagai aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
 
+Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk contoh melalui kuis manual maupun tautan “Coba contoh”. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Skenario cepat memakai `Fresh · Siang · Kuliah / Kerja` dan seluruh hasil tetap berlabel Data Contoh.
+
 ## Task M5
 
 1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
@@ -26,6 +28,7 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 6. ✅ Leaderboard — agregasi pcs bulan berjalan dengan alias saja.
 7. ✅ Admin — verifikasi/koreksi handle, konfigurasi tingkat nyata, unggah CSV, pencocokan, bonus per pcs, payout berbukti, dan materi.
 8. ✅ Keamanan — RLS, bucket privat, validasi payout, dan Log Audit untuk aksi sensitif.
+9. ✅ Penyempurnaan pratinjau — kuis `/temukan` berbasis URL, demo cepat, dan validasi Produk contoh tanpa data hosted.
 
 ## Validasi yang sudah dilakukan
 
@@ -43,6 +46,9 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 - Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
 - Mode pratinjau akun uji menampilkan 37 pcs, bonus top-up Rp67.500, Rp48.000 berstatus dibayar, tingkat “Kreator Contoh”, empat riwayat, dan peringkat ketiga; seluruh halaman membawa label “Data Contoh”.
 - Mode pratinjau Afiliasi tidak aktif pada produksi, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
+- Kuis manual `/temukan`, tautan “Coba contoh”, pemuatan ulang hasil, dan “Ulangi kuis” berhasil diuji melalui browser lokal.
+- Seluruh 32 kombinasi karakter, waktu, dan okasi menghasilkan minimal satu rekomendasi Produk contoh; skenario cepat menampilkan tiga Produk beserta alasan kecocokan.
+- Halaman hasil `/temukan` tidak mengalami overflow horizontal pada viewport 360px dan 1440px serta konsol browser tetap tanpa galat atau peringatan aplikasi.
 - Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
 - Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
@@ -64,6 +70,7 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 - Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
 - Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
 - Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode pengembangan aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
+- Produk dan jawaban contoh pada `/temukan` hanya dipakai saat mode pratinjau pengembangan aktif, tidak disimpan sebagai jawaban pengguna, dan tidak membuat data Supabase.
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
