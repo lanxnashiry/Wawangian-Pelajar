@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const tautanNavigasi = [
   { href: "/katalog", label: "Katalog" },
+  { href: "/temukan", label: "Temukan Wangimu" },
   { href: "/donasi", label: "Dana Cahaya" },
   { href: "/cerita", label: "Cerita" },
   { href: "/afiliasi", label: "Jadi Afiliasi" },

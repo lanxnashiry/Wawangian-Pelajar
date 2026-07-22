@@ -3,75 +3,67 @@
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
 **Terakhir diperbarui:** 22 Juli 2026
-**Milestone aktif:** M3 — Donasi (fitur andalan)
-**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M4
+**Milestone aktif:** M4 — Jembatan Marketplace + Temukan Wangimu
+**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M5
 
 ---
 
 ## Posisi saat ini
 
-M3 selesai dibangun dan sudah digabungkan ke branch M2 bertumpuk. Penyempurnaan tinjauan saat ini dikerjakan pada branch `codex/m3-preview-data-contoh`. Migrasi telah diterapkan pada Supabase hosted dan menyediakan rekap donasi 20%, penyaluran berbukti, integritas saldo amanah, transparansi publik, detail bukti, serta Log Audit.
+M3 telah dikonfirmasi pemilik dan M4 dibangun pada branch `codex/m4-jembatan-marketplace-kuis`, bertumpuk di atas penyempurnaan preview M3. Detail Produk kini mendukung alur marketplace hybrid, pencatatan KlikKeluar untuk Produk nyata, pesan misi permanen, dan simulasi aman saat data contoh belum memiliki URL toko.
 
-Untuk kebutuhan tinjauan pemilik, preview lokal kini memakai mode data contoh pengembangan. Beranda, Katalog, Produk, Cerita, Artikel, Transparansi Donasi, dan detail bukti dapat ditinjau dalam keadaan terisi tanpa menambahkan data ke Supabase. Banner global dan label khusus menegaskan bahwa seluruh isi tersebut bukan data bisnis atau bukti penyaluran nyata.
+Rute `/temukan` menyediakan kuis tiga pertanyaan tanpa login. Hasil dihitung dari data `karakter` dan `cocok_untuk`, menjelaskan alasan rekomendasi, serta dapat dimuat kembali dan dibagikan melalui parameter URL.
 
-Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan aturan BR-1, BR-2, BR-3, dan BR-9. Seluruh rekap, penyaluran, log, dan berkas bukti teknis kemudian dihapus sehingga database bisnis dan halaman publik kembali menampilkan keadaan nol yang jujur.
+## Task M4
 
-## Task M3
-
-1. ✅ Rekap penjualan dan donasi 20% — `jumlah_donasi` dihitung sebagai kolom generated database dan tidak memiliki input bebas.
-2. ✅ Penyaluran berbukti — draft didukung; publikasi wajib memiliki minimal satu bukti JPEG/PNG/WebP maksimal 5 MB.
-3. ✅ Saldo amanah — database menolak penyaluran atau perubahan rekap yang membuat saldo negatif.
-4. ✅ Transparansi publik — tiga angka, riwayat berbukti, metode per periode, dan keadaan kosong tersedia.
-5. ✅ Detail penyaluran — bukti ukuran penuh dan tautan opsional ke Artikel Cerita Misi tersedia.
-6. ✅ Log Audit — aksi donasi, penyaluran, perubahan harga, penonaktifan Produk, dan penghapusan Artikel dicatat tanpa aksi ubah/hapus dari aplikasi.
+1. ✅ Tombol beli hybrid — satu URL valid membuka marketplace langsung; dua URL valid menampilkan dialog pilihan.
+2. ✅ Pencatatan KlikKeluar — klik Produk Supabase dikirim tanpa menghambat pembukaan tab; data contoh tidak dicatat.
+3. ✅ Pesan misi permanen — komitmen Dana Cahaya Pendidikan tetap terlihat sebelum tombol marketplace.
+4. ✅ Temukan Wangimu — karakter, waktu, dan okasi dicocokkan dengan data Produk serta diberi alasan.
+5. ✅ Hasil shareable — jawaban tervalidasi disimpan dalam URL dan mendukung Web Share atau salin tautan.
+6. ✅ Navigasi — Temukan Wangimu tersedia pada navbar, footer, Beranda, dan Katalog.
 
 ## Validasi yang sudah dilakukan
 
-- `npm.cmd run lint` — berhasil tanpa galat.
-- `npm.cmd run build` — berhasil; seluruh rute M0–M3 terkompilasi.
-- Migrasi `202607210003_m3_donasi_transparan.sql` — berhasil diterapkan pada Supabase hosted.
-- Akses publik — RPC ringkasan dan metode berhasil, sedangkan laba bersih mentah tidak menghasilkan baris karena RLS.
-- BR-1 — laba teknis Rp100.000 menghasilkan donasi read-only Rp20.000 di database dan halaman publik.
-- BR-2 — publikasi tanpa bukti ditolak dengan pesan Bahasa Indonesia.
-- BR-3 — penyaluran Rp25.000 pada saldo Rp20.000 ditolak database; penyaluran berbukti Rp15.000 berhasil dan menghasilkan saldo Rp5.000.
-- BR-9 — penambahan rekap dan penyaluran muncul pada Log Audit; aplikasi tidak menyediakan mutasi Log Audit.
-- Halaman `/donasi`, `/donasi/[id]`, `/admin/donasi`, formulir rekap/penyaluran, dan `/admin/log` berhasil diuji melalui browser.
-- Responsif 360px dan 1440px — halaman publik dan panel Donasi tidak mengalami overflow horizontal.
-- Data teknis sementara — satu rekap, satu penyaluran, dua log, dan satu berkas bukti telah dihapus; hitungan akhir hosted `0/0/0`.
-- Storage — bukti tetap dapat dibuka melalui URL publik, tetapi kebijakan untuk membuat daftar seluruh nama berkas publik dihapus.
-- `git diff --check` — bersih; `.env.local` tetap diabaikan dan tidak ada rahasia yang ditambahkan ke perubahan.
-- Mode pratinjau lokal — delapan Produk, lima Artikel, dua rekap, dua penyaluran, dan placeholder bukti tampil dengan label “Data Contoh”.
-- Aritmetika simulasi — Rp2.400.000 terkumpul dikurangi Rp1.650.000 tersalurkan menghasilkan saldo amanah Rp750.000.
-- Browser lokal — beranda, `/donasi`, dan `/donasi/contoh-penyaluran-002` berhasil dibuka; tidak ada galat konsol localhost atau overflow horizontal pada viewport aplikasi yang tersedia.
-- `npm.cmd run lint` dan `npm.cmd run build` setelah integrasi pratinjau — berhasil tanpa galat; mode contoh otomatis mati pada build produksi.
+- `npm.cmd run lint` — berhasil setelah jembatan marketplace dan setelah integrasi kuis.
+- `npm.cmd run build` — berhasil; rute `/temukan` dan seluruh rute M0–M4 terkompilasi.
+- URL hasil `?karakter=fresh&waktu=siang&okasi=kuliah-kerja` — menghasilkan Inspirasi Fresh Pagi, Inspirasi Citrus Sport, dan Decant Woody Siang beserta alasan kecocokan.
+- Responsif 360px — halaman kuis dan detail Produk tidak mengalami overflow horizontal.
+- Responsif 1440px — halaman kuis tidak mengalami overflow horizontal dan susunan tiga pertanyaan melebar dengan benar.
+- Detail Produk contoh — tombol simulasi dialog tersedia, pilihan toko tetap nonaktif, tidak membuka URL palsu, dan tidak mengirim analitik.
+- API KlikKeluar — muatan kosong ditolak HTTP 400; Produk tidak sah ditolak HTTP 422 tanpa membuat entri.
+- URL Admin — tautan non-HTTPS atau di luar domain resmi Shopee/TikTok ditolak sebelum Produk disimpan.
+- Konsol browser localhost — tidak ada galat aplikasi.
+- `git diff --check` — bersih sebelum pembaruan dokumentasi.
 
 ## Langkah berikutnya
 
-1. Selesaikan commit dan push penyempurnaan preview ke draft pull request M3.
-2. Pemilik meninjau M3 melalui server lokal yang tetap berjalan dan mengganti kata sandi Admin sementara sebelum penggunaan produksi.
-3. M4 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
-4. Data penjualan, penerima, bukti, Produk, dan Artikel nyata dimasukkan oleh pemilik saat sudah tersedia.
+1. Pemilik meninjau M4 melalui server lokal dan draft pull request.
+2. Pemilik memberikan URL Produk Shopee/TikTok asli; setelah diisi melalui Admin, alur satu/dua marketplace dan angka analitik dapat ditinjau dengan data nyata.
+3. Pemilik mengganti kata sandi Admin sementara sebelum penggunaan produksi.
+4. M5 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
-- Persentase donasi M3 tetap 20% sesuai BR-1 dan hanya dapat berubah melalui requirement serta migrasi baru.
-- Publik hanya memperoleh jumlah donasi, metode, dan penyaluran terpublikasi; `untung_bersih` tidak diekspos.
-- Hanya penyaluran berstatus `terpublikasi` yang mengurangi saldo publik dan wajib memiliki bukti.
-- Bucket `bukti-donasi` bersifat publik untuk URL bukti, tetapi daftar objek tidak dibuka kepada pengunjung.
-- Tautan Cerita Misi bersifat opsional sampai Artikel dampak nyata tersedia.
-- Database bisnis tetap kosong sampai data nyata diberikan; data contoh hanya menggantikan pembacaan pada mode pengembangan lokal yang dinyalakan eksplisit dan tidak pernah disimpan ke Supabase.
-- `MODE_PRATINJAU_DATA_CONTOH` tidak dapat mengaktifkan simulasi pada build produksi atau Vercel.
-- M3 selesai secara teknis, tetapi M4 belum aktif sebelum konfirmasi pemilik.
+- URL Produk marketplace asli belum tersedia dan tidak boleh digantikan tautan buatan.
+- Hanya HTTPS pada domain resmi Shopee/TikTok yang dianggap tujuan marketplace valid.
+- Data contoh boleh memperlihatkan bentuk dialog, tetapi tidak boleh bernavigasi atau menambah KlikKeluar.
+- Jawaban kuis tidak disimpan di Supabase; parameter URL hanya memuat pilihan katalog non-pribadi.
+- Kualitas hasil kuis mengikuti kelengkapan `karakter` dan `cocok_untuk` yang diisi Admin.
+- KlikKeluar hanya untuk analitik minat dan tidak digunakan sebagai atribusi atau pembayaran komisi afiliasi.
+- M4 selesai secara teknis, tetapi aktivasi M5 tetap menunggu konfirmasi pemilik.
 
 ## Batas scope yang tetap dijaga
 
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
-- Tidak ada pelacakan komisi afiliasi buatan sendiri.
-- Tidak ada jembatan marketplace/kuis M4 atau Portal Afiliasi M5.
-- Tidak ada foto produk AI, testimoni, cerita dampak buatan, atau angka simulasi yang diklaim sebagai donasi nyata; preview lokal memakai label “Data Contoh” dan placeholder bukti yang eksplisit.
+- Tidak ada pelacakan atau pembayaran komisi afiliasi buatan sendiri.
+- Tidak ada pendaftaran, login, dashboard, materi, leaderboard, atau rekonsiliasi Afiliasi M5.
+- Tidak ada foto produk AI, tautan produk palsu, testimoni, atau cerita dampak buatan.
+- Tidak ada penyimpanan profil atau riwayat jawaban kuis.
 
 ## Catatan dan kendala
 
+- Pengujian klik-keluar sukses menuju marketplace nyata menunggu URL Produk resmi; seluruh logika satu/dua tautan dan RPC sudah terhubung.
 - Kata sandi sementara Admin sudah berfungsi dan wajib segera diganti oleh pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 

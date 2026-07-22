@@ -143,6 +143,18 @@
 **Alasan:** Database bisnis sengaja masih kosong, sedangkan pemilik perlu meninjau komposisi website yang terisi sebelum menyediakan data final. Pengecualian eksplisit ini menjaga preview berguna tanpa menyamarkan simulasi sebagai dampak nyata.
 **Konsekuensi:** KEP-020 tetap berlaku untuk build produksi, Vercel, dan pengembangan lokal saat sakelar mati. Mode contoh tidak dapat aktif saat `NODE_ENV=production`, tidak digunakan di panel Admin, dan wajib dihapus bersama fallback pada M6 setelah data produksi terverifikasi.
 
+### KEP-026 — Jembatan marketplace aman dan analitik hanya untuk Produk nyata
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Satu tautan marketplace valid dibuka langsung di tab baru; dua tautan valid menampilkan dialog pilihan. Tautan wajib memakai HTTPS serta domain resmi Shopee/TikTok. Pencatatan KlikKeluar dikirim tanpa menahan pembukaan tab dan hanya dilakukan untuk Produk Supabase; data contoh hanya menampilkan simulasi dialog tanpa navigasi atau pencatatan.
+**Alasan:** Alur harus cepat sesuai BR-5, tetapi tautan salah atau data contoh tidak boleh mengarahkan pengunjung dan mencemari analitik bisnis.
+**Konsekuensi:** Produk tanpa tautan valid tetap menampilkan tombol nonaktif. Pengujian klik-keluar nyata membutuhkan URL Produk resmi dari pemilik; data KlikKeluar tidak pernah dipakai untuk atribusi atau pembayaran komisi afiliasi.
+
+### KEP-027 — Hasil kuis disimpan dalam URL tanpa akun
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** Temukan Wangimu memakai tiga jawaban—karakter, waktu, dan okasi—untuk memberi skor pada `karakter` serta `cocok_untuk` Produk. Pilihan disimpan sebagai parameter URL tervalidasi agar hasil dapat dibagikan dan dimuat kembali tanpa akun atau tabel baru.
+**Alasan:** URL menjaga kuis ringan, hemat data, dan sesuai Non-Scope akun pembeli. Alasan kecocokan dapat dijelaskan langsung dari data katalog.
+**Konsekuensi:** Jawaban tidak dianggap data pribadi dan tidak disimpan di Supabase. Hasil adalah panduan selera, bukan klaim mutlak; kualitas rekomendasi mengikuti kelengkapan data Produk yang diisi Admin.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

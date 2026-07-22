@@ -2,6 +2,27 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-22] — Milestone M4
+
+### Ditambah
+
+- Jembatan marketplace hybrid: satu tautan membuka toko langsung dan dua tautan menampilkan dialog pilihan.
+- Simulasi dialog marketplace khusus data contoh tanpa tautan keluar atau pencatatan analitik palsu.
+- Halaman `/temukan` dengan tiga pertanyaan, pemeringkatan rekomendasi, alasan kecocokan, dan hasil shareable melalui URL.
+- Tautan Temukan Wangimu pada navbar, footer, Beranda, dan Katalog.
+- Validasi URL HTTPS serta domain resmi Shopee dan TikTok Shop pada penyimpanan Produk.
+
+### Diubah
+
+- Detail Produk mengaktifkan tombol marketplace M4 dan mempertahankan pesan misi Dana Cahaya Pendidikan sebelum tombol beli.
+- Halaman Analitik menjelaskan bahwa KlikKeluar mengukur minat dan bukan komisi afiliasi.
+- API KlikKeluar memberikan respons terkontrol ketika layanan Supabase belum tersedia.
+
+### Diperbaiki
+
+- Klik data contoh tidak dikirim ke Supabase sehingga analitik bisnis tetap hanya berisi interaksi Produk nyata.
+- Hasil kuis tidak membutuhkan akun atau penyimpanan jawaban; kombinasi dapat dimuat kembali dari parameter URL yang divalidasi.
+
 ## [2026-07-22] — Penyempurnaan pratinjau M3
 
 ### Ditambah
