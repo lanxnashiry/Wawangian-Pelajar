@@ -1,5 +1,6 @@
 import { daftarArtikel, type Artikel, type BagianArtikel } from "@/data/artikel";
 import { daftarProduk, type Produk } from "@/data/produk";
+import { modePratinjauDataContohAktif } from "@/lib/pratinjau/data-contoh";
 import { konfigurasiSupabasePublikTersedia } from "@/lib/supabase/konfigurasi";
 import { buatKlienSupabaseServer } from "@/lib/supabase/klien-server";
 
@@ -96,6 +97,7 @@ export function petakanArtikel(baris: BarisArtikel): Artikel {
 }
 
 export async function ambilDaftarProdukPublik(): Promise<Produk[]> {
+  if (modePratinjauDataContohAktif()) return daftarProduk;
   if (!konfigurasiSupabasePublikTersedia()) return daftarProduk;
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase
@@ -114,6 +116,7 @@ export async function ambilProdukPublik(slug: string): Promise<Produk | undefine
 }
 
 export async function ambilDaftarArtikelPublik(): Promise<Artikel[]> {
+  if (modePratinjauDataContohAktif()) return daftarArtikel;
   if (!konfigurasiSupabasePublikTersedia()) return daftarArtikel;
   const supabase = await buatKlienSupabaseServer();
   const { data, error } = await supabase

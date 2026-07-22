@@ -51,6 +51,8 @@ Seluruh task M2 telah dibangun dan diuji terhadap Supabase hosted. Data uji seme
 
 Seluruh task M3 telah dibangun dan diuji terhadap Supabase hosted. Data teknis membuktikan hitung 20%, penolakan publikasi tanpa bukti, penolakan saldo negatif, publikasi berbukti, detail publik, dan Log Audit; seluruh data serta berkas teknis kemudian dihapus. M4 tetap belum dimulai sampai pemilik mengonfirmasi M3.
 
+Penyempurnaan tinjauan 22 Juli 2026 menambahkan mode pratinjau lokal berlabel agar komposisi Produk, Artikel, dan transparansi Donasi dapat diperiksa saat database bisnis masih kosong. Perubahan ini tidak membuka task M4 dan tidak mengubah data Supabase hosted.
+
 ## M4 — Jembatan Marketplace + Temukan Wangimu  ⬜
 - ⬜ Tombol beli hybrid (1 marketplace langsung / 2 popup) (BR-5)
 - ⬜ Pencatatan KlikKeluar

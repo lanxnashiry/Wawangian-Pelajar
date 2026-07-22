@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 21 Juli 2026
+**Terakhir diperbarui:** 22 Juli 2026
 **Milestone aktif:** M3 — Donasi (fitur andalan)
 **Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M4
 
@@ -10,7 +10,9 @@
 
 ## Posisi saat ini
 
-M3 selesai dibangun pada branch `codex/m3-donasi-transparan`. Migrasi telah diterapkan pada Supabase hosted dan menyediakan rekap donasi 20%, penyaluran berbukti, integritas saldo amanah, transparansi publik, detail bukti, serta Log Audit.
+M3 selesai dibangun dan sudah digabungkan ke branch M2 bertumpuk. Penyempurnaan tinjauan saat ini dikerjakan pada branch `codex/m3-preview-data-contoh`. Migrasi telah diterapkan pada Supabase hosted dan menyediakan rekap donasi 20%, penyaluran berbukti, integritas saldo amanah, transparansi publik, detail bukti, serta Log Audit.
+
+Untuk kebutuhan tinjauan pemilik, preview lokal kini memakai mode data contoh pengembangan. Beranda, Katalog, Produk, Cerita, Artikel, Transparansi Donasi, dan detail bukti dapat ditinjau dalam keadaan terisi tanpa menambahkan data ke Supabase. Banner global dan label khusus menegaskan bahwa seluruh isi tersebut bukan data bisnis atau bukti penyaluran nyata.
 
 Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan aturan BR-1, BR-2, BR-3, dan BR-9. Seluruh rekap, penyaluran, log, dan berkas bukti teknis kemudian dihapus sehingga database bisnis dan halaman publik kembali menampilkan keadaan nol yang jujur.
 
@@ -38,11 +40,15 @@ Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan atura
 - Data teknis sementara — satu rekap, satu penyaluran, dua log, dan satu berkas bukti telah dihapus; hitungan akhir hosted `0/0/0`.
 - Storage — bukti tetap dapat dibuka melalui URL publik, tetapi kebijakan untuk membuat daftar seluruh nama berkas publik dihapus.
 - `git diff --check` — bersih; `.env.local` tetap diabaikan dan tidak ada rahasia yang ditambahkan ke perubahan.
+- Mode pratinjau lokal — delapan Produk, lima Artikel, dua rekap, dua penyaluran, dan placeholder bukti tampil dengan label “Data Contoh”.
+- Aritmetika simulasi — Rp2.400.000 terkumpul dikurangi Rp1.650.000 tersalurkan menghasilkan saldo amanah Rp750.000.
+- Browser lokal — beranda, `/donasi`, dan `/donasi/contoh-penyaluran-002` berhasil dibuka; tidak ada galat konsol localhost atau overflow horizontal pada viewport aplikasi yang tersedia.
+- `npm.cmd run lint` dan `npm.cmd run build` setelah integrasi pratinjau — berhasil tanpa galat; mode contoh otomatis mati pada build produksi.
 
 ## Langkah berikutnya
 
-1. Selesaikan pembaruan dokumentasi, commit, push, dan draft pull request M3.
-2. Pemilik meninjau M3 dan mengganti kata sandi Admin sementara sebelum penggunaan produksi.
+1. Selesaikan commit dan push penyempurnaan preview ke draft pull request M3.
+2. Pemilik meninjau M3 melalui server lokal yang tetap berjalan dan mengganti kata sandi Admin sementara sebelum penggunaan produksi.
 3. M4 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 4. Data penjualan, penerima, bukti, Produk, dan Artikel nyata dimasukkan oleh pemilik saat sudah tersedia.
 
@@ -53,7 +59,8 @@ Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan atura
 - Hanya penyaluran berstatus `terpublikasi` yang mengurangi saldo publik dan wajib memiliki bukti.
 - Bucket `bukti-donasi` bersifat publik untuk URL bukti, tetapi daftar objek tidak dibuka kepada pengunjung.
 - Tautan Cerita Misi bersifat opsional sampai Artikel dampak nyata tersedia.
-- Database bisnis tetap kosong sampai data nyata diberikan; angka nol tidak diganti data contoh.
+- Database bisnis tetap kosong sampai data nyata diberikan; data contoh hanya menggantikan pembacaan pada mode pengembangan lokal yang dinyalakan eksplisit dan tidak pernah disimpan ke Supabase.
+- `MODE_PRATINJAU_DATA_CONTOH` tidak dapat mengaktifkan simulasi pada build produksi atau Vercel.
 - M3 selesai secara teknis, tetapi M4 belum aktif sebelum konfirmasi pemilik.
 
 ## Batas scope yang tetap dijaga
@@ -61,7 +68,7 @@ Validasi end-to-end menggunakan data teknis sementara berhasil membuktikan atura
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
 - Tidak ada pelacakan komisi afiliasi buatan sendiri.
 - Tidak ada jembatan marketplace/kuis M4 atau Portal Afiliasi M5.
-- Tidak ada foto produk AI, angka donasi palsu, penerima palsu, testimoni, atau cerita dampak buatan.
+- Tidak ada foto produk AI, testimoni, cerita dampak buatan, atau angka simulasi yang diklaim sebagai donasi nyata; preview lokal memakai label “Data Contoh” dan placeholder bukti yang eksplisit.
 
 ## Catatan dan kendala
 
