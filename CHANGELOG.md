@@ -2,6 +2,28 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-22] — Milestone M5
+
+### Ditambah
+
+- Landing “Jadi Afiliasi”, pendaftaran ber-handle, login, dashboard, panduan resmi, materi privat, dan leaderboard beralias.
+- Migrasi Supabase untuk profil Afiliasi, tingkat bonus, laporan, rekonsiliasi bonus, materi, RLS, Log Audit, serta tiga bucket privat.
+- Panel Admin Afiliasi untuk koreksi/verifikasi handle, konfigurasi tingkat nyata, unggah CSV, payout berbukti, dan materi promosi.
+- Rekonsiliasi CSV `handle,jumlah_pcs` dengan penggabungan handle ganda dan batas 5.000 baris.
+
+### Diubah
+
+- Navigasi publik, footer, dasbor Admin, dan navigasi Admin terhubung ke Portal Afiliasi M5.
+- Alur konfirmasi Supabase menerima pendaftaran Afiliasi selain undangan Admin.
+- Dashboard memisahkan komisi dasar marketplace dari bonus top-up Wawangian Pelajar secara tegas.
+
+### Diperbaiki
+
+- Tarif bonus dan angka penjualan contoh wireframe tidak ditanam ke database atau antarmuka sebagai data nyata.
+- Pendaftaran tanpa handle ditolak sebelum akun dibuat; payout tanpa bukti ditolak oleh database.
+- Laporan, materi, dan bukti bonus tidak tersedia secara publik; leaderboard tidak mengekspos identitas atau handle.
+- Data serta Log Audit uji rekonsiliasi tidak tertinggal karena seluruh validasi hosted dijalankan dalam transaksi rollback.
+
 ## [2026-07-22] — Milestone M4
 
 ### Ditambah
