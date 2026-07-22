@@ -190,7 +190,7 @@ Saat mode data contoh aktif dan URL Produk asli belum tersedia, detail Produk ha
 
 ## Mengaktifkan Supabase M5
 
-Setelah migrasi M2 dan M3 selesai, jalankan `supabase/migrations/202607220004_m5_portal_afiliasi.sql` melalui SQL Editor Supabase. Migrasi membuat profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi, materi promosi, RLS, Log Audit, serta bucket privat.
+Setelah migrasi M2 dan M3 selesai, jalankan `supabase/migrations/202607220004_m5_portal_afiliasi.sql` melalui SQL Editor Supabase. Lanjutkan dengan `supabase/migrations/202607220005_perbaiki_pemicu_afiliasi.sql` agar trigger profil hanya memproses pengguna yang benar-benar memiliki metadata Afiliasi. Rangkaian migrasi membuat profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi, materi promosi, RLS, Log Audit, serta bucket privat.
 
 Tambahkan URL berikut ke daftar **Redirect URLs** Supabase Auth:
 

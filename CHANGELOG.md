@@ -10,6 +10,7 @@
 - Migrasi Supabase untuk profil Afiliasi, tingkat bonus, laporan, rekonsiliasi bonus, materi, RLS, Log Audit, serta tiga bucket privat.
 - Panel Admin Afiliasi untuk koreksi/verifikasi handle, konfigurasi tingkat nyata, unggah CSV, payout berbukti, dan materi promosi.
 - Rekonsiliasi CSV `handle,jumlah_pcs` dengan penggabungan handle ganda dan batas 5.000 baris.
+- Akun Afiliasi teknis berlabel uji untuk validasi login dan seluruh portal terlindungi tanpa transaksi bisnis fiktif.
 
 ### Diubah
 
@@ -23,6 +24,7 @@
 - Pendaftaran tanpa handle ditolak sebelum akun dibuat; payout tanpa bukti ditolak oleh database.
 - Laporan, materi, dan bukti bonus tidak tersedia secara publik; leaderboard tidak mengekspos identitas atau handle.
 - Data serta Log Audit uji rekonsiliasi tidak tertinggal karena seluruh validasi hosted dijalankan dalam transaksi rollback.
+- Trigger profil Afiliasi kini mengabaikan pengguna Auth tanpa metadata `jenis_akun=afiliasi`; migrasi koreksi terpisah diterapkan pada database hosted.
 
 ## [2026-07-22] — Milestone M4
 

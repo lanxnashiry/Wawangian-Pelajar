@@ -14,6 +14,8 @@ M4 telah dikonfirmasi pemilik dan M5 dibangun pada branch `codex/m5-portal-afili
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
+Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Akun terkonfirmasi dan aktif, tetapi tidak memiliki laporan, bonus, payout, atau posisi leaderboard sehingga tidak boleh dianggap sebagai anggota maupun aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis produksi M6.
+
 ## Task M5
 
 1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
@@ -36,6 +38,9 @@ Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afil
 - Transaksi uji diakhiri `ROLLBACK`; panel Admin kembali menunjukkan nol afiliasi, tingkat, laporan, bonus, dan materi.
 - Pendaftaran tanpa kedua handle ditolak sebelum membuat pengguna Supabase.
 - Panel `/admin/afiliasi` berhasil membaca schema hosted melalui sesi Admin.
+- Migrasi koreksi `202607220005_perbaiki_pemicu_afiliasi.sql` berhasil diterapkan; pengguna Auth tanpa metadata Afiliasi kini diabaikan trigger tanpa menggagalkan pembuatan akun.
+- Akun `AfiliasiUji` terkonfirmasi, berstatus aktif, memiliki satu Log Audit aktivasi dengan UID Admin, serta tetap memiliki 0 bonus.
+- Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
 - Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
 - Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
@@ -47,7 +52,8 @@ Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afil
 3. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
 4. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
 5. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
-6. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
+6. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
+7. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
@@ -58,13 +64,13 @@ Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afil
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
-- Data produk, afiliasi, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik.
+- Data produk, afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik; `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 
 ## Batas scope yang tetap dijaga
 
 - Tidak ada checkout, keranjang, pembayaran, akun pembeli, wishlist, atau pengelolaan ongkir.
 - Tidak ada pelacakan atau pembayaran komisi dasar buatan website.
-- Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, anggota, atau leaderboard palsu.
+- Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, klaim anggota nyata, atau leaderboard palsu.
 - Tidak ada Sales Academy, sertifikat, notifikasi otomatis, loyalitas, atau peran Admin granular.
 - Tidak ada foto produk AI, klaim organisasi, banting harga, atau klaim promosi palsu.
 - M6 belum dimulai.
@@ -72,8 +78,8 @@ Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afil
 ## Catatan dan kendala
 
 - Redirect URL konfirmasi Afiliasi harus ditambahkan ke konfigurasi Supabase untuk domain Vercel ketika domain tersedia.
-- Data bisnis M5 masih kosong secara sengaja; panel Admin siap menerima nilai nyata tanpa seed palsu.
-- Kata sandi sementara Admin sudah berfungsi dan wajib segera diganti pemilik; nilainya tidak disimpan dalam dokumentasi atau repository.
+- Data bisnis M5 masih kosong secara sengaja; akun uji teknis tidak disertai tingkat, laporan, bonus, materi, atau payout.
+- Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

@@ -72,6 +72,8 @@ Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat
 
 Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga bucket privat. Transaksi uji membuktikan pencocokan handle, status belum cocok, hitung bonus per pcs, leaderboard beralias, serta penolakan payout tanpa bukti; seluruh data dan Log Audit uji dibatalkan dengan rollback. Tarif bonus, afiliasi, materi, laporan, dan bukti nyata tetap menunggu input pemilik. M6 belum boleh dimulai sebelum M5 dikonfirmasi.
 
+Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa login dan seluruh portal terlindungi tanpa laporan, bonus, payout, atau posisi leaderboard. Trigger profil juga dikoreksi agar pengguna Auth non-Afiliasi tidak menggagalkan pembuatan akun. Akun teknis wajib dihapus sebelum rilis produksi M6.
+
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
 - ⬜ Aksesibilitas + uji lintas perangkat

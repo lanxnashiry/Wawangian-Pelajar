@@ -131,7 +131,7 @@ security definer
 set search_path = ''
 as $$
 begin
-  if new.raw_user_meta_data ->> 'jenis_akun' <> 'afiliasi' then
+  if (new.raw_user_meta_data ->> 'jenis_akun') is distinct from 'afiliasi' then
     return new;
   end if;
 
