@@ -122,9 +122,9 @@ MODE_PRATINJAU_DATA_CONTOH=false
 - URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
 - `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
-- `MODE_PRATINJAU_DATA_CONTOH=true` hanya berlaku saat `npm run dev` untuk mengisi preview lokal dengan Produk, Artikel, simulasi Donasi, serta data portal akun `AfiliasiUji` yang seluruhnya berlabel.
+- `MODE_PRATINJAU_DATA_CONTOH=true` berlaku saat `npm run dev` atau pada Vercel Preview untuk mengisi peninjauan dengan Produk, Artikel, simulasi Donasi, serta data portal akun `AfiliasiUji` yang seluruhnya berlabel.
 - Jangan pernah commit `.env.local` atau kunci rahasia ke GitHub.
-- Pasang nilai yang sama melalui pengaturan Environment Variables di Vercel.
+- Pasang kredensial Supabase melalui pengaturan Environment Variables di Vercel; batasi sakelar data contoh sesuai panduan Preview di bawah.
 
 Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan memberikan galat berbahasa Indonesia bila dipanggil sebelum konfigurasi tersedia.
 
@@ -132,7 +132,15 @@ Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan 
 
 Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` ke `.env.local`, lalu jalankan `npm run dev`. Website publik akan memakai delapan Produk contoh, lima Artikel contoh, serta simulasi transparansi Donasi yang jumlahnya konsisten. Saat akun hosted beralias `AfiliasiUji` masuk, Dashboard dan Leaderboard juga menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, dan peringkat contoh. Banner kuning menegaskan bahwa semua nilai hanya untuk pemeriksaan tampilan.
 
-Mode ini secara teknis dibatasi pada `NODE_ENV=development`. Build produksi dan Vercel tetap membaca data Supabase apa adanya, termasuk keadaan kosong, walaupun variabel tersebut tidak sengaja dipasang. Simulasi Afiliasi juga dikunci pada email dan alias akun uji agar akun lain selalu membaca data nyata. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, laporan Afiliasi, bonus, payout, atau bukti ke Supabase. Untuk kembali memeriksa data nyata lokal, ubah nilainya menjadi `false` atau hapus variabel tersebut.
+Mode ini hanya dapat aktif pada `NODE_ENV=development` atau ketika Vercel menetapkan `VERCEL_ENV=preview`. Mode tetap mati pada Vercel Production meskipun sakelar tidak sengaja bernilai `true`. Simulasi Afiliasi juga dikunci pada email dan alias akun uji agar akun lain selalu membaca data nyata. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, laporan Afiliasi, bonus, payout, atau bukti ke Supabase. Untuk kembali memeriksa data nyata lokal, ubah nilainya menjadi `false` atau hapus variabel tersebut.
+
+Untuk menampilkan data contoh pada deployment branch/PR Vercel:
+
+1. Buka **Project Settings → Environment Variables** pada proyek Vercel.
+2. Tambahkan `MODE_PRATINJAU_DATA_CONTOH` dengan nilai `true`.
+3. Pilih lingkungan **Preview** saja; bila diperlukan, batasi lagi ke branch `codex/m5-portal-afiliasi`.
+4. Jangan pilih lingkungan **Production**.
+5. Lakukan redeploy pada deployment Preview karena perubahan variabel tidak diterapkan ke deployment yang sudah berjalan.
 
 ## Mengaktifkan Supabase M2
 
@@ -226,9 +234,10 @@ handle,jumlah_pcs
 1. Masuk ke Vercel dan pilih **Add New → Project**.
 2. Impor repository `lanxnashiry/Wawangian-Pelajar`.
 3. Pastikan Framework Preset terdeteksi sebagai **Next.js** dan Root Directory tetap di akar repository.
-4. Tambahkan tiga variabel lingkungan Supabase untuk Development, Preview, dan Production.
-5. Jalankan deploy pertama.
-6. Setelah branch utama terhubung, push ke `main` akan memicu deployment produksi; branch pull request menghasilkan preview deployment.
+4. Tambahkan variabel lingkungan Supabase untuk Development, Preview, dan Production.
+5. Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` hanya untuk Preview bila deployment branch/PR perlu menampilkan simulasi berlabel.
+6. Jalankan deploy pertama.
+7. Setelah branch utama terhubung, push ke `main` akan memicu deployment produksi; branch pull request menghasilkan preview deployment.
 
 Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js sudah mencukupi.
 

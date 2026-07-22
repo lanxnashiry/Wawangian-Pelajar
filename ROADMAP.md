@@ -74,7 +74,11 @@ Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga
 
 Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa login dan seluruh portal terlindungi tanpa laporan, bonus, payout, atau posisi leaderboard. Trigger profil juga dikoreksi agar pengguna Auth non-Afiliasi tidak menggagalkan pembuatan akun. Akun teknis wajib dihapus sebelum rilis produksi M6.
 
-Untuk peninjauan visual, mode pratinjau pengembangan mengisi akun `AfiliasiUji` dengan bonus top-up, progres tingkat, riwayat rekonsiliasi, dan leaderboard yang semuanya berlabel “Data Contoh”. Simulasi tidak tersedia pada produksi atau akun lain serta tidak membuat data hosted.
+Untuk peninjauan visual, mode pratinjau berlabel mengisi akun `AfiliasiUji` dengan bonus top-up, progres tingkat, riwayat rekonsiliasi, dan leaderboard yang semuanya berlabel “Data Contoh”. Simulasi tidak tersedia pada Vercel Production atau akun lain serta tidak membuat data hosted.
+
+Penyempurnaan tinjauan M5 memperkuat `/temukan` dengan form GET yang tetap dapat dipakai tanpa bergantung penuh pada hidrasi JavaScript serta tautan “Coba contoh” khusus mode data contoh. Seluruh 32 kombinasi jawaban tervalidasi menghasilkan rekomendasi dari Produk contoh berlabel tanpa menulis data ke Supabase. Perubahan ini tidak membuka kembali M4 dan tidak memulai M6.
+
+Mode Data Contoh juga dapat diaktifkan secara eksplisit pada deployment Vercel Preview agar pemilik dapat meninjau branch M5 yang terisi. Pengamanan lingkungan memastikan mode tetap mati pada Vercel Production dan seluruh simulasi tetap tanpa mutasi Supabase. Perubahan ini merupakan penyempurnaan tinjauan M5 dan tidak memulai M6.
 
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
