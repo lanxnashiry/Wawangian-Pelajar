@@ -179,6 +179,12 @@
 **Alasan:** Pemilik perlu meninjau keadaan portal yang terisi, tetapi KEP-029 melarang tarif, penjualan, bonus, atau payout contoh masuk ke database dan terlihat sebagai janji bisnis nyata.
 **Konsekuensi:** Simulasi tidak menjalankan RPC, tidak membuat atau mengubah baris Supabase, tidak berlaku untuk akun lain, dan otomatis mati pada build produksi. Nilai contoh wajib dihapus bersama mode pratinjau sebelum rilis M6 setelah data nyata terverifikasi.
 
+### KEP-032 — Data contoh dapat aktif khusus pada Vercel Preview
+**Tanggal:** 2026-07-22 · **Status:** Diterima
+**Keputusan:** `MODE_PRATINJAU_DATA_CONTOH=true` mengaktifkan data contoh ketika aplikasi berjalan pada pengembangan lokal atau ketika variabel sistem Vercel menyatakan `VERCEL_ENV=preview`. Sakelar wajib tidak dipasang atau bernilai `false` pada lingkungan Production. Seluruh label “Data Contoh”, pembatas akun uji, dan larangan mutasi Supabase tetap berlaku.
+**Alasan:** Pemilik perlu meninjau website yang terisi melalui deployment branch/PR Vercel, bukan hanya dari server lokal. `NODE_ENV` bernilai `production` pada build Vercel Preview sehingga pembatas lama mematikan simulasi meskipun sakelar sudah dipasang.
+**Konsekuensi:** KEP-025 dan KEP-031 diperluas hanya untuk lingkungan Vercel Preview. Vercel Production tetap membaca data Supabase nyata atau keadaan kosong; pemilik wajib membatasi variabel ke lingkungan Preview dan melakukan deployment ulang setelah konfigurasi berubah.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

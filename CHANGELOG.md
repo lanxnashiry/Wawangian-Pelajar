@@ -21,6 +21,7 @@
 - Dashboard memisahkan komisi dasar marketplace dari bonus top-up Wawangian Pelajar secara tegas.
 - Mode `MODE_PRATINJAU_DATA_CONTOH` mencakup portal akun Afiliasi uji tanpa membuat laporan, bonus, atau payout di Supabase.
 - Kuis “Temukan Wangimu” memakai form GET dan parameter URL sebagai alur utama sehingga pilihan manual, demo cepat, muat ulang, dan pengulangan tetap konsisten.
+- Mode Data Contoh dapat diaktifkan pada Vercel Preview melalui variabel lingkungan khusus, sementara Vercel Production tetap memaksa data nyata atau keadaan kosong.
 
 ### Diperbaiki
 
@@ -30,6 +31,7 @@
 - Data serta Log Audit uji rekonsiliasi tidak tertinggal karena seluruh validasi hosted dijalankan dalam transaksi rollback.
 - Trigger profil Afiliasi kini mengabaikan pengguna Auth tanpa metadata `jenis_akun=afiliasi`; migrasi koreksi terpisah diterapkan pada database hosted.
 - Kontrol kuis tidak lagi bergantung penuh pada hidrasi JavaScript; seluruh 32 kombinasi jawaban tervalidasi menghasilkan rekomendasi Produk contoh tanpa mutasi data hosted.
+- Deployment branch/PR Vercel tidak lagi kehilangan data contoh hanya karena Next.js memakai `NODE_ENV=production`; pemeriksaan `VERCEL_ENV=preview` kini membedakan Preview dari Production.
 
 ## [2026-07-22] — Milestone M4
 

@@ -18,6 +18,8 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 
 Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk contoh melalui kuis manual maupun tautan “Coba contoh”. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Skenario cepat memakai `Fresh · Siang · Kuliah / Kerja` dan seluruh hasil tetap berlabel Data Contoh.
 
+Mode Data Contoh kini dapat dipakai pada deployment Vercel Preview saat sakelar khusus diaktifkan untuk lingkungan Preview. Deployment Production tetap menolak simulasi dan membaca Supabase nyata atau keadaan kosong. Perubahan ini tidak membuat data hosted dan tidak memulai M6.
+
 ## Task M5
 
 1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
@@ -45,23 +47,25 @@ Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk con
 - Akun `AfiliasiUji` terkonfirmasi, berstatus aktif, memiliki satu Log Audit aktivasi dengan UID Admin, serta tetap memiliki 0 bonus.
 - Login akun uji berhasil membuka Dashboard, Panduan, Materi, dan Leaderboard; leaderboard menampilkan keadaan kosong tanpa penjualan fiktif.
 - Mode pratinjau akun uji menampilkan 37 pcs, bonus top-up Rp67.500, Rp48.000 berstatus dibayar, tingkat “Kreator Contoh”, empat riwayat, dan peringkat ketiga; seluruh halaman membawa label “Data Contoh”.
-- Mode pratinjau Afiliasi tidak aktif pada produksi, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
+- Mode pratinjau Afiliasi tidak aktif pada Vercel Production, tidak berlaku untuk akun lain, dan tidak menulis baris laporan, bonus, maupun payout ke Supabase.
 - Kuis manual `/temukan`, tautan “Coba contoh”, pemuatan ulang hasil, dan “Ulangi kuis” berhasil diuji melalui browser lokal.
 - Seluruh 32 kombinasi karakter, waktu, dan okasi menghasilkan minimal satu rekomendasi Produk contoh; skenario cepat menampilkan tiga Produk beserta alasan kecocokan.
 - Halaman hasil `/temukan` tidak mengalami overflow horizontal pada viewport 360px dan 1440px serta konsol browser tetap tanpa galat atau peringatan aplikasi.
 - Responsif 360px dan 1440px — landing serta panel Admin tidak mengalami overflow horizontal.
 - Konsol browser localhost — tidak ada galat atau peringatan aplikasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` — berhasil sebelum pembaruan dokumen akhir.
+- Matriks lingkungan mode contoh tervalidasi: aktif pada pengembangan lokal dan `VERCEL_ENV=preview` saat sakelar `true`, serta mati pada `VERCEL_ENV=production` dan ketika sakelar `false`.
 
 ## Langkah berikutnya
 
 1. Pemilik meninjau M5 melalui server lokal dan draft pull request.
-2. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
-3. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
-4. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
-5. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
-6. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
-7. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
+2. Pemilik memasang `MODE_PRATINJAU_DATA_CONTOH=true` hanya pada lingkungan Vercel Preview, lalu melakukan redeploy branch M5.
+3. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
+4. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
+5. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
+6. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
+7. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
+8. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
@@ -69,8 +73,9 @@ Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk con
 - Minimal salah satu handle TikTok Shop atau Shopee wajib dan disimpan tanpa awalan `@` untuk pencocokan stabil.
 - Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
 - Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
-- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode pengembangan aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
-- Produk dan jawaban contoh pada `/temukan` hanya dipakai saat mode pratinjau pengembangan aktif, tidak disimpan sebagai jawaban pengguna, dan tidak membuat data Supabase.
+- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode data contoh aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
+- Produk dan jawaban contoh pada `/temukan` hanya dipakai saat mode data contoh aktif, tidak disimpan sebagai jawaban pengguna, dan tidak membuat data Supabase.
+- Mode contoh pada Vercel hanya dipasang untuk lingkungan Preview; Production tidak boleh mengaktifkannya dan tetap menjadi representasi data nyata.
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
