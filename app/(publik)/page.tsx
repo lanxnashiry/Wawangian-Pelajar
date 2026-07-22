@@ -4,6 +4,8 @@ import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
 import { TajukBagian } from "@/components/tajuk-bagian";
 import { ambilDaftarArtikelPublik, ambilDaftarProdukPublik } from "@/lib/data/publik";
+import { ambilRingkasanDonasiPublik } from "@/lib/data/donasi";
+import { formatRupiah } from "@/data/produk";
 
 type Ulasan = {
   nama: string;
@@ -12,8 +14,6 @@ type Ulasan = {
 };
 
 const ulasan: Ulasan[] = [];
-const jumlahDonasiTerkumpul = 0;
-
 const alasanBerbeda = [
   {
     simbol: "✓",
@@ -35,8 +35,8 @@ const alasanBerbeda = [
 export const dynamic = "force-dynamic";
 
 export default async function Beranda() {
-  const [daftarProduk, daftarArtikel] = await Promise.all([
-    ambilDaftarProdukPublik(), ambilDaftarArtikelPublik(),
+  const [daftarProduk, daftarArtikel, ringkasanDonasi] = await Promise.all([
+    ambilDaftarProdukPublik(), ambilDaftarArtikelPublik(), ambilRingkasanDonasiPublik(),
   ]);
   const produkUnggulan = daftarProduk.filter((produk) => produk.unggulan);
   const artikelTerbaru = daftarArtikel.slice(0, 3);
@@ -103,7 +103,12 @@ export default async function Beranda() {
             <p className="text-xs font-black tracking-[0.16em] text-[#e8cb76] uppercase">
               Dana Cahaya Pendidikan — transparan
             </p>
-            {jumlahDonasiTerkumpul === 0 ? (
+            {!ringkasanDonasi.tersedia ? (
+              <>
+                <h2 className="mt-2 text-2xl font-black sm:text-3xl">Data transparansi belum tersedia.</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">Angka tidak diganti perkiraan saat sumber data tidak dapat dibaca.</p>
+              </>
+            ) : ringkasanDonasi.terkumpul === 0 ? (
               <>
                 <h2 className="mt-2 text-2xl font-black sm:text-3xl">
                   Perjalanan baru dimulai.
@@ -113,7 +118,7 @@ export default async function Beranda() {
                   setiap rupiah akan dihitung dari sumber yang jelas dan dapat diperiksa.
                 </p>
               </>
-            ) : null}
+            ) : <><h2 className="mt-2 text-2xl font-black sm:text-3xl">{formatRupiah(ringkasanDonasi.terkumpul)} terkumpul.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">{formatRupiah(ringkasanDonasi.tersalurkan)} telah disalurkan dan {formatRupiah(ringkasanDonasi.saldoAmanah)} tetap tercatat sebagai saldo amanah.</p></>}
           </div>
           <Link
             href="/donasi"

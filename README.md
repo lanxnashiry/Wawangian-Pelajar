@@ -65,10 +65,10 @@ Server pengembangan tersedia di `http://localhost:3000`.
     /katalog     # katalog dengan filter dan pencarian
     /produk      # detail produk berdasarkan slug
     /cerita      # daftar dan detail artikel
-    /donasi      # state sementara sampai M3
+    /donasi      # transparansi dan detail bukti M3
     /afiliasi    # state sementara sampai M5
   /afiliasi      # portal afiliasi dengan login mulai M5
-  /admin         # login, dasbor, Produk, Konten, dan Analitik M2
+  /admin         # login, data M2, Donasi, dan Log Audit M3
   /layout.tsx    # tata letak global
 /components      # komponen antarmuka yang dapat digunakan ulang
 /data            # data contoh produk dan artikel M1
@@ -80,14 +80,16 @@ Server pengembangan tersedia di `http://localhost:3000`.
 /public          # aset statis dan ikon sementara
 ```
 
-## Rute Publik M1
+## Rute Publik
 
 - `/` — Homepage lengkap.
 - `/katalog` — pencarian, filter, pengurutan, dan state kosong.
 - `/produk/[slug]` — detail produk contoh dan produk terkait.
 - `/cerita` — daftar artikel dan filter kategori.
 - `/cerita/[slug]` — isi artikel, share, dan CTA kontekstual.
-- `/donasi` dan `/afiliasi` — halaman sementara sampai milestone fiturnya aktif.
+- `/donasi` — transparansi tiga angka, riwayat penyaluran, dan metode perhitungan M3.
+- `/donasi/[id]` — detail penyaluran serta bukti yang dapat diperiksa.
+- `/afiliasi` — halaman sementara sampai M5.
 
 Data M1 berada di `data/produk.ts` dan `data/artikel.ts`. Seluruh data tersebut adalah contoh, bukan data bisnis final.
 
@@ -144,6 +146,20 @@ Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:30
 - `/admin/konten` — daftar, tambah, edit, terbitkan, dan hapus artikel.
 - `/admin/analitik` — ringkasan minat klik-keluar; tetap nol sebelum M4.
 
+## Mengaktifkan Supabase M3
+
+Setelah dua migrasi M2 selesai, buka SQL Editor Supabase dan jalankan isi `supabase/migrations/202607210003_m3_donasi_transparan.sql` satu kali. Migrasi ini membuat tabel rekap, penyaluran, Log Audit, RPC publik, trigger saldo, RLS, dan bucket bukti.
+
+Data bisnis tidak dibuat oleh migrasi. Admin memasukkan data nyata melalui panel setelah rekap dan bukti tersedia.
+
+### Rute Admin M3
+
+- `/admin/donasi` — ringkasan terkumpul, tersalurkan, dan saldo amanah.
+- `/admin/donasi/rekap` — input untung bersih dan metode; donasi 20% dihitung database.
+- `/admin/donasi/penyaluran` — input draft atau penyaluran terpublikasi berbukti.
+- `/admin/donasi/penyaluran/[id]` — edit penyaluran dan periksa bukti tersimpan.
+- `/admin/log` — daftar Log Audit tanpa aksi ubah atau hapus.
+
 ## Deploy ke Vercel
 
 1. Masuk ke Vercel dan pilih **Add New → Project**.
@@ -165,4 +181,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M1 selesai dan telah digabungkan. M2 aktif di branch `codex/m2-panel-admin-data-nyata`; migrasi hosted dan akun Admin sudah aktif, sedangkan validasi login/CRUD menunggu penerimaan undangan oleh pemilik.
+M3 selesai secara teknis di branch `codex/m3-donasi-transparan` dan menunggu tinjauan pemilik. M4 tidak dimulai sebelum konfirmasi eksplisit.

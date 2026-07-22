@@ -2,7 +2,34 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
-## [2026-07-21] — Milestone M2 (berjalan)
+## [2026-07-21] — Milestone M3
+
+### Ditambah
+
+- Migrasi Supabase untuk rekap donasi, penyaluran berbukti, saldo amanah, Log Audit, RLS, RPC publik, dan bucket `bukti-donasi`.
+- Panel Admin Donasi untuk rekap untung bersih, pratinjau 20%, penyaluran draft/terpublikasi, unggah bukti, dan tautan Cerita Misi.
+- Halaman Transparansi Donasi publik dengan angka terkumpul, tersalurkan, saldo amanah, metode periode, riwayat, dan detail bukti.
+- Halaman Log Audit untuk memeriksa aksi sensitif Produk, Artikel, rekap, dan penyaluran.
+
+### Diubah
+
+- Homepage dan dasbor Admin membaca ringkasan donasi nyata dari Supabase.
+- Navigasi Admin menambahkan Donasi dan Log Audit.
+- Supabase hosted menerima migrasi M3 dan hak akses tabel yang dibatasi sesuai peran.
+
+### Diperbaiki
+
+- Jumlah donasi tidak dapat diketik bebas karena dihitung database sebagai 20% dari untung bersih.
+- Publikasi penyaluran tanpa bukti dan penyaluran yang melebihi saldo amanah ditolak di server serta database.
+- Laba bersih mentah tidak diekspos ke publik; pengunjung hanya memakai RPC ringkasan dan metode aman.
+- Kegagalan membaca Supabase ditandai sebagai data belum tersedia dan tidak lagi disamarkan sebagai angka nol.
+- Bucket bukti tidak mengizinkan pengunjung membuat daftar seluruh nama berkas meskipun URL bukti terpublikasi dapat dibuka.
+
+### Dihapus
+
+- Seluruh data, Log Audit, dan berkas bukti teknis sementara setelah validasi end-to-end berhasil.
+
+## [2026-07-21] — Milestone M2
 
 ### Ditambah
 
