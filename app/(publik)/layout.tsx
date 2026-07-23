@@ -16,7 +16,7 @@ export default function TataLetakPublik({
           className="border-y border-[#e7c75d] bg-[#fff5c9] px-5 py-3 text-[#5f4708] sm:px-8 lg:px-10"
         >
           <p className="mx-auto w-full max-w-7xl text-center text-xs font-bold leading-5 sm:text-sm">
-            Mode pratinjau lokal · Produk, artikel, harga, dan angka donasi yang tampil adalah <strong>Data Contoh</strong>, bukan data bisnis atau bukti penyaluran nyata.
+            Mode peninjauan MVP · Produk, artikel, harga, dan angka donasi yang tampil adalah <strong>Data Contoh</strong>, bukan data bisnis atau bukti penyaluran nyata.
           </p>
         </aside>
       ) : null}

@@ -77,7 +77,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 /lib/admin       # otorisasi dan validasi Admin
 /lib/afiliasi    # otorisasi, CSV, dan format Portal Afiliasi
 /lib/data        # repositori data publik Supabase + fallback berlabel
-/lib/pratinjau   # sakelar data contoh khusus pengembangan lokal
+/lib/pratinjau   # sakelar data contoh berlabel untuk peninjauan MVP
 /lib/marketplace # validasi tujuan toko resmi M4
 /lib/kuis        # pemeringkatan rekomendasi Temukan Wangimu
 /supabase        # migrasi database dan contoh bootstrap Admin
@@ -122,9 +122,9 @@ MODE_PRATINJAU_DATA_CONTOH=false
 - URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
 - `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
-- `MODE_PRATINJAU_DATA_CONTOH=true` berlaku saat `npm run dev` atau pada Vercel Preview untuk mengisi peninjauan dengan Produk, Artikel, simulasi Donasi, serta data portal akun `AfiliasiUji` yang seluruhnya berlabel.
+- `MODE_PRATINJAU_DATA_CONTOH=true` mengisi Development, Vercel Preview, atau Vercel Production MVP dengan Produk, Artikel, simulasi Donasi, serta data portal akun `AfiliasiUji` yang seluruhnya berlabel.
 - Jangan pernah commit `.env.local` atau kunci rahasia ke GitHub.
-- Pasang kredensial Supabase melalui pengaturan Environment Variables di Vercel; batasi sakelar data contoh sesuai panduan Preview di bawah.
+- Pasang kredensial Supabase melalui pengaturan Environment Variables di Vercel; gunakan sakelar data contoh hanya selama peninjauan MVP.
 
 Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan memberikan galat berbahasa Indonesia bila dipanggil sebelum konfigurasi tersedia.
 
@@ -132,15 +132,16 @@ Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan 
 
 Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` ke `.env.local`, lalu jalankan `npm run dev`. Website publik akan memakai delapan Produk contoh, lima Artikel contoh, serta simulasi transparansi Donasi yang jumlahnya konsisten. Saat akun hosted beralias `AfiliasiUji` masuk, Dashboard dan Leaderboard juga menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, dan peringkat contoh. Banner kuning menegaskan bahwa semua nilai hanya untuk pemeriksaan tampilan.
 
-Mode ini hanya dapat aktif pada `NODE_ENV=development` atau ketika Vercel menetapkan `VERCEL_ENV=preview`. Mode tetap mati pada Vercel Production meskipun sakelar tidak sengaja bernilai `true`. Simulasi Afiliasi juga dikunci pada email dan alias akun uji agar akun lain selalu membaca data nyata. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, laporan Afiliasi, bonus, payout, atau bukti ke Supabase. Untuk kembali memeriksa data nyata lokal, ubah nilainya menjadi `false` atau hapus variabel tersebut.
+Mode aktif di lingkungan mana pun hanya ketika sakelar bernilai `true`. Simulasi Afiliasi dikunci pada email dan alias akun uji agar akun lain selalu membaca data nyata. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, laporan Afiliasi, bonus, payout, atau bukti ke Supabase. Untuk memeriksa data nyata, ubah nilainya menjadi `false` atau hapus variabel tersebut. Sakelar wajib dimatikan sebelum rilis publik M6.
 
-Untuk menampilkan data contoh pada deployment branch/PR Vercel:
+Untuk menampilkan data contoh pada deployment Vercel selama peninjauan MVP:
 
 1. Buka **Project Settings → Environment Variables** pada proyek Vercel.
 2. Tambahkan `MODE_PRATINJAU_DATA_CONTOH` dengan nilai `true`.
-3. Pilih lingkungan **Preview** saja; bila diperlukan, batasi lagi ke branch `codex/m5-portal-afiliasi`.
-4. Jangan pilih lingkungan **Production**.
-5. Lakukan redeploy pada deployment Preview karena perubahan variabel tidak diterapkan ke deployment yang sudah berjalan.
+3. Pilih lingkungan **Preview** dan **Production** selama tahap MVP tertutup.
+4. Aktifkan **Vercel Authentication** pada Deployment Protection dan beri akses hanya kepada reviewer tepercaya.
+5. Lakukan redeploy karena perubahan variabel tidak diterapkan ke deployment yang sudah berjalan.
+6. Sebelum rilis publik M6, ubah nilai menjadi `false` pada Production dan redeploy.
 
 ## Mengaktifkan Supabase M2
 
@@ -235,9 +236,10 @@ handle,jumlah_pcs
 2. Impor repository `lanxnashiry/Wawangian-Pelajar`.
 3. Pastikan Framework Preset terdeteksi sebagai **Next.js** dan Root Directory tetap di akar repository.
 4. Tambahkan variabel lingkungan Supabase untuk Development, Preview, dan Production.
-5. Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` hanya untuk Preview bila deployment branch/PR perlu menampilkan simulasi berlabel.
+5. Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` untuk Preview dan Production selama peninjauan MVP tertutup.
 6. Jalankan deploy pertama.
 7. Setelah branch utama terhubung, push ke `main` akan memicu deployment produksi; branch pull request menghasilkan preview deployment.
+8. Lindungi Production dengan Vercel Authentication dan matikan mode contoh sebelum rilis publik M6.
 
 Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js sudah mencukupi.
 
@@ -251,4 +253,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M5 selesai secara teknis di branch `codex/m5-portal-afiliasi` dan menunggu tinjauan pemilik. M6 tidak dimulai sebelum konfirmasi eksplisit.
+M5 selesai secara teknis dan sudah digabungkan ke `main`; penyempurnaan Production MVP tetap berada pada tahap tinjauan. M6 tidak dimulai sebelum konfirmasi eksplisit.
