@@ -13,6 +13,7 @@
 ### Diubah
 
 - Palet seluruh website mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal.
+- Aset logo antarmuka dan favicon diganti dengan revisi simbol yang memenuhi kanvas lebih besar agar terbaca jelas pada ukuran kecil.
 - Data Mykonos Monaco Royale diselaraskan dengan dokumen deskripsi terbaru tanpa menghapus foto produk nyata yang telah tersimpan.
 - Lima Produk Mykonos diaktifkan dengan ukuran 100 ml, harga Rp549.000, serta tautan Shopee sesuai dokumen sumber.
 - Formulir Admin menerima pilihan placeholder Krem.
@@ -20,6 +21,7 @@
 ### Diperbaiki
 
 - Logo dan favicon tidak lagi memakai aset sementara.
+- Referensi logo memakai nama aset baru agar cache optimasi gambar dan favicon tidak mempertahankan versi sebelumnya.
 - Warna Produk Krem kini diterima oleh constraint database dan dapat disunting kembali melalui panel Admin.
 
 ### Dihapus

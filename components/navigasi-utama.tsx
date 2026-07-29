@@ -52,7 +52,7 @@ export function NavigasiUtama() {
           onClick={() => setMenuTerbuka(false)}
         >
           <Image
-            src="/logo-wawangian-pelajar.webp"
+            src="/logo-wawangian-pelajar-simbol.webp"
             alt="Logo Wawangian Pelajar"
             width={46}
             height={46}

@@ -29,7 +29,7 @@ export function FooterUtama() {
         <div className="max-w-sm">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo-wawangian-pelajar.webp"
+              src="/logo-wawangian-pelajar-simbol.webp"
               alt="Logo Wawangian Pelajar"
               width={72}
               height={72}

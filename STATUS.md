@@ -22,7 +22,7 @@ Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel
 
 Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhasil, tetapi tidak memiliki indikator proses sehingga tampak gagal selama respons Vercel berlangsung. Batas unggahan Server Action juga masih 1 MB meskipun formulir menyatakan maksimal 5 MB. Perbaikan berada pada branch `codex/m5-perbaiki-formulir-produk`: batas muatan menjadi 6 MB untuk menampung foto 5 MB beserta data formulir, validasi file dijalankan sebelum mutasi, tombol mencegah kirim ganda, dan pesan galat dibuat lebih jelas.
 
-Identitas visual resmi telah menggantikan ikon sementara. Logo pemilik dipakai pada antarmuka dan favicon, sedangkan palet website mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
+Identitas visual resmi telah menggantikan ikon sementara. Revisi simbol logo dari pemilik kini memenuhi kanvas lebih besar agar terbaca jelas pada navbar, footer, halaman autentikasi, dan favicon; nama aset baru mencegah cache browser atau Vercel mempertahankan logo lama. Palet website tetap mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
 
 Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif pada katalog publik: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue, seluruhnya berukuran 100 ml dengan harga Rp549.000. Kelimanya memakai tautan Shopee yang sama sesuai dokumen sumber dan tidak diberi tautan TikTok Shop. Monaco mempertahankan satu foto produk nyata yang sudah tersimpan; empat Produk lain tetap memakai placeholder karena tidak ada foto asli dalam sumber. Tidak ada gambar produk AI yang diunggah.
 
@@ -76,6 +76,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - `/admin/produk` menampilkan tepat lima baris Produk dan `/katalog` menampilkan tepat lima kartu Produk aktif.
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
 - Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
+- Revisi logo simbol berhasil dimuat melalui URL aset baru pada Beranda dan halaman masuk Admin; komposisinya terlihat lebih besar pada kotak 46–48 px tanpa mengubah tinggi navigasi.
 
 ## Langkah berikutnya
 

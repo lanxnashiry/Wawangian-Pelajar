@@ -14,7 +14,7 @@ export function NavigasiAfiliasi({ nama, status }: { nama: string; status: strin
     <header className="border-b border-[#DED3C2] bg-[#FAF7F1]">
       <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-4 px-5 py-4 sm:px-8 lg:px-10">
         <Link href="/afiliasi/dashboard" className="mr-auto inline-flex min-w-0 items-center gap-3 font-black text-[#102A43]">
-          <Image src="/logo-wawangian-pelajar.webp" alt="Logo Wawangian Pelajar" width={42} height={42} className="rounded-xl" />
+          <Image src="/logo-wawangian-pelajar-simbol.webp" alt="Logo Wawangian Pelajar" width={42} height={42} className="rounded-xl" />
           <span className="truncate">Portal Afiliasi</span>
         </Link>
         <div className="text-right">

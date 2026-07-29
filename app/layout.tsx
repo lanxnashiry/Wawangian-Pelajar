@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description:
     "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
   icons: {
-    icon: "/ikon-wawangian-pelajar.png",
-    apple: "/ikon-wawangian-pelajar.png",
+    icon: "/ikon-wawangian-pelajar-2026.png",
+    apple: "/ikon-wawangian-pelajar-2026.png",
   },
 };
 
