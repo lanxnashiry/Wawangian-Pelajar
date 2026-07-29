@@ -43,13 +43,13 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
     <main className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-4xl">
-          <p className="text-xs font-black tracking-[0.16em] text-[#0f6b62] uppercase">
+          <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">
             Temukan Wangimu {memakaiDataContoh ? "· Data Contoh" : ""}
           </p>
-          <h1 className="mt-4 text-4xl leading-tight font-black tracking-[-0.045em] text-[#14223d] sm:text-6xl">
+          <h1 className="mt-4 text-4xl leading-tight font-black tracking-[-0.045em] text-[#102A43] sm:text-6xl">
             Jawab tiga pertanyaan, temukan aroma yang terasa seperti kamu.
           </h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-600">
+          <p className="mt-5 max-w-3xl text-base leading-7 text-[#282B2F]">
             Tanpa login dan tanpa menyimpan jawaban pribadi. Rekomendasi dihitung dari data karakter serta kegiatan pada katalog, lalu hasilnya dapat dibagikan lewat tautan.
           </p>
         </div>

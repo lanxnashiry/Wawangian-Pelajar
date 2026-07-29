@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.2
+- **Versi spesifikasi:** 2.3
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -265,11 +265,15 @@ Pengaturan { key, value }   // persentase_donasi, dll
 
 ## 10. UI Direction (Arah Desain)
 
-**Palet warna (dari deck brand):**
-- Navy `#14223d` (utama, teks & header)
-- Tosca `#0f6b62` (aksen, tombol utama, tautan)
-- Emas `#b8860b` (highlight, misi/donasi)
-- Netral: putih `#ffffff`, abu latar `#f4f6f9`, garis `#e3e8ef`
+**Palet warna resmi (dari color guide brand):**
+- Warm Cream `#F4EBDD` (kanvas dan latar dominan)
+- Off-White `#FAF7F1` (permukaan terang)
+- Deep Navy `#102A43` (identitas, judul, dan elemen penting)
+- Premium Teal `#087477` (tombol utama, tautan, dan warna pembeda)
+- Muted Gold `#C7A25A` (aksen tipis maksimal sekitar 5%)
+- Charcoal `#282B2F` (teks isi dan informasi pendukung)
+
+Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Teal, dan maksimal 5% Muted Gold. Warna produk tetap menjadi pusat perhatian pada visual katalog.
 
 **Prinsip visual:**
 - **Mobile-first**: rancang untuk layar HP dulu, lalu lebarkan ke desktop.
@@ -280,7 +284,7 @@ Pengaturan { key, value }   // persentase_donasi, dll
 
 **Tipografi:** font sans-serif bersih (default sistem / Inter). Judul tebal navy, isi abu gelap, ukuran teks ≥14px untuk keterbacaan di HP.
 
-**Logo:** BELUM ADA. Gunakan wordmark teks "Wawangian Pelajar" (navy, tebal) sebagai placeholder sampai logo tersedia. Sisakan slot logo di navbar & footer.
+**Logo:** Gunakan logo resmi Wawangian Pelajar berwarna Deep Navy, Premium Teal, dan outline Muted Gold pada latar Warm Cream/Off-White. Aset web wajib dioptimalkan dan digunakan pada navbar, footer, halaman autentikasi, serta metadata ikon. Hindari menempatkan logo penuh pada latar ramai.
 
 **Referensi rasa:** bersih & hangat seperti brand parfum lokal modern; bukan mewah-berat, bukan murah-ramai. Nuansa "terjangkau tapi terpercaya".
 
@@ -433,4 +437,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.2 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.3 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   },
   description:
     "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
+  icons: {
+    icon: "/ikon-wawangian-pelajar.png",
+    apple: "/ikon-wawangian-pelajar.png",
+  },
 };
 
 export default function TataLetakUtama({

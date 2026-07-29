@@ -52,7 +52,7 @@ export function PemrosesUndangan() {
   return (
     <p
       role="status"
-      className="mt-5 rounded-2xl border border-[#ead9a6] bg-[#fffaf0] p-5 text-sm leading-6 text-[#70510a]"
+      className="mt-5 rounded-2xl border border-[#E5D4B3] bg-[#FAF7F1] p-5 text-sm leading-6 text-[#6D5426]"
     >
       {pesan}
     </p>

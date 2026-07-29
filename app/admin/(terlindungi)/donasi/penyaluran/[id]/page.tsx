@@ -12,5 +12,5 @@ export default async function EditPenyaluranDonasi({ params, searchParams }: Pro
     supabase.from("artikel").select("id,judul").eq("kategori", "cerita_misi").eq("status", "terbit").order("judul"),
   ]);
   if (!penyaluran) notFound();
-  return <main className="p-5 sm:p-8 lg:p-10"><p className="text-xs font-black tracking-[0.16em] text-[#0f6b62] uppercase">Dana Cahaya Pendidikan</p><h1 className="mt-3 text-3xl font-black text-[#14223d]">Edit penyaluran</h1><div className="mt-7"><FormulirPenyaluranDonasi penyaluran={penyaluran as PenyaluranAdmin} artikel={artikel ?? []} pesan={pesan} /></div></main>;
+  return <main className="p-5 sm:p-8 lg:p-10"><p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">Dana Cahaya Pendidikan</p><h1 className="mt-3 text-3xl font-black text-[#102A43]">Edit penyaluran</h1><div className="mt-7"><FormulirPenyaluranDonasi penyaluran={penyaluran as PenyaluranAdmin} artikel={artikel ?? []} pesan={pesan} /></div></main>;
 }

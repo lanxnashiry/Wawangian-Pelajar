@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 22 Juli 2026
+**Terakhir diperbarui:** 29 Juli 2026
 **Milestone aktif:** M5 — Portal Afiliasi
 **Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
 
@@ -10,7 +10,7 @@
 
 ## Posisi saat ini
 
-M4 telah dikonfirmasi pemilik dan hasil teknis M5 sudah digabungkan ke `main`. Penyempurnaan Production MVP dikerjakan pada branch `codex/m5-data-contoh-production`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
+M4 telah dikonfirmasi pemilik dan hasil teknis M5 sudah digabungkan ke `main`. Penyempurnaan tinjauan M5 saat ini dikerjakan pada branch `codex/m5-perbaiki-formulir-produk`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
@@ -19,6 +19,12 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk contoh melalui kuis manual maupun tautan “Coba contoh”. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Skenario cepat memakai `Fresh · Siang · Kuliah / Kerja` dan seluruh hasil tetap berlabel Data Contoh.
 
 Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel Production MVP ketika sakelar khusus aktif. Production ditujukan untuk peninjauan terbatas, seluruh simulasi tetap berlabel, dan perubahan ini tidak membuat data hosted maupun memulai M6.
+
+Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhasil, tetapi tidak memiliki indikator proses sehingga tampak gagal selama respons Vercel berlangsung. Batas unggahan Server Action juga masih 1 MB meskipun formulir menyatakan maksimal 5 MB. Perbaikan berada pada branch `codex/m5-perbaiki-formulir-produk`: batas muatan menjadi 6 MB untuk menampung foto 5 MB beserta data formulir, validasi file dijalankan sebelum mutasi, tombol mencegah kirim ganda, dan pesan galat dibuat lebih jelas.
+
+Identitas visual resmi telah menggantikan ikon sementara. Logo pemilik dipakai pada antarmuka dan favicon, sedangkan palet website mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
+
+Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif pada katalog publik: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue, seluruhnya berukuran 100 ml dengan harga Rp549.000. Kelimanya memakai tautan Shopee yang sama sesuai dokumen sumber dan tidak diberi tautan TikTok Shop. Monaco mempertahankan satu foto produk nyata yang sudah tersimpan; empat Produk lain tetap memakai placeholder karena tidak ada foto asli dalam sumber. Tidak ada gambar produk AI yang diunggah.
 
 ## Task M5
 
@@ -32,6 +38,9 @@ Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel
 8. ✅ Keamanan — RLS, bucket privat, validasi payout, dan Log Audit untuk aksi sensitif.
 9. ✅ Penyempurnaan pratinjau — kuis `/temukan` berbasis URL, demo cepat, dan validasi Produk contoh tanpa data hosted.
 10. ✅ Production MVP — sakelar Data Contoh berlaku konsisten pada lokal, Preview, dan Production dengan label simulasi.
+11. ✅ Perbaikan regresi Produk — dukungan unggahan 5 MB, status penyimpanan, pencegahan kirim ganda, dan pesan galat berbahasa Indonesia.
+12. ✅ Identitas visual resmi — logo, favicon, dan palet color guide diterapkan tanpa memulai M6.
+13. ✅ Katalog awal — lima Produk Mykonos nyata diunggah dan divalidasi pada Admin serta halaman publik.
 
 ## Validasi yang sudah dilakukan
 
@@ -59,17 +68,25 @@ Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel
 - Server hasil build dengan simulasi `VERCEL_ENV=production` menampilkan banner, Produk contoh, dan hasil kuis tanpa overflow pada 360px maupun 1440px.
 - Login akun `AfiliasiUji` pada server Production lokal berhasil membuka Dashboard berisi bonus, tingkat, riwayat, dan Leaderboard contoh; konsol browser tanpa galat atau peringatan aplikasi.
 - Halaman `/admin/masuk` Production lokal tersedia dan responsif; login Admin belum diuji ulang karena kata sandi aktif hanya diketahui pemilik.
+- Penyimpanan Produk tanpa foto pada custom domain menghasilkan respons `303`, membuka halaman edit dengan pesan berhasil, dan hanya membuat satu baris Produk.
+- Produk nyata dapat dibuka melalui slug publik, menampilkan harga Rp549.000, profil aroma lengkap, serta satu tautan Shopee yang valid.
+- Build produksi memuat `serverActions.bodySizeLimit=6mb`; `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil.
+- Migrasi `202607290006_tambah_placeholder_produk_krem.sql` berhasil diterapkan pada Supabase hosted.
+- Batch katalog menghasilkan tepat lima Produk aktif dengan harga Rp549.000, kategori Ori, ukuran 100 ml, placeholder Krem, dan tautan Shopee sesuai dokumen sumber.
+- `/admin/produk` menampilkan tepat lima baris Produk dan `/katalog` menampilkan tepat lima kartu Produk aktif.
+- Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
+- Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
 
 ## Langkah berikutnya
 
-1. Pemilik meninjau penyempurnaan M5 melalui server lokal dan draft pull request.
-2. Pemilik masuk ke Vercel agar `MODE_PRATINJAU_DATA_CONTOH=true` dapat dipasang pada Preview dan Production serta deployment dapat dijalankan ulang.
+1. Pemilik meninjau formulir Produk, identitas visual resmi, dan lima Produk Mykonos melalui preview lokal serta pull request.
+2. Pemilik menyediakan foto asli untuk Royal Ispahan, Dreamscape, California Signature, dan California Blue; gambar AI tidak digunakan sebagai foto Produk.
 3. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
 4. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
-5. Pemilik menambahkan domain produksi/preview ke Redirect URLs Supabase sebelum rilis.
+5. Pemilik memastikan custom domain Production dan preview tercantum pada Redirect URLs Supabase.
 6. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
 7. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
-8. M6 tidak boleh dimulai sampai pemilik memberi konfirmasi eksplisit.
+8. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan branch ke `main`; M6 tetap tidak boleh dimulai tanpa konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
@@ -83,7 +100,11 @@ Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
-- Data produk, afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik; `AfiliasiUji` hanya identitas teknis untuk peninjauan.
+- Lima Produk Mykonos ditampilkan aktif karena pemilik meminta unggahan katalog awal. Harga, ukuran, profil aroma, dan deskripsi mengikuti dokumen sumber tanpa klaim tambahan.
+- Satu tautan Shopee dipakai untuk kelima Produk karena dokumen sumber memberikan URL yang sama. Tautan TikTok Shop dibiarkan kosong.
+- Foto Monaco yang sudah tersimpan dipertahankan setelah pemeriksaan memastikan foto tersebut merupakan foto produk nyata. Empat Produk lain menunggu foto asli dari pemilik.
+- Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
+- Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
 
 ## Batas scope yang tetap dijaga
 
@@ -96,11 +117,11 @@ Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel
 
 ## Catatan dan kendala
 
-- Redirect URL konfirmasi Afiliasi harus ditambahkan ke konfigurasi Supabase untuk domain Vercel ketika domain tersedia.
-- Alias Production `web-wawangian-pelajar.vercel.app` terakhir terpantau mengembalikan 404; domain Production harus dihubungkan kembali ke deployment `main` terbaru sebelum validasi live.
-- Sesi browser Vercel belum terautentikasi, sehingga Environment Variables dan Deployment Protection belum dapat diubah pada sesi ini.
+- Custom domain Production aktif pada `https://www.wawangianpelajar.com`; domain tanpa `www` mengalihkan ke domain utama.
+- Redirect URL konfirmasi Afiliasi perlu dipastikan mencakup `https://www.wawangianpelajar.com/auth/konfirmasi`.
 - Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
 - Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
+- Empat dari lima Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto produk asli. Foto nyata Monaco yang telah ada tetap dipakai.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

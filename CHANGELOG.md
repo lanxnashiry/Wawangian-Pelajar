@@ -2,6 +2,58 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-29] — Identitas resmi dan katalog awal Mykonos
+
+### Ditambah
+
+- Logo resmi Wawangian Pelajar dalam format WebP untuk antarmuka dan PNG untuk ikon browser.
+- Placeholder Produk Krem beserta migrasi constraint warna Supabase.
+- Empat Produk nyata baru: Mykonos Royal Ispahan, Dreamscape, California Signature, dan California Blue.
+
+### Diubah
+
+- Palet seluruh website mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal.
+- Data Mykonos Monaco Royale diselaraskan dengan dokumen deskripsi terbaru tanpa menghapus foto produk nyata yang telah tersimpan.
+- Lima Produk Mykonos diaktifkan dengan ukuran 100 ml, harga Rp549.000, serta tautan Shopee sesuai dokumen sumber.
+- Formulir Admin menerima pilihan placeholder Krem.
+
+### Diperbaiki
+
+- Logo dan favicon tidak lagi memakai aset sementara.
+- Warna Produk Krem kini diterima oleh constraint database dan dapat disunting kembali melalui panel Admin.
+
+### Dihapus
+
+- Ikon logo sementara dari antarmuka dan aset publik.
+
+### Catatan
+
+- Batch ini tidak mengunggah foto Produk AI atau membuat tautan TikTok Shop. Monaco mempertahankan foto produk nyata yang sudah ada; empat Produk lain tetap memakai placeholder sampai foto asli tersedia.
+- Penyempurnaan ini tetap berada pada tahap tinjauan M5 dan tidak memulai M6.
+
+## [2026-07-28] — Penyempurnaan tinjauan M5
+
+### Ditambah
+
+- Produk nyata `Mykonos Monaco Royale 100ml` beserta profil aroma, harga, deskripsi, status aktif, dan tautan Shopee resmi.
+- Status proses “Menyimpan produk...” pada formulir Admin agar respons Vercel tidak tampak sebagai kegagalan dan kirim ganda dapat dicegah.
+
+### Diubah
+
+- Batas muatan Server Action menjadi 6 MB agar selaras dengan foto maksimal 5 MB beserta field formulir multipart.
+- Validasi jenis dan ukuran foto dijalankan sebelum data Produk dibuat atau diubah.
+
+### Diperbaiki
+
+- Unggahan foto berukuran lebih dari batas bawaan 1 MB tidak lagi ditolak Next.js sebelum mencapai validasi formulir.
+- Galat slug ganda dan kegagalan penyimpanan Produk kini disajikan dalam Bahasa Indonesia.
+- Perubahan Produk merevalidasi Beranda, Katalog, Temukan Wangimu, dan halaman detail berdasarkan slug.
+- Baris dan bagian pada deskripsi Produk dipertahankan agar spesifikasi serta tips penggunaan lebih mudah dibaca.
+
+### Catatan
+
+- Foto Produk belum dipasang karena aset yang diberikan merupakan gambar AI. Placeholder dipertahankan sampai foto produk asli tersedia sesuai larangan foto produk AI.
+
 ## [2026-07-22] — Milestone M5
 
 ### Ditambah

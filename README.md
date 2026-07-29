@@ -22,6 +22,14 @@ Sebelum mengubah kode, baca berurutan:
 - Vercel untuk hosting.
 - GitHub untuk repositori dan tinjauan perubahan.
 
+## Identitas Visual
+
+- Logo antarmuka: `public/logo-wawangian-pelajar.webp`.
+- Ikon browser: `public/ikon-wawangian-pelajar.png`.
+- Palet utama: Warm Cream `#F4EBDD`, Off-White `#FAF7F1`, Deep Navy `#102A43`, Premium Teal `#087477`, Muted Gold `#C7A25A`, dan Charcoal `#282B2F`.
+- Muted Gold hanya dipakai sebagai aksen tipis; Warm Cream dan Off-White menjadi kanvas dominan.
+- Foto Produk wajib berupa foto asli dan tidak boleh diganti gambar AI.
+
 ## Persyaratan Lokal
 
 - Node.js 22.
@@ -82,7 +90,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 /lib/kuis        # pemeringkatan rekomendasi Temukan Wangimu
 /supabase        # migrasi database dan contoh bootstrap Admin
 /scripts         # utilitas lokal, termasuk pembuatan Admin
-/public          # aset statis dan ikon sementara
+/public          # logo resmi, ikon browser, dan aset statis
 ```
 
 ## Rute Publik
@@ -200,6 +208,8 @@ Saat mode data contoh aktif dan URL Produk asli belum tersedia, detail Produk ha
 ## Mengaktifkan Supabase M5
 
 Setelah migrasi M2 dan M3 selesai, jalankan `supabase/migrations/202607220004_m5_portal_afiliasi.sql` melalui SQL Editor Supabase. Lanjutkan dengan `supabase/migrations/202607220005_perbaiki_pemicu_afiliasi.sql` agar trigger profil hanya memproses pengguna yang benar-benar memiliki metadata Afiliasi. Rangkaian migrasi membuat profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi, materi promosi, RLS, Log Audit, serta bucket privat.
+
+Jalankan juga `supabase/migrations/202607290006_tambah_placeholder_produk_krem.sql` agar Produk dapat memakai placeholder Krem dari color guide resmi. Migrasi ini hanya memperluas pilihan warna dan tidak membuat data Produk.
 
 Tambahkan URL berikut ke daftar **Redirect URLs** Supabase Auth:
 

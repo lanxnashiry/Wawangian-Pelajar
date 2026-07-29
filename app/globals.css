@@ -1,11 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --warna-navy: #14223d;
-  --warna-tosca: #0f6b62;
-  --warna-emas: #b8860b;
-  --warna-latar: #f4f6f9;
-  --warna-garis: #e3e8ef;
+  --warna-krem-hangat: #F4EBDD;
+  --warna-putih-gading: #FAF7F1;
+  --warna-navy: #102A43;
+  --warna-tosca: #087477;
+  --warna-emas: #C7A25A;
+  --warna-charcoal: #282B2F;
+  --warna-latar: var(--warna-krem-hangat);
+  --warna-garis: #DED3C2;
 }
 
 * {
@@ -20,7 +23,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  color: var(--warna-navy);
+  color: var(--warna-charcoal);
   background: var(--warna-latar);
   font-family: Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;

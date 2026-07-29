@@ -83,6 +83,10 @@ Mode Data Contoh mula-mula diaktifkan pada deployment Vercel Preview agar pemili
 
 Atas keputusan pemilik untuk tahap MVP tertutup, mode berlabel diperluas ke Vercel Production ketika sakelar eksplisit aktif. Production ditujukan untuk pemilik dan reviewer tepercaya, seluruh simulasi tetap tanpa mutasi Supabase, dan sakelar wajib dimatikan sebelum rilis publik M6. Perubahan ini tetap merupakan penyempurnaan tinjauan M5.
 
+Perbaikan regresi 28 Juli 2026 memastikan formulir Produk M2 tetap dapat dipakai selama tinjauan M5: unggahan JPEG/PNG/WebP maksimal 5 MB didukung oleh batas muatan Server Action yang selaras, kirim ganda dicegah, dan status proses terlihat. Produk nyata pertama berhasil disimpan tanpa foto AI dan tampil pada website publik. Perbaikan ini tidak memulai M6.
+
+Penyempurnaan tinjauan 29 Juli 2026 menerapkan logo dan palet resmi pemilik, menambahkan placeholder Krem, serta mengisi katalog hosted dengan lima Produk Mykonos nyata dari dokumen sumber. Kelimanya tervalidasi pada panel Admin dan katalog publik tanpa menambah foto AI, transaksi, atau fitur M6. Penggabungan ke `main` tetap menunggu konfirmasi pemilik.
+
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
 - ⬜ Aksesibilitas + uji lintas perangkat

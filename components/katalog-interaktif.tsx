@@ -71,10 +71,10 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
               key={item.nilai}
               type="button"
               onClick={() => setKategoriAktif(item.nilai)}
-              className={`rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62] ${
+              className={`rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477] ${
                 kategoriAktif === item.nilai
-                  ? "border-[#0f6b62] bg-[#0f6b62] text-white"
-                  : "border-[#d8dee8] bg-white text-slate-600 hover:border-[#0f6b62] hover:text-[#0f6b62]"
+                  ? "border-[#087477] bg-[#087477] text-white"
+                  : "border-[#D9CEBF] bg-white text-[#282B2F] hover:border-[#087477] hover:text-[#087477]"
               }`}
               aria-pressed={kategoriAktif === item.nilai}
             >
@@ -84,11 +84,11 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
         </div>
       </div>
 
-      <div className="mt-6 grid gap-3 rounded-3xl border border-[#e3e8ef] bg-white p-4 shadow-sm md:grid-cols-[1fr_240px]">
+      <div className="mt-6 grid gap-3 rounded-3xl border border-[#DED3C2] bg-white p-4 shadow-sm md:grid-cols-[1fr_240px]">
         <label className="relative block">
           <span className="sr-only">Cari produk berdasarkan nama atau aroma</span>
           <span
-            className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-slate-400"
+            className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-[#687078]"
             aria-hidden="true"
           >
             ⌕
@@ -98,7 +98,7 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
             value={kataKunci}
             onChange={(peristiwa) => setKataKunci(peristiwa.target.value)}
             placeholder="Cari nama atau karakter aroma"
-            className="h-12 w-full rounded-2xl border border-[#d8dee8] bg-[#f9fafc] pr-4 pl-11 text-sm text-[#14223d] outline-none placeholder:text-slate-400 focus:border-[#0f6b62] focus:ring-3 focus:ring-[#0f6b62]/10"
+            className="h-12 w-full rounded-2xl border border-[#D9CEBF] bg-[#FAF7F1] pr-4 pl-11 text-sm text-[#102A43] outline-none placeholder:text-[#687078] focus:border-[#087477] focus:ring-3 focus:ring-[#087477]/10"
           />
         </label>
         <label>
@@ -108,7 +108,7 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
             onChange={(peristiwa) =>
               setUrutan(peristiwa.target.value as PilihanUrutan)
             }
-            className="h-12 w-full rounded-2xl border border-[#d8dee8] bg-[#f9fafc] px-4 text-sm font-bold text-[#14223d] outline-none focus:border-[#0f6b62] focus:ring-3 focus:ring-[#0f6b62]/10"
+            className="h-12 w-full rounded-2xl border border-[#D9CEBF] bg-[#FAF7F1] px-4 text-sm font-bold text-[#102A43] outline-none focus:border-[#087477] focus:ring-3 focus:ring-[#087477]/10"
           >
             <option value="unggulan">Urutkan: Unggulan</option>
             <option value="harga-rendah">Harga terendah</option>
@@ -118,7 +118,7 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
         </label>
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-4 text-sm text-slate-500">
+      <div className="mt-6 flex items-center justify-between gap-4 text-sm text-[#4A4D52]">
         <p aria-live="polite">{hasil.length} produk ditemukan</p>
         <p className="hidden sm:block">Data aktif dari sumber katalog.</p>
       </div>
@@ -130,21 +130,21 @@ export function KatalogInteraktif({ daftarProduk }: { daftarProduk: Produk[] }) 
           ))}
         </div>
       ) : (
-        <div className="mt-6 rounded-3xl border border-dashed border-[#cbd4e1] bg-white px-5 py-14 text-center">
+        <div className="mt-6 rounded-3xl border border-dashed border-[#CFC3B2] bg-white px-5 py-14 text-center">
           <span className="text-4xl" aria-hidden="true">
             ⌕
           </span>
-          <h2 className="mt-4 text-2xl font-black text-[#14223d]">
+          <h2 className="mt-4 text-2xl font-black text-[#102A43]">
             Belum ada yang cocok
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-slate-600">
+          <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#282B2F]">
             Coba kata kunci lain atau reset filter. Produk nyata akan ditambahkan
             setelah data bisnis dan foto asli tersedia.
           </p>
           <button
             type="button"
             onClick={resetFilter}
-            className="mt-6 rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62]"
+            className="mt-6 rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477]"
           >
             Reset filter
           </button>
