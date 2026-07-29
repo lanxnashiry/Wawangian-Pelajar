@@ -191,6 +191,18 @@
 **Alasan:** Website belum dirilis untuk konsumsi publik dan pemilik ingin meninjau serta membagikan Production kepada orang tepercaya dengan keadaan antarmuka yang terisi.
 **Konsekuensi:** KEP-032 diperluas untuk Production MVP. Akses Production disarankan dilindungi melalui Deployment Protection Vercel, seluruh reviewer wajib memahami label “Data Contoh”, dan sakelar wajib dimatikan sebelum rilis publik M6.
 
+### KEP-034 — Batas muatan Produk menyediakan ruang di atas batas file
+**Tanggal:** 2026-07-28 · **Status:** Diterima
+**Keputusan:** Server Action formulir Produk menerima muatan maksimal 6 MB, sedangkan foto tetap dibatasi JPEG/PNG/WebP maksimal 5 MB oleh aplikasi dan Supabase Storage.
+**Alasan:** Batas bawaan Next.js 1 MB bertentangan dengan batas 5 MB yang dijanjikan antarmuka. Muatan multipart juga membawa field teks dan metadata sehingga batas transport harus sedikit lebih besar daripada batas berkas.
+**Konsekuensi:** Foto di atas 5 MB tetap ditolak sebelum mutasi Produk. Kenaikan batas tidak mengizinkan jenis berkas baru, tidak mengubah bucket, dan tidak mengizinkan gambar produk AI.
+
+### KEP-035 — Logo dan sistem warna resmi menggantikan placeholder M0
+**Tanggal:** 2026-07-29 · **Status:** Diterima
+**Keputusan:** Aset logo resmi dari pemilik menggantikan ikon SVG sementara. Sistem warna website memakai Warm Cream `#F4EBDD`, Off-White `#FAF7F1`, Deep Navy `#102A43`, Premium Teal `#087477`, Muted Gold `#C7A25A`, dan Charcoal `#282B2F` dengan komposisi brand sekitar 65/20/10/maksimal 5 persen. Produk juga menerima placeholder `krem`.
+**Alasan:** Pemilik telah memberikan logo final dan color guide yang menggantikan status “logo belum ada” serta palet awal BUILD_SPEC. Placeholder Krem diperlukan agar visual Produk mengikuti data sumber dan kanvas brand resmi.
+**Konsekuensi:** Logo dioptimalkan sebagai WebP untuk antarmuka dan PNG untuk favicon, ikon sementara dihapus, BUILD_SPEC naik ke v2.3, constraint warna Produk menerima `krem`, dan emas tetap dibatasi sebagai aksen. Larangan foto Produk AI tetap berlaku.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

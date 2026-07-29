@@ -39,14 +39,14 @@ export function TombolBagikan({ judul }: { judul: string }) {
       <button
         type="button"
         onClick={bagikanArtikel}
-        className="rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62]"
+        className="rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477]"
       >
         Bagikan artikel
       </button>
       <button
         type="button"
         onClick={salinTautan}
-        className="rounded-full border border-[#cbd4e1] bg-white px-5 py-3 text-sm font-bold text-[#14223d] hover:border-[#0f6b62] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62]"
+        className="rounded-full border border-[#CFC3B2] bg-white px-5 py-3 text-sm font-bold text-[#102A43] hover:border-[#087477] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477]"
       >
         {pesan}
       </button>

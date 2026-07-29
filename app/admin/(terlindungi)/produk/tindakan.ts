@@ -35,11 +35,30 @@ export async function simpanProduk(formulir: FormData) {
     pesanGalatTautanMarketplace("tiktok", linkTiktok);
   if (galatTautan) kembaliDenganPesan(tujuan, galatTautan);
 
+  const foto = formulir.get("foto");
+  if (
+    foto instanceof File &&
+    foto.size > 0 &&
+    (foto.size > 5 * 1024 * 1024 ||
+      !["image/jpeg", "image/png", "image/webp"].includes(foto.type))
+  ) {
+    kembaliDenganPesan(tujuan, "Foto harus berformat JPEG, PNG, atau WebP dan berukuran maksimal 5 MB.");
+  }
+
   let fotoTersimpan: string[] = [];
-  try { fotoTersimpan = JSON.parse(String(formulir.get("foto_tersimpan") ?? "[]")); } catch { fotoTersimpan = []; }
+  try {
+    const hasilFotoTersimpan = JSON.parse(String(formulir.get("foto_tersimpan") ?? "[]"));
+    fotoTersimpan = Array.isArray(hasilFotoTersimpan)
+      ? hasilFotoTersimpan.filter((nilai): nilai is string => typeof nilai === "string")
+      : [];
+  } catch {
+    fotoTersimpan = [];
+  }
+
+  const slug = buatSlug(String(formulir.get("slug") ?? "") || nama);
   const muatan = {
     nama,
-    slug: buatSlug(String(formulir.get("slug") ?? "") || nama),
+    slug,
     kategori,
     ukuran: String(formulir.get("ukuran") ?? "").trim(),
     harga,
@@ -62,22 +81,39 @@ export async function simpanProduk(formulir: FormData) {
   const hasil = id
     ? await supabase.from("produk").update(muatan).eq("id", id).select("id").single()
     : await supabase.from("produk").insert(muatan).select("id").single();
-  if (hasil.error || !hasil.data) kembaliDenganPesan(tujuan, hasil.error?.message ?? "Produk gagal disimpan.");
+  if (hasil.error || !hasil.data) {
+    kembaliDenganPesan(
+      tujuan,
+      hasil.error?.code === "23505"
+        ? "Slug sudah dipakai produk lain. Gunakan slug yang berbeda."
+        : "Produk gagal disimpan. Periksa kembali data lalu coba lagi.",
+    );
+  }
 
-  const foto = formulir.get("foto");
   if (foto instanceof File && foto.size > 0) {
-    if (foto.size > 5 * 1024 * 1024 || !["image/jpeg", "image/png", "image/webp"].includes(foto.type)) {
-      kembaliDenganPesan(`/admin/produk/${hasil.data.id}`, "Produk tersimpan, tetapi foto harus JPEG/PNG/WebP maksimal 5 MB.");
-    }
     const ekstensi = foto.name.split(".").pop()?.toLowerCase() || "jpg";
     const lokasi = `${hasil.data.id}/${crypto.randomUUID()}.${ekstensi}`;
     const unggah = await supabase.storage.from("produk").upload(lokasi, foto, { contentType: foto.type });
     if (unggah.error) kembaliDenganPesan(`/admin/produk/${hasil.data.id}`, `Produk tersimpan, tetapi foto gagal diunggah: ${unggah.error.message}`);
     const { data: url } = supabase.storage.from("produk").getPublicUrl(lokasi);
-    await supabase.from("produk").update({ foto: [...fotoTersimpan, url.publicUrl] }).eq("id", hasil.data.id);
+    const pembaruanFoto = await supabase
+      .from("produk")
+      .update({ foto: [...fotoTersimpan, url.publicUrl] })
+      .eq("id", hasil.data.id);
+    if (pembaruanFoto.error) {
+      kembaliDenganPesan(
+        `/admin/produk/${hasil.data.id}`,
+        "Produk dan berkas foto tersimpan, tetapi tautan foto gagal dipasang. Coba simpan ulang.",
+      );
+    }
   }
 
-  revalidatePath("/"); revalidatePath("/katalog"); revalidatePath("/admin"); revalidatePath("/admin/produk");
+  revalidatePath("/");
+  revalidatePath("/katalog");
+  revalidatePath("/temukan");
+  revalidatePath(`/produk/${slug}`);
+  revalidatePath("/admin");
+  revalidatePath("/admin/produk");
   redirect(`/admin/produk/${hasil.data.id}?pesan=Produk+berhasil+disimpan`);
 }
 

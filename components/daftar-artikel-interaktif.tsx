@@ -33,10 +33,10 @@ export function DaftarArtikelInteraktif({ daftarArtikel }: { daftarArtikel: Arti
               key={filter.nilai}
               type="button"
               onClick={() => setFilterAktif(filter.nilai)}
-              className={`rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0f6b62] ${
+              className={`rounded-full border px-4 py-2 text-sm font-bold transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477] ${
                 filterAktif === filter.nilai
-                  ? "border-[#0f6b62] bg-[#0f6b62] text-white"
-                  : "border-[#d8dee8] bg-white text-slate-600 hover:border-[#0f6b62] hover:text-[#0f6b62]"
+                  ? "border-[#087477] bg-[#087477] text-white"
+                  : "border-[#D9CEBF] bg-white text-[#282B2F] hover:border-[#087477] hover:text-[#087477]"
               }`}
               aria-pressed={filterAktif === filter.nilai}
             >
@@ -53,14 +53,14 @@ export function DaftarArtikelInteraktif({ daftarArtikel }: { daftarArtikel: Arti
           ))}
         </div>
       ) : (
-        <div className="mt-8 rounded-3xl border border-dashed border-[#cbd4e1] bg-white px-5 py-14 text-center">
+        <div className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-white px-5 py-14 text-center">
           <span className="text-4xl" aria-hidden="true">
             ✎
           </span>
-          <h2 className="mt-4 text-2xl font-black text-[#14223d]">
+          <h2 className="mt-4 text-2xl font-black text-[#102A43]">
             Cerita pertama segera hadir
           </h2>
-          <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-slate-600">
+          <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-[#282B2F]">
             Kami sedang menyiapkan kisah dan artikel yang dapat dipertanggungjawabkan.
           </p>
         </div>

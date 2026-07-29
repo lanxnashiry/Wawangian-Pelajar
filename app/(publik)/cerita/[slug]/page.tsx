@@ -77,48 +77,48 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
   return (
     <main className="px-5 py-8 sm:px-8 sm:py-12 lg:px-10">
       <article className="mx-auto max-w-4xl">
-        <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+        <nav aria-label="Breadcrumb" className="text-sm text-[#4A4D52]">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/" className="hover:text-[#0f6b62]">
+              <Link href="/" className="hover:text-[#087477]">
                 Beranda
               </Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
-              <Link href="/cerita" className="hover:text-[#0f6b62]">
+              <Link href="/cerita" className="hover:text-[#087477]">
                 Cerita
               </Link>
             </li>
             <li aria-hidden="true">/</li>
-            <li className="font-bold text-[#14223d]">{artikel.judul}</li>
+            <li className="font-bold text-[#102A43]">{artikel.judul}</li>
           </ol>
         </nav>
 
         <header className="pt-9 text-center">
-          <p className="text-xs font-black tracking-[0.16em] text-[#0f6b62] uppercase">
+          <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">
             {labelKategoriArtikel[artikel.kategori]}
           </p>
-          <h1 className="mx-auto mt-4 max-w-4xl text-4xl leading-tight font-black tracking-[-0.05em] text-[#14223d] sm:text-5xl lg:text-6xl">
+          <h1 className="mx-auto mt-4 max-w-4xl text-4xl leading-tight font-black tracking-[-0.05em] text-[#102A43] sm:text-5xl lg:text-6xl">
             {artikel.judul}
           </h1>
-          <p className="mt-5 text-sm text-slate-500">
+          <p className="mt-5 text-sm text-[#4A4D52]">
             {artikel.tanggal} · {artikel.menitBaca} menit baca · {artikel.sumberData === "supabase" ? artikel.penulis : "Konten contoh M1"}
           </p>
         </header>
 
-        <div className="mt-9 overflow-hidden rounded-[2rem] border border-[#e3e8ef] bg-white p-3 shadow-sm sm:p-4">
+        <div className="mt-9 overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-white p-3 shadow-sm sm:p-4">
           <VisualArtikel artikel={artikel} />
         </div>
-        <p className="mt-3 text-center text-xs leading-5 text-slate-400">
+        <p className="mt-3 text-center text-xs leading-5 text-[#687078]">
           {artikel.fotoUtama ? "Gambar dibaca dari penyimpanan resmi." : "Visual sementara; foto asli wajib digunakan untuk cerita dampak nyata."}
         </p>
 
-        <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-slate-700">
+        <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-[#282B2F]">
           {artikel.bagian.map((bagian, indeks) => (
             <section key={bagian.judul ?? indeks} className="mt-9 first:mt-0">
               {bagian.judul ? (
-                <h2 className="mb-4 text-2xl font-black tracking-tight text-[#14223d]">
+                <h2 className="mb-4 text-2xl font-black tracking-tight text-[#102A43]">
                   {bagian.judul}
                 </h2>
               ) : null}
@@ -130,21 +130,21 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
             </section>
           ))}
 
-          <div className="mt-10 border-t border-[#dfe5ed] pt-7">
-            <p className="mb-4 text-sm font-black text-[#14223d]">Bagikan:</p>
-            {artikel.shareAktif !== false ? <TombolBagikan judul={artikel.judul} /> : <p className="text-sm text-slate-500">Tombol berbagi dinonaktifkan oleh Admin.</p>}
+          <div className="mt-10 border-t border-[#DED3C2] pt-7">
+            <p className="mb-4 text-sm font-black text-[#102A43]">Bagikan:</p>
+            {artikel.shareAktif !== false ? <TombolBagikan judul={artikel.judul} /> : <p className="text-sm text-[#4A4D52]">Tombol berbagi dinonaktifkan oleh Admin.</p>}
           </div>
 
-          <aside className="mt-10 rounded-3xl border border-[#ead9a6] bg-[#fffaf0] p-6">
-            <p className="text-xs font-black tracking-[0.14em] text-[#b8860b] uppercase">
+          <aside className="mt-10 rounded-3xl border border-[#E5D4B3] bg-[#FAF7F1] p-6">
+            <p className="text-xs font-black tracking-[0.14em] text-[#C7A25A] uppercase">
               {tindakan.label}
             </p>
-            <h2 className="mt-3 text-2xl leading-tight font-black text-[#14223d]">
+            <h2 className="mt-3 text-2xl leading-tight font-black text-[#102A43]">
               {tindakan.judul}
             </h2>
             <Link
               href={tindakan.tautan}
-              className="mt-5 inline-flex text-sm font-black text-[#70510a] hover:underline"
+              className="mt-5 inline-flex text-sm font-black text-[#6D5426] hover:underline"
             >
               {tindakan.teksTautan}
             </Link>
@@ -152,12 +152,12 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
         </div>
       </article>
 
-      <section className="mx-auto mt-16 max-w-6xl border-t border-[#dfe5ed] pt-12 sm:mt-20">
+      <section className="mx-auto mt-16 max-w-6xl border-t border-[#DED3C2] pt-12 sm:mt-20">
         <div className="flex items-end justify-between gap-5">
-          <h2 className="text-3xl font-black tracking-tight text-[#14223d]">
+          <h2 className="text-3xl font-black tracking-tight text-[#102A43]">
             Artikel terkait
           </h2>
-          <Link href="/cerita" className="text-sm font-black text-[#0f6b62] hover:underline">
+          <Link href="/cerita" className="text-sm font-black text-[#087477] hover:underline">
             Semua artikel →
           </Link>
         </div>

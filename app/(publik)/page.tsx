@@ -45,56 +45,56 @@ export default async function Beranda() {
 
   return (
     <main>
-      <section className="overflow-hidden bg-white">
+      <section className="overflow-hidden bg-[#FAF7F1]">
         <div className="mx-auto grid min-h-[calc(100svh-4.5rem)] w-full max-w-7xl items-center gap-10 px-5 py-12 sm:px-8 sm:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:px-10 lg:py-20">
           <div>
-            <p className="text-xs font-black tracking-[0.18em] text-[#0f6b62] uppercase">
+            <p className="text-xs font-black tracking-[0.18em] text-[#087477] uppercase">
               Selamat datang
             </p>
-            <h1 className="mt-5 max-w-3xl text-5xl leading-[1.02] font-black tracking-[-0.055em] text-[#14223d] text-balance sm:text-6xl lg:text-7xl">
+            <h1 className="mt-5 max-w-3xl text-5xl leading-[1.02] font-black tracking-[-0.055em] text-[#102A43] text-balance sm:text-6xl lg:text-7xl">
               Wangi yang berpihak pada pendidikan.
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#282B2F]">
               Parfum ori, decant, dan racikan sendiri yang terjangkau. Setiap
               pembelian nantinya ikut menyalakan Dana Cahaya Pendidikan.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/katalog"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#0f6b62] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#0f6b62]/20 transition hover:bg-[#0b554e] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#087477] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#087477]/20 transition hover:bg-[#075E61] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
               >
                 Lihat katalog
               </Link>
               <Link
                 href="/temukan"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#0f6b62] bg-[#e7f4f1] px-6 py-3 text-sm font-black text-[#0f6b62] transition hover:bg-[#d8eeea] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#087477] bg-[#E5F2EF] px-6 py-3 text-sm font-black text-[#087477] transition hover:bg-[#D6ECE7] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
               >
                 Temukan wangimu
               </Link>
               <Link
                 href="/donasi"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#cbd4e1] bg-white px-6 py-3 text-sm font-black text-[#14223d] transition hover:border-[#0f6b62] hover:text-[#0f6b62] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#0f6b62]"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#CFC3B2] bg-white px-6 py-3 text-sm font-black text-[#102A43] transition hover:border-[#087477] hover:text-[#087477] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
               >
                 Kenali Dana Cahaya
               </Link>
             </div>
-            <p className="mt-5 text-xs leading-5 text-slate-400">
+            <p className="mt-5 text-xs leading-5 text-[#687078]">
               {memakaiDataContoh ? "Katalog masih berupa data contoh; tautan produk marketplace asli menyusul." : "Produk aktif dibaca dari Supabase; tombol beli tersedia saat tautan toko resmi sudah diisi."}
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -top-10 -right-12 h-36 w-36 rounded-full bg-[#e8cb76]/25 blur-2xl" />
-            <div className="absolute -bottom-8 -left-10 h-40 w-40 rounded-full bg-[#0f6b62]/15 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-[#e3e8ef] bg-[#f4f6f9] p-3 shadow-2xl shadow-[#14223d]/12 sm:p-5">
+            <div className="absolute -top-10 -right-12 h-36 w-36 rounded-full bg-[#D1B779]/25 blur-2xl" />
+            <div className="absolute -bottom-8 -left-10 h-40 w-40 rounded-full bg-[#087477]/15 blur-2xl" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-[#F4EBDD] p-3 shadow-2xl shadow-[#102A43]/12 sm:p-5">
               <PlaceholderVisual
                 judul="Foto produk asli akan ditempatkan di sini"
                 warna="tosca"
               />
               <div className="absolute right-7 bottom-7 left-7 rounded-2xl bg-white/90 p-4 shadow-lg backdrop-blur sm:right-10 sm:bottom-10 sm:left-10">
-                <p className="text-xs font-black tracking-wide text-[#b8860b] uppercase">
+                <p className="text-xs font-black tracking-wide text-[#C7A25A] uppercase">
                   Dana Cahaya Pendidikan
                 </p>
-                <p className="mt-1 text-sm font-bold text-[#14223d]">
+                <p className="mt-1 text-sm font-bold text-[#102A43]">
                   Cerita dulu, jualan kemudian.
                 </p>
               </div>
@@ -103,32 +103,32 @@ export default async function Beranda() {
         </div>
       </section>
 
-      <section className="bg-[#14223d] text-white">
+      <section className="bg-[#102A43] text-white">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-5 py-9 sm:px-8 md:flex-row md:items-center md:justify-between lg:px-10">
           <div>
-            <p className="text-xs font-black tracking-[0.16em] text-[#e8cb76] uppercase">
+            <p className="text-xs font-black tracking-[0.16em] text-[#D1B779] uppercase">
               Dana Cahaya Pendidikan — transparan
             </p>
             {!ringkasanDonasi.tersedia ? (
               <>
                 <h2 className="mt-2 text-2xl font-black sm:text-3xl">Data transparansi belum tersedia.</h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">Angka tidak diganti perkiraan saat sumber data tidak dapat dibaca.</p>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Angka tidak diganti perkiraan saat sumber data tidak dapat dibaca.</p>
               </>
             ) : ringkasanDonasi.terkumpul === 0 ? (
               <>
                 <h2 className="mt-2 text-2xl font-black sm:text-3xl">
                   Perjalanan baru dimulai.
                 </h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">
                   Belum ada angka yang dapat dilaporkan. Ketika data nyata tersedia,
                   setiap rupiah akan dihitung dari sumber yang jelas dan dapat diperiksa.
                 </p>
               </>
-            ) : <><h2 className="mt-2 text-2xl font-black sm:text-3xl">{formatRupiah(ringkasanDonasi.terkumpul)} terkumpul.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-slate-300">{formatRupiah(ringkasanDonasi.tersalurkan)} telah disalurkan dan {formatRupiah(ringkasanDonasi.saldoAmanah)} tetap tercatat sebagai saldo amanah.</p></>}
+            ) : <><h2 className="mt-2 text-2xl font-black sm:text-3xl">{formatRupiah(ringkasanDonasi.terkumpul)} terkumpul.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">{formatRupiah(ringkasanDonasi.tersalurkan)} telah disalurkan dan {formatRupiah(ringkasanDonasi.saldoAmanah)} tetap tercatat sebagai saldo amanah.</p></>}
           </div>
           <Link
             href="/donasi"
-            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-black text-[#14223d] hover:bg-[#fff5d8] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+            className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-black text-[#102A43] hover:bg-[#F6EACD] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
           >
             Lihat transparansi →
           </Link>
@@ -145,17 +145,17 @@ export default async function Beranda() {
             />
             <Link
               href="/katalog"
-              className="shrink-0 text-sm font-black text-[#0f6b62] hover:underline"
+              className="shrink-0 text-sm font-black text-[#087477] hover:underline"
             >
               Lihat semua produk →
             </Link>
           </div>
-          <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#e7f4f1] p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#E5F2EF] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-black text-[#14223d]">Belum yakin memilih aroma?</p>
-              <p className="mt-1 text-sm leading-6 text-slate-600">Jawab tiga pertanyaan ringan tanpa login dan lihat rekomendasi berdasarkan data katalog.</p>
+              <p className="font-black text-[#102A43]">Belum yakin memilih aroma?</p>
+              <p className="mt-1 text-sm leading-6 text-[#282B2F]">Jawab tiga pertanyaan ringan tanpa login dan lihat rekomendasi berdasarkan data katalog.</p>
             </div>
-            <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#0f6b62] px-5 py-3 text-sm font-black text-white hover:bg-[#0b554e]">
+            <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61]">
               Mulai kuis →
             </Link>
           </div>
@@ -163,11 +163,11 @@ export default async function Beranda() {
             {produkUnggulan.map((produk) => (
               <KartuProduk key={produk.slug} produk={produk} />
             ))}
-          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#cbd4e1] bg-white p-8 text-center text-sm text-slate-600">Produk unggulan nyata belum ditambahkan.</p>}
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-8 text-center text-sm text-[#282B2F]">Produk unggulan nyata belum ditambahkan.</p>}
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section className="bg-[#FAF7F1] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <TajukBagian
             label="Prinsip kami"
@@ -179,15 +179,15 @@ export default async function Beranda() {
             {alasanBerbeda.map((alasan) => (
               <article
                 key={alasan.judul}
-                className="rounded-3xl border border-[#e3e8ef] bg-[#f9fafc] p-6 text-center"
+                className="rounded-3xl border border-[#DED3C2] bg-[#FAF7F1] p-6 text-center"
               >
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e7f4f1] text-sm font-black text-[#0f6b62]">
+                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E5F2EF] text-sm font-black text-[#087477]">
                   {alasan.simbol}
                 </span>
-                <h3 className="mt-5 text-xl font-black text-[#14223d]">
+                <h3 className="mt-5 text-xl font-black text-[#102A43]">
                   {alasan.judul}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">
+                <p className="mt-3 text-sm leading-6 text-[#282B2F]">
                   {alasan.deskripsi}
                 </p>
               </article>
@@ -197,26 +197,26 @@ export default async function Beranda() {
       </section>
 
       <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 rounded-[2rem] bg-[#fffaf0] p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-10 rounded-[2rem] bg-[#FAF7F1] p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
           <PlaceholderVisual
             judul="Visual cerita brand sementara"
             warna="emas"
             ringkas
           />
           <div>
-            <p className="text-xs font-black tracking-[0.16em] text-[#b8860b] uppercase">
+            <p className="text-xs font-black tracking-[0.16em] text-[#C7A25A] uppercase">
               Cerita misi
             </p>
-            <h2 className="mt-4 text-3xl leading-tight font-black tracking-[-0.04em] text-[#14223d] sm:text-4xl">
+            <h2 className="mt-4 text-3xl leading-tight font-black tracking-[-0.04em] text-[#102A43] sm:text-4xl">
               Berawal dari pelajar, bertumbuh untuk pendidikan.
             </h2>
-            <p className="mt-5 text-base leading-7 text-slate-600">
+            <p className="mt-5 text-base leading-7 text-[#282B2F]">
               Nama kami lahir dari semangat pelajar. Dampaknya belum kami besar-besarkan:
               perjalanan ini baru dimulai, dan setiap cerita akan disertai sumber yang jelas.
             </p>
             <Link
               href={tautanCeritaMisi}
-              className="mt-6 inline-flex rounded-full bg-[#14223d] px-5 py-3 text-sm font-black text-white hover:bg-[#263958] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#14223d]"
+              className="mt-6 inline-flex rounded-full bg-[#102A43] px-5 py-3 text-sm font-black text-white hover:bg-[#183D59] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#102A43]"
             >
               Baca cerita kami →
             </Link>
@@ -224,7 +224,7 @@ export default async function Beranda() {
         </div>
       </section>
 
-      <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <section className="bg-[#FAF7F1] px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <TajukBagian
@@ -234,7 +234,7 @@ export default async function Beranda() {
             />
             <Link
               href="/cerita"
-              className="shrink-0 text-sm font-black text-[#0f6b62] hover:underline"
+              className="shrink-0 text-sm font-black text-[#087477] hover:underline"
             >
               Lihat semua cerita →
             </Link>
@@ -243,12 +243,12 @@ export default async function Beranda() {
             {artikelTerbaru.map((artikel) => (
               <KartuArtikel key={artikel.slug} artikel={artikel} />
             ))}
-          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#cbd4e1] bg-[#f9fafc] p-8 text-center text-sm text-slate-600">Artikel terbit belum tersedia.</p>}
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-[#FAF7F1] p-8 text-center text-sm text-[#282B2F]">Artikel terbit belum tersedia.</p>}
         </div>
       </section>
 
       <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 overflow-hidden rounded-[2rem] bg-[#0f6b62] p-7 text-white sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center lg:p-14">
+        <div className="mx-auto grid w-full max-w-7xl gap-8 overflow-hidden rounded-[2rem] bg-[#087477] p-7 text-white sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center lg:p-14">
           <div>
             <p className="text-xs font-black tracking-[0.16em] text-[#bfe3dc] uppercase">
               Program afiliasi
@@ -263,7 +263,7 @@ export default async function Beranda() {
           </div>
           <Link
             href="/afiliasi"
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-[#0f6b62] hover:bg-[#eef8f6] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+            className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black text-[#087477] hover:bg-[#F0F7F4] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
           >
             Pelajari program →
           </Link>
@@ -271,14 +271,14 @@ export default async function Beranda() {
       </section>
 
       {ulasan.length > 0 ? (
-        <section className="bg-white px-5 py-16 sm:px-8 lg:px-10">
+        <section className="bg-[#FAF7F1] px-5 py-16 sm:px-8 lg:px-10">
           <div className="mx-auto w-full max-w-7xl">
             <TajukBagian judul="Kata pembeli" rataTengah />
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {ulasan.map((item) => (
-                <blockquote key={item.nama} className="rounded-3xl bg-[#f4f6f9] p-6">
-                  <p className="text-base leading-7 text-slate-700">“{item.isi}”</p>
-                  <footer className="mt-4 text-sm font-bold text-[#14223d]">
+                <blockquote key={item.nama} className="rounded-3xl bg-[#F4EBDD] p-6">
+                  <p className="text-base leading-7 text-[#282B2F]">“{item.isi}”</p>
+                  <footer className="mt-4 text-sm font-bold text-[#102A43]">
                     {item.nama} · {"★".repeat(item.nilai)}
                   </footer>
                 </blockquote>

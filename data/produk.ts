@@ -19,7 +19,7 @@ export type Produk = {
   unggulan: boolean;
   tersedia: boolean;
   aktif?: boolean;
-  warna: "tosca" | "emas" | "navy" | "merahMuda";
+  warna: "krem" | "tosca" | "emas" | "navy" | "merahMuda";
   foto?: string[];
   linkMarketplace?: { shopee?: string; tiktok?: string };
   sumberData?: "contoh" | "supabase";
