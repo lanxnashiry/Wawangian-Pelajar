@@ -28,7 +28,7 @@ Sebelum mengubah kode, baca berurutan:
 - Ikon browser: `public/ikon-wawangian-pelajar-2026.png`.
 - Palet utama: Warm Cream `#F4EBDD`, Off-White `#FAF7F1`, Deep Navy `#102A43`, Premium Teal `#087477`, Muted Gold `#C7A25A`, dan Charcoal `#282B2F`.
 - Muted Gold hanya dipakai sebagai aksen tipis; Warm Cream dan Off-White menjadi kanvas dominan.
-- Foto Produk wajib berupa foto asli dan tidak boleh diganti gambar AI.
+- Foto asli Produk tetap diutamakan. Gambar hasil AI atau penyempurnaan AI boleh dipakai untuk mempercantik katalog sesuai KEP-036; visual yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk.
 
 ## Persyaratan Lokal
 

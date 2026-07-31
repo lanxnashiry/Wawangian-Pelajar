@@ -2,6 +2,24 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-07-31] — Kebijakan visual Produk berbantuan AI
+
+### Diubah
+
+- BUILD_SPEC dinaikkan dari v2.3 menjadi v2.4.
+- Foto asli tetap diutamakan, tetapi gambar hasil AI dan penyempurnaan AI kini boleh dipakai untuk menambah serta mempercantik visual Produk.
+- Visual yang bukan foto Produk nyata wajib diberi penanda “Visual ilustrasi”.
+
+### Diperbaiki
+
+- Kebijakan visual kini membedakan materi kreatif Produk dari bukti faktual. AI tetap dilarang untuk memalsukan atribut Produk, bukti donasi, transaksi, payout, atau penerima manfaat.
+
+### Catatan
+
+- Perubahan ini menggantikan larangan foto Produk AI pada keputusan terdahulu melalui KEP-036.
+- Belum ada gambar Produk baru yang diunggah dalam perubahan dokumentasi ini.
+- Revisi tetap berada pada tahap tinjauan M5 dan tidak memulai M6.
+
 ## [2026-07-29] — Identitas resmi dan katalog awal Mykonos
 
 ### Ditambah

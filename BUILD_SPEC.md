@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.3
+- **Versi spesifikasi:** 2.4
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -278,7 +278,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 **Prinsip visual:**
 - **Mobile-first**: rancang untuk layar HP dulu, lalu lebarkan ke desktop.
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
-- **Foto produk ASLI** — dilarang keras memakai gambar hasil AI untuk produk (menggerus kepercayaan).
+- **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 

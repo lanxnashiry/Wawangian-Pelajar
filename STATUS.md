@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 29 Juli 2026
+**Terakhir diperbarui:** 31 Juli 2026
 **Milestone aktif:** M5 — Portal Afiliasi
 **Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
 
@@ -24,7 +24,9 @@ Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhas
 
 Identitas visual resmi telah menggantikan ikon sementara. Revisi simbol logo dari pemilik kini memenuhi kanvas lebih besar agar terbaca jelas pada navbar, footer, halaman autentikasi, dan favicon; nama aset baru mencegah cache browser atau Vercel mempertahankan logo lama. Palet website tetap mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
 
-Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif pada katalog publik: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue, seluruhnya berukuran 100 ml dengan harga Rp549.000. Kelimanya memakai tautan Shopee yang sama sesuai dokumen sumber dan tidak diberi tautan TikTok Shop. Monaco mempertahankan satu foto produk nyata yang sudah tersimpan; empat Produk lain tetap memakai placeholder karena tidak ada foto asli dalam sumber. Tidak ada gambar produk AI yang diunggah.
+Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif pada katalog publik: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue, seluruhnya berukuran 100 ml dengan harga Rp549.000. Kelimanya memakai tautan Shopee yang sama sesuai dokumen sumber dan tidak diberi tautan TikTok Shop. Monaco mempertahankan satu foto produk nyata yang sudah tersimpan; empat Produk lain tetap memakai placeholder karena belum ada visual pengganti yang dipilih.
+
+Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI kini boleh dipakai untuk menambah dan mempercantik visual Produk. Gambar yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk atau dipakai sebagai bukti faktual. Belum ada gambar baru yang diunggah sebagai bagian dari perubahan kebijakan ini.
 
 ## Task M5
 
@@ -77,11 +79,12 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
 - Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
 - Revisi logo simbol berhasil dimuat melalui URL aset baru pada Beranda dan halaman masuk Admin; komposisinya terlihat lebih besar pada kotak 46–48 px tanpa mengubah tinggi navigasi.
+- `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil setelah BUILD_SPEC v2.4 serta KEP-036 ditambahkan.
 
 ## Langkah berikutnya
 
 1. Pemilik meninjau formulir Produk, identitas visual resmi, dan lima Produk Mykonos melalui preview lokal serta pull request.
-2. Pemilik menyediakan foto asli untuk Royal Ispahan, Dreamscape, California Signature, dan California Blue; gambar AI tidak digunakan sebagai foto Produk.
+2. Pemilik memilih foto asli atau visual AI yang sesuai untuk Royal Ispahan, Dreamscape, California Signature, dan California Blue; visual AI wajib mengikuti KEP-036.
 3. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
 4. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
 5. Pemilik memastikan custom domain Production dan preview tercantum pada Redirect URLs Supabase.
@@ -103,7 +106,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
 - Lima Produk Mykonos ditampilkan aktif karena pemilik meminta unggahan katalog awal. Harga, ukuran, profil aroma, dan deskripsi mengikuti dokumen sumber tanpa klaim tambahan.
 - Satu tautan Shopee dipakai untuk kelima Produk karena dokumen sumber memberikan URL yang sama. Tautan TikTok Shop dibiarkan kosong.
-- Foto Monaco yang sudah tersimpan dipertahankan setelah pemeriksaan memastikan foto tersebut merupakan foto produk nyata. Empat Produk lain menunggu foto asli dari pemilik.
+- Foto Monaco yang sudah tersimpan dipertahankan. Empat Produk lain menunggu foto asli atau visual AI terpilih dari pemilik; penggunaan AI wajib diberi penanda “Visual ilustrasi” bila bukan foto Produk nyata.
 - Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 - Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
 
@@ -113,7 +116,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Tidak ada pelacakan atau pembayaran komisi dasar buatan website.
 - Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, klaim anggota nyata, atau leaderboard palsu.
 - Tidak ada Sales Academy, sertifikat, notifikasi otomatis, loyalitas, atau peran Admin granular.
-- Tidak ada foto produk AI, klaim organisasi, banting harga, atau klaim promosi palsu.
+- Tidak ada visual Produk yang menipu, klaim organisasi, banting harga, atau klaim promosi palsu.
 - M6 belum dimulai.
 
 ## Catatan dan kendala
@@ -122,7 +125,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Redirect URL konfirmasi Afiliasi perlu dipastikan mencakup `https://www.wawangianpelajar.com/auth/konfirmasi`.
 - Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
 - Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
-- Empat dari lima Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto produk asli. Foto nyata Monaco yang telah ada tetap dipakai.
+- Empat dari lima Produk masih memakai placeholder Krem karena visual pengganti belum dipilih. Foto Monaco yang telah ada tetap dipakai.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
 ---

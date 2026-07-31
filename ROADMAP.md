@@ -87,6 +87,8 @@ Perbaikan regresi 28 Juli 2026 memastikan formulir Produk M2 tetap dapat dipakai
 
 Penyempurnaan tinjauan 29 Juli 2026 menerapkan logo dan palet resmi pemilik, menambahkan placeholder Krem, serta mengisi katalog hosted dengan lima Produk Mykonos nyata dari dokumen sumber. Simbol logo kemudian diganti dengan revisi yang memenuhi kanvas lebih besar agar jelas pada navbar dan halaman autentikasi. Kelima Produk tervalidasi pada panel Admin dan katalog publik tanpa menambah foto AI, transaksi, atau fitur M6. Penggabungan ke `main` tetap menunggu konfirmasi pemilik.
 
+Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan AI untuk mempercantik visual Produk dengan foto asli tetap diutamakan. Visual yang bukan foto Produk nyata wajib diberi penanda “Visual ilustrasi”, dilarang memalsukan atribut Produk atau bukti faktual, dan diatur melalui KEP-036 serta BUILD_SPEC v2.4. Revisi kebijakan ini belum mengunggah gambar baru dan tidak memulai M6.
+
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar
 - ⬜ Aksesibilitas + uji lintas perangkat

@@ -203,6 +203,12 @@
 **Alasan:** Pemilik telah memberikan logo final dan color guide yang menggantikan status “logo belum ada” serta palet awal BUILD_SPEC. Placeholder Krem diperlukan agar visual Produk mengikuti data sumber dan kanvas brand resmi.
 **Konsekuensi:** Logo dioptimalkan sebagai WebP untuk antarmuka dan PNG untuk favicon, ikon sementara dihapus, BUILD_SPEC naik ke v2.3, constraint warna Produk menerima `krem`, dan emas tetap dibatasi sebagai aksen. Larangan foto Produk AI tetap berlaku.
 
+### KEP-036 — Visual Produk berbantuan AI diizinkan secara terkendali
+**Tanggal:** 2026-07-31 · **Status:** Diterima
+**Keputusan:** Gambar hasil AI dan penyempurnaan AI boleh digunakan untuk menambah serta mempercantik visual Produk. Foto asli tetap diutamakan. Visual yang bukan foto Produk nyata secara langsung wajib diberi penanda “Visual ilustrasi” pada antarmuka atau keterangan gambar.
+**Alasan:** Pemilik mengizinkan AI sebagai alat kreasi visual selama tahap MVP agar katalog lebih menarik dan tidak bergantung sepenuhnya pada ketersediaan foto studio.
+**Konsekuensi:** Bagian larangan foto AI pada KEP-016, KEP-034, dan KEP-035 digantikan oleh keputusan ini; ketentuan lainnya tetap berlaku. Visual AI tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk. Visual AI juga tidak boleh dipakai sebagai bukti donasi, transaksi, payout, penerima manfaat, atau dokumen faktual lain. BUILD_SPEC naik ke v2.4.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
