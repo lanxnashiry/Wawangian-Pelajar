@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 1 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Fondasi SEO artikel selesai; Task 18 validasi menyeluruh sedang menunggu pelaksanaan
+**Status milestone aktif:** Batch fondasi SEO artikel selesai secara teknis; menunggu tinjauan visual pemilik dan task rilis M6 lainnya
 
 ---
 
@@ -57,7 +57,7 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 5. ✅ Panel SEO Admin serta penyimpanan Markdown, metadata, fokus kata kunci, dan alt text.
 6. ✅ Optimasi gambar artikel, metadata per artikel, canonical, Twitter Card, dan JSON-LD.
 7. ✅ Dokumentasi KEP-037 sampai KEP-041, BUILD_SPEC v2.5, README, ROADMAP, STATUS, dan CHANGELOG.
-8. 🟡 Validasi akhir bersih, uji responsif, uji alur Admin lengkap, pembersihan artikel teknis, dan preview lokal.
+8. ✅ Validasi akhir bersih, uji alur artikel lengkap, regresi artikel lama, pembersihan artikel teknis, dan preview lokal.
 
 ## Validasi yang sudah dilakukan
 
@@ -68,6 +68,13 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 - `sitemap.xml` memuat halaman publik, lima Artikel contoh, dan Produk; `robots.txt` memblokir Admin, autentikasi Afiliasi, dan API.
 - Halaman artikel menghasilkan tepat dua blok JSON-LD yang dapat dibaca sebagai `Article` dan `BreadcrumbList`.
 - Build bertahap dan pemeriksaan TypeScript berhasil sampai Task 16.
+- Folder `.next` lama dihapus setelah target absolut diverifikasi, lalu build produksi bersih berhasil.
+- `npm.cmd run lint`, `npx.cmd tsc --noEmit`, build mode Data Contoh, dan build mode data hosted semuanya berhasil.
+- Artikel teknis lengkap memvalidasi meta title, meta description 156 karakter, canonical absolut, dua JSON-LD, tepat satu H1, alt text, tautan internal, penekanan, daftar, tabel, kutipan, H2/H3, CTA, dan tombol Bagikan.
+- Sitemap mode data hosted memuat artikel terbit beserta `lastmod`; robots memuat blok Admin/API dan alamat sitemap kanonis.
+- Lima Artikel contoh lama masing-masing merespons HTTP 200, memiliki tepat satu H1, isi fallback, dan CTA.
+- Artikel teknis M6 dihapus dari Supabase hosted setelah pengujian; verifikasi akhir mengembalikan jumlah `0`.
+- Tabel Markdown dibungkus `overflow-x-auto` agar tidak memperlebar halaman seluler. Tinjauan visual pemilik tetap diperlukan pada preview karena sesi browser otomatis lokal terputus saat server dimulai ulang.
 - Migrasi `202607220004_m5_portal_afiliasi.sql` berhasil diterapkan pada Supabase hosted.
 - Lima tabel M5, 10 kebijakan RLS, tiga bucket privat, fungsi rekonsiliasi, dan fungsi leaderboard tersedia.
 - Transaksi uji hosted menghasilkan satu handle cocok dan satu belum cocok sesuai masukan.
@@ -105,12 +112,11 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 
 ## Langkah berikutnya
 
-1. Jalankan Task 18: bersihkan artefak build, lint, build, tipe, dan `git diff --check`.
-2. Uji satu artikel teknis melalui alur Admin dengan seluruh fitur Markdown dan field SEO, lalu hapus data teknis tersebut dari Supabase hosted.
-3. Periksa detail artikel pada 360px dan 1440px, satu H1, tautan internal, tabel, CTA, share, metadata, serta JSON-LD.
-4. Jalankan kembali server lokal agar pemilik dapat meninjau hasil.
-5. Push branch dan buka draft pull request setelah seluruh validasi hijau.
-6. Sebelum rilis publik, matikan Data Contoh, hapus akun `AfiliasiUji`, tambah `NEXT_PUBLIC_URL_SITUS` di Vercel, dan masukkan sitemap ke Google Search Console.
+1. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
+2. Push branch dan buka draft pull request untuk peninjauan perubahan SEO.
+3. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
+4. Pemilik menyediakan Konten awal Artikel nyata serta memutuskan waktu penonaktifan Data Contoh.
+5. Sebelum rilis publik, hapus akun `AfiliasiUji`, matikan Data Contoh, dan masukkan sitemap ke Google Search Console.
 
 ## Asumsi yang berlaku
 

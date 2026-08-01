@@ -31,6 +31,8 @@
 - Migrasi `202608010007_m6_kolom_seo_artikel.sql` telah diterapkan pada Supabase hosted tanpa membuat konten bisnis.
 - Instruksi pemilik pada 1 Agustus 2026 diperlakukan sebagai konfirmasi eksplisit untuk memulai M6; rilis produksi tetap menunggu validasi akhir dan peninjauan pemilik.
 - Audit dependensi saat implementasi masih melaporkan tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10; pembaruan framework dicatat untuk penanganan terpisah agar tidak memperluas task SEO diam-diam.
+- Build bersih, lint, tipe, metadata, Markdown, lima Artikel lama, sitemap, robots, dan JSON-LD telah lolos validasi akhir. Artikel teknis hosted dihapus setelah pengujian.
+- Preview lokal Data Contoh dijalankan kembali untuk tinjauan pemilik; peninjauan visual 360px dan 1440px tetap menjadi langkah manual sebelum penggabungan.
 
 ## [2026-07-31] — Kebijakan visual Produk berbantuan AI
 
