@@ -40,7 +40,7 @@ const tujuanTindakan = {
   },
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,
