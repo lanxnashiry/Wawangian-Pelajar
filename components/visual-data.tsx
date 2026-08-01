@@ -11,5 +11,5 @@ export function VisualProduk({ produk, ringkas = false }: { produk: Produk; ring
 
 export function VisualArtikel({ artikel, ringkas = false }: { artikel: Artikel; ringkas?: boolean }) {
   if (!artikel.fotoUtama) return <PlaceholderVisual judul="Ilustrasi artikel sementara" warna={artikel.warna} ringkas={ringkas}/>;
-  return <div className={`relative overflow-hidden bg-white ${ringkas ? "aspect-[4/3]" : "aspect-[16/9]"}`}><Image src={artikel.fotoUtama} alt={`Gambar utama ${artikel.judul}`} fill sizes={ringkas ? "(max-width: 768px) 100vw, 33vw" : "100vw"} className="object-cover" unoptimized/></div>;
+  return <div className={`relative overflow-hidden bg-white ${ringkas ? "aspect-[4/3]" : "aspect-[16/9]"}`}><Image src={artikel.fotoUtama} alt={artikel.fotoAlt?.trim() || `Gambar utama ${artikel.judul}`} fill sizes={ringkas ? "(max-width: 768px) 100vw, 33vw" : "100vw"} className="object-cover"/></div>;
 }
