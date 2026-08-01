@@ -85,7 +85,9 @@ Atas keputusan pemilik untuk tahap MVP tertutup, mode berlabel diperluas ke Verc
 
 Perbaikan regresi 28 Juli 2026 memastikan formulir Produk M2 tetap dapat dipakai selama tinjauan M5: unggahan JPEG/PNG/WebP maksimal 5 MB didukung oleh batas muatan Server Action yang selaras, kirim ganda dicegah, dan status proses terlihat. Produk nyata pertama berhasil disimpan tanpa foto AI dan tampil pada website publik. Perbaikan ini tidak memulai M6.
 
-Penyempurnaan tinjauan 29 Juli 2026 menerapkan logo dan palet resmi pemilik, menambahkan placeholder Krem, serta mengisi katalog hosted dengan lima Produk Mykonos nyata dari dokumen sumber. Simbol logo kemudian diganti dengan revisi yang memenuhi kanvas lebih besar agar jelas pada navbar dan halaman autentikasi. Kelima Produk tervalidasi pada panel Admin dan katalog publik tanpa menambah foto AI, transaksi, atau fitur M6. Penggabungan ke `main` tetap menunggu konfirmasi pemilik.
+Penyempurnaan tinjauan 29 Juli 2026 menerapkan logo dan palet resmi pemilik, menambahkan placeholder Krem, serta mengisi katalog hosted dengan lima Produk Mykonos nyata dari dokumen sumber. Simbol logo kemudian diganti dengan revisi yang memenuhi kanvas lebih besar agar jelas pada navbar dan halaman autentikasi. Kelima Produk tervalidasi pada panel Admin dan katalog publik tanpa menambah foto AI, transaksi, atau fitur M6. Batch ini telah digabungkan ke `main`; konfirmasi penutupan M5 tetap menunggu pemilik.
+
+Validasi akses 31 Juli 2026 menambahkan dua akun Admin teknis terkonfirmasi pada peran Admin tunggal yang sama. Kedua akun berhasil masuk ke Dasbor Admin melalui custom domain Production dan wajib dihapus atau diganti kata sandinya sebelum rilis publik. Penambahan akses pengujian ini tidak membuat peran granular, tidak memperluas BR-10, dan tidak memulai M6.
 
 ## M6 — Poles & Rilis  ⬜
 - ⬜ Optimasi kecepatan & gambar

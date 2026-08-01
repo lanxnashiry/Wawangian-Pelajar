@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 29 Juli 2026
+**Terakhir diperbarui:** 31 Juli 2026
 **Milestone aktif:** M5 — Portal Afiliasi
 **Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
 
@@ -10,7 +10,7 @@
 
 ## Posisi saat ini
 
-M4 telah dikonfirmasi pemilik dan hasil teknis M5 sudah digabungkan ke `main`. Penyempurnaan tinjauan M5 saat ini dikerjakan pada branch `codex/m5-perbaiki-formulir-produk`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
+M4 telah dikonfirmasi pemilik dan hasil teknis M5 beserta penyempurnaan formulir Produk, identitas visual, serta katalog awal sudah digabungkan ke `main`. Dokumentasi dua akun Admin uji tambahan dikerjakan pada branch `codex/m5-admin-uji-tambahan`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
@@ -25,6 +25,8 @@ Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhas
 Identitas visual resmi telah menggantikan ikon sementara. Revisi simbol logo dari pemilik kini memenuhi kanvas lebih besar agar terbaca jelas pada navbar, footer, halaman autentikasi, dan favicon; nama aset baru mencegah cache browser atau Vercel mempertahankan logo lama. Palet website tetap mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
 
 Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif pada katalog publik: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue, seluruhnya berukuran 100 ml dengan harga Rp549.000. Kelimanya memakai tautan Shopee yang sama sesuai dokumen sumber dan tidak diberi tautan TikTok Shop. Monaco mempertahankan satu foto produk nyata yang sudah tersimpan; empat Produk lain tetap memakai placeholder karena tidak ada foto asli dalam sumber. Tidak ada gambar produk AI yang diunggah.
+
+Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example.com`, telah dibuat dalam keadaan terkonfirmasi dan diaktifkan pada satu peran Admin yang sama. Keduanya hanya untuk pengujian akses selama peninjauan MVP, bukan peran organisasi baru atau Admin bertingkat. Login keduanya pada custom domain Production telah berhasil; kata sandi sementara hanya disampaikan kepada pemilik dan tidak disimpan dalam repository maupun dokumentasi. Akun wajib dihapus atau kata sandinya diganti sebelum rilis publik M6.
 
 ## Task M5
 
@@ -77,17 +79,22 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
 - Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
 - Revisi logo simbol berhasil dimuat melalui URL aset baru pada Beranda dan halaman masuk Admin; komposisinya terlihat lebih besar pada kotak 46–48 px tanpa mengubah tinggi navigasi.
+- Dua pengguna Auth Admin uji tambahan terkonfirmasi dan masing-masing memiliki baris `pengguna_admin` aktif.
+- Login Production `admin.uji2@example.com` menampilkan identitas “Admin Uji 2” pada Dasbor Admin dan berhasil keluar.
+- Login Production `admin.uji3@example.com` menampilkan identitas “Admin Uji 3” pada Dasbor Admin dan berhasil keluar.
+- `npm.cmd run lint`, `npm.cmd run build`, `git diff --check`, dan pemeriksaan rahasia berhasil setelah dokumentasi akun; server lokal kembali memberi respons HTTP 200 pada port 3000.
 
 ## Langkah berikutnya
 
-1. Pemilik meninjau formulir Produk, identitas visual resmi, dan lima Produk Mykonos melalui preview lokal serta pull request.
+1. Pemilik meninjau formulir Produk, identitas visual resmi, lima Produk Mykonos, dan dua akun Admin uji melalui Production serta pull request.
 2. Pemilik menyediakan foto asli untuk Royal Ispahan, Dreamscape, California Signature, dan California Blue; gambar AI tidak digunakan sebagai foto Produk.
 3. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
 4. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
 5. Pemilik memastikan custom domain Production dan preview tercantum pada Redirect URLs Supabase.
-6. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
-7. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
-8. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan branch ke `main`; M6 tetap tidak boleh dimulai tanpa konfirmasi eksplisit.
+6. Pemilik mengganti kata sandi atau menghapus kedua akun Admin uji tambahan sebelum rilis publik.
+7. Pemilik mengganti kata sandi Admin utama sementara sebelum produksi.
+8. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
+9. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan branch ke `main`; M6 tetap tidak boleh dimulai tanpa konfirmasi eksplisit.
 
 ## Asumsi yang berlaku
 
@@ -106,6 +113,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Foto Monaco yang sudah tersimpan dipertahankan setelah pemeriksaan memastikan foto tersebut merupakan foto produk nyata. Empat Produk lain menunggu foto asli dari pemilik.
 - Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 - Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
+- Dua akun Admin tambahan memakai peran Admin tunggal yang sama sesuai BR-10 dan hanya menjadi akses teknis pengujian, bukan perluasan scope menjadi peran granular.
 
 ## Batas scope yang tetap dijaga
 
@@ -121,7 +129,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 - Custom domain Production aktif pada `https://www.wawangianpelajar.com`; domain tanpa `www` mengalihkan ke domain utama.
 - Redirect URL konfirmasi Afiliasi perlu dipastikan mencakup `https://www.wawangianpelajar.com/auth/konfirmasi`.
 - Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
-- Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
+- Login dua akun Admin uji tambahan telah tervalidasi pada custom domain. Alamatnya memakai domain cadangan `example.com`, sehingga pemulihan atau undangan melalui email tidak diandalkan; pengelolaan kata sandi dilakukan langsung oleh pemilik dan nilainya tidak disimpan dalam dokumentasi atau repository.
 - Empat dari lima Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto produk asli. Foto nyata Monaco yang telah ada tetap dipakai.
 - `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
 
