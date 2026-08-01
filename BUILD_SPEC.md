@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.5
+- **Versi spesifikasi:** 2.6
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -108,7 +108,7 @@ Ajakan afiliasi (Homepage/Konten) → Landing "Jadi Afiliasi" → Pendaftaran (s
 Homepage/footer → "Lihat bukti transparansi" → Halaman Donasi (3 angka: terkumpul/tersalurkan/saldo amanah) → buka detail penyaluran (bukti transfer + penerima) → baca "Bagaimana angka dihitung" → klik "Baca cerita lengkap" → artikel Cerita Misi (Modul Konten).
 
 ### Flow D — Admin (operasional rutin)
-Login → Dasbor → kelola Produk (foto asli, profil aroma, data karakter/okasi untuk kuis, link marketplace) → Rekap Penjualan→Donasi (input untung + metode, sistem hitung 20%) → input Penyaluran + unggah bukti → publikasikan + tulis cerita dampak → Afiliasi (verifikasi handle, unggah laporan marketplace, sistem cocokkan & hitung bonus per pcs, payout) → Konten (tulis artikel) → semua aksi sensitif tercatat di Log Audit.
+Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter/okasi untuk kuis, link marketplace) → Rekap Penjualan→Donasi (input untung + metode, sistem hitung 20%) → input Penyaluran + unggah bukti → publikasikan + tulis cerita dampak → Afiliasi (verifikasi handle, unggah laporan marketplace, sistem cocokkan & hitung bonus per pcs, payout) → Konten (tulis artikel) → semua aksi sensitif tercatat di Log Audit.
 
 ---
 
@@ -119,7 +119,7 @@ Login → Dasbor → kelola Produk (foto asli, profil aroma, data karakter/okasi
 |---|---|---|
 | Homepage | `/` | Hero, banner misi, produk unggulan, kenapa beda, cerita misi, strip konten, ajakan afiliasi, bukti sosial, footer |
 | Katalog | `/katalog` | Grid produk + filter kategori + urutkan + pencarian |
-| Detail Produk | `/produk/[slug]` | Galeri, profil aroma, harga, tombol beli, pesan misi, produk terkait |
+| Detail Produk | `/produk/[slug]` | Satu foto utama, profil aroma, harga, tombol beli, pesan misi, produk terkait |
 | Temukan Wangimu | `/temukan` | Kuis karakter aroma & okasi → rekomendasi produk |
 | Transparansi Donasi | `/donasi` | 3 angka, riwayat penyaluran berbukti, metode |
 | Detail Penyaluran | `/donasi/[id]` | Bukti diperbesar + tautan cerita |
@@ -188,7 +188,7 @@ Produk {
   ukuran, harga:int,
   profil_aroma { notes_atas, notes_tengah, notes_dasar,
                  karakter: string[], cocok_untuk: string[] },
-  foto: string[], label_racikan_sendiri: bool,
+  foto: string[0..1], label_racikan_sendiri: bool,
   link_marketplace { shopee?:url, tiktok?:url },
   unggulan: bool, stok: bool|int, aktif: bool, dibuat_pada
 }
@@ -252,7 +252,7 @@ Pengaturan { key, value }   // persentase_donasi, dll
 | Styling | **Tailwind CSS** | Cepat, konsisten, mobile-first by default |
 | Database + Auth | **Supabase** (Postgres + Auth + Storage) | Database, login, & penyimpanan file (foto produk/bukti) siap pakai, ada tier gratis |
 | Hosting | **Vercel** | Integrasi mulus dengan Next.js, tier gratis, deploy otomatis dari GitHub |
-| Penyimpanan file | **Supabase Storage** | Foto produk asli & bukti penyaluran donasi |
+| Penyimpanan file | **Supabase Storage** | Foto utama Produk & bukti penyaluran donasi |
 | Repositori | **GitHub** | Sumber kode + 6 dokumen tata kelola |
 
 **Catatan teknis:**
@@ -280,6 +280,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Mobile-first**: rancang untuk layar HP dulu, lalu lebarkan ke desktop.
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
+- **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 
@@ -303,6 +304,7 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 
 **AC-Katalog & Produk:**
 - Filter kategori & pencarian mengembalikan hasil yang benar; state kosong menampilkan "segera hadir"/"tidak ditemukan".
+- Detail Produk menampilkan maksimal satu foto utama tanpa thumbnail galeri buatan; unggahan baru melalui Admin menjadi foto utama pengganti.
 - Detail produk menampilkan profil aroma lengkap & tombol beli sesuai jumlah marketplace aktif.
 - Lini "inspirasi" menampilkan label "Racikan Sendiri".
 
@@ -441,4 +443,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.5 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.6 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

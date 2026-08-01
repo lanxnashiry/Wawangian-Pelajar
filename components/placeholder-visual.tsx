@@ -13,7 +13,7 @@ const warnaLatar = {
 };
 
 export function PlaceholderVisual({
-  judul = "Foto produk asli segera hadir",
+  judul = "Foto utama produk segera hadir",
   warna = "tosca",
   ringkas = false,
 }: PlaceholderVisualProps) {

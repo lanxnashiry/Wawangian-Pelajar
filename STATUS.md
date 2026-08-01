@@ -33,6 +33,8 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 
 Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI kini boleh dipakai untuk menambah dan mempercantik visual Produk. Gambar yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk atau dipakai sebagai bukti faktual. Belum ada gambar baru yang diunggah sebagai bagian dari perubahan kebijakan ini.
 
+Detail Produk kini mengikuti kemampuan formulir Admin: setiap Produk hanya menampilkan satu foto utama. Thumbnail placeholder “Tampak depan”, “Detail botol”, dan “Kemasan” dihapus, sedangkan unggahan baru menggantikan satu referensi foto utama lama tanpa menghapus berkas Storage secara otomatis.
+
 Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example.com`, telah dibuat dalam keadaan terkonfirmasi dan diaktifkan pada satu peran Admin yang sama. Keduanya hanya untuk pengujian akses selama peninjauan MVP, bukan peran organisasi baru atau Admin bertingkat. Login keduanya pada custom domain Production telah berhasil; kata sandi sementara hanya disampaikan kepada pemilik dan tidak disimpan dalam repository maupun dokumentasi. Akun wajib dihapus atau kata sandinya diganti sebelum rilis publik M6.
 
 ## Task M5 — selesai
@@ -109,6 +111,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Batch katalog menghasilkan tepat lima Produk aktif dengan harga Rp549.000, kategori Ori, ukuran 100 ml, placeholder Krem, dan tautan Shopee sesuai dokumen sumber.
 - `/admin/produk` menampilkan tepat lima baris Produk dan `/katalog` menampilkan tepat lima kartu Produk aktif.
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
+- Detail Produk satu foto utama tervalidasi pada 360 px dan 1440 px: satu blok visual, tanpa tiga thumbnail lama, tanpa overflow horizontal, dan tanpa galat konsol aplikasi.
 - Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
 - Revisi logo simbol berhasil dimuat melalui URL aset baru pada Beranda dan halaman masuk Admin; komposisinya terlihat lebih besar pada kotak 46–48 px tanpa mengubah tinggi navigasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil setelah BUILD_SPEC v2.4 serta KEP-036 ditambahkan.

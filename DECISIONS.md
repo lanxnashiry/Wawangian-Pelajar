@@ -239,6 +239,12 @@
 **Alasan:** Tanggal ISO diperlukan untuk urutan artikel, sitemap, Open Graph, dan schema `datePublished`; penyuntingan judul tidak boleh mengubah waktu penerbitan asli.
 **Konsekuensi:** Formulir membawa tanggal lama sebagai nilai tersembunyi. Artikel lama dengan tanggal kosong perlu diterbitkan ulang atau diperbaiki secara terkontrol sebelum rilis publik.
 
+### KEP-042 — Produk memakai satu foto utama
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** Setiap Produk memiliki maksimal satu foto utama pada antarmuka. Formulir Admin tetap memakai satu input file, unggahan baru menggantikan referensi foto lama, dan halaman detail tidak menampilkan thumbnail galeri tanpa sumber gambar tersendiri.
+**Alasan:** Admin hanya menyediakan satu unggahan foto per Produk. Label “Tampak depan”, “Detail botol”, dan “Kemasan” sebelumnya hanya berupa placeholder sehingga memberi kesan adanya galeri yang tidak benar-benar dikelola.
+**Konsekuensi:** Kolom array lama dipertahankan untuk kompatibilitas database, tetapi aplikasi hanya membaca serta menyimpan satu URL aktif. Berkas Storage lama tidak dihapus otomatis. Kebijakan “Visual ilustrasi” pada KEP-036 tetap berlaku.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
