@@ -34,6 +34,18 @@
 - Build bersih, lint, tipe, metadata, Markdown, lima Artikel lama, sitemap, robots, dan JSON-LD telah lolos validasi akhir. Artikel teknis hosted dihapus setelah pengujian.
 - Preview lokal Data Contoh dijalankan kembali untuk tinjauan pemilik; peninjauan visual 360px dan 1440px tetap menjadi langkah manual sebelum penggabungan.
 
+## [2026-08-01] — Konsolidasi dokumentasi setelah penggabungan branch
+
+### Diperbaiki
+
+- Status aktif M5 yang sudah usang, judul task, langkah berikutnya, dan catatan audit yang terduplikasi dihapus dari `STATUS.md`.
+- Hasil validasi dua akun Admin uji dipindahkan ke bagian validasi agar tidak tercampur dengan langkah berikutnya.
+- Status validasi M6 pada `ROADMAP.md` diselaraskan dengan Task 18 yang sudah selesai.
+
+### Catatan
+
+- Urutan commit implementasi tetap `Task 7 → 8 → 9 → 1 → 2`, lalu Task 3–18; tidak ada source code task yang hilang atau ditulis ulang.
+
 ## [2026-07-31] — Kebijakan visual Produk berbantuan AI
 
 ### Diubah
@@ -51,6 +63,7 @@
 - Perubahan ini menggantikan larangan foto Produk AI pada keputusan terdahulu melalui KEP-036.
 - Belum ada gambar Produk baru yang diunggah dalam perubahan dokumentasi ini.
 - Revisi tetap berada pada tahap tinjauan M5 dan tidak memulai M6.
+
 ## [2026-07-31] — Akun Admin uji tambahan
 
 ### Ditambah

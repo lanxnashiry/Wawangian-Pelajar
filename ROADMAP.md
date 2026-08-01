@@ -3,7 +3,7 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M6 sedang dikerjakan; fondasi SEO artikel selesai dan validasi akhir berjalan.
+**Status keseluruhan:** M6 sedang dikerjakan; fondasi SEO artikel dan validasi teknisnya selesai, menunggu tinjauan pemilik serta task rilis lainnya.
 **Milestone aktif:** M6 — Poles & Rilis.
 
 ---
