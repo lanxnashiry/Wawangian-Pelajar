@@ -51,6 +51,22 @@
 - Perubahan ini menggantikan larangan foto Produk AI pada keputusan terdahulu melalui KEP-036.
 - Belum ada gambar Produk baru yang diunggah dalam perubahan dokumentasi ini.
 - Revisi tetap berada pada tahap tinjauan M5 dan tidak memulai M6.
+## [2026-07-31] — Akun Admin uji tambahan
+
+### Ditambah
+
+- Dua pengguna Auth teknis terkonfirmasi untuk menguji akses Admin selama peninjauan MVP.
+- Dua keanggotaan aktif pada satu peran Admin yang sama, masing-masing berlabel “Admin Uji 2” dan “Admin Uji 3”.
+
+### Diperbaiki
+
+- Akses kedua akun divalidasi pada custom domain Production sampai Dasbor Admin menampilkan identitas yang sesuai dan alur keluar berhasil.
+
+### Catatan
+
+- Kata sandi sementara tidak dicatat dalam repository, dokumentasi, atau commit.
+- Alamat pengujian memakai domain cadangan `example.com`, sehingga pengiriman pemulihan email tidak diandalkan.
+- Kedua akun wajib dihapus atau kata sandinya diganti sebelum rilis publik M6. Perubahan ini tidak menambah peran Admin granular dan tidak memulai M6.
 
 ## [2026-07-29] — Identitas resmi dan katalog awal Mykonos
 
