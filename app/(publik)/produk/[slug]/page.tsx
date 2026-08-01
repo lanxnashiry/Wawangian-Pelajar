@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KartuProduk } from "@/components/kartu-produk";
 import { JembatanMarketplace } from "@/components/jembatan-marketplace";
-import { PlaceholderVisual } from "@/components/placeholder-visual";
 import { VisualProduk } from "@/components/visual-data";
 import {
   formatRupiah,
@@ -70,22 +69,14 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
         </nav>
 
         <div className="mt-7 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-          <section aria-label="Galeri produk" className="space-y-3">
+          <section aria-label="Foto utama produk" className="space-y-3">
             <div className="overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-white p-3 shadow-sm">
               <VisualProduk produk={produk} />
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              {["Tampak depan", "Detail botol", "Kemasan"].map((label) => (
-                <div
-                  key={label}
-                  className="overflow-hidden rounded-2xl border border-[#DED3C2] bg-white p-1.5"
-                >
-                  <PlaceholderVisual judul={label} warna={produk.warna} ringkas />
-                </div>
-              ))}
-            </div>
             <p className="text-xs leading-5 text-[#687078]">
-              {produk.foto?.length ? "Foto produk dibaca dari penyimpanan resmi." : "Galeri masih placeholder; foto produk asli wajib ditambahkan sebelum publikasi final."}
+              {produk.foto?.[0]
+                ? "Foto utama produk dibaca dari penyimpanan resmi."
+                : "Foto utama belum tersedia; placeholder ditampilkan sementara."}
             </p>
           </section>
 

@@ -49,7 +49,9 @@ export async function simpanProduk(formulir: FormData) {
   try {
     const hasilFotoTersimpan = JSON.parse(String(formulir.get("foto_tersimpan") ?? "[]"));
     fotoTersimpan = Array.isArray(hasilFotoTersimpan)
-      ? hasilFotoTersimpan.filter((nilai): nilai is string => typeof nilai === "string")
+      ? hasilFotoTersimpan
+          .filter((nilai): nilai is string => typeof nilai === "string")
+          .slice(0, 1)
       : [];
   } catch {
     fotoTersimpan = [];
@@ -98,7 +100,7 @@ export async function simpanProduk(formulir: FormData) {
     const { data: url } = supabase.storage.from("produk").getPublicUrl(lokasi);
     const pembaruanFoto = await supabase
       .from("produk")
-      .update({ foto: [...fotoTersimpan, url.publicUrl] })
+      .update({ foto: [url.publicUrl] })
       .eq("id", hasil.data.id);
     if (pembaruanFoto.error) {
       kembaliDenganPesan(

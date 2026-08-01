@@ -28,7 +28,7 @@ Setup awal sebelum fitur apa pun.
 - ✅ Layout global (navbar + drawer mobile + footer)
 - ✅ Homepage (semua bagian + state Rp 0 + state tanpa review)
 - ✅ Katalog (grid + filter + urutkan + pencarian + state kosong)
-- ✅ Detail Produk (galeri, profil aroma, tombol beli, produk terkait)
+- ✅ Detail Produk (satu foto utama, profil aroma, tombol beli, produk terkait)
 - ✅ Konten: daftar + halaman artikel (tombol share, tanpa komentar)
 - ✅ Responsif mobile-first diverifikasi
 
@@ -98,6 +98,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Metadata global/artikel, canonical, Open Graph, Twitter Card, sitemap, robots, dan JSON-LD
 - ✅ ISR lima menit serta optimasi gambar artikel Supabase
 - ✅ Validasi teknis menyeluruh dan pembersihan data teknis; tinjauan visual pemilik tetap menunggu
+- ✅ Penyederhanaan detail Produk menjadi satu foto utama yang selaras dengan satu input unggahan Admin
 - ⬜ Konten awal Artikel nyata dari pemilik
 - ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console

@@ -6,7 +6,7 @@ import type { Artikel } from "@/data/artikel";
 export function VisualProduk({ produk, ringkas = false }: { produk: Produk; ringkas?: boolean }) {
   const sumber = produk.foto?.[0];
   if (!sumber) return <PlaceholderVisual warna={produk.warna} ringkas={ringkas}/>;
-  return <div className={`relative overflow-hidden bg-white ${ringkas ? "aspect-[4/3]" : "aspect-square"}`}><Image src={sumber} alt={`Foto asli ${produk.nama}`} fill sizes={ringkas ? "(max-width: 768px) 50vw, 25vw" : "(max-width: 1024px) 100vw, 50vw"} className="object-cover" unoptimized/></div>;
+  return <div className={`relative overflow-hidden bg-white ${ringkas ? "aspect-[4/3]" : "aspect-square"}`}><Image src={sumber} alt={`Foto utama ${produk.nama}`} fill sizes={ringkas ? "(max-width: 768px) 50vw, 25vw" : "(max-width: 1024px) 100vw, 50vw"} className="object-cover" unoptimized/></div>;
 }
 
 export function VisualArtikel({ artikel, ringkas = false }: { artikel: Artikel; ringkas?: boolean }) {

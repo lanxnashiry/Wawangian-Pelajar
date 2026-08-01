@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-01] — Satu foto utama pada detail Produk
+
+### Diubah
+
+- Detail Produk hanya menampilkan satu foto utama tanpa thumbnail “Tampak depan”, “Detail botol”, atau “Kemasan”.
+- Label input Admin diselaraskan menjadi “Foto utama produk” dan unggahan baru menggantikan referensi foto lama.
+- BUILD_SPEC dinaikkan dari v2.5 menjadi v2.6 dan KEP-042 mencatat keputusan satu foto utama.
+
+### Diperbaiki
+
+- Penyuntingan Produk tidak lagi menambahkan URL baru di belakang foto lama yang tetap terpilih sebagai gambar pertama.
+- Teks formulir dan alt gambar tidak lagi selalu mengklaim visual sebagai foto asli sehingga tetap selaras dengan KEP-036.
+
+### Catatan
+
+- Struktur kolom array Supabase dipertahankan untuk kompatibilitas, tetapi aplikasi membatasi referensi aktif menjadi maksimal satu URL.
+- Berkas foto lama di Storage tidak dihapus otomatis untuk menghindari penghapusan data tanpa tindakan eksplisit pemilik.
+- Tampilan lokal pada 360 px dan 1440 px memiliki satu blok foto utama, tanpa overflow horizontal maupun galat konsol aplikasi.
+
 ## [2026-08-01] — Fondasi SEO dan editor artikel Markdown M6
 
 ### Ditambah
