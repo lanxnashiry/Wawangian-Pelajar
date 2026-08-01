@@ -51,9 +51,37 @@ export async function generateMetadata({
 
   if (!artikel) return { title: "Artikel tidak ditemukan" };
 
+  const judulMeta = artikel.metaJudul?.trim() || artikel.judul;
+  const deskripsiMeta = artikel.metaDeskripsi?.trim() || artikel.cuplikan;
+  const jalur = `/cerita/${artikel.slug}`;
+  const gambar = artikel.fotoUtama ?? "/og-wawangian-pelajar.png";
+
   return {
-    title: artikel.judul,
-    description: artikel.cuplikan,
+    title: judulMeta,
+    description: deskripsiMeta,
+    alternates: { canonical: jalur },
+    openGraph: {
+      type: "article",
+      locale: "id_ID",
+      siteName: "Wawangian Pelajar",
+      url: jalur,
+      title: judulMeta,
+      description: deskripsiMeta,
+      publishedTime: artikel.tanggalTerbitIso,
+      authors: artikel.penulis ? [artikel.penulis] : undefined,
+      images: [
+        {
+          url: gambar,
+          alt: artikel.fotoAlt?.trim() || artikel.judul,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: judulMeta,
+      description: deskripsiMeta,
+      images: [gambar],
+    },
   };
 }
 
