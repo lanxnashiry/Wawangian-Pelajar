@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.6
+- **Versi spesifikasi:** 2.7
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -281,6 +281,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
+- **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 5 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata tetap berarti keuntungan bersih sesuai BR-1.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 
@@ -343,6 +344,7 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 **AC-Umum:**
 - Tidak ada fitur di daftar Non-Scope yang muncul.
 - Semua teks antarmuka dalam Bahasa Indonesia.
+- Metadata beranda, Open Graph, dan Twitter Card memakai judul serta deskripsi SEO yang konsisten.
 
 ---
 
@@ -443,4 +445,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.6 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.7 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

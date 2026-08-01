@@ -2,6 +2,20 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-02] — Metadata SEO beranda untuk mahasiswa
+
+### Diubah
+
+- Judul beranda, Open Graph, dan Twitter Card menjadi “Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa”.
+- Deskripsi metadata menonjolkan decant parfum original, parfum inspirasi mulai 5 ml, dan misi 20% laba untuk pendidikan.
+- BUILD_SPEC dinaikkan dari v2.6 menjadi v2.7 dan KEP-043 mencatat sasaran metadata baru.
+
+### Catatan
+
+- Istilah “laba” pada metadata tetap berarti keuntungan bersih sesuai BR-1.
+- Klaim ukuran mulai 5 ml perlu tetap didukung Produk aktif sebelum website dirilis untuk publik luas.
+- Lint, build produksi, serta pemeriksaan HTML lokal membuktikan title, description, Open Graph, Twitter Card, dan gambar sosial memakai nilai baru.
+
 ## [2026-08-01] — Satu foto utama pada detail Produk
 
 ### Diubah
