@@ -118,6 +118,7 @@ Data M1 berada di `data/produk.ts` dan `data/artikel.ts`. Seluruh data tersebut 
 Salin `.env.example` menjadi `.env.local`, lalu isi:
 
 ```dotenv
+NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
@@ -127,6 +128,7 @@ ADMIN_PASSWORD=
 MODE_PRATINJAU_DATA_CONTOH=false
 ```
 
+- `NEXT_PUBLIC_URL_SITUS` adalah URL kanonis tanpa garis miring akhir; dipakai untuk metadata, Open Graph, sitemap, robots, dan JSON-LD.
 - URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
 - `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
@@ -239,6 +241,16 @@ handle,jumlah_pcs
 
 - `/admin/afiliasi` — verifikasi/koreksi handle, tingkat bonus, laporan, rekonsiliasi, payout, dan materi promosi.
 - `/admin/log` — jejak perubahan status Afiliasi, laporan, bonus, dan payout.
+
+## Mengaktifkan SEO Artikel M6
+
+1. Jalankan `supabase/migrations/202608010007_m6_kolom_seo_artikel.sql` melalui SQL Editor Supabase satu kali.
+2. Isi `NEXT_PUBLIC_URL_SITUS` pada `.env.local` dan Environment Variables Vercel dengan domain kanonis, misalnya `https://www.wawangianpelajar.com`.
+3. Gunakan panel “Optimasi mesin pencari” di formulir Konten untuk judul pencarian, deskripsi pencarian, fokus kata kunci, dan alt text gambar.
+4. Tulis isi artikel dengan Markdown. Gunakan `##` untuk subjudul dan `###` untuk sub-subjudul; jangan gunakan `#` karena Judul artikel sudah menjadi H1 halaman.
+5. Periksa `/sitemap.xml` dan `/robots.txt` setelah deploy, lalu kirim sitemap ke Google Search Console sebelum rilis publik.
+
+Artikel lama tanpa `isi_markdown` tetap dirender melalui data `bagian`. Artikel baru menyimpan Markdown mentah sebagai sumber isi serta mempertahankan `bagian` untuk kompatibilitas. HTML mentah tidak dieksekusi oleh renderer.
 
 ## Deploy ke Vercel
 
