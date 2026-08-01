@@ -31,6 +31,8 @@ export async function simpanArtikel(formulir: FormData) {
   const menitBaca = Number(formulir.get("menit_baca"));
   if (judul.length < 5 || !isi || !Number.isInteger(menitBaca) || menitBaca < 1) kembali(tujuan, "Judul, isi, atau waktu baca tidak valid.");
 
+  const status = String(formulir.get("status") ?? "draft");
+  const tanggalTerbitLama = String(formulir.get("tanggal_terbit_lama") ?? "").trim();
   const muatan = {
     judul,
     slug: buatSlug(String(formulir.get("slug") ?? "") || judul),
@@ -41,7 +43,9 @@ export async function simpanArtikel(formulir: FormData) {
     warna: String(formulir.get("warna") ?? "tosca"),
     menit_baca: menitBaca,
     share_aktif: formulir.get("share_aktif") === "on",
-    status: String(formulir.get("status") ?? "draft"),
+    status,
+    tanggal_terbit:
+      status === "terbit" ? (tanggalTerbitLama || new Date().toISOString()) : null,
     penulis: String(formulir.get("penulis") ?? "Wawangian Pelajar").trim(),
   };
   const hasil = id

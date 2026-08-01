@@ -13,6 +13,7 @@ export function FormulirArtikel({ artikel, pesan }: Properti) {
     <form action={simpanArtikel} className="space-y-6" encType="multipart/form-data">
       <input type="hidden" name="id" value={artikel?.id ?? ""}/>
       <input type="hidden" name="foto_tersimpan" value={artikel?.fotoUtama ?? ""}/>
+      <input type="hidden" name="tanggal_terbit_lama" value={artikel?.tanggalTerbitIso ?? ""}/>
       <input type="hidden" name="tujuan_kembali" value={artikel?.id ? `/admin/konten/${artikel.id}` : "/admin/konten/baru"}/>
       {pesan ? <p role="alert" className="rounded-2xl border border-[#efc9c3] bg-[#fff2f0] px-4 py-3 text-sm text-[#9e3024]">{pesan}</p> : null}
       <div className="grid gap-5 rounded-2xl border border-[#DED3C2] bg-white p-5 lg:grid-cols-[1fr_280px]">
