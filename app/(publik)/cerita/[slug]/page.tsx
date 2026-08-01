@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { IsiMarkdown } from "@/components/isi-markdown";
 import { KartuArtikel } from "@/components/kartu-artikel";
+import { SkemaArtikel } from "@/components/skema-artikel";
 import { VisualArtikel } from "@/components/visual-data";
 import { TombolBagikan } from "@/components/tombol-bagikan";
 import {
@@ -106,6 +107,7 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
   return (
     <main className="px-5 py-8 sm:px-8 sm:py-12 lg:px-10">
       <article className="mx-auto max-w-4xl">
+        <SkemaArtikel artikel={artikel} />
         <nav aria-label="Breadcrumb" className="text-sm text-[#4A4D52]">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
