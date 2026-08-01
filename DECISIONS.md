@@ -251,6 +251,12 @@
 **Alasan:** Pemilik sedang menyiapkan website untuk ditemukan melalui Google dan memilih frasa yang lebih spesifik terhadap Produk serta sasaran mahasiswa daripada deskripsi brand yang umum.
 **Konsekuensi:** Metadata sosial dan mesin pencari memakai naskah yang sama. Kata “laba” ditafsirkan sebagai keuntungan bersih sesuai BR-1; klaim ukuran mulai 5 ml harus tetap didukung Produk aktif sebelum rilis publik.
 
+### KEP-044 — Lima aroma Mykonos tersedia dalam tiga ukuran
+**Tanggal:** 2026-08-02 · **Status:** Diterima
+**Keputusan:** Lima Produk Mykonos 100 ml menjadi sumber untuk varian 50 ml dan 15 ml. Varian menyalin harga Rp549.000, profil aroma, ringkasan, status, warna placeholder, serta tautan Shopee; nama, slug, ukuran, dan spesifikasi ukuran pada deskripsi disesuaikan.
+**Alasan:** Pemilik meminta katalog berisi 15 Produk dengan lima aroma yang sama pada ukuran 100 ml, 50 ml, dan 15 ml, termasuk tautan Shopee yang sama.
+**Konsekuensi:** Harga dan tautan marketplace ketiga ukuran tetap sama sampai pemilik memberikan nilai khusus per varian. Foto 100 ml tidak disalin ke ukuran lain agar tidak memalsukan ukuran sesuai KEP-036. Metadata “mulai 5 ml” belum didukung katalog hosted yang ukuran terkecilnya 15 ml dan perlu ditinjau sebelum rilis publik luas.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
