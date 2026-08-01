@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Cerita misi, edukasi aroma, dan tips parfum dari Wawangian Pelajar.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default async function HalamanDaftarCerita() {
   const daftarArtikel = await ambilDaftarArtikelPublik();

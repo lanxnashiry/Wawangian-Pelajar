@@ -209,6 +209,36 @@
 **Alasan:** Pemilik mengizinkan AI sebagai alat kreasi visual selama tahap MVP agar katalog lebih menarik dan tidak bergantung sepenuhnya pada ketersediaan foto studio.
 **Konsekuensi:** Bagian larangan foto AI pada KEP-016, KEP-034, dan KEP-035 digantikan oleh keputusan ini; ketentuan lainnya tetap berlaku. Visual AI tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk. Visual AI juga tidak boleh dipakai sebagai bukti donasi, transaksi, payout, penerima manfaat, atau dokumen faktual lain. BUILD_SPEC naik ke v2.4.
 
+### KEP-037 — Markdown menjadi sumber isi artikel
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** Isi artikel disimpan sebagai Markdown di kolom `isi_markdown`, sedangkan kolom `bagian` dipertahankan sebagai cadangan kompatibilitas.
+**Alasan:** Parser teks lama tidak mendukung tautan, penekanan, daftar, kutipan, subjudul tingkat tiga, dan tabel. Markdown memungkinkan tautan internal ke halaman Produk tanpa membangun editor khusus.
+**Konsekuensi:** Artikel lama tetap dapat dirender dari `bagian`. Penyimpanan baru menulis Markdown mentah dan hasil pemetaan `bagian` secara bersamaan sampai jalur lama resmi dihentikan.
+
+### KEP-038 — Metadata pencarian terpisah dan opsional
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** Judul serta deskripsi hasil pencarian dipisahkan dari Judul dan Cuplikan artikel. Keduanya opsional dan memakai fallback ke nilai utama saat kosong.
+**Alasan:** H1 dapat dibuat naratif untuk pembaca, sedangkan judul pencarian perlu ringkas agar tidak terpotong. Sifat opsional menjaga artikel lama tetap valid tanpa penyuntingan massal.
+**Konsekuensi:** Judul pencarian dibatasi 70 karakter dan deskripsi pencarian 200 karakter pada formulir, server, serta database. Fokus kata kunci hanya menjadi catatan internal dan tidak dikirim sebagai meta keyword.
+
+### KEP-039 — Renderer Markdown aman tanpa HTML mentah
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** Render Markdown memakai `react-markdown` dan `remark-gfm` tanpa `rehype-raw`.
+**Alasan:** Pustaka teruji menggantikan parser buatan sendiri, sedangkan penolakan HTML mentah mencegah isi artikel menjadi jalur eksekusi skrip.
+**Konsekuensi:** Tautan eksternal dibuka pada tab baru dengan `noopener noreferrer nofollow`; tautan internal tetap di tab yang sama. Admin dilarang menulis H1 Markdown karena judul halaman sudah menjadi satu-satunya H1.
+
+### KEP-040 — Halaman artikel memakai ISR lima menit
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** Daftar dan detail artikel publik memakai ISR dengan masa validasi ulang 300 detik, bukan `force-dynamic`.
+**Alasan:** Artikel adalah konten yang jarang berubah. Render per kunjungan memperburuk waktu respons tanpa manfaat yang sepadan.
+**Konsekuensi:** Server Action artikel tetap memanggil `revalidatePath` agar perubahan Admin terlihat tanpa menunggu siklus ISR penuh.
+
+### KEP-041 — Tanggal terbit mengikuti perubahan status
+**Tanggal:** 2026-08-01 · **Status:** Diterima
+**Keputusan:** `tanggal_terbit` diisi otomatis ketika status menjadi `terbit`, dipertahankan pada penyuntingan berikutnya, dan dikosongkan ketika artikel kembali menjadi `draft`.
+**Alasan:** Tanggal ISO diperlukan untuk urutan artikel, sitemap, Open Graph, dan schema `datePublished`; penyuntingan judul tidak boleh mengubah waktu penerbitan asli.
+**Konsekuensi:** Formulir membawa tanggal lama sebagai nilai tersembunyi. Artikel lama dengan tanggal kosong perlu diterbitkan ulang atau diperbaiki secara terkontrol sebelum rilis publik.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

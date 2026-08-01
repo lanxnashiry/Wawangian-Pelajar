@@ -2,15 +2,19 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 31 Juli 2026
-**Milestone aktif:** M5 — Portal Afiliasi
-**Status milestone aktif:** Selesai secara teknis; menunggu tinjauan dan konfirmasi pemilik sebelum M6
+**Terakhir diperbarui:** 1 Agustus 2026
+**Milestone aktif:** M6 — Poles & Rilis
+**Status milestone aktif:** Batch fondasi SEO artikel selesai secara teknis; menunggu tinjauan visual pemilik dan task rilis M6 lainnya
 
 ---
 
 ## Posisi saat ini
 
-M4 telah dikonfirmasi pemilik dan hasil teknis M5 sudah digabungkan ke `main`. Penyempurnaan tinjauan M5 saat ini dikerjakan pada branch `codex/m5-perbaiki-formulir-produk`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
+Instruksi pemilik pada 1 Agustus 2026 untuk mengerjakan rangkaian revisi SEO diperlakukan sebagai konfirmasi eksplisit memulai M6. Pekerjaan berjalan pada branch `codex/m6-revisi-seo-artikel`; Task 1–17 telah diterapkan dan di-commit terpisah, sedangkan Task 18 menjadi langkah berikutnya.
+
+Fondasi SEO Artikel kini mencakup kolom database khusus, editor Markdown aman, panel metadata Admin, alt text, ISR lima menit, canonical, Open Graph, Twitter Card, sitemap, robots, optimasi gambar Supabase, serta JSON-LD `Article` dan `BreadcrumbList`. Artikel lama tetap memiliki fallback dari `bagian` dan artikel baru menyimpan Markdown mentah tanpa mengeksekusi HTML.
+
+M5 telah selesai sebagai landasan. Portal Afiliasi menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
@@ -18,7 +22,7 @@ Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjaua
 
 Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk contoh melalui kuis manual maupun tautan “Coba contoh”. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Skenario cepat memakai `Fresh · Siang · Kuliah / Kerja` dan seluruh hasil tetap berlabel Data Contoh.
 
-Mode Data Contoh kini dapat dipakai pada Development, Vercel Preview, dan Vercel Production MVP ketika sakelar khusus aktif. Production ditujukan untuk peninjauan terbatas, seluruh simulasi tetap berlabel, dan perubahan ini tidak membuat data hosted maupun memulai M6.
+Mode Data Contoh dapat dipakai pada Development, Vercel Preview, dan Vercel Production MVP ketika sakelar khusus aktif. Production ditujukan untuk peninjauan terbatas, seluruh simulasi tetap berlabel, dan perubahan ini tidak membuat data hosted.
 
 Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhasil, tetapi tidak memiliki indikator proses sehingga tampak gagal selama respons Vercel berlangsung. Batas unggahan Server Action juga masih 1 MB meskipun formulir menyatakan maksimal 5 MB. Perbaikan berada pada branch `codex/m5-perbaiki-formulir-produk`: batas muatan menjadi 6 MB untuk menampung foto 5 MB beserta data formulir, validasi file dijalankan sebelum mutasi, tombol mencegah kirim ganda, dan pesan galat dibuat lebih jelas.
 
@@ -28,7 +32,7 @@ Lima Produk nyata Mykonos telah disimpan pada Supabase hosted dan tampil aktif p
 
 Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI kini boleh dipakai untuk menambah dan mempercantik visual Produk. Gambar yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk atau dipakai sebagai bukti faktual. Belum ada gambar baru yang diunggah sebagai bagian dari perubahan kebijakan ini.
 
-## Task M5
+## Task M5 — selesai
 
 1. ✅ Landing “Jadi Afiliasi” — menjelaskan native marketplace dan memisahkan komisi platform dari bonus kami.
 2. ✅ Pendaftaran — email, WhatsApp, alias, persetujuan aturan, serta minimal satu handle TikTok Shop/Shopee wajib.
@@ -41,11 +45,36 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 9. ✅ Penyempurnaan pratinjau — kuis `/temukan` berbasis URL, demo cepat, dan validasi Produk contoh tanpa data hosted.
 10. ✅ Production MVP — sakelar Data Contoh berlaku konsisten pada lokal, Preview, dan Production dengan label simulasi.
 11. ✅ Perbaikan regresi Produk — dukungan unggahan 5 MB, status penyimpanan, pencegahan kirim ganda, dan pesan galat berbahasa Indonesia.
-12. ✅ Identitas visual resmi — logo, favicon, dan palet color guide diterapkan tanpa memulai M6.
+12. ✅ Identitas visual resmi — logo, favicon, dan palet color guide diterapkan.
 13. ✅ Katalog awal — lima Produk Mykonos nyata diunggah dan divalidasi pada Admin serta halaman publik.
+
+## Task M6 — aktif
+
+1. ✅ Variabel URL kanonis, dependensi Markdown, dan pengelolaan tanggal terbit.
+2. ✅ ISR daftar/detail cerita, metadata global, aset Open Graph, sitemap, dan robots.
+3. ✅ Migrasi kolom SEO hosted, tipe Artikel, serta pemetaan data publik.
+4. ✅ Renderer Markdown aman dan fallback artikel lama.
+5. ✅ Panel SEO Admin serta penyimpanan Markdown, metadata, fokus kata kunci, dan alt text.
+6. ✅ Optimasi gambar artikel, metadata per artikel, canonical, Twitter Card, dan JSON-LD.
+7. ✅ Dokumentasi KEP-037 sampai KEP-041, BUILD_SPEC v2.5, README, ROADMAP, STATUS, dan CHANGELOG.
+8. ✅ Validasi akhir bersih, uji alur artikel lengkap, regresi artikel lama, pembersihan artikel teknis, dan preview lokal.
 
 ## Validasi yang sudah dilakukan
 
+- Migrasi `202608010007_m6_kolom_seo_artikel.sql` berhasil diterapkan pada Supabase hosted; lima kolom bertipe teks tersedia dan opsional.
+- Login Admin lokal berhasil membuat artikel teknis, mempertahankan `tanggal_terbit` saat judul diubah, lalu mengosongkannya saat status kembali menjadi draf.
+- Renderer Markdown menampilkan penekanan, tautan internal, daftar, H2/H3, dan tabel; artikel contoh lama tetap tampil melalui fallback `bagian`.
+- Metadata global dan artikel menghasilkan URL absolut `https://www.wawangianpelajar.com`, canonical, Open Graph, serta Twitter Card.
+- `sitemap.xml` memuat halaman publik, lima Artikel contoh, dan Produk; `robots.txt` memblokir Admin, autentikasi Afiliasi, dan API.
+- Halaman artikel menghasilkan tepat dua blok JSON-LD yang dapat dibaca sebagai `Article` dan `BreadcrumbList`.
+- Build bertahap dan pemeriksaan TypeScript berhasil sampai Task 16.
+- Folder `.next` lama dihapus setelah target absolut diverifikasi, lalu build produksi bersih berhasil.
+- `npm.cmd run lint`, `npx.cmd tsc --noEmit`, build mode Data Contoh, dan build mode data hosted semuanya berhasil.
+- Artikel teknis lengkap memvalidasi meta title, meta description 156 karakter, canonical absolut, dua JSON-LD, tepat satu H1, alt text, tautan internal, penekanan, daftar, tabel, kutipan, H2/H3, CTA, dan tombol Bagikan.
+- Sitemap mode data hosted memuat artikel terbit beserta `lastmod`; robots memuat blok Admin/API dan alamat sitemap kanonis.
+- Lima Artikel contoh lama masing-masing merespons HTTP 200, memiliki tepat satu H1, isi fallback, dan CTA.
+- Artikel teknis M6 dihapus dari Supabase hosted setelah pengujian; verifikasi akhir mengembalikan jumlah `0`.
+- Tabel Markdown dibungkus `overflow-x-auto` agar tidak memperlebar halaman seluler. Tinjauan visual pemilik tetap diperlukan pada preview karena sesi browser otomatis lokal terputus saat server dimulai ulang.
 - Migrasi `202607220004_m5_portal_afiliasi.sql` berhasil diterapkan pada Supabase hosted.
 - Lima tabel M5, 10 kebijakan RLS, tiga bucket privat, fungsi rekonsiliasi, dan fungsi leaderboard tersedia.
 - Transaksi uji hosted menghasilkan satu handle cocok dan satu belum cocok sesuai masukan.
@@ -83,14 +112,11 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 
 ## Langkah berikutnya
 
-1. Pemilik meninjau formulir Produk, identitas visual resmi, dan lima Produk Mykonos melalui preview lokal serta pull request.
-2. Pemilik memilih foto asli atau visual AI yang sesuai untuk Royal Ispahan, Dreamscape, California Signature, dan California Blue; visual AI wajib mengikuti KEP-036.
-3. Pemilik menentukan nama tingkat, batas minimal pcs, dan nominal bonus per pcs nyata melalui `/admin/afiliasi`.
-4. Pemilik menambahkan materi promosi serta laporan platform nyata setelah tersedia.
-5. Pemilik memastikan custom domain Production dan preview tercantum pada Redirect URLs Supabase.
-6. Pemilik mengganti kata sandi Admin sementara sebelum produksi.
-7. Pemilik menghapus akun `AfiliasiUji` dari Supabase Auth sebelum rilis produksi M6.
-8. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan branch ke `main`; M6 tetap tidak boleh dimulai tanpa konfirmasi eksplisit.
+1. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
+2. Push branch dan buka draft pull request untuk peninjauan perubahan SEO.
+3. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
+4. Pemilik menyediakan Konten awal Artikel nyata serta memutuskan waktu penonaktifan Data Contoh.
+5. Sebelum rilis publik, hapus akun `AfiliasiUji`, matikan Data Contoh, dan masukkan sitemap ke Google Search Console.
 
 ## Asumsi yang berlaku
 
@@ -109,6 +135,9 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 - Foto Monaco yang sudah tersimpan dipertahankan. Empat Produk lain menunggu foto asli atau visual AI terpilih dari pemilik; penggunaan AI wajib diberi penanda “Visual ilustrasi” bila bukan foto Produk nyata.
 - Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 - Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
+- Instruksi eksplisit pemilik pada 1 Agustus 2026 menjadi dasar aktivasi M6 meskipun dokumen sebelumnya masih mencatat M5 menunggu konfirmasi.
+- Domain kanonis M6 adalah `https://www.wawangianpelajar.com`, bukan alamat deployment Vercel lama pada rancangan awal.
+- Artikel teknis M6 bukan konten bisnis dan wajib dihapus setelah validasi akhir.
 
 ## Batas scope yang tetap dijaga
 
@@ -117,16 +146,17 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 - Tidak ada payout otomatis, integrasi bank, klaim pendapatan, tarif bonus, klaim anggota nyata, atau leaderboard palsu.
 - Tidak ada Sales Academy, sertifikat, notifikasi otomatis, loyalitas, atau peran Admin granular.
 - Tidak ada visual Produk yang menipu, klaim organisasi, banting harga, atau klaim promosi palsu.
-- M6 belum dimulai.
+- Rangkaian ini tidak menambah checkout, akun pembeli, pelacakan komisi, atau klaim dampak baru.
 
 ## Catatan dan kendala
 
 - Custom domain Production aktif pada `https://www.wawangianpelajar.com`; domain tanpa `www` mengalihkan ke domain utama.
 - Redirect URL konfirmasi Afiliasi perlu dipastikan mencakup `https://www.wawangianpelajar.com/auth/konfirmasi`.
 - Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
-- Login Admin pernah tervalidasi, tetapi kata sandi lama yang dicoba ulang kini ditolak; pemilik perlu memastikan kata sandi Admin saat ini sebelum pemeriksaan panel berikutnya. Nilainya tidak disimpan dalam dokumentasi atau repository.
+- Login Admin lokal berhasil dipakai untuk pengujian Task 3; kata sandi tetap tidak disimpan dalam dokumentasi atau repository.
 - Empat dari lima Produk masih memakai placeholder Krem karena visual pengganti belum dipilih. Foto Monaco yang telah ada tetap dipakai.
-- `npm audit --omit=dev` dari M0 masih mencatat dua kerentanan sedang pada PostCSS bawaan Next.js; belum ada perbaikan kompatibel.
+- `NEXT_PUBLIC_URL_SITUS` wajib ditambahkan pada Vercel Production dan Preview sebelum deployment SEO ditinjau.
+- `npm audit --omit=dev` mencatat tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10, PostCSS, dan Sharp. Perbaikan memerlukan pembaruan framework di luar task SEO dan harus ditangani secara terpisah.
 
 ---
 

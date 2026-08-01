@@ -3,8 +3,8 @@
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 
-**Status keseluruhan:** M5 selesai secara teknis; menunggu tinjauan pemilik sebelum M6.
-**Milestone aktif:** M5 — Portal Afiliasi, tahap tinjauan.
+**Status keseluruhan:** M6 sedang dikerjakan; fondasi SEO artikel selesai dan validasi akhir berjalan.
+**Milestone aktif:** M6 — Poles & Rilis.
 
 ---
 
@@ -61,7 +61,7 @@ Penyempurnaan tinjauan 22 Juli 2026 menambahkan mode pratinjau lokal berlabel ag
 
 Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat untuk analitik tanpa menahan pembukaan tab, sedangkan data contoh tidak mencemari analitik. Kuis tiga pertanyaan mencocokkan karakter, waktu, dan okasi dengan data Produk serta memuat kembali hasil dari URL shareable. Pemilik mengonfirmasi kelanjutan ke M5 pada 22 Juli 2026.
 
-## M5 — Portal Afiliasi  ✅ (selesai; menunggu konfirmasi)
+## M5 — Portal Afiliasi  ✅ (selesai dan dikonfirmasi melalui instruksi M6)
 - ✅ Landing "Jadi Afiliasi"
 - ✅ Pendaftaran + input handle marketplace (BR-6)
 - ✅ Login afiliasi + Dashboard (pemisahan komisi platform vs bonus)
@@ -71,7 +71,7 @@ Jembatan hanya mengaktifkan URL HTTPS domain resmi. Klik Produk Supabase dicatat
 - ✅ Admin: verifikasi/koreksi handle + rekonsiliasi CSV + hitung bonus per pcs + payout berbukti (BR-7)
 - ✅ Data Contoh berlabel pada Production MVP tertutup tanpa mutasi Supabase
 
-Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga bucket privat. Transaksi uji membuktikan pencocokan handle, status belum cocok, hitung bonus per pcs, leaderboard beralias, serta penolakan payout tanpa bukti; seluruh data dan Log Audit uji dibatalkan dengan rollback. Tarif bonus, afiliasi, materi, laporan, dan bukti nyata tetap menunggu input pemilik. M6 belum boleh dimulai sebelum M5 dikonfirmasi.
+Schema M5 telah diterapkan pada Supabase hosted dengan 10 kebijakan RLS dan tiga bucket privat. Transaksi uji membuktikan pencocokan handle, status belum cocok, hitung bonus per pcs, leaderboard beralias, serta penolakan payout tanpa bukti; seluruh data dan Log Audit uji dibatalkan dengan rollback. Tarif bonus, afiliasi, materi, laporan, dan bukti nyata tetap menunggu input pemilik. Instruksi pengerjaan M6 pada 1 Agustus 2026 menjadi konfirmasi eksplisit untuk melanjutkan milestone.
 
 Validasi lanjutan menambahkan satu akun teknis berlabel uji untuk memeriksa login dan seluruh portal terlindungi tanpa laporan, bonus, payout, atau posisi leaderboard. Trigger profil juga dikoreksi agar pengguna Auth non-Afiliasi tidak menggagalkan pembuatan akun. Akun teknis wajib dihapus sebelum rilis produksi M6.
 
@@ -89,11 +89,16 @@ Penyempurnaan tinjauan 29 Juli 2026 menerapkan logo dan palet resmi pemilik, men
 
 Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan AI untuk mempercantik visual Produk dengan foto asli tetap diutamakan. Visual yang bukan foto Produk nyata wajib diberi penanda “Visual ilustrasi”, dilarang memalsukan atribut Produk atau bukti faktual, dan diatur melalui KEP-036 serta BUILD_SPEC v2.4. Revisi kebijakan ini belum mengunggah gambar baru dan tidak memulai M6.
 
-## M6 — Poles & Rilis  ⬜
-- ⬜ Optimasi kecepatan & gambar
-- ⬜ Aksesibilitas + uji lintas perangkat
-- ⬜ Konten awal (artikel & produk perdana)
-- ⬜ Rilis produksi
+## M6 — Poles & Rilis  🟡 (aktif)
+- ✅ Migrasi kolom SEO artikel dan pemetaan tipe/data publik
+- ✅ Editor Markdown aman dengan fallback artikel lama
+- ✅ Panel SEO, alt text, dan penyimpanan metadata Admin
+- ✅ Metadata global/artikel, canonical, Open Graph, Twitter Card, sitemap, robots, dan JSON-LD
+- ✅ ISR lima menit serta optimasi gambar artikel Supabase
+- ✅ Validasi teknis menyeluruh dan pembersihan data teknis; tinjauan visual pemilik tetap menunggu
+- ⬜ Konten awal Artikel nyata dari pemilik
+- ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
+- ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---
 
