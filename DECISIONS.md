@@ -245,6 +245,12 @@
 **Alasan:** Admin hanya menyediakan satu unggahan foto per Produk. Label “Tampak depan”, “Detail botol”, dan “Kemasan” sebelumnya hanya berupa placeholder sehingga memberi kesan adanya galeri yang tidak benar-benar dikelola.
 **Konsekuensi:** Kolom array lama dipertahankan untuk kompatibilitas database, tetapi aplikasi hanya membaca serta menyimpan satu URL aktif. Berkas Storage lama tidak dihapus otomatis. Kebijakan “Visual ilustrasi” pada KEP-036 tetap berlaku.
 
+### KEP-043 — Metadata beranda menargetkan pencarian mahasiswa
+**Tanggal:** 2026-08-02 · **Status:** Diterima
+**Keputusan:** Judul metadata beranda, Open Graph, dan Twitter Card memakai “Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa”. Deskripsinya menonjolkan decant serta parfum inspirasi mulai 5 ml dan misi 20% laba untuk pendidikan.
+**Alasan:** Pemilik sedang menyiapkan website untuk ditemukan melalui Google dan memilih frasa yang lebih spesifik terhadap Produk serta sasaran mahasiswa daripada deskripsi brand yang umum.
+**Konsekuensi:** Metadata sosial dan mesin pencari memakai naskah yang sama. Kata “laba” ditafsirkan sebagai keuntungan bersih sesuai BR-1; klaim ukuran mulai 5 ml harus tetap didukung Produk aktif sebelum rilis publik.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

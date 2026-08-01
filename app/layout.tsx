@@ -7,11 +7,11 @@ const urlSitus =
 export const metadata: Metadata = {
   metadataBase: new URL(urlSitus),
   title: {
-    default: "Wawangian Pelajar",
+    default: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     template: "%s · Wawangian Pelajar",
   },
   description:
-    "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
+    "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
   icons: {
     icon: "/ikon-wawangian-pelajar-2026.png",
     apple: "/ikon-wawangian-pelajar-2026.png",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     locale: "id_ID",
     siteName: "Wawangian Pelajar",
     url: urlSitus,
-    title: "Wawangian Pelajar",
+    title: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     description:
-      "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
+      "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
     images: [
       {
         url: "/og-wawangian-pelajar.png",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wawangian Pelajar",
+    title: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     description:
-      "Website resmi Wawangian Pelajar — wangi yang berpihak pada pendidikan.",
+      "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
     images: ["/og-wawangian-pelajar.png"],
   },
 };

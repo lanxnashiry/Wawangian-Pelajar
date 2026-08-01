@@ -99,6 +99,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ ISR lima menit serta optimasi gambar artikel Supabase
 - ✅ Validasi teknis menyeluruh dan pembersihan data teknis; tinjauan visual pemilik tetap menunggu
 - ✅ Penyederhanaan detail Produk menjadi satu foto utama yang selaras dengan satu input unggahan Admin
+- ✅ Revisi judul dan deskripsi SEO beranda, Open Graph, serta Twitter Card
 - ⬜ Konten awal Artikel nyata dari pemilik
 - ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console

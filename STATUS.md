@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 1 Agustus 2026
+**Terakhir diperbarui:** 2 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
 **Status milestone aktif:** Batch fondasi SEO artikel selesai secara teknis; menunggu tinjauan visual pemilik dan task rilis M6 lainnya
 
@@ -13,6 +13,8 @@
 Instruksi pemilik pada 1 Agustus 2026 untuk mengerjakan rangkaian revisi SEO diperlakukan sebagai konfirmasi eksplisit memulai M6. Task fondasi dikerjakan dalam urutan `7 → 8 → 9 → 1 → 2`, dilanjutkan Task 3–18, dan setiap task memiliki commit terpisah sesuai rencana.
 
 Fondasi SEO Artikel kini mencakup kolom database khusus, editor Markdown aman, panel metadata Admin, alt text, ISR lima menit, canonical, Open Graph, Twitter Card, sitemap, robots, optimasi gambar Supabase, serta JSON-LD `Article` dan `BreadcrumbList`. Artikel lama tetap memiliki fallback dari `bagian` dan artikel baru menyimpan Markdown mentah tanpa mengeksekusi HTML.
+
+Metadata beranda, Open Graph, dan Twitter Card kini menargetkan frasa “Decant Parfum Original untuk Mahasiswa” dengan deskripsi pilihan mulai 5 ml serta misi 20% laba untuk pendidikan. Istilah “laba” tetap merujuk keuntungan bersih sesuai BR-1; ketersediaan Produk aktif berukuran 5 ml perlu dipastikan sebelum rilis publik.
 
 M5 telah selesai sebagai landasan. Portal Afiliasi menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 M4 telah dikonfirmasi pemilik dan hasil teknis M5 beserta penyempurnaan formulir Produk, identitas visual, serta katalog awal sudah digabungkan ke `main`. Dokumentasi dua akun Admin uji tambahan dikerjakan pada branch `codex/m5-admin-uji-tambahan`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
@@ -61,7 +63,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 4. ✅ Renderer Markdown aman dan fallback artikel lama.
 5. ✅ Panel SEO Admin serta penyimpanan Markdown, metadata, fokus kata kunci, dan alt text.
 6. ✅ Optimasi gambar artikel, metadata per artikel, canonical, Twitter Card, dan JSON-LD.
-7. ✅ Dokumentasi KEP-037 sampai KEP-041, BUILD_SPEC v2.5, README, ROADMAP, STATUS, dan CHANGELOG.
+7. ✅ Dokumentasi KEP-037 sampai KEP-043, BUILD_SPEC v2.7, README, ROADMAP, STATUS, dan CHANGELOG.
 8. ✅ Validasi akhir bersih, uji alur artikel lengkap, regresi artikel lama, pembersihan artikel teknis, dan preview lokal.
 
 ## Validasi yang sudah dilakukan
@@ -112,6 +114,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - `/admin/produk` menampilkan tepat lima baris Produk dan `/katalog` menampilkan tepat lima kartu Produk aktif.
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
 - Detail Produk satu foto utama tervalidasi pada 360 px dan 1440 px: satu blok visual, tanpa tiga thumbnail lama, tanpa overflow horizontal, dan tanpa galat konsol aplikasi.
+- Metadata beranda tervalidasi melalui HTML lokal: title, description, Open Graph, Twitter Card, dan gambar sosial memakai nilai SEO baru; lint serta build produksi berhasil.
 - Logo resmi, warna global, halaman publik, login Admin, dan login Afiliasi telah diperiksa pada viewport 360px dan 1440px tanpa overflow horizontal atau galat konsol aplikasi.
 - Revisi logo simbol berhasil dimuat melalui URL aset baru pada Beranda dan halaman masuk Admin; komposisinya terlihat lebih besar pada kotak 46–48 px tanpa mengubah tinggi navigasi.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil setelah BUILD_SPEC v2.4 serta KEP-036 ditambahkan.
