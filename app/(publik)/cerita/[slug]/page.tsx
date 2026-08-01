@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IsiMarkdown } from "@/components/isi-markdown";
 import { KartuArtikel } from "@/components/kartu-artikel";
 import { VisualArtikel } from "@/components/visual-data";
 import { TombolBagikan } from "@/components/tombol-bagikan";
@@ -115,20 +116,24 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
         </p>
 
         <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-[#282B2F]">
-          {artikel.bagian.map((bagian, indeks) => (
-            <section key={bagian.judul ?? indeks} className="mt-9 first:mt-0">
-              {bagian.judul ? (
-                <h2 className="mb-4 text-2xl font-black tracking-tight text-[#102A43]">
-                  {bagian.judul}
-                </h2>
-              ) : null}
-              {bagian.paragraf.map((paragraf) => (
-                <p key={paragraf} className="mt-5 first:mt-0">
-                  {paragraf}
-                </p>
-              ))}
-            </section>
-          ))}
+          {artikel.isiMarkdown ? (
+            <IsiMarkdown markdown={artikel.isiMarkdown} />
+          ) : (
+            artikel.bagian.map((bagian, indeks) => (
+              <section key={bagian.judul ?? indeks} className="mt-9 first:mt-0">
+                {bagian.judul ? (
+                  <h2 className="mb-4 text-2xl font-black tracking-tight text-[#102A43]">
+                    {bagian.judul}
+                  </h2>
+                ) : null}
+                {bagian.paragraf.map((paragraf) => (
+                  <p key={paragraf} className="mt-5 first:mt-0">
+                    {paragraf}
+                  </p>
+                ))}
+              </section>
+            ))
+          )}
 
           <div className="mt-10 border-t border-[#DED3C2] pt-7">
             <p className="mb-4 text-sm font-black text-[#102A43]">Bagikan:</p>
