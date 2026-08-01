@@ -24,6 +24,12 @@ export type Artikel = {
   penulis?: string;
   status?: "draft" | "terbit";
   sumberData?: "contoh" | "supabase";
+  isiMarkdown?: string;
+  metaJudul?: string;
+  metaDeskripsi?: string;
+  fotoAlt?: string;
+  fokusKataKunci?: string;
+  tanggalTerbitIso?: string;
 };
 
 export const labelKategoriArtikel: Record<KategoriArtikel, string> = {

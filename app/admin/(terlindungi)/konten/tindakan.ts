@@ -31,17 +31,31 @@ export async function simpanArtikel(formulir: FormData) {
   const menitBaca = Number(formulir.get("menit_baca"));
   if (judul.length < 5 || !isi || !Number.isInteger(menitBaca) || menitBaca < 1) kembali(tujuan, "Judul, isi, atau waktu baca tidak valid.");
 
+  const metaJudul = String(formulir.get("meta_judul") ?? "").trim();
+  const metaDeskripsi = String(formulir.get("meta_deskripsi") ?? "").trim();
+  if (metaJudul.length > 70) kembali(tujuan, "Judul untuk hasil pencarian maksimal 70 karakter.");
+  if (metaDeskripsi.length > 200) kembali(tujuan, "Deskripsi untuk hasil pencarian maksimal 200 karakter.");
+
+  const status = String(formulir.get("status") ?? "draft");
+  const tanggalTerbitLama = String(formulir.get("tanggal_terbit_lama") ?? "").trim();
   const muatan = {
     judul,
     slug: buatSlug(String(formulir.get("slug") ?? "") || judul),
     kategori: String(formulir.get("kategori") ?? "edukasi") as KategoriArtikel,
     cuplikan: String(formulir.get("cuplikan") ?? "").trim(),
     bagian: ubahTeksMenjadiBagian(isi),
+    isi_markdown: isi,
+    meta_judul: metaJudul || null,
+    meta_deskripsi: metaDeskripsi || null,
+    foto_alt: String(formulir.get("foto_alt") ?? "").trim() || null,
+    fokus_kata_kunci: String(formulir.get("fokus_kata_kunci") ?? "").trim() || null,
     foto_utama: String(formulir.get("foto_tersimpan") ?? "").trim() || null,
     warna: String(formulir.get("warna") ?? "tosca"),
     menit_baca: menitBaca,
     share_aktif: formulir.get("share_aktif") === "on",
-    status: String(formulir.get("status") ?? "draft"),
+    status,
+    tanggal_terbit:
+      status === "terbit" ? (tanggalTerbitLama || new Date().toISOString()) : null,
     penulis: String(formulir.get("penulis") ?? "Wawangian Pelajar").trim(),
   };
   const hasil = id

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IsiMarkdown } from "@/components/isi-markdown";
 import { KartuArtikel } from "@/components/kartu-artikel";
+import { SkemaArtikel } from "@/components/skema-artikel";
 import { VisualArtikel } from "@/components/visual-data";
 import { TombolBagikan } from "@/components/tombol-bagikan";
 import {
@@ -40,7 +42,7 @@ const tujuanTindakan = {
   },
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -50,9 +52,37 @@ export async function generateMetadata({
 
   if (!artikel) return { title: "Artikel tidak ditemukan" };
 
+  const judulMeta = artikel.metaJudul?.trim() || artikel.judul;
+  const deskripsiMeta = artikel.metaDeskripsi?.trim() || artikel.cuplikan;
+  const jalur = `/cerita/${artikel.slug}`;
+  const gambar = artikel.fotoUtama ?? "/og-wawangian-pelajar.png";
+
   return {
-    title: artikel.judul,
-    description: artikel.cuplikan,
+    title: judulMeta,
+    description: deskripsiMeta,
+    alternates: { canonical: jalur },
+    openGraph: {
+      type: "article",
+      locale: "id_ID",
+      siteName: "Wawangian Pelajar",
+      url: jalur,
+      title: judulMeta,
+      description: deskripsiMeta,
+      publishedTime: artikel.tanggalTerbitIso,
+      authors: artikel.penulis ? [artikel.penulis] : undefined,
+      images: [
+        {
+          url: gambar,
+          alt: artikel.fotoAlt?.trim() || artikel.judul,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: judulMeta,
+      description: deskripsiMeta,
+      images: [gambar],
+    },
   };
 }
 
@@ -77,6 +107,7 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
   return (
     <main className="px-5 py-8 sm:px-8 sm:py-12 lg:px-10">
       <article className="mx-auto max-w-4xl">
+        <SkemaArtikel artikel={artikel} />
         <nav aria-label="Breadcrumb" className="text-sm text-[#4A4D52]">
           <ol className="flex flex-wrap items-center gap-2">
             <li>
@@ -115,20 +146,24 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
         </p>
 
         <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-[#282B2F]">
-          {artikel.bagian.map((bagian, indeks) => (
-            <section key={bagian.judul ?? indeks} className="mt-9 first:mt-0">
-              {bagian.judul ? (
-                <h2 className="mb-4 text-2xl font-black tracking-tight text-[#102A43]">
-                  {bagian.judul}
-                </h2>
-              ) : null}
-              {bagian.paragraf.map((paragraf) => (
-                <p key={paragraf} className="mt-5 first:mt-0">
-                  {paragraf}
-                </p>
-              ))}
-            </section>
-          ))}
+          {artikel.isiMarkdown ? (
+            <IsiMarkdown markdown={artikel.isiMarkdown} />
+          ) : (
+            artikel.bagian.map((bagian, indeks) => (
+              <section key={bagian.judul ?? indeks} className="mt-9 first:mt-0">
+                {bagian.judul ? (
+                  <h2 className="mb-4 text-2xl font-black tracking-tight text-[#102A43]">
+                    {bagian.judul}
+                  </h2>
+                ) : null}
+                {bagian.paragraf.map((paragraf) => (
+                  <p key={paragraf} className="mt-5 first:mt-0">
+                    {paragraf}
+                  </p>
+                ))}
+              </section>
+            ))
+          )}
 
           <div className="mt-10 border-t border-[#DED3C2] pt-7">
             <p className="mb-4 text-sm font-black text-[#102A43]">Bagikan:</p>

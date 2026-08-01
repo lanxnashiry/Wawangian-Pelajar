@@ -2,6 +2,68 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-01] — Fondasi SEO dan editor artikel Markdown M6
+
+### Ditambah
+
+- Isi artikel mendukung Markdown: tautan internal, penekanan, daftar, subjudul tingkat tiga, kutipan, dan tabel GFM.
+- Panel “Optimasi mesin pencari” pada formulir artikel untuk judul pencarian, deskripsi pencarian, dan fokus kata kunci.
+- Kolom keterangan gambar atau alt text untuk gambar utama artikel.
+- Endpoint `sitemap.xml` dan `robots.txt` dengan URL domain produksi.
+- Schema JSON-LD `Article` dan `BreadcrumbList` pada halaman artikel.
+- Open Graph serta Twitter Card global dan per artikel, termasuk aset pratinjau 1200×630.
+- Canonical URL per artikel dan variabel lingkungan `NEXT_PUBLIC_URL_SITUS`.
+
+### Diubah
+
+- BUILD_SPEC dinaikkan dari v2.4 menjadi v2.5 untuk mencatat sumber isi Markdown serta metadata artikel.
+- Daftar dan detail artikel memakai ISR lima menit.
+- Gambar artikel dari Supabase Storage dapat diproses oleh optimasi gambar Next.js.
+
+### Diperbaiki
+
+- `tanggal_terbit` kini dibuat saat artikel diterbitkan, dipertahankan saat disunting, dan dikosongkan saat kembali menjadi draf.
+- Preview tautan kini memiliki `metadataBase`, gambar berasio sosial, judul, deskripsi, dan URL absolut.
+- Alt text gambar utama kini berasal dari isian Admin dengan fallback ke judul artikel.
+
+### Catatan
+
+- Migrasi `202608010007_m6_kolom_seo_artikel.sql` telah diterapkan pada Supabase hosted tanpa membuat konten bisnis.
+- Instruksi pemilik pada 1 Agustus 2026 diperlakukan sebagai konfirmasi eksplisit untuk memulai M6; rilis produksi tetap menunggu validasi akhir dan peninjauan pemilik.
+- Audit dependensi saat implementasi masih melaporkan tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10; pembaruan framework dicatat untuk penanganan terpisah agar tidak memperluas task SEO diam-diam.
+- Build bersih, lint, tipe, metadata, Markdown, lima Artikel lama, sitemap, robots, dan JSON-LD telah lolos validasi akhir. Artikel teknis hosted dihapus setelah pengujian.
+- Preview lokal Data Contoh dijalankan kembali untuk tinjauan pemilik; peninjauan visual 360px dan 1440px tetap menjadi langkah manual sebelum penggabungan.
+
+## [2026-08-01] — Konsolidasi dokumentasi setelah penggabungan branch
+
+### Diperbaiki
+
+- Status aktif M5 yang sudah usang, judul task, langkah berikutnya, dan catatan audit yang terduplikasi dihapus dari `STATUS.md`.
+- Hasil validasi dua akun Admin uji dipindahkan ke bagian validasi agar tidak tercampur dengan langkah berikutnya.
+- Status validasi M6 pada `ROADMAP.md` diselaraskan dengan Task 18 yang sudah selesai.
+
+### Catatan
+
+- Urutan commit implementasi tetap `Task 7 → 8 → 9 → 1 → 2`, lalu Task 3–18; tidak ada source code task yang hilang atau ditulis ulang.
+
+## [2026-07-31] — Kebijakan visual Produk berbantuan AI
+
+### Diubah
+
+- BUILD_SPEC dinaikkan dari v2.3 menjadi v2.4.
+- Foto asli tetap diutamakan, tetapi gambar hasil AI dan penyempurnaan AI kini boleh dipakai untuk menambah serta mempercantik visual Produk.
+- Visual yang bukan foto Produk nyata wajib diberi penanda “Visual ilustrasi”.
+
+### Diperbaiki
+
+- Kebijakan visual kini membedakan materi kreatif Produk dari bukti faktual. AI tetap dilarang untuk memalsukan atribut Produk, bukti donasi, transaksi, payout, atau penerima manfaat.
+
+### Catatan
+
+- Perubahan ini menggantikan larangan foto Produk AI pada keputusan terdahulu melalui KEP-036.
+- Belum ada gambar Produk baru yang diunggah dalam perubahan dokumentasi ini.
+- Revisi tetap berada pada tahap tinjauan M5 dan tidak memulai M6.
+
 ## [2026-07-31] — Akun Admin uji tambahan
 
 ### Ditambah

@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.3
+- **Versi spesifikasi:** 2.5
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -228,7 +228,8 @@ MateriPromosi { id, tipe (story|caption|skrip), judul, file_url, produk_ref? }
 
 Artikel {
   id, judul, slug, kategori (cerita_misi|edukasi|tips|komunitas),
-  cuplikan, isi_richtext, foto_utama,
+  cuplikan, bagian, isi_markdown?, foto_utama, foto_alt?,
+  meta_judul?, meta_deskripsi?, fokus_kata_kunci?,
   cta_tipe (produk|donasi|afiliasi|none), cta_target,
   share_aktif: bool, status (draft|terbit), penulis, tanggal_terbit
 }
@@ -278,7 +279,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 **Prinsip visual:**
 - **Mobile-first**: rancang untuk layar HP dulu, lalu lebarkan ke desktop.
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
-- **Foto produk ASLI** — dilarang keras memakai gambar hasil AI untuk produk (menggerus kepercayaan).
+- **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 
@@ -328,6 +329,9 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 **AC-Konten:**
 - Artikel punya tombol share; tidak ada kolom komentar.
 - CTA berubah sesuai kategori (edukasi→produk, misi→donasi, komunitas→afiliasi).
+- Artikel baru memakai Markdown aman tanpa eksekusi HTML mentah; artikel lama tetap memiliki fallback dari `bagian`.
+- Halaman Artikel memiliki satu H1, canonical URL, metadata pencarian opsional, Open Graph, Twitter Card, dan schema `Article` serta `BreadcrumbList`.
+- Sitemap memuat Artikel terbit dan robots memblokir rute Admin, autentikasi, serta API dari indeks.
 
 **AC-Admin:**
 - Validasi anti-brand-asli menolak input nama merek terkenal di aroma inspirasi.
@@ -437,4 +441,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.3 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.5 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

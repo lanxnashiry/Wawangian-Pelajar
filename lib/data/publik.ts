@@ -41,6 +41,11 @@ type BarisArtikel = {
   penulis: string;
   tanggal_terbit: string | null;
   status: "draft" | "terbit";
+  isi_markdown: string | null;
+  meta_judul: string | null;
+  meta_deskripsi: string | null;
+  foto_alt: string | null;
+  fokus_kata_kunci: string | null;
 };
 
 export function petakanProduk(baris: BarisProduk): Produk {
@@ -87,6 +92,12 @@ export function petakanArtikel(baris: BarisArtikel): Artikel {
     shareAktif: baris.share_aktif,
     penulis: baris.penulis,
     status: baris.status,
+    isiMarkdown: baris.isi_markdown ?? undefined,
+    metaJudul: baris.meta_judul ?? undefined,
+    metaDeskripsi: baris.meta_deskripsi ?? undefined,
+    fotoAlt: baris.foto_alt ?? undefined,
+    fokusKataKunci: baris.fokus_kata_kunci ?? undefined,
+    tanggalTerbitIso: baris.tanggal_terbit ?? undefined,
     tanggal: baris.tanggal_terbit
       ? new Intl.DateTimeFormat("id-ID", { dateStyle: "long" }).format(
           new Date(baris.tanggal_terbit),
