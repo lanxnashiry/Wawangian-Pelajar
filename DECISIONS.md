@@ -257,6 +257,12 @@
 **Alasan:** Pemilik meminta katalog berisi 15 Produk dengan lima aroma yang sama pada ukuran 100 ml, 50 ml, dan 15 ml, termasuk tautan Shopee yang sama.
 **Konsekuensi:** Harga dan tautan marketplace ketiga ukuran tetap sama sampai pemilik memberikan nilai khusus per varian. Foto 100 ml tidak disalin ke ukuran lain agar tidak memalsukan ukuran sesuai KEP-036. Metadata “mulai 5 ml” belum didukung katalog hosted yang ukuran terkecilnya 15 ml dan perlu ditinjau sebelum rilis publik luas.
 
+### KEP-045 — Harga Mykonos ditetapkan per ukuran dan input tanpa stepper
+**Tanggal:** 2026-08-02 · **Status:** Diterima
+**Keputusan:** Kelima Produk Mykonos berukuran 100 ml memakai harga Rp539.000, ukuran 50 ml memakai Rp289.000, dan ukuran 15 ml memakai Rp119.000. Input harga pada formulir Admin memakai isian teks dengan papan ketik numerik dan pola digit agar tidak menampilkan tombol panah naik/turun bawaan peramban.
+**Alasan:** Pemilik menetapkan harga khusus untuk setiap ukuran dan meminta pengisian harga tanpa kontrol kenaikan atau penurunan angka.
+**Konsekuensi:** Bagian harga pada KEP-044 digantikan oleh keputusan ini; profil aroma serta tautan Shopee tetap sama. Server tetap mengubah masukan menjadi angka dan menolak nilai yang bukan bilangan atau bernilai negatif. Perubahan harga tetap tercatat oleh Log Audit sesuai BR-9.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

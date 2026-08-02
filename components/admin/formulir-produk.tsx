@@ -32,7 +32,8 @@ export function FormulirProduk({ produk, pesan }: Properti) {
           <input className={kelasInput} name="ukuran" required defaultValue={produk?.ukuran} placeholder="5 ml" />
         </label>
         <label className="text-sm font-bold text-[#102A43]">Harga
-          <input className={kelasInput} name="harga" type="number" min="0" step="1" required defaultValue={produk?.harga ?? 0} />
+          <input className={kelasInput} name="harga" type="text" inputMode="numeric" pattern="[0-9]+" required defaultValue={produk?.harga ?? 0} />
+          <span className="mt-2 block text-xs font-normal text-[#4A4D52]">Masukkan angka tanpa titik atau pemisah ribuan.</span>
         </label>
         <label className="text-sm font-bold text-[#102A43]">Warna placeholder
           <select className={kelasInput} name="warna" defaultValue={produk?.warna ?? "tosca"}>

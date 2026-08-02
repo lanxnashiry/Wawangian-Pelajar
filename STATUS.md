@@ -31,7 +31,7 @@ Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhas
 
 Identitas visual resmi telah menggantikan ikon sementara. Revisi simbol logo dari pemilik kini memenuhi kanvas lebih besar agar terbaca jelas pada navbar, footer, halaman autentikasi, dan favicon; nama aset baru mencegah cache browser atau Vercel mempertahankan logo lama. Palet website tetap mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
 
-Katalog Supabase hosted kini memuat 15 Produk aktif: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue masing-masing pada ukuran 100 ml, 50 ml, dan 15 ml. Seluruh varian mempertahankan harga Rp549.000 serta tautan Shopee sumber sesuai instruksi pemilik dan tidak diberi tautan TikTok Shop. Monaco 100 ml mempertahankan satu foto yang sudah tersimpan; sepuluh varian baru tidak menyalin foto ukuran 100 ml agar visual tidak menyesatkan.
+Katalog Supabase hosted kini memuat 15 Produk aktif: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue masing-masing pada ukuran 100 ml, 50 ml, dan 15 ml. Harga setiap ukuran telah ditetapkan menjadi Rp539.000 untuk 100 ml, Rp289.000 untuk 50 ml, dan Rp119.000 untuk 15 ml; kelimanya tetap memakai tautan Shopee sumber dan tidak diberi tautan TikTok Shop. Monaco 100 ml mempertahankan satu foto yang sudah tersimpan; sepuluh varian baru tidak menyalin foto ukuran 100 ml agar visual tidak menyesatkan.
 
 Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI kini boleh dipakai untuk menambah dan mempercantik visual Produk. Gambar yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk atau dipakai sebagai bukti faktual. Belum ada gambar baru yang diunggah sebagai bagian dari perubahan kebijakan ini.
 
@@ -63,9 +63,10 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 4. ✅ Renderer Markdown aman dan fallback artikel lama.
 5. ✅ Panel SEO Admin serta penyimpanan Markdown, metadata, fokus kata kunci, dan alt text.
 6. ✅ Optimasi gambar artikel, metadata per artikel, canonical, Twitter Card, dan JSON-LD.
-7. ✅ Dokumentasi KEP-037 sampai KEP-044, BUILD_SPEC v2.7, README, ROADMAP, STATUS, dan CHANGELOG.
+7. ✅ Dokumentasi KEP-037 sampai KEP-045, BUILD_SPEC v2.8, README, ROADMAP, STATUS, dan CHANGELOG.
 8. ✅ Validasi akhir bersih, uji alur artikel lengkap, regresi artikel lama, pembersihan artikel teknis, dan preview lokal.
 9. ✅ Katalog hosted berisi tepat 15 Produk Mykonos: lima aroma pada ukuran 100 ml, 50 ml, dan 15 ml.
+10. ✅ Harga 15 Produk ditetapkan berdasarkan ukuran dan input harga Admin tidak lagi menampilkan stepper.
 
 ## Validasi yang sudah dilakukan
 
@@ -108,16 +109,20 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Login akun `AfiliasiUji` pada server Production lokal berhasil membuka Dashboard berisi bonus, tingkat, riwayat, dan Leaderboard contoh; konsol browser tanpa galat atau peringatan aplikasi.
 - Halaman `/admin/masuk` Production lokal tersedia dan responsif; login Admin belum diuji ulang karena kata sandi aktif hanya diketahui pemilik.
 - Penyimpanan Produk tanpa foto pada custom domain menghasilkan respons `303`, membuka halaman edit dengan pesan berhasil, dan hanya membuat satu baris Produk.
-- Produk nyata dapat dibuka melalui slug publik, menampilkan harga Rp549.000, profil aroma lengkap, serta satu tautan Shopee yang valid.
+- Produk nyata dapat dibuka melalui slug publik, menampilkan harga sesuai ukuran, profil aroma lengkap, serta satu tautan Shopee yang valid.
 - Build produksi memuat `serverActions.bodySizeLimit=6mb`; `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil.
 - Migrasi `202607290006_tambah_placeholder_produk_krem.sql` berhasil diterapkan pada Supabase hosted.
-- Batch katalog menghasilkan tepat lima Produk aktif dengan harga Rp549.000, kategori Ori, ukuran 100 ml, placeholder Krem, dan tautan Shopee sesuai dokumen sumber.
+- Batch katalog awal menghasilkan tepat lima Produk aktif berkategori Ori, ukuran 100 ml, placeholder Krem, dan tautan Shopee sesuai dokumen sumber; harga awal batch tersebut kemudian digantikan oleh KEP-045.
 - `/admin/produk` menampilkan tepat lima baris Produk dan `/katalog` menampilkan tepat lima kartu Produk aktif.
 - Halaman detail Dreamscape dan Monaco berhasil dibuka pada custom domain; Monaco mempertahankan foto produk nyata yang telah ada, sedangkan Produk tanpa foto menampilkan placeholder.
 - Detail Produk satu foto utama tervalidasi pada 360 px dan 1440 px: satu blok visual, tanpa tiga thumbnail lama, tanpa overflow horizontal, dan tanpa galat konsol aplikasi.
 - Metadata beranda tervalidasi melalui HTML lokal: title, description, Open Graph, Twitter Card, dan gambar sosial memakai nilai SEO baru; lint serta build produksi berhasil.
 - Migrasi `202608020008_tambah_varian_ukuran_produk.sql` berhasil diterapkan pada Supabase hosted dan membuat 10 varian tanpa menduplikasi lima Produk sumber.
-- API publik memuat 15 slug unik dan aktif: masing-masing lima Produk ukuran 100 ml, 50 ml, dan 15 ml; seluruh harga Rp549.000, deskripsi ukuran sesuai, dan tautan Shopee tersedia.
+- API publik memuat 15 slug unik dan aktif: masing-masing lima Produk ukuran 100 ml, 50 ml, dan 15 ml; harga tiap kelompok tepat Rp539.000, Rp289.000, dan Rp119.000, deskripsi ukuran sesuai, serta tautan Shopee tersedia.
+- Migrasi `202608020009_perbarui_harga_varian_produk.sql` berhasil diterapkan pada Supabase hosted. Trigger `audit_produk_sensitif` mencatat setiap perubahan sebagai `ubah_harga_produk` sesuai BR-9.
+- Katalog Production menampilkan masing-masing lima harga Rp539.000, Rp289.000, dan Rp119.000 serta tetap memiliki 15 tautan detail Produk unik.
+- Input harga Admin memakai teks berpola digit dengan papan ketik numerik, sehingga tombol panah naik/turun bawaan input angka tidak ditampilkan dan validasi angka server tetap berlaku.
+- `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah perubahan formulir, validasi harga, migrasi, serta dokumentasi.
 - Katalog `https://www.wawangianpelajar.com/katalog` menampilkan tepat 15 tautan detail Produk tanpa label Data Contoh.
 - Sitemap Production memuat 15 URL Produk dan mencakup slug ukuran 100 ml, 50 ml, serta 15 ml.
 - `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah penambahan varian hosted serta migrasinya.

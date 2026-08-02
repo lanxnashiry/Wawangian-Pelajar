@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-02] — Harga Produk per ukuran
+
+### Diubah
+
+- Harga kelima Produk Mykonos 100 ml menjadi Rp539.000, kelima Produk 50 ml menjadi Rp289.000, dan kelima Produk 15 ml menjadi Rp119.000.
+- Input harga pada formulir Admin tidak lagi memakai kontrol angka dengan tombol panah naik/turun; isian tetap menampilkan papan ketik numerik dan hanya menerima digit.
+- BUILD_SPEC dinaikkan dari v2.7 menjadi v2.8 dan KEP-045 menggantikan bagian harga sementara pada KEP-044.
+
+### Ditambah
+
+- Migrasi idempoten `202608020009_perbarui_harga_varian_produk.sql` yang menetapkan harga dan memvalidasi tepat 15 Produk sasaran.
+- Petunjuk formulir agar harga dimasukkan tanpa titik atau pemisah ribuan.
+
+### Catatan
+
+- Perubahan harga dijalankan pada Supabase hosted dan otomatis dicatat oleh trigger Log Audit Produk sesuai BR-9.
+- API publik serta katalog Production memuat tepat lima Produk pada setiap tingkat harga baru.
+- Profil aroma, status Produk, foto utama, dan tautan Shopee tidak diubah.
+
 ## [2026-08-02] — Varian ukuran katalog Mykonos
 
 ### Ditambah
