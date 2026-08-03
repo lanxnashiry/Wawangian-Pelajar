@@ -263,6 +263,12 @@
 **Alasan:** Pemilik menetapkan harga khusus untuk setiap ukuran dan meminta pengisian harga tanpa kontrol kenaikan atau penurunan angka.
 **Konsekuensi:** Bagian harga pada KEP-044 digantikan oleh keputusan ini; profil aroma serta tautan Shopee tetap sama. Server tetap mengubah masukan menjadi angka dan menolak nilai yang bukan bilangan atau bernilai negatif. Perubahan harga tetap tercatat oleh Log Audit sesuai BR-9.
 
+### KEP-046 — Decant multi-aroma memakai satu Produk per ukuran
+**Tanggal:** 2026-08-03 · **Status:** Diterima
+**Keputusan:** Decant Mykonos ukuran 1 ml, 2 ml, 5 ml, dan 10 ml disimpan sebagai empat Produk terpisah. Setiap Produk memuat lima pilihan aroma dengan nama varian pada deskripsi serta setiap kelompok profil aroma; pemilihan varian tetap dilakukan pada halaman Shopee yang sama.
+**Alasan:** Sumber pemilik menetapkan empat ukuran sebagai empat Produk, sedangkan transaksi dan pilihan varian berlangsung di marketplace sesuai KEP-001. Awalan nama varian pada profil terstruktur mencegah gabungan notes terbaca sebagai satu formula parfum.
+**Konsekuensi:** Website tidak menambah pemilih varian atau checkout. Keempat Produk tidak memiliki foto sampai aset decant tersedia, tidak memiliki tautan TikTok Shop, dan menggunakan satu tautan Shopee dari sumber. Profil Monaco Royale pada ukuran 100 ml, 50 ml, dan 15 ml diselaraskan dengan sumber terbaru 3 Agustus 2026. Metadata beranda “mulai 5 ml” tidak diubah tanpa keputusan naskah baru meskipun katalog kini memiliki ukuran 1 ml.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
