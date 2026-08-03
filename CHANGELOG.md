@@ -2,6 +2,45 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-02] — Harga Produk per ukuran
+
+### Diubah
+
+- Harga kelima Produk Mykonos 100 ml menjadi Rp539.000, kelima Produk 50 ml menjadi Rp289.000, dan kelima Produk 15 ml menjadi Rp119.000.
+- Input harga pada formulir Admin tidak lagi memakai kontrol angka dengan tombol panah naik/turun; isian tetap menampilkan papan ketik numerik dan hanya menerima digit.
+- BUILD_SPEC dinaikkan dari v2.7 menjadi v2.8 dan KEP-045 menggantikan bagian harga sementara pada KEP-044.
+
+### Ditambah
+
+- Migrasi idempoten `202608020009_perbarui_harga_varian_produk.sql` yang menetapkan harga dan memvalidasi tepat 15 Produk sasaran.
+- Petunjuk formulir agar harga dimasukkan tanpa titik atau pemisah ribuan.
+
+### Catatan
+
+- Perubahan harga dijalankan pada Supabase hosted dan otomatis dicatat oleh trigger Log Audit Produk sesuai BR-9.
+- API publik serta katalog Production memuat tepat lima Produk pada setiap tingkat harga baru.
+- Profil aroma, status Produk, foto utama, dan tautan Shopee tidak diubah.
+
+## [2026-08-02] — Varian ukuran katalog Mykonos
+
+### Ditambah
+
+- Sepuluh Produk hosted baru dari lima aroma Mykonos: masing-masing satu varian 50 ml dan satu varian 15 ml.
+- Migrasi idempoten `202608020008_tambah_varian_ukuran_produk.sql` yang memastikan batch berakhir dengan tepat 15 Produk.
+
+### Diubah
+
+- Nama, slug, field ukuran, dan bagian spesifikasi deskripsi disesuaikan untuk setiap varian baru.
+- Harga Rp549.000, profil aroma, status, warna placeholder, serta tautan Shopee disalin dari Produk 100 ml sesuai instruksi pemilik.
+
+### Catatan
+
+- Foto Monaco 100 ml tidak disalin ke varian 50 ml dan 15 ml agar visual kemasan tidak menyatakan ukuran yang salah.
+- API publik dan katalog Production memuat tepat 15 Produk aktif: masing-masing lima Produk berukuran 100 ml, 50 ml, dan 15 ml.
+- Sitemap Production memuat 15 URL Produk dan mencakup ketiga ukuran.
+- `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah migrasi serta dokumentasi ditambahkan.
+- Metadata beranda masih menyebut “mulai 5 ml”, sedangkan katalog hosted terkecil saat ini 15 ml; naskah metadata perlu dikonfirmasi kembali sebelum rilis publik luas.
+
 ## [2026-08-02] — Metadata SEO beranda untuk mahasiswa
 
 ### Diubah

@@ -25,8 +25,11 @@ export async function simpanProduk(formulir: FormData) {
   const galatMerek = periksaProfilAroma(kategori, [...aromaAtas, ...aromaTengah, ...aromaDasar, ...karakter]);
   if (galatMerek) kembaliDenganPesan(tujuan, galatMerek);
 
-  const harga = Number(formulir.get("harga"));
-  if (!nama || !Number.isFinite(harga) || harga < 0) kembaliDenganPesan(tujuan, "Nama dan harga produk tidak valid.");
+  const nilaiHarga = String(formulir.get("harga") ?? "").trim();
+  const harga = Number(nilaiHarga);
+  if (!nama || !/^\d+$/.test(nilaiHarga) || !Number.isSafeInteger(harga)) {
+    kembaliDenganPesan(tujuan, "Nama dan harga produk tidak valid.");
+  }
 
   const linkShopee = String(formulir.get("link_shopee") ?? "").trim();
   const linkTiktok = String(formulir.get("link_tiktok") ?? "").trim();
