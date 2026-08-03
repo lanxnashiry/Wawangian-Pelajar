@@ -269,6 +269,12 @@
 **Alasan:** Sumber pemilik menetapkan empat ukuran sebagai empat Produk, sedangkan transaksi dan pilihan varian berlangsung di marketplace sesuai KEP-001. Awalan nama varian pada profil terstruktur mencegah gabungan notes terbaca sebagai satu formula parfum.
 **Konsekuensi:** Website tidak menambah pemilih varian atau checkout. Keempat Produk tidak memiliki foto sampai aset decant tersedia, tidak memiliki tautan TikTok Shop, dan menggunakan satu tautan Shopee dari sumber. Profil Monaco Royale pada ukuran 100 ml, 50 ml, dan 15 ml diselaraskan dengan sumber terbaru 3 Agustus 2026. Metadata beranda “mulai 5 ml” tidak diubah tanpa keputusan naskah baru meskipun katalog kini memiliki ukuran 1 ml.
 
+### KEP-047 — Foto katalog memakai aset bernama jelas dan referensi ukuran transparan
+**Tanggal:** 2026-08-03 · **Status:** Diterima
+**Keputusan:** Lima aroma Mykonos ukuran 100 ml memakai foto 100 ml yang namanya cocok, sedangkan ukuran 50 ml dan 15 ml memakai foto 50 ml yang sama. Berkas dengan nama memuat “WP”, video, serta nama yang tidak cocok dengan Produk tidak digunakan. Migrasi foto katalog tidak mengubah foto Produk Decant yang dikelola manual oleh pemilik.
+**Alasan:** Pemilik menyediakan dua foto terpilih per aroma dan meminta varian 15 ml memakai foto 50 ml sampai aset khusus tersedia. Satu URL bersama untuk 50 ml dan 15 ml menghindari duplikasi Storage.
+**Konsekuensi:** Foto dikonversi menjadi WebP ringan tanpa mengubah komposisinya. Detail Produk 15 ml wajib menjelaskan bahwa visual merupakan referensi kemasan 50 ml agar ukuran tidak disalahpahami; foto tersebut harus diganti ketika aset 15 ml tersedia. Foto Decant yang sudah diunggah pemilik dipertahankan dan Decant lain tetap memakai placeholder sampai pemilik mengunggah asetnya.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

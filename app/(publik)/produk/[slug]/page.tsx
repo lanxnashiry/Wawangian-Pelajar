@@ -38,6 +38,10 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
 
   if (!produk) notFound();
 
+  const memakaiFotoReferensi50Ml =
+    produk.ukuran.replace(/\s+/g, "").toLowerCase() === "15ml" &&
+    produk.foto?.[0]?.toLowerCase().endsWith("-50ml.webp");
+
   const produkTerkait = daftarProduk
     .filter((item) => item.slug !== produk.slug)
     .sort((itemA, itemB) =>
@@ -74,7 +78,9 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
               <VisualProduk produk={produk} />
             </div>
             <p className="text-xs leading-5 text-[#687078]">
-              {produk.foto?.[0]
+              {memakaiFotoReferensi50Ml
+                ? "Foto referensi menggunakan kemasan 50 ml; produk pada halaman ini tetap berukuran 15 ml."
+                : produk.foto?.[0]
                 ? "Foto utama produk dibaca dari penyimpanan resmi."
                 : "Foto utama belum tersedia; placeholder ditampilkan sementara."}
             </p>
