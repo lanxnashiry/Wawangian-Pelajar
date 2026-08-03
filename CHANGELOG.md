@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-03] — Foto utama Produk Mykonos
+
+### Ditambah
+
+- Sepuluh foto utama Mykonos terpilih untuk lima aroma pada kemasan 100 ml dan 50 ml.
+- Migrasi idempoten `202608030011_pasang_foto_produk_mykonos.sql` untuk memasang satu URL foto pada 15 Produk tanpa mengubah foto Decant milik pemilik.
+- Keterangan transparan pada detail Produk 15 ml bahwa visual memakai foto referensi kemasan 50 ml.
+
+### Diubah
+
+- Foto sumber JPEG, PNG, dan WebP dikonversi menjadi WebP teroptimasi berukuran sekitar 29–68 KB tanpa mengubah komposisi gambar.
+- Komponen foto Produk kembali memakai optimasi gambar Next.js untuk URL publik Supabase.
+
+### Catatan
+
+- Berkas dengan nama memuat “WP”, video, serta aset “monro” yang tidak memiliki pasangan Produk katalog tidak digunakan.
+- Produk 50 ml dan 15 ml memakai satu URL foto 50 ml yang sama untuk menghindari duplikasi Storage; aset 15 ml khusus tetap perlu menggantikannya ketika tersedia.
+- Foto Decant 10 ml yang diunggah manual oleh pemilik dipertahankan; Decant 1 ml, 2 ml, dan 5 ml tetap menampilkan placeholder.
+
 ## [2026-08-03] — Produk Decant Mykonos
 
 ### Ditambah

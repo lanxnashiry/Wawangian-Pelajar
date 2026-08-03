@@ -39,6 +39,8 @@ Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan,
 
 Detail Produk kini mengikuti kemampuan formulir Admin: setiap Produk hanya menampilkan satu foto utama. Thumbnail placeholder “Tampak depan”, “Detail botol”, dan “Kemasan” dihapus, sedangkan unggahan baru menggantikan satu referensi foto utama lama tanpa menghapus berkas Storage secara otomatis.
 
+Sepuluh foto terpilih untuk lima aroma Mykonos telah dicocokkan berdasarkan nama serta ukuran, dikonversi menjadi WebP sekitar 29–68 KB, dan dipetakan ke 15 Produk. Produk 100 ml memakai foto 100 ml; Produk 50 ml dan 15 ml memakai satu URL foto 50 ml yang sama sesuai instruksi pemilik. Berkas bernama “WP”, video, dan aset yang tidak mempunyai pasangan Produk tidak digunakan. Detail 15 ml menampilkan keterangan bahwa fotonya merupakan referensi kemasan 50 ml. Foto Decant 10 ml yang diunggah manual oleh pemilik dipertahankan; Decant 1 ml, 2 ml, dan 5 ml masih memakai placeholder.
+
 Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example.com`, telah dibuat dalam keadaan terkonfirmasi dan diaktifkan pada satu peran Admin yang sama. Keduanya hanya untuk pengujian akses selama peninjauan MVP, bukan peran organisasi baru atau Admin bertingkat. Login keduanya pada custom domain Production telah berhasil; kata sandi sementara hanya disampaikan kepada pemilik dan tidak disimpan dalam repository maupun dokumentasi. Akun wajib dihapus atau kata sandinya diganti sebelum rilis publik M6.
 
 ## Task M5 — selesai
@@ -70,6 +72,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 9. ✅ Katalog hosted berisi tepat 15 Produk Mykonos: lima aroma pada ukuran 100 ml, 50 ml, dan 15 ml.
 10. ✅ Harga 15 Produk ditetapkan berdasarkan ukuran dan input harga Admin tidak lagi menampilkan stepper.
 11. ✅ Empat Produk Decant Mykonos ditambahkan dan profil tiga ukuran Monaco Royale diselaraskan dengan sumber 3 Agustus 2026.
+12. ✅ Sepuluh foto utama teroptimasi dipetakan ke 15 Produk Mykonos tanpa menimpa foto Decant milik pemilik.
 
 ## Validasi yang sudah dilakukan
 
@@ -133,6 +136,12 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Detail Decant 1 ml tidak mengalami overflow horizontal pada viewport 360 px maupun 1440 px dan konsol browser tidak memuat galat atau peringatan aplikasi.
 - Katalog lokal mode hosted memuat 19 tautan detail unik; sitemap memuat 19 URL Produk termasuk empat URL Decant.
 - `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil setelah migrasi serta dokumentasi Decant ditambahkan.
+- Sepuluh foto sumber non-`WP` tervalidasi cocok dengan lima aroma dan dua ukuran; hasil WebP tetap persegi serta berukuran sekitar 29–68 KB.
+- Sepuluh URL publik Storage merespons HTTP 200 dengan tipe `image/webp`; API publik mengembalikan 15 Produk utama berfoto, satu Decant berfoto manual, tiga Decant tanpa foto, dan nol URL Produk utama yang memuat “WP”.
+- Lima Produk 15 ml memakai URL foto 50 ml yang sama dengan pasangannya dan halaman detail menjelaskan perbedaan ukuran secara terbuka.
+- Migrasi foto katalog tidak mengubah foto Decant; unggahan manual pemilik pada Decant 10 ml tetap tersedia dan tiga Decant lain tetap tanpa foto.
+- Katalog lokal mode hosted memuat 19 tautan Produk, tiga placeholder Decant, tanpa overflow horizontal pada 360 px maupun 1440 px, serta tanpa peringatan atau galat browser pada pemuatan akhir.
+- `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah pemasangan foto serta penyesuaian transparansi ukuran.
 - Katalog `https://www.wawangianpelajar.com/katalog` menampilkan tepat 15 tautan detail Produk tanpa label Data Contoh.
 - Sitemap Production memuat 15 URL Produk dan mencakup slug ukuran 100 ml, 50 ml, serta 15 ml.
 - `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah penambahan varian hosted serta migrasinya.
@@ -147,7 +156,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 ## Langkah berikutnya
 
 1. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
-2. Pemilik meninjau formulir Produk, identitas visual resmi, 19 Produk Mykonos termasuk empat Decant, dan akun Admin uji melalui Production serta pull request aktif.
+2. Pemilik meninjau formulir Produk, foto utama 15 Produk Mykonos, foto manual Decant 10 ml, tiga placeholder Decant, identitas visual resmi, dan akun Admin uji melalui Production serta pull request aktif.
 3. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
 4. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
 5. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
@@ -169,8 +178,8 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Lima Produk Mykonos ditampilkan aktif karena pemilik meminta unggahan katalog awal. Harga, ukuran, profil aroma, dan deskripsi mengikuti dokumen sumber tanpa klaim tambahan.
 - Satu tautan Shopee dipakai untuk kelima Produk karena dokumen sumber memberikan URL yang sama. Tautan TikTok Shop dibiarkan kosong.
 - Empat ukuran Decant disimpan sebagai empat Produk; lima aroma di dalam setiap Produk dipilih pada Shopee dan dicantumkan dengan nama varian agar profilnya tidak terbaca sebagai satu formula.
-- Foto keempat Decant dibiarkan kosong karena sumber tidak menyertakan aset visual. Penggunaan placeholder tidak menyatakan bentuk atau model botol decant tertentu.
-- Foto Monaco yang sudah tersimpan dipertahankan. Empat Produk lain menunggu foto asli atau visual AI terpilih dari pemilik; penggunaan AI wajib diberi penanda “Visual ilustrasi” bila bukan foto Produk nyata.
+- Foto Decant tidak diatur oleh migrasi katalog ini. Unggahan manual pemilik dipertahankan, sedangkan placeholder pada Decant lain tidak menyatakan bentuk atau model botol tertentu.
+- Foto 100 ml memakai aset 100 ml yang namanya cocok. Foto 50 ml juga dipakai sebagai referensi pada Produk 15 ml sesuai instruksi pemilik dan wajib diganti saat aset 15 ml khusus tersedia.
 - Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 - Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
 - Instruksi eksplisit pemilik pada 1 Agustus 2026 menjadi dasar aktivasi M6 meskipun dokumen sebelumnya masih mencatat M5 menunggu konfirmasi.
@@ -196,7 +205,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - `NEXT_PUBLIC_URL_SITUS` wajib ditambahkan pada Vercel Production dan Preview sebelum deployment SEO ditinjau.
 - `npm audit --omit=dev` mencatat tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10, PostCSS, dan Sharp. Perbaikan memerlukan pembaruan framework di luar task SEO dan harus ditangani secara terpisah.
 - Login dua akun Admin uji tambahan telah tervalidasi pada custom domain. Alamatnya memakai domain cadangan `example.com`, sehingga pemulihan atau undangan melalui email tidak diandalkan; pengelolaan kata sandi dilakukan langsung oleh pemilik dan nilainya tidak disimpan dalam dokumentasi atau repository.
-- Delapan belas dari 19 Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto yang sesuai ukurannya. Foto nyata Monaco 100 ml yang telah ada tetap dipakai.
+- Tiga dari 19 Produk masih memakai placeholder Krem karena Decant 1 ml, 2 ml, dan 5 ml belum memiliki foto; foto manual Decant 10 ml dipertahankan.
 - Metadata beranda masih menyebut “mulai 5 ml”, sedangkan katalog hosted kini memiliki ukuran 1 ml. Perubahan naskah SEO dicatat sebagai usulan dan menunggu konfirmasi pemilik.
 
 ---
