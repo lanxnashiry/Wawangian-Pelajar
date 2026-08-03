@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-03] — Produk Decant Mykonos
+
+### Ditambah
+
+- Empat Produk Decant Mykonos “Pilih Varian” pada ukuran 1 ml, 2 ml, 5 ml, dan 10 ml dengan harga masing-masing Rp19.000, Rp34.000, Rp69.000, dan Rp129.000.
+- Lima pilihan aroma beserta notes, karakter, kecocokan, serta nomor BPOM full bottle sumber pada setiap deskripsi Decant.
+- Migrasi idempoten `202608030010_tambah_decant_mykonos.sql` yang memvalidasi empat Produk Decant dan tiga profil Monaco Royale.
+
+### Diubah
+
+- Profil Monaco Royale ukuran 100 ml, 50 ml, dan 15 ml diselaraskan menjadi Pear/Melon/Green Notes, Soft Wood/Cedarwood, serta Moss/Caramel/Musk sesuai sumber 3 Agustus 2026.
+- Ringkasan, deskripsi, karakter, dan kecocokan Monaco diperbarui agar tidak lagi menyebut profil gourmand lama yang bertentangan.
+
+### Catatan
+
+- Keempat Decant memakai satu tautan Shopee dari sumber, tidak memiliki tautan TikTok Shop, dan belum memiliki foto.
+- API publik memuat 19 Produk aktif; keempat detail Decant merespons HTTP 200 dan menampilkan profil berlabel per varian.
+- Metadata beranda “mulai 5 ml” belum diubah meskipun ukuran terkecil kini 1 ml karena naskah SEO memerlukan konfirmasi pemilik.
+
 ## [2026-08-02] — Harga Produk per ukuran
 
 ### Diubah

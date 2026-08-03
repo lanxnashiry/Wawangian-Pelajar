@@ -2,7 +2,7 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 2 Agustus 2026
+**Terakhir diperbarui:** 3 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
 **Status milestone aktif:** Batch fondasi SEO artikel selesai secara teknis; menunggu tinjauan visual pemilik dan task rilis M6 lainnya
 
@@ -14,7 +14,7 @@ Instruksi pemilik pada 1 Agustus 2026 untuk mengerjakan rangkaian revisi SEO dip
 
 Fondasi SEO Artikel kini mencakup kolom database khusus, editor Markdown aman, panel metadata Admin, alt text, ISR lima menit, canonical, Open Graph, Twitter Card, sitemap, robots, optimasi gambar Supabase, serta JSON-LD `Article` dan `BreadcrumbList`. Artikel lama tetap memiliki fallback dari `bagian` dan artikel baru menyimpan Markdown mentah tanpa mengeksekusi HTML.
 
-Metadata beranda, Open Graph, dan Twitter Card kini menargetkan frasa “Decant Parfum Original untuk Mahasiswa” dengan deskripsi pilihan mulai 5 ml serta misi 20% laba untuk pendidikan. Istilah “laba” tetap merujuk keuntungan bersih sesuai BR-1. Katalog hosted saat ini berukuran paling kecil 15 ml, sehingga klaim “mulai 5 ml” perlu dikonfirmasi atau direvisi sebelum rilis publik luas.
+Metadata beranda, Open Graph, dan Twitter Card kini menargetkan frasa “Decant Parfum Original untuk Mahasiswa” dengan deskripsi pilihan mulai 5 ml serta misi 20% laba untuk pendidikan. Istilah “laba” tetap merujuk keuntungan bersih sesuai BR-1. Katalog hosted kini memiliki Decant 1 ml dan 2 ml, sehingga frasa “mulai 5 ml” tidak lagi menggambarkan ukuran terkecil; naskah tetap menunggu keputusan eksplisit pemilik dan tidak diubah dalam batch data ini.
 
 M5 telah selesai sebagai landasan. Portal Afiliasi menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 M4 telah dikonfirmasi pemilik dan hasil teknis M5 beserta penyempurnaan formulir Produk, identitas visual, serta katalog awal sudah digabungkan ke `main`. Dokumentasi dua akun Admin uji tambahan dikerjakan pada branch `codex/m5-admin-uji-tambahan`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
@@ -31,7 +31,9 @@ Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhas
 
 Identitas visual resmi telah menggantikan ikon sementara. Revisi simbol logo dari pemilik kini memenuhi kanvas lebih besar agar terbaca jelas pada navbar, footer, halaman autentikasi, dan favicon; nama aset baru mencegah cache browser atau Vercel mempertahankan logo lama. Palet website tetap mengikuti color guide Warm Cream, Off-White, Deep Navy, Premium Teal, Muted Gold, dan Charcoal. Placeholder Produk `krem` ditambahkan melalui migrasi terpisah agar tetap konsisten dengan sistem warna.
 
-Katalog Supabase hosted kini memuat 15 Produk aktif: Monaco Royale, Royal Ispahan, Dreamscape, California Signature, dan California Blue masing-masing pada ukuran 100 ml, 50 ml, dan 15 ml. Harga setiap ukuran telah ditetapkan menjadi Rp539.000 untuk 100 ml, Rp289.000 untuk 50 ml, dan Rp119.000 untuk 15 ml; kelimanya tetap memakai tautan Shopee sumber dan tidak diberi tautan TikTok Shop. Monaco 100 ml mempertahankan satu foto yang sudah tersimpan; sepuluh varian baru tidak menyalin foto ukuran 100 ml agar visual tidak menyesatkan.
+Katalog Supabase hosted kini memuat 19 Produk aktif. Lima aroma Mykonos masing-masing tersedia pada ukuran 100 ml, 50 ml, dan 15 ml dengan harga Rp539.000, Rp289.000, serta Rp119.000. Empat Produk Decant “Pilih Varian” tersedia pada ukuran 1 ml seharga Rp19.000, 2 ml seharga Rp34.000, 5 ml seharga Rp69.000, dan 10 ml seharga Rp129.000. Keempatnya memakai tautan Shopee sumber yang sama, tidak memiliki tautan TikTok Shop, dan tetap memakai placeholder sampai foto decant tersedia. Monaco 100 ml mempertahankan satu foto yang sudah tersimpan.
+
+Profil Monaco Royale sebelumnya tidak sesuai sumber terbaru karena masih memuat Hazelnut, Salted Caramel, Heliotrope, Toffee, Vanilla, Amberwood, dan Tonka Bean. Ketiga ukuran Monaco kini memakai Pear, Melon, Green Notes; Soft Wood, Cedarwood; serta Moss, Caramel, Musk. Ringkasan, deskripsi, karakter, dan kecocokannya ikut diselaraskan agar tidak bertentangan dengan notes resmi serta nomor BPOM full bottle sumber.
 
 Pemilik merevisi kebijakan visual pada 31 Juli 2026: foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI kini boleh dipakai untuk menambah dan mempercantik visual Produk. Gambar yang bukan foto Produk nyata wajib ditandai “Visual ilustrasi” dan tidak boleh memalsukan atribut Produk atau dipakai sebagai bukti faktual. Belum ada gambar baru yang diunggah sebagai bagian dari perubahan kebijakan ini.
 
@@ -63,10 +65,11 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 4. ✅ Renderer Markdown aman dan fallback artikel lama.
 5. ✅ Panel SEO Admin serta penyimpanan Markdown, metadata, fokus kata kunci, dan alt text.
 6. ✅ Optimasi gambar artikel, metadata per artikel, canonical, Twitter Card, dan JSON-LD.
-7. ✅ Dokumentasi KEP-037 sampai KEP-045, BUILD_SPEC v2.8, README, ROADMAP, STATUS, dan CHANGELOG.
+7. ✅ Dokumentasi KEP-037 sampai KEP-046, BUILD_SPEC v2.8, README, ROADMAP, STATUS, dan CHANGELOG.
 8. ✅ Validasi akhir bersih, uji alur artikel lengkap, regresi artikel lama, pembersihan artikel teknis, dan preview lokal.
 9. ✅ Katalog hosted berisi tepat 15 Produk Mykonos: lima aroma pada ukuran 100 ml, 50 ml, dan 15 ml.
 10. ✅ Harga 15 Produk ditetapkan berdasarkan ukuran dan input harga Admin tidak lagi menampilkan stepper.
+11. ✅ Empat Produk Decant Mykonos ditambahkan dan profil tiga ukuran Monaco Royale diselaraskan dengan sumber 3 Agustus 2026.
 
 ## Validasi yang sudah dilakukan
 
@@ -123,6 +126,13 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Katalog Production menampilkan masing-masing lima harga Rp539.000, Rp289.000, dan Rp119.000 serta tetap memiliki 15 tautan detail Produk unik.
 - Input harga Admin memakai teks berpola digit dengan papan ketik numerik, sehingga tombol panah naik/turun bawaan input angka tidak ditampilkan dan validasi angka server tetap berlaku.
 - `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah perubahan formulir, validasi harga, migrasi, serta dokumentasi.
+- Migrasi `202608030010_tambah_decant_mykonos.sql` berhasil diterapkan pada Supabase hosted dan berakhir dengan empat Produk Decant yang unik.
+- API publik memuat 19 Produk aktif; keempat Decant memiliki ukuran, harga, tautan Shopee, lima kelompok profil berlabel varian, catatan BPOM sumber, serta foto kosong sesuai sumber.
+- Keempat halaman detail Decant merespons HTTP 200, memuat lima pilihan aroma, catatan status decant, dan tautan Shopee yang benar.
+- Ketiga ukuran Monaco Royale memuat notes Pear/Melon/Green Notes, Soft Wood/Cedarwood, serta Moss/Caramel/Musk; profil lama tidak lagi tampil pada halaman detail.
+- Detail Decant 1 ml tidak mengalami overflow horizontal pada viewport 360 px maupun 1440 px dan konsol browser tidak memuat galat atau peringatan aplikasi.
+- Katalog lokal mode hosted memuat 19 tautan detail unik; sitemap memuat 19 URL Produk termasuk empat URL Decant.
+- `npm.cmd run lint`, `npm.cmd run build`, dan `git diff --check` berhasil setelah migrasi serta dokumentasi Decant ditambahkan.
 - Katalog `https://www.wawangianpelajar.com/katalog` menampilkan tepat 15 tautan detail Produk tanpa label Data Contoh.
 - Sitemap Production memuat 15 URL Produk dan mencakup slug ukuran 100 ml, 50 ml, serta 15 ml.
 - `npm.cmd run lint`, `npm.cmd run build`, dan pemeriksaan diff berhasil setelah penambahan varian hosted serta migrasinya.
@@ -137,7 +147,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 ## Langkah berikutnya
 
 1. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
-2. Pemilik meninjau formulir Produk, identitas visual resmi, 15 Produk Mykonos, dan akun Admin uji melalui Production serta pull request aktif.
+2. Pemilik meninjau formulir Produk, identitas visual resmi, 19 Produk Mykonos termasuk empat Decant, dan akun Admin uji melalui Production serta pull request aktif.
 3. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
 4. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
 5. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
@@ -158,6 +168,8 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
 - Lima Produk Mykonos ditampilkan aktif karena pemilik meminta unggahan katalog awal. Harga, ukuran, profil aroma, dan deskripsi mengikuti dokumen sumber tanpa klaim tambahan.
 - Satu tautan Shopee dipakai untuk kelima Produk karena dokumen sumber memberikan URL yang sama. Tautan TikTok Shop dibiarkan kosong.
+- Empat ukuran Decant disimpan sebagai empat Produk; lima aroma di dalam setiap Produk dipilih pada Shopee dan dicantumkan dengan nama varian agar profilnya tidak terbaca sebagai satu formula.
+- Foto keempat Decant dibiarkan kosong karena sumber tidak menyertakan aset visual. Penggunaan placeholder tidak menyatakan bentuk atau model botol decant tertentu.
 - Foto Monaco yang sudah tersimpan dipertahankan. Empat Produk lain menunggu foto asli atau visual AI terpilih dari pemilik; penggunaan AI wajib diberi penanda “Visual ilustrasi” bila bukan foto Produk nyata.
 - Afiliasi nyata, materi, tarif, laporan, dan payout bisnis menyusul dari pemilik. `AfiliasiUji` hanya identitas teknis untuk peninjauan.
 - Batas Server Action 6 MB hanya menyediakan ruang untuk foto maksimal 5 MB beserta field multipart; validasi aplikasi dan bucket Storage tetap membatasi file produk pada JPEG/PNG/WebP maksimal 5 MB.
@@ -184,7 +196,8 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - `NEXT_PUBLIC_URL_SITUS` wajib ditambahkan pada Vercel Production dan Preview sebelum deployment SEO ditinjau.
 - `npm audit --omit=dev` mencatat tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10, PostCSS, dan Sharp. Perbaikan memerlukan pembaruan framework di luar task SEO dan harus ditangani secara terpisah.
 - Login dua akun Admin uji tambahan telah tervalidasi pada custom domain. Alamatnya memakai domain cadangan `example.com`, sehingga pemulihan atau undangan melalui email tidak diandalkan; pengelolaan kata sandi dilakukan langsung oleh pemilik dan nilainya tidak disimpan dalam dokumentasi atau repository.
-- Empat dari lima Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto produk asli. Foto nyata Monaco yang telah ada tetap dipakai.
+- Delapan belas dari 19 Produk masih memakai placeholder Krem karena sumber terbaru tidak memuat foto yang sesuai ukurannya. Foto nyata Monaco 100 ml yang telah ada tetap dipakai.
+- Metadata beranda masih menyebut “mulai 5 ml”, sedangkan katalog hosted kini memiliki ukuran 1 ml. Perubahan naskah SEO dicatat sebagai usulan dan menunggu konfirmasi pemilik.
 
 ---
 
