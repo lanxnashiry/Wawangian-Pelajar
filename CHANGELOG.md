@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-04] — Analitik pengunjung Umami dan pedoman agent
+
+### Ditambah
+
+- Komponen `components/analitik-umami.tsx` yang memasang tracker Umami (analitik pengunjung self-host) di `app/layout.tsx`. Komponen tidak merender apa pun bila `NEXT_PUBLIC_UMAMI_ID_SITUS` kosong, sehingga build dan deploy tetap jalan meski instance Umami belum berdiri.
+- Deklarasi tipe `types/umami.d.ts` untuk objek global `window.umami`.
+- Rewrite proxy `/stats/script.js` dan `/stats/api/send` di `next.config.ts` agar tracker dilayani lewat domain sendiri dan tidak diblokir pemblokir iklan. Tanpa `UMAMI_URL_INSTANCE`, tidak ada rewrite yang dibuat.
+- Event `klik-beli` pada `components/jembatan-marketplace.tsx` berisi marketplace tujuan dan nama produk, dikirim berdampingan dengan pencatatan klik-keluar yang sudah ada.
+- Tiga variabel opsional di `.env.example`: `NEXT_PUBLIC_UMAMI_ID_SITUS`, `UMAMI_URL_INSTANCE`, `NEXT_PUBLIC_UMAMI_URL_SKRIP`.
+- **`AGENTS.md` di root repo** sebagai pedoman wajib semua agent: bahasa, dokumen yang harus dibaca lebih dulu, pembagian kerja Codex dan Hermes, konvensi penomoran KEP, Definition of Done, batas scope, pitfall git, serta daftar utang teknis.
+- Berkas rencana `.hermes/plans/2026-08-01_092610-revisi-seo-form-artikel.md` mulai dilacak sebagai jejak serah-terima pekerjaan antar agent.
+
+### Catatan
+
+- Analitik Klik-Keluar di panel Admin tetap menjadi catatan resmi; Umami hanya pelengkap untuk mengukur jumlah pengunjung dan sumber trafik. Sebelumnya klik tercatat tanpa pembanding jumlah pengunjung, sehingga angka konversi tidak bisa dibaca.
+- Modul Umami sebenarnya sudah selesai ditulis pada sesi sebelumnya tetapi tidak pernah di-commit dan tidak tercatat di dokumen mana pun. Perilaku itulah yang kini dilarang oleh `AGENTS.md` Bagian 0.
+- Pencatatan dibatasi pada domain produksi melalui `data-domains`, sehingga kunjungan dari localhost dan Vercel Preview tidak mengotori data.
+- Pemilik masih perlu mendirikan instance Umami sendiri dan mengisi ketiga variabel di Vercel sebelum data mulai terkumpul.
+
 ## [2026-08-03] — Foto utama Produk Mykonos
 
 ### Ditambah

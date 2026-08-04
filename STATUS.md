@@ -2,9 +2,50 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 3 Agustus 2026
+**Terakhir diperbarui:** 4 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Batch fondasi SEO artikel selesai secara teknis; menunggu tinjauan visual pemilik dan task rilis M6 lainnya
+**Status milestone aktif:** Fondasi SEO artikel dan katalog 19 Produk selesai; analitik pengunjung Umami terpasang dan menunggu instance milik pemilik; tinjauan visual pemilik serta task rilis M6 lainnya masih terbuka
+
+---
+
+## Analitik pengunjung Umami — terpasang, menunggu instance pemilik
+
+Tracker Umami (analitik pengunjung self-host) sudah terpasang melalui
+`components/analitik-umami.tsx` di `app/layout.tsx`, dengan tipe global di
+`types/umami.d.ts` dan proxy `/stats/*` di `next.config.ts`. Klik tombol beli
+mengirim event `klik-beli` berisi marketplace tujuan dan nama Produk. Keputusan
+lengkap beserta alasannya ada di KEP-048.
+
+Alasan penambahan: modul Analitik Klik-Keluar di panel Admin hanya mengukur
+langkah terakhir, sehingga menghasilkan pembilang tanpa penyebut — lima klik
+tidak bisa dibedakan apakah berasal dari sepuluh pengunjung atau seribu, padahal
+kedua angka itu menuntut perbaikan yang berlawanan.
+
+**Aman secara bawaan:** bila `NEXT_PUBLIC_UMAMI_ID_SITUS` kosong, komponen tidak
+merender apa pun dan tidak ada rewrite yang dibuat, sehingga situs berjalan normal
+tanpa tracker. **Bola di tangan pemilik:** mendirikan instance Umami sendiri, lalu
+mengisi `NEXT_PUBLIC_UMAMI_ID_SITUS`, `UMAMI_URL_INSTANCE`, dan opsional
+`NEXT_PUBLIC_UMAMI_URL_SKRIP` pada Vercel Preview serta Production. Sampai itu
+dilakukan, belum ada data pengunjung yang terkumpul.
+
+Analitik Klik-Keluar tetap menjadi catatan resmi; Umami hanya pelengkap untuk
+mengukur konversi dan sumber trafik.
+
+## Pedoman agent — `AGENTS.md`
+
+`AGENTS.md` di root repo kini menjadi pedoman tunggal semua agent (Codex/ChatGPT,
+Hermes, Antigravity) dan wajib dibaca sebelum menulis kode. Isinya: bahasa,
+dokumen yang harus dibaca lebih dulu, pembagian kerja antar agent, konvensi
+penomoran KEP, Definition of Done, batas scope, pitfall git, dan daftar utang
+teknis. Codex CLI membacanya otomatis dari root repo, sehingga aturan tidak lagi
+bergantung pada salin-tempel manual `PROMPT_PEMBUKA_CODEX.txt` yang kini berstatus
+arsip. Branch wajib berawalan nama agent: `codex/...` atau `hermes/...`. Keputusan
+lengkap di KEP-049.
+
+Latar belakangnya adalah kegagalan nyata: modul Umami sudah selesai ditulis pada
+sesi sebelumnya, lolos build, tetapi tidak pernah di-commit dan tidak tercatat di
+dokumen mana pun. Agent berikutnya tidak punya cara membedakannya dari percobaan
+yang dibuang.
 
 ---
 
@@ -162,6 +203,8 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 5. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
 6. Sebelum rilis publik, matikan Data Contoh, hapus akun `AfiliasiUji`, serta ganti kata sandi atau hapus seluruh akun Admin uji dan Admin utama sementara.
 7. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan pull request aktif ke `main`, lalu mengirim sitemap ke Google Search Console.
+8. Pemilik mendirikan instance Umami, lalu mengisi `NEXT_PUBLIC_UMAMI_ID_SITUS` dan `UMAMI_URL_INSTANCE` pada Vercel Preview serta Production agar data pengunjung mulai terkumpul.
+9. Pemilik menggabungkan dua commit M6 yang belum sampai `main` (`6cd02c6` empat Decant dan `2f64381` foto Mykonos) agar kode di `main` selaras dengan dokumen. Rantai pull request sebelumnya menargetkan branch agent, bukan `main`.
 
 ## Asumsi yang berlaku
 
