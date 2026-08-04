@@ -2,6 +2,31 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-04] — Entri massal Produk dan Artikel
+
+### Ditambah
+
+- Halaman Admin `/admin/entri-massal` yang dapat diakses dari navigasi, daftar Produk, dan daftar Artikel.
+- Template workbook `.xlsx` berisi sheet Petunjuk, Produk, serta Artikel dengan header baku dan dropdown nilai pilihan.
+- Pratinjau kering per baris yang menampilkan slug hasil normalisasi, status valid/peringatan/ditolak, serta alasan dengan nomor baris.
+- Validator bersama untuk Produk dan Artikel: kategori, warna, boolean, harga, menit baca, HTTPS, domain marketplace, BR-4, metadata SEO, H1 Markdown, slug ganda, dan batas 500 baris.
+- RPC `impor_massal_produk_artikel` untuk penyimpanan create-only secara atomik serta satu Log Audit batch.
+- 17 pengujian otomatis berbasis `node:test`; perintah baru `npm test` menjadi bagian Definition of Done.
+- Pemeriksaan metadata ZIP sebelum ExcelJS: maksimal 100 entry, 10 MB per entry, 25 MB total setelah ekstraksi, dan penolakan nama traversal.
+
+### Diubah
+
+- BUILD_SPEC naik dari v2.8 menjadi v2.9 dan M6 mencakup efisiensi operasional Admin.
+- Artikel yang masuk melalui entri massal selalu disimpan sebagai draft, walaupun workbook meminta terbit.
+- `tsconfig.json` mengizinkan impor ekstensi TypeScript khusus alur test tanpa menghasilkan output build.
+
+### Catatan
+
+- Ukuran workbook maksimal 5 MB dan 500 baris per sheet. Mode overwrite, ubah massal, serta unggah ZIP gambar sengaja tidak dibangun pada versi pertama.
+- Foto pada workbook hanya berupa satu URL HTTPS publik opsional per baris.
+- Kode, lint, TypeScript, 17 test, dan build produksi lulus. Migrasi `202608040012_entri_massal_produk_artikel.sql` belum dapat diterapkan otomatis karena Supabase CLI/dashboard tidak memiliki sesi pada mesin ini; SQL Editor pemilik diperlukan sebelum impor produksi menyimpan data.
+- Audit dependensi mencatat 4 advisory tinggi dan 2 sedang. Next.js 16.2.10 perlu ditingkatkan ke ≥16.2.11 dalam task terpisah; `exceljs` membawa advisory sedang lewat UUID lama tetapi jalur fitur tidak menggunakan fungsi UUID tersebut.
+
 ## [2026-08-04] — Analitik pengunjung Umami dan pedoman agent
 
 ### Ditambah

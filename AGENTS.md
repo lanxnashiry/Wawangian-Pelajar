@@ -53,7 +53,7 @@ Urutan ini bukan saran. Baca semuanya:
    Memuat Business Rules **BR-1 s/d BR-11** dan daftar batas scope.
 2. **`ROADMAP.md`** — milestone mana yang berstatus AKTIF. Sekarang: **M6 (Poles & Rilis)**.
 3. **`STATUS.md`** — posisi pekerjaan terakhir, task aktif, langkah berikutnya, asumsi.
-4. **`DECISIONS.md`** — semua keputusan **KEP-001 s/d KEP-049**. Patuhi; jangan
+4. **`DECISIONS.md`** — semua keputusan **KEP-001 s/d KEP-050**. Patuhi; jangan
    buka ulang keputusan lama dari nol.
 5. **`CHANGELOG.md`** — riwayat bertanggal perubahan aplikasi.
 6. **`README.md`** — setup, perintah, struktur folder.
@@ -122,7 +122,7 @@ bukan "nanti".
 kebetulan memakai nomor sama, yang di-merge belakangan **wajib** menaikkan
 nomornya saat menyelesaikan konflik — jangan digabung paksa.
 
-Nomor terpakai terakhir: **KEP-049**. Berikutnya `KEP-050`.
+Nomor terpakai terakhir: **KEP-050**. Berikutnya `KEP-051`.
 
 ---
 
@@ -195,6 +195,7 @@ Perintah verifikasi (Node v22, npm 12 sudah terpasang di mesin pemilik):
 ```
 npm run lint
 npm run build
+npm test
 npx tsc --noEmit
 git diff --check
 ```

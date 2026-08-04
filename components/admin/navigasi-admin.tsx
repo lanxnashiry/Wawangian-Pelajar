@@ -7,6 +7,7 @@ const menu = [
   { href: "/admin/donasi", label: "Donasi" },
   { href: "/admin/afiliasi", label: "Afiliasi" },
   { href: "/admin/konten", label: "Konten" },
+  { href: "/admin/entri-massal", label: "Entri Massal" },
   { href: "/admin/analitik", label: "Analitik Klik" },
   { href: "/admin/log", label: "Log Audit" },
 ];

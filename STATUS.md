@@ -4,32 +4,44 @@
 
 **Terakhir diperbarui:** 4 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Fondasi SEO artikel dan katalog 19 Produk selesai; analitik pengunjung Umami terpasang dan menunggu instance milik pemilik; tinjauan visual pemilik serta task rilis M6 lainnya masih terbuka
+**Status milestone aktif:** Entri massal Produk & Artikel selesai di kode, test, dan build; menunggu satu migrasi RPC diterapkan ke Supabase hosted sebelum penyimpanan produksi dapat digunakan.
 
 ---
 
-## Analitik pengunjung Umami — terpasang, menunggu instance pemilik
+## Entri massal Produk & Artikel — kode selesai, migrasi hosted menunggu
 
-Tracker Umami (analitik pengunjung self-host) sudah terpasang melalui
-`components/analitik-umami.tsx` di `app/layout.tsx`, dengan tipe global di
-`types/umami.d.ts` dan proxy `/stats/*` di `next.config.ts`. Klik tombol beli
-mengirim event `klik-beli` berisi marketplace tujuan dan nama Produk. Keputusan
-lengkap beserta alasannya ada di KEP-048.
+Halaman `/admin/entri-massal` menyediakan template `.xlsx` dengan sheet Petunjuk,
+Produk, dan Artikel. Admin mengunggah workbook untuk pratinjau kering per baris;
+file yang sama dibaca serta divalidasi ulang saat tombol impor ditekan. Tidak ada
+hidden payload data yang dipercaya oleh server.
 
-Alasan penambahan: modul Analitik Klik-Keluar di panel Admin hanya mengukur
-langkah terakhir, sehingga menghasilkan pembilang tanpa penyebut — lima klik
-tidak bisa dibedakan apakah berasal dari sepuluh pengunjung atau seribu, padahal
-kedua angka itu menuntut perbaikan yang berlawanan.
+Aturan utama (KEP-050): create-only, maksimal 500 baris per sheet dan 5 MB,
+slug ganda/yang sudah ada ditolak tanpa overwrite, Artikel selalu menjadi draft,
+foto hanya URL HTTPS opsional, dan seluruh batch disimpan atomik lewat RPC
+`impor_massal_produk_artikel` dengan satu Log Audit.
 
-**Aman secara bawaan:** bila `NEXT_PUBLIC_UMAMI_ID_SITUS` kosong, komponen tidak
-merender apa pun dan tidak ada rewrite yang dibuat, sehingga situs berjalan normal
-tanpa tracker. **Bola di tangan pemilik:** mendirikan instance Umami sendiri, lalu
-mengisi `NEXT_PUBLIC_UMAMI_ID_SITUS`, `UMAMI_URL_INSTANCE`, dan opsional
-`NEXT_PUBLIC_UMAMI_URL_SKRIP` pada Vercel Preview serta Production. Sampai itu
-dilakukan, belum ada data pengunjung yang terkumpul.
+**Sudah lulus:** `npm test` (17/17), lint, TypeScript, `git diff --check`, dan build
+produksi. Route `/admin/entri-massal` serta `/admin/entri-massal/template` muncul
+di manifest build.
 
-Analitik Klik-Keluar tetap menjadi catatan resmi; Umami hanya pelengkap untuk
-mengukur konversi dan sumber trafik.
+**Blocker tunggal:** migrasi
+`supabase/migrations/202608040012_entri_massal_produk_artikel.sql` belum diterapkan
+ke Supabase hosted karena CLI/dashboard tidak login di mesin ini dan service-role
+tidak boleh dipakai untuk DDL. Sampai pemilik menjalankan SQL itu lewat SQL Editor,
+pratinjau bekerja tetapi penyimpanan batch akan gagal aman karena RPC belum ada.
+
+Workbook diperiksa sebagai ZIP sebelum ExcelJS membukanya: maksimal 100 entry,
+10 MB per entry, dan 25 MB total setelah ekstraksi. Nama entry traversal ditolak.
+Ini menutup risiko workbook kecil terkompresi yang mengembang berlebihan di RAM.
+
+## Analitik pengunjung Umami — aktif & terverifikasi
+
+Tracker Umami sudah hidup di Production. `/stats/script.js` merespons 200,
+Website ID cocok dengan database Neon, dan kunjungan nyata `/cerita` dari perangkat
+Android telah tercatat. Data uji Hermes sudah dihapus agar statistik tetap bersih.
+Analitik Klik-Keluar Admin tetap menjadi catatan resmi; Umami menjadi penyebut
+jumlah pengunjung dan sumber trafik. Event `klik-beli` masih perlu diuji melalui
+klik peramban sungguhan.
 
 ## Pedoman agent — `AGENTS.md`
 
@@ -196,15 +208,15 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 
 ## Langkah berikutnya
 
-1. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
-2. Pemilik meninjau formulir Produk, foto utama 15 Produk Mykonos, foto manual Decant 10 ml, tiga placeholder Decant, identitas visual resmi, dan akun Admin uji melalui Production serta pull request aktif.
-3. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
-4. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
-5. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
-6. Sebelum rilis publik, matikan Data Contoh, hapus akun `AfiliasiUji`, serta ganti kata sandi atau hapus seluruh akun Admin uji dan Admin utama sementara.
-7. Setelah hasil ditinjau, pemilik mengonfirmasi penggabungan pull request aktif ke `main`, lalu mengirim sitemap ke Google Search Console.
-8. Pemilik mendirikan instance Umami, lalu mengisi `NEXT_PUBLIC_UMAMI_ID_SITUS` dan `UMAMI_URL_INSTANCE` pada Vercel Preview serta Production agar data pengunjung mulai terkumpul.
-9. Pemilik menggabungkan dua commit M6 yang belum sampai `main` (`6cd02c6` empat Decant dan `2f64381` foto Mykonos) agar kode di `main` selaras dengan dokumen. Rantai pull request sebelumnya menargetkan branch agent, bukan `main`.
+1. Pemilik menjalankan seluruh isi `supabase/migrations/202608040012_entri_massal_produk_artikel.sql` di Supabase SQL Editor; setelah itu Hermes memverifikasi fungsi dan transaksi rollback pada hosted.
+2. Pemilik meninjau halaman Entri Massal pada 360px serta 1440px, mengunduh template, dan mencoba pratinjau workbook tanpa menyimpan data.
+3. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
+4. Pemilik meninjau formulir Produk, foto utama 15 Produk Mykonos, foto manual Decant 10 ml, tiga placeholder Decant, identitas visual resmi, dan akun Admin uji melalui Production serta pull request aktif.
+5. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
+6. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
+7. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
+8. Sebelum rilis publik, matikan Data Contoh, hapus akun `AfiliasiUji`, serta ganti kata sandi atau hapus seluruh akun Admin uji dan Admin utama sementara.
+9. Setelah hasil ditinjau, pemilik menggabungkan pull request aktif ke `main`, lalu mengirim sitemap ke Google Search Console.
 
 ## Asumsi yang berlaku
 
