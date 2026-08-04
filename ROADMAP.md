@@ -106,10 +106,10 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Optimasi serta pemasangan foto utama untuk 15 Produk Mykonos tanpa menimpa foto Decant yang dikelola pemilik
 - ✅ Analitik pengunjung Umami terpasang aman-bawaan beserta proxy `/stats/*` dan event `klik-beli` (KEP-048)
 - ✅ `AGENTS.md` sebagai pedoman tunggal semua agent dan awalan branch penanda pengerja (KEP-049)
-- 🟡 Entri massal Produk & Artikel melalui `.xlsx`: kode, test, dan build selesai; migrasi RPC hosted menunggu dijalankan di SQL Editor (KEP-050)
-- ⬜ Pemilik mendirikan instance Umami dan mengisi variabelnya di Vercel agar data mulai terkumpul
+- ✅ Entri massal Produk & Artikel melalui `.xlsx`: merged, migrasi hosted diterapkan, dan alur Production berhasil diuji (KEP-050)
+- ✅ Umami aktif di Production dan mencatat kunjungan nyata
 - ⬜ Konten awal Artikel nyata dari pemilik
-- ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
+- ✅ Runtime Data Contoh dihapus; pembersihan akun/data uji disiapkan dalam migrasi hosted
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---

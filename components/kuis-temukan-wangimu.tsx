@@ -40,11 +40,9 @@ const tautanJawabanContoh = `/temukan?${new URLSearchParams(
 export function KuisTemukanWangimu({
   daftarProduk,
   jawabanAwal,
-  memakaiDataContoh,
 }: {
   daftarProduk: Produk[];
   jawabanAwal: JawabanKuis;
-  memakaiDataContoh: boolean;
 }) {
   const [pesan, setPesan] = useState("");
   const hasilTerbuka = jawabanKuisLengkap(jawabanAwal);
@@ -118,14 +116,12 @@ export function KuisTemukanWangimu({
             >
               Lihat rekomendasi →
             </button>
-            {memakaiDataContoh ? (
-              <Link
-                href={tautanJawabanContoh}
-                className="flex min-h-13 w-full items-center justify-center rounded-full border border-[#C7A25A] bg-[#F6EACD] px-7 py-3 text-sm font-black text-[#6D5426] hover:bg-[#EED9A7] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7A25A] sm:w-auto"
-              >
-                Coba contoh
-              </Link>
-            ) : null}
+            <Link
+              href={tautanJawabanContoh}
+              className="flex min-h-13 w-full items-center justify-center rounded-full border border-[#C7A25A] bg-[#F6EACD] px-7 py-3 text-sm font-black text-[#6D5426] hover:bg-[#EED9A7] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7A25A] sm:w-auto"
+            >
+              Rekomendasi cepat
+            </Link>
           </div>
         </div>
       </form>

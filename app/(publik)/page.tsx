@@ -2,6 +2,7 @@ import Link from "next/link";
 import { KartuArtikel } from "@/components/kartu-artikel";
 import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
+import { VisualArtikel, VisualProduk } from "@/components/visual-data";
 import { TajukBagian } from "@/components/tajuk-bagian";
 import { ambilDaftarArtikelPublik, ambilDaftarProdukPublik } from "@/lib/data/publik";
 import { ambilRingkasanDonasiPublik } from "@/lib/data/donasi";
@@ -23,7 +24,7 @@ const alasanBerbeda = [
   {
     simbol: "20%",
     judul: "Untuk pendidikan",
-    deskripsi: "Komitmen donasi dihitung dari keuntungan bersih, bukan angka bebas.",
+    deskripsi: "Komitmen donasi dihitung dari laba bersih setiap transaksi, bukan angka bebas.",
   },
   {
     simbol: "Rp",
@@ -32,7 +33,7 @@ const alasanBerbeda = [
   },
 ];
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default async function Beranda() {
   const [daftarProduk, daftarArtikel, ringkasanDonasi] = await Promise.all([
@@ -40,7 +41,8 @@ export default async function Beranda() {
   ]);
   const produkUnggulan = daftarProduk.filter((produk) => produk.unggulan);
   const artikelTerbaru = daftarArtikel.slice(0, 3);
-  const memakaiDataContoh = daftarProduk.some((produk) => produk.sumberData === "contoh") || daftarArtikel.some((artikel) => artikel.sumberData === "contoh");
+  const produkHero = produkUnggulan[0] ?? daftarProduk[0];
+  const artikelCerita = daftarArtikel.find((artikel) => artikel.kategori === "cerita_misi") ?? artikelTerbaru[0];
   const tautanCeritaMisi = daftarArtikel.some((artikel) => artikel.slug === "berawal-dari-pelajar") ? "/cerita/berawal-dari-pelajar" : "/cerita";
 
   return (
@@ -56,7 +58,7 @@ export default async function Beranda() {
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#282B2F]">
               Parfum ori, decant, dan racikan sendiri yang terjangkau. Setiap
-              pembelian nantinya ikut menyalakan Dana Cahaya Pendidikan.
+              transaksi yang menghasilkan laba ikut menyalakan Dana Cahaya Pendidikan.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -79,17 +81,14 @@ export default async function Beranda() {
               </Link>
             </div>
             <p className="mt-5 text-xs leading-5 text-[#687078]">
-              {memakaiDataContoh ? "Katalog masih berupa data contoh; tautan produk marketplace asli menyusul." : "Produk aktif dibaca dari Supabase; tombol beli tersedia saat tautan toko resmi sudah diisi."}
+              Produk dan harga berasal dari katalog resmi Wawangian Pelajar; pembelian dilanjutkan melalui marketplace.
             </p>
           </div>
           <div className="relative mx-auto w-full max-w-xl">
             <div className="absolute -top-10 -right-12 h-36 w-36 rounded-full bg-[#D1B779]/25 blur-2xl" />
             <div className="absolute -bottom-8 -left-10 h-40 w-40 rounded-full bg-[#087477]/15 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-[#F4EBDD] p-3 shadow-2xl shadow-[#102A43]/12 sm:p-5">
-              <PlaceholderVisual
-                judul="Foto produk asli akan ditempatkan di sini"
-                warna="tosca"
-              />
+              {produkHero ? <VisualProduk produk={produkHero} /> : <PlaceholderVisual judul="Wawangian Pelajar" warna="tosca" />}
               <div className="absolute right-7 bottom-7 left-7 rounded-2xl bg-white/90 p-4 shadow-lg backdrop-blur sm:right-10 sm:bottom-10 sm:left-10">
                 <p className="text-xs font-black tracking-wide text-[#C7A25A] uppercase">
                   Dana Cahaya Pendidikan
@@ -139,7 +138,7 @@ export default async function Beranda() {
         <div className="mx-auto w-full max-w-7xl">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <TajukBagian
-              label={memakaiDataContoh ? "Katalog contoh" : "Katalog nyata"}
+              label="Katalog produk"
               judul="Produk unggulan"
               deskripsi="Kenali karakter aromanya dulu. Hanya produk aktif yang tampil ke publik."
             />
@@ -198,11 +197,7 @@ export default async function Beranda() {
 
       <section className="px-5 py-16 sm:px-8 sm:py-20 lg:px-10">
         <div className="mx-auto grid w-full max-w-7xl items-center gap-10 rounded-[2rem] bg-[#FAF7F1] p-6 sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:p-14">
-          <PlaceholderVisual
-            judul="Visual cerita brand sementara"
-            warna="emas"
-            ringkas
-          />
+          {artikelCerita ? <VisualArtikel artikel={artikelCerita} ringkas /> : <PlaceholderVisual judul="Cerita Wawangian Pelajar" warna="emas" ringkas />}
           <div>
             <p className="text-xs font-black tracking-[0.16em] text-[#C7A25A] uppercase">
               Cerita misi

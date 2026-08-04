@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s · Wawangian Pelajar",
   },
   description:
-    "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
+    "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
   icons: {
     icon: "/ikon-wawangian-pelajar-2026.png",
     apple: "/ikon-wawangian-pelajar-2026.png",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: urlSitus,
     title: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     description:
-      "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
+      "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
     images: [
       {
         url: "/og-wawangian-pelajar.png",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     description:
-      "Decant parfum original dan parfum inspirasi mulai 5 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
+      "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
     images: ["/og-wawangian-pelajar.png"],
   },
 };

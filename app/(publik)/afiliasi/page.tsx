@@ -51,7 +51,7 @@ export default function HalamanAfiliasi() {
         <div className="mx-auto w-full max-w-7xl">
           <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">Kenapa ikut?</p>
           <div className="mt-6 grid gap-4 md:grid-cols-3">{manfaat.map(([judul, isi]) => <article key={judul} className="rounded-3xl bg-[#F4EBDD] p-6"><h3 className="text-lg font-black text-[#102A43]">{judul}</h3><p className="mt-3 text-sm leading-6 text-[#282B2F]">{isi}</p></article>)}</div>
-          <div className="mt-8 rounded-3xl border border-[#E5D4B3] bg-[#FAF7F1] p-6 text-sm leading-6 text-[#6D5426]"><strong>Aturan utama:</strong> afiliasi adalah individu. Dilarang mengaku didukung organisasi, banting harga, membuat klaim palsu, atau memakai foto produk AI. Pelanggaran dapat membuat akun dinonaktifkan.</div>
+          <div className="mt-8 rounded-3xl border border-[#E5D4B3] bg-[#FAF7F1] p-6 text-sm leading-6 text-[#6D5426]"><strong>Aturan utama:</strong> afiliasi adalah individu. Dilarang mengaku didukung organisasi, banting harga, membuat klaim palsu, atau memalsukan atribut produk pada visual AI maupun foto asli. Pelanggaran dapat membuat akun dinonaktifkan.</div>
         </div>
       </section>
     </main>

@@ -15,7 +15,7 @@ export default async function RekapDonasiAdmin({ searchParams }: Properti) {
     <main className="p-5 sm:p-8 lg:p-10">
       <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">BR-1 · anti-fabrikasi</p>
       <h1 className="mt-3 text-3xl font-black text-[#102A43]">Rekap penjualan menjadi donasi</h1>
-      <p className="mt-3 max-w-3xl text-sm leading-6 text-[#282B2F]">Masukkan untung bersih dari rekap marketplace. Jumlah donasi tidak memiliki input bebas dan selalu dihitung 20% oleh database.</p>
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-[#282B2F]">Masukkan total laba bersih setiap transaksi pada periode: harga jual dikurangi harga beli dan biaya langsung transaksi. Jumlah donasi tidak memiliki input bebas dan selalu dihitung 20% oleh database.</p>
       <div className="mt-7"><FormulirRekapDonasi pesan={pesan} /></div>
       <section className="mt-9">
         <h2 className="text-xl font-black text-[#102A43]">Riwayat rekap</h2>

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { KartuProduk } from "@/components/kartu-produk";
 import { JembatanMarketplace } from "@/components/jembatan-marketplace";
 import { VisualProduk } from "@/components/visual-data";
+import { SkemaProduk } from "@/components/skema-produk";
 import {
   formatRupiah,
   labelKategori,
@@ -14,7 +15,7 @@ type ParameterHalaman = {
   params: Promise<{ slug: string }>;
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateMetadata({
   params,
@@ -53,6 +54,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
 
   return (
     <main className="px-5 py-8 sm:px-8 sm:py-12 lg:px-10">
+      <SkemaProduk produk={produk} />
       <div className="mx-auto w-full max-w-7xl">
         <nav aria-label="Breadcrumb" className="text-sm text-[#4A4D52]">
           <ol className="flex flex-wrap items-center gap-2">
@@ -97,7 +99,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                 </span>
               ) : null}
               <span className="rounded-full bg-[#F4EBDD] px-3 py-1.5 text-[#4A4D52]">
-                {produk.sumberData === "supabase" ? "Data terverifikasi" : "Data contoh"}
+                Data terverifikasi
               </span>
             </div>
             <h1 className="mt-5 text-4xl leading-tight font-black tracking-[-0.05em] text-[#102A43] sm:text-5xl">
@@ -146,7 +148,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                 Pesan misi
               </p>
               <p className="mt-2 text-sm leading-6 text-[#6D5426]">
-                Setiap pembelian melalui marketplace menyisihkan 20% keuntungan bersih untuk
+                Setiap pembelian melalui marketplace menyisihkan 20% laba bersih setiap transaksi untuk
                 Dana Cahaya Pendidikan. Pelaporannya tetap dihitung dari sumber nyata.
               </p>
               <Link
@@ -162,7 +164,6 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
               namaProduk={produk.nama}
               tersedia={produk.tersedia}
               linkMarketplace={produk.linkMarketplace}
-              sumberData={produk.sumberData}
             />
             <p className="mt-3 text-center text-xs leading-5 text-[#687078]">
               Website tidak menyediakan checkout atau pembayaran sendiri.

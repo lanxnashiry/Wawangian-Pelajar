@@ -24,7 +24,7 @@ export function FormulirRekapDonasi({ pesan }: { pesan?: string }) {
         <output className="mt-2 block text-3xl font-black text-[#102A43]" aria-live="polite">{formatRupiah(jumlahDonasi)}</output>
         <p className="mt-2 text-xs leading-5 text-[#282B2F]">Nilai ini hanya pratinjau. Database menghitung ulang dan menyimpan hasilnya sebagai kolom read-only.</p>
       </div>
-      <label className="block text-sm font-bold text-[#102A43]">Catatan metode dan sumber<textarea className={kelasInput} name="catatan_metode" rows={4} minLength={10} required placeholder="Contoh: rekap laba bersih laporan marketplace setelah biaya platform dan retur." /></label>
+      <label className="block text-sm font-bold text-[#102A43]">Catatan metode dan sumber<textarea className={kelasInput} name="catatan_metode" rows={4} minLength={10} required placeholder="Contoh: total laba bersih transaksi setelah harga beli, biaya platform, retur, dan biaya langsung lain." /></label>
       <button className="min-h-12 rounded-full bg-[#087477] px-6 py-3 text-sm font-black text-white hover:bg-[#075E61]">Simpan rekap</button>
     </form>
   );

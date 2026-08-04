@@ -18,7 +18,6 @@ type Properti = {
   namaProduk: string;
   tersedia: boolean;
   linkMarketplace?: Produk["linkMarketplace"];
-  sumberData?: Produk["sumberData"];
 };
 
 const urutanMarketplace: TujuanMarketplace[] = ["shopee", "tiktok"];
@@ -28,7 +27,6 @@ export function JembatanMarketplace({
   namaProduk,
   tersedia,
   linkMarketplace,
-  sumberData,
 }: Properti) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [pesanStatus, setPesanStatus] = useState("");
@@ -37,16 +35,13 @@ export function JembatanMarketplace({
     const url = linkMarketplace?.[tujuan];
     return tautanMarketplaceValid(tujuan, url) ? [{ tujuan, url }] : [];
   });
-  const modeContoh = sumberData === "contoh" && pilihanNyata.length === 0;
-  const pilihanDialog: PilihanMarketplace[] = modeContoh
-    ? urutanMarketplace.map((tujuan) => ({ tujuan }))
-    : pilihanNyata;
+  const pilihanDialog: PilihanMarketplace[] = pilihanNyata;
 
   function catatKlik(tujuan: TujuanMarketplace) {
     setPesanStatus(`Membuka ${labelMarketplace[tujuan]} di tab baru.`);
     dialog.current?.close();
 
-    if (!produkId || sumberData !== "supabase") return;
+    if (!produkId) return;
 
     // Kirim event ke Umami supaya klik-beli bisa dibandingkan dengan jumlah
     // pengunjung dan sumber trafik. Analitik klik-keluar di admin tetap jadi
@@ -77,7 +72,7 @@ export function JembatanMarketplace({
     );
   }
 
-  if (pilihanNyata.length === 0 && !modeContoh) {
+  if (pilihanNyata.length === 0) {
     return (
       <button
         type="button"
@@ -109,7 +104,7 @@ export function JembatanMarketplace({
           onClick={() => dialog.current?.showModal()}
           className="min-h-13 w-full rounded-full bg-[#087477] px-6 py-3 text-sm font-black text-white shadow-lg shadow-[#087477]/20 hover:bg-[#075E61] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
         >
-          {modeContoh ? "Pratinjau pilihan marketplace" : "Beli sekarang"}
+          Beli sekarang
         </button>
       )}
 
@@ -122,7 +117,7 @@ export function JembatanMarketplace({
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-black tracking-[0.14em] text-[#087477] uppercase">
-                {modeContoh ? "Simulasi lokal · Data Contoh" : "Toko resmi"}
+                Toko resmi
               </p>
               <h2 id="judul-pilihan-marketplace" className="mt-2 text-2xl font-black">
                 Beli lewat mana?
@@ -139,9 +134,7 @@ export function JembatanMarketplace({
             </form>
           </div>
           <p className="mt-3 text-sm leading-6 text-[#282B2F]">
-            {modeContoh
-              ? `Ini hanya pratinjau dialog untuk ${namaProduk}. Tautan produk asli belum diberikan dan tidak ada klik yang dicatat.`
-              : `${namaProduk} tersedia di dua marketplace. Pilih toko resmi yang kamu gunakan.`}
+            {namaProduk} tersedia di dua marketplace. Pilih toko resmi yang kamu gunakan.
           </p>
           <div className="mt-5 grid gap-3">
             {pilihanDialog.map((pilihan) =>
