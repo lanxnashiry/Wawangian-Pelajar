@@ -169,7 +169,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 
 **BR-7 — Bonus afiliasi (Path B).** Bonus top-up dihitung berbasis JUMLAH PENJUALAN PER PCS yang dikaitkan ke handle afiliasi (dari laporan platform yang diunggah admin). Dibayar manual oleh admin, dengan bukti transfer.
 
-**BR-8 — Aturan main afiliasi.** Afiliasi = individu. Dilarang mengklaim "didukung IPNU"/organisasi, dilarang banting harga, dilarang klaim palsu. Pelanggaran → dinonaktifkan admin.
+**BR-8 — Aturan main afiliasi.** Afiliasi = individu. Dilarang mengklaim "didukung IPNU"/organisasi, dilarang banting harga, dilarang klaim palsu. Visual AI **boleh** dipakai untuk konten promosi; yang dilarang adalah memalsukan atribut Produk (bentuk, ukuran, isi, kemasan, keaslian, harga, angka donasi) baik lewat visual AI maupun foto asli. Pelanggaran → dinonaktifkan admin.
 
 **BR-9 — Log audit wajib.** Semua aksi sensitif (ubah angka donasi, input penyaluran, ubah harga, payout, hapus) tercatat di Log Audit yang tidak bisa dihapus.
 
@@ -283,7 +283,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
 - **Input harga tanpa stepper** — formulir Admin menerima digit harga tanpa tombol panah naik/turun bawaan peramban. Nilai tetap wajib berupa bilangan bulat tidak negatif dan disimpan dalam satuan rupiah.
-- **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 1 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata tetap berarti keuntungan bersih sesuai BR-1.
+- **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 1 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata berarti laba bersih setiap transaksi sesuai BR-1, bukan laba/rugi perusahaan.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 
