@@ -20,7 +20,7 @@ slug ganda/yang sudah ada ditolak tanpa overwrite, Artikel selalu menjadi draft,
 foto hanya URL HTTPS opsional, dan seluruh batch disimpan atomik lewat RPC
 `impor_massal_produk_artikel` dengan satu Log Audit.
 
-**Sudah lulus:** `npm test` (15/15), lint, TypeScript, `git diff --check`, dan build
+**Sudah lulus:** `npm test` (17/17), lint, TypeScript, `git diff --check`, dan build
 produksi. Route `/admin/entri-massal` serta `/admin/entri-massal/template` muncul
 di manifest build.
 
@@ -29,6 +29,10 @@ di manifest build.
 ke Supabase hosted karena CLI/dashboard tidak login di mesin ini dan service-role
 tidak boleh dipakai untuk DDL. Sampai pemilik menjalankan SQL itu lewat SQL Editor,
 pratinjau bekerja tetapi penyimpanan batch akan gagal aman karena RPC belum ada.
+
+Workbook diperiksa sebagai ZIP sebelum ExcelJS membukanya: maksimal 100 entry,
+10 MB per entry, dan 25 MB total setelah ekstraksi. Nama entry traversal ditolak.
+Ini menutup risiko workbook kecil terkompresi yang mengembang berlebihan di RAM.
 
 ## Analitik pengunjung Umami — aktif & terverifikasi
 

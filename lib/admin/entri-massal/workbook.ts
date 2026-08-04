@@ -1,5 +1,41 @@
 import ExcelJS from "exceljs";
+import JSZip from "jszip";
 import type { BarisMentah } from "./validasi.ts";
+
+const BATAS_ENTRY_ZIP = 100;
+const BATAS_ENTRY_TEREKSTRAK = 10 * 1024 * 1024;
+const BATAS_TOTAL_TEREKSTRAK = 25 * 1024 * 1024;
+
+type EntryZipDenganUkuran = JSZip.JSZipObject & {
+  unsafeOriginalName?: string;
+  _data?: { uncompressedSize?: number };
+};
+
+export async function periksaKeamananArsipXlsx(buffer: Buffer) {
+  let zip: JSZip;
+  try {
+    zip = await JSZip.loadAsync(buffer, { checkCRC32: false, createFolders: false });
+  } catch {
+    throw new Error("Berkas bukan arsip XLSX yang valid.");
+  }
+  const entries = Object.values(zip.files) as EntryZipDenganUkuran[];
+  if (entries.length > BATAS_ENTRY_ZIP) throw new Error("Arsip XLSX maksimal memiliki 100 entry.");
+  let total = 0;
+  for (const entry of entries) {
+    const nama = entry.unsafeOriginalName ?? entry.name;
+    if (nama.startsWith("/") || nama.includes("\\") || nama.split("/").includes("..")) {
+      throw new Error("Nama berkas di dalam arsip XLSX tidak aman.");
+    }
+    if (entry.dir) continue;
+    const ukuran = entry._data?.uncompressedSize;
+    if (!Number.isSafeInteger(ukuran) || ukuran === undefined || ukuran < 0) {
+      throw new Error("Ukuran ekstraksi XLSX tidak dapat diverifikasi.");
+    }
+    if (ukuran > BATAS_ENTRY_TEREKSTRAK) throw new Error("Satu entry XLSX terlalu besar setelah ekstraksi.");
+    total += ukuran;
+    if (total > BATAS_TOTAL_TEREKSTRAK) throw new Error("Total ekstraksi XLSX melebihi batas aman 25 MB.");
+  }
+}
 
 export const HEADER_PRODUK = [
   "nama", "slug", "kategori", "ukuran", "harga", "ringkasan", "deskripsi",
@@ -127,6 +163,7 @@ export async function buatTemplateEntriMassal() {
 }
 
 export async function bacaWorkbookEntriMassal(buffer: Buffer) {
+  await periksaKeamananArsipXlsx(buffer);
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(buffer as unknown as ExcelJS.Buffer);
   if (workbook.worksheets.length > 3) throw new Error("Workbook maksimal memiliki tiga sheet: Petunjuk, Produk, dan Artikel.");

@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import ExcelJS from "exceljs";
+import JSZip from "jszip";
 import {
   buatTemplateEntriMassal,
   bacaWorkbookEntriMassal,
   HEADER_ARTIKEL,
   HEADER_PRODUK,
+  periksaKeamananArsipXlsx,
 } from "../lib/admin/entri-massal/workbook.ts";
 
 async function workbookUji() {
@@ -78,4 +80,24 @@ test("workbook dengan sheet atau kolom tambahan ditolak", async () => {
     () => bacaWorkbookEntriMassal(bufferKolomTambahan),
     /kolom tambahan/i,
   );
+});
+
+test("arsip XLSX yang mengembang berlebihan atau memiliki traversal ditolak sebelum ExcelJS", async () => {
+  const zipBomb = new JSZip();
+  zipBomb.file("xl/worksheets/sheet1.xml", "0".repeat(26 * 1024 * 1024));
+  const bufferBomb = await zipBomb.generateAsync({ type: "nodebuffer", compression: "DEFLATE", compressionOptions: { level: 9 } });
+  assert.equal(bufferBomb.length < 5 * 1024 * 1024, true);
+  await assert.rejects(() => periksaKeamananArsipXlsx(bufferBomb), /ekstraksi|terlalu besar/i);
+
+  const traversal = new JSZip();
+  traversal.file("../rahasia.txt", "x");
+  const bufferTraversal = await traversal.generateAsync({ type: "nodebuffer" });
+  await assert.rejects(() => periksaKeamananArsipXlsx(bufferTraversal), /nama berkas|aman/i);
+});
+
+test("arsip dengan terlalu banyak entry ditolak", async () => {
+  const zip = new JSZip();
+  for (let i = 0; i < 101; i += 1) zip.file(`xl/data/${i}.xml`, "x");
+  const buffer = await zip.generateAsync({ type: "nodebuffer" });
+  await assert.rejects(() => periksaKeamananArsipXlsx(buffer), /100 entry/i);
 });

@@ -11,7 +11,8 @@
 - Pratinjau kering per baris yang menampilkan slug hasil normalisasi, status valid/peringatan/ditolak, serta alasan dengan nomor baris.
 - Validator bersama untuk Produk dan Artikel: kategori, warna, boolean, harga, menit baca, HTTPS, domain marketplace, BR-4, metadata SEO, H1 Markdown, slug ganda, dan batas 500 baris.
 - RPC `impor_massal_produk_artikel` untuk penyimpanan create-only secara atomik serta satu Log Audit batch.
-- 15 pengujian otomatis berbasis `node:test`; perintah baru `npm test` menjadi bagian Definition of Done.
+- 17 pengujian otomatis berbasis `node:test`; perintah baru `npm test` menjadi bagian Definition of Done.
+- Pemeriksaan metadata ZIP sebelum ExcelJS: maksimal 100 entry, 10 MB per entry, 25 MB total setelah ekstraksi, dan penolakan nama traversal.
 
 ### Diubah
 
@@ -23,7 +24,7 @@
 
 - Ukuran workbook maksimal 5 MB dan 500 baris per sheet. Mode overwrite, ubah massal, serta unggah ZIP gambar sengaja tidak dibangun pada versi pertama.
 - Foto pada workbook hanya berupa satu URL HTTPS publik opsional per baris.
-- Kode, lint, TypeScript, 14 test, dan build produksi lulus. Migrasi `202608040012_entri_massal_produk_artikel.sql` belum dapat diterapkan otomatis karena Supabase CLI/dashboard tidak memiliki sesi pada mesin ini; SQL Editor pemilik diperlukan sebelum impor produksi menyimpan data.
+- Kode, lint, TypeScript, 17 test, dan build produksi lulus. Migrasi `202608040012_entri_massal_produk_artikel.sql` belum dapat diterapkan otomatis karena Supabase CLI/dashboard tidak memiliki sesi pada mesin ini; SQL Editor pemilik diperlukan sebelum impor produksi menyimpan data.
 - Audit dependensi mencatat 4 advisory tinggi dan 2 sedang. Next.js 16.2.10 perlu ditingkatkan ke ≥16.2.11 dalam task terpisah; `exceljs` membawa advisory sedang lewat UUID lama tetapi jalur fitur tidak menggunakan fungsi UUID tersebut.
 
 ## [2026-08-04] — Analitik pengunjung Umami dan pedoman agent
