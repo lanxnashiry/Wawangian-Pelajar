@@ -47,6 +47,16 @@ export function JembatanMarketplace({
     dialog.current?.close();
 
     if (!produkId || sumberData !== "supabase") return;
+
+    // Kirim event ke Umami supaya klik-beli bisa dibandingkan dengan jumlah
+    // pengunjung dan sumber trafik. Analitik klik-keluar di admin tetap jadi
+    // catatan resmi; ini hanya pelengkap untuk mengukur konversi.
+    if (typeof window !== "undefined" && window.umami) {
+      window.umami.track("klik-beli", {
+        marketplace: tujuan,
+        produk: namaProduk,
+      });
+    }
     void fetch("/api/klik-keluar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
