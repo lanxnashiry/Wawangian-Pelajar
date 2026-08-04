@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.8
+- **Versi spesifikasi:** 2.9
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -73,7 +73,7 @@ Yang **DIKERJAKAN** dalam proyek ini:
 1. **Website publik** (mobile-first, responsif): Homepage, Katalog + Detail Produk, halaman "Temukan Wangimu", Halaman Transparansi Donasi, Konten & Edukasi.
 2. **Jembatan ke marketplace:** tombol beli yang mengarah ke Shopee/TikTok Shop (hybrid: langsung bila 1 marketplace, popup pilihan bila 2), pesan misi, dan pencatatan klik-keluar untuk analitik.
 3. **Portal afiliasi** (dengan login): pendaftaran, panduan onboarding, dashboard afiliasi, materi promosi, leaderboard.
-4. **Panel Admin/Backend** (dengan login): kelola produk, manajemen donasi (rekap + input penyaluran berbukti), rekonsiliasi & bonus afiliasi, editor konten, analitik klik, log audit.
+4. **Panel Admin/Backend** (dengan login): kelola produk, entri massal Produk & Artikel melalui workbook `.xlsx`, manajemen donasi (rekap + input penyaluran berbukti), rekonsiliasi & bonus afiliasi, editor konten, analitik klik, log audit.
 5. **Perhitungan donasi semi-otomatis** dengan prinsip anti-fabrikasi.
 6. **Enam dokumen tata kelola** (BUILD_SPEC, ROADMAP, STATUS, DECISIONS, CHANGELOG, README) yang dipelihara sepanjang pengerjaan.
 
@@ -146,6 +146,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 | Input Penyaluran | `/admin/donasi/penyaluran` | Form + unggah bukti wajib |
 | Afiliasi | `/admin/afiliasi` | Verifikasi, rekonsiliasi, bonus |
 | Editor Konten | `/admin/konten` | CRUD artikel |
+| Entri Massal | `/admin/entri-massal` | Unduh template `.xlsx`, pratinjau tervalidasi, impor atomik Produk & Artikel draft |
 | Analitik Klik | `/admin/analitik` | Produk paling diklik-beli |
 | Pengaturan | `/admin/pengaturan` | Persentase donasi, dll |
 | Log Audit | `/admin/log` | Jejak aksi sensitif |
@@ -342,6 +343,11 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 - Input harga Produk tidak menampilkan tombol panah naik/turun, hanya menerima digit, dan tetap divalidasi sebagai bilangan bulat tidak negatif oleh server.
 - Semua aksi sensitif tercatat di Log Audit.
 - Hanya satu peran Admin dengan akses penuh.
+- Template entri massal memiliki sheet Produk, Artikel, dan Petunjuk; header tidak dapat berubah diam-diam.
+- Pratinjau `.xlsx` tidak menyimpan data dan menampilkan nomor baris, galat, peringatan, serta slug hasil normalisasi.
+- Entri massal maksimal 500 baris per sheet dan 5 MB; slug duplikat/yang sudah ada ditolak tanpa menimpa data.
+- Semua Artikel hasil entri massal disimpan sebagai draft; penyimpanan Produk dan Artikel berlangsung atomik melalui satu RPC dan menghasilkan satu Log Audit batch.
+- Foto massal hanya menerima satu URL HTTPS publik per baris; unggah ZIP gambar dan mode overwrite berada di luar versi pertama.
 
 **AC-Umum:**
 - Tidak ada fitur di daftar Non-Scope yang muncul.
@@ -373,7 +379,7 @@ Tombol beli hybrid + popup + pencatatan KlikKeluar. Halaman kuis "Temukan Wangim
 Landing, pendaftaran (+handle marketplace), login afiliasi, dashboard, panduan, materi promosi, leaderboard. Admin: verifikasi + rekonsiliasi + bonus per pcs (BR-6, BR-7).
 
 **M6 — Poles & Rilis.**
-Optimasi kecepatan/gambar, aksesibilitas, uji lintas perangkat, konten awal, rilis produksi.
+Optimasi kecepatan/gambar, aksesibilitas, efisiensi operasional Admin (termasuk entri massal), uji lintas perangkat, konten awal, rilis produksi.
 
 *(Fase lanjut di luar milestone ini: Sales Academy, notifikasi, loyalitas, peran granular.)*
 
@@ -447,4 +453,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.8 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v2.9 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

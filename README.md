@@ -59,6 +59,7 @@ copy .env.example .env.local
 npm run dev
 
 # 5. Validasi
+npm test
 npm run lint
 npm run build
 
@@ -254,6 +255,12 @@ handle,jumlah_pcs
 5. Periksa `/sitemap.xml` dan `/robots.txt` setelah deploy, lalu kirim sitemap ke Google Search Console sebelum rilis publik.
 
 Artikel lama tanpa `isi_markdown` tetap dirender melalui data `bagian`. Artikel baru menyimpan Markdown mentah sebagai sumber isi serta mempertahankan `bagian` untuk kompatibilitas. HTML mentah tidak dieksekusi oleh renderer.
+
+## Entri Massal Produk & Artikel M6
+
+Admin dapat membuka `/admin/entri-massal`, mengunduh template `.xlsx`, mengisi sheet Produk dan/atau Artikel, lalu menjalankan pratinjau sebelum impor. Fitur bersifat create-only: tidak menimpa slug lama, seluruh Artikel menjadi draft, maksimal 500 baris per sheet dan 5 MB per workbook.
+
+Sebelum dipakai pada hosted, terapkan migrasi `supabase/migrations/202608040012_entri_massal_produk_artikel.sql` melalui Supabase SQL Editor.
 
 ## Deploy ke Vercel
 

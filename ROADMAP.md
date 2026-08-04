@@ -1,4 +1,4 @@
-# ROADMAP.md — Website Wawangian Pelajar
+﻿# ROADMAP.md — Website Wawangian Pelajar
 
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
@@ -106,6 +106,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Optimasi serta pemasangan foto utama untuk 15 Produk Mykonos tanpa menimpa foto Decant yang dikelola pemilik
 - ✅ Analitik pengunjung Umami terpasang aman-bawaan beserta proxy `/stats/*` dan event `klik-beli` (KEP-048)
 - ✅ `AGENTS.md` sebagai pedoman tunggal semua agent dan awalan branch penanda pengerja (KEP-049)
+- 🟡 Entri massal Produk & Artikel melalui `.xlsx`: kode, test, dan build selesai; migrasi RPC hosted menunggu dijalankan di SQL Editor (KEP-050)
 - ⬜ Pemilik mendirikan instance Umami dan mengisi variabelnya di Vercel agar data mulai terkumpul
 - ⬜ Konten awal Artikel nyata dari pemilik
 - ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
