@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-04] — Pembersihan penghalang rilis
+
+### Diubah
+
+- Seluruh runtime Data Contoh Produk, Artikel, donasi, bonus, dan leaderboard dihapus; kegagalan Supabase kini fail closed.
+- Next.js 16.2.10 → 16.3.0; audit turun dari 4 high + 2 moderate menjadi 0 high + 2 moderate transitif ExcelJS.
+- Data publik memakai klien anon stateless; katalog dan donasi memakai ISR lima menit.
+- Detail Produk memiliki JSON-LD `Product` + `Offer`.
+- Definisi donasi diperjelas menjadi 20% laba bersih setiap transaksi; naskah “mulai 5 ml” menjadi “mulai 1 ml”; aturan visual AI diselaraskan.
+- Hero dan cerita beranda memakai gambar data nyata, bukan teks placeholder developer.
+
+### Data & keamanan
+
+- Migrasi `202608040013_pembersihan_data_uji_dan_foto_decant.sql` menyalin foto 10 ml ke Decant 1/2/5 ml, menghapus Produk/Afiliasi uji, mencabut hak Admin uji, memban akun dan memutus sesi tanpa merusak Log Audit.
+- Setiap pembersihan pada migrasi itu dibungkus penjaga `row_count`: pembaruan catatan metode rekap donasi hanya boleh menyentuh tepat satu baris, penghapusan Produk/afiliasi uji paling banyak satu baris, dan afiliasi uji diikat ke Auth user `afiliasi.uji@gmail.com` alih-alih hanya alias publik. Rekap atau afiliasi nyata yang kebetulan berangka/beralias sama tidak dapat tersentuh; jika sasaran tidak tunggal, migrasi digulung balik.
+- Ban akun uji memakai `9999-12-31 23:59:59+00` alih-alih `infinity` agar klien GoTrue tidak gagal mengurai nilai timestamp.
+- Strategi satu listing Shopee bervarian dan subsidi silang dua SKU 100 ml dicatat sebagai keputusan sadar; TikTok Shop menunggu konfirmasi.
+- Test otomatis menjadi 21 dan seluruhnya lulus.
+
 ## [2026-08-04] — Entri massal Produk dan Artikel
 
 ### Ditambah

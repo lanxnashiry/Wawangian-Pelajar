@@ -1,8 +1,7 @@
-import { daftarArtikel, type Artikel, type BagianArtikel } from "@/data/artikel";
-import { daftarProduk, type Produk } from "@/data/produk";
-import { modePratinjauDataContohAktif } from "@/lib/pratinjau/data-contoh";
+import { type Artikel, type BagianArtikel } from "@/data/artikel";
+import { type Produk } from "@/data/produk";
 import { konfigurasiSupabasePublikTersedia } from "@/lib/supabase/konfigurasi";
-import { buatKlienSupabaseServer } from "@/lib/supabase/klien-server";
+import { buatKlienSupabasePublik } from "@/lib/supabase/klien-publik";
 
 type BarisProduk = {
   id: string;
@@ -108,16 +107,15 @@ export function petakanArtikel(baris: BarisArtikel): Artikel {
 }
 
 export async function ambilDaftarProdukPublik(): Promise<Produk[]> {
-  if (modePratinjauDataContohAktif()) return daftarProduk;
-  if (!konfigurasiSupabasePublikTersedia()) return daftarProduk;
-  const supabase = await buatKlienSupabaseServer();
+  if (!konfigurasiSupabasePublikTersedia()) return [];
+  const supabase = buatKlienSupabasePublik();
   const { data, error } = await supabase
     .from("produk")
     .select("*")
     .eq("aktif", true)
     .order("unggulan", { ascending: false })
     .order("nama");
-  if (error) return daftarProduk;
+  if (error) return [];
   return (data as BarisProduk[]).map(petakanProduk);
 }
 
@@ -127,15 +125,14 @@ export async function ambilProdukPublik(slug: string): Promise<Produk | undefine
 }
 
 export async function ambilDaftarArtikelPublik(): Promise<Artikel[]> {
-  if (modePratinjauDataContohAktif()) return daftarArtikel;
-  if (!konfigurasiSupabasePublikTersedia()) return daftarArtikel;
-  const supabase = await buatKlienSupabaseServer();
+  if (!konfigurasiSupabasePublikTersedia()) return [];
+  const supabase = buatKlienSupabasePublik();
   const { data, error } = await supabase
     .from("artikel")
     .select("*")
     .eq("status", "terbit")
     .order("tanggal_terbit", { ascending: false });
-  if (error) return daftarArtikel;
+  if (error) return [];
   return (data as BarisArtikel[]).map(petakanArtikel);
 }
 

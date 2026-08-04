@@ -4,60 +4,22 @@
 
 **Terakhir diperbarui:** 4 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Entri massal Produk & Artikel selesai di kode, test, dan build; menunggu satu migrasi RPC diterapkan ke Supabase hosted sebelum penyimpanan produksi dapat digunakan.
+**Status milestone aktif:** pembersihan rilis sedang diverifikasi; kode siap, migrasi hosted menunggu penerapan.
 
----
+## Pembersihan rilis — keadaan terbaru
 
-## Entri massal Produk & Artikel — kode selesai, migrasi hosted menunggu
+- Entri massal Produk & Artikel sudah merged, migrasi RPC sudah diterapkan, dan alur Production berhasil mengimpor 1 Produk + 1 Artikel secara atomik. Artikel dipaksa draft; Log Audit batch tercatat.
+- Seluruh runtime **Data Contoh dihapus**. Produk, Artikel, donasi, bonus, dan leaderboard simulasi tidak lagi dapat tampil. Jika Supabase gagal, halaman publik fail closed dengan keadaan kosong/galat—bukan data buatan.
+- Next.js dinaikkan 16.2.10 → 16.3.0. Audit turun dari 4 high + 2 moderate menjadi **0 high + 2 moderate**; dua moderate berasal dari UUID transitif ExcelJS yang tidak dipanggil fitur.
+- `/katalog` dan `/donasi` memakai ISR 5 menit; data publik memakai klien anon stateless tanpa cookie. Detail Produk/Donasi tetap dinamis per slug/ID dan `/temukan` dinamis karena query kuis.
+- Halaman Produk memasang JSON-LD `Product` + `Offer` dengan harga, IDR, ketersediaan, foto, dan seller Wawangian Pelajar.
+- Definisi donasi dikunci: **20% dari laba bersih setiap transaksi** (harga jual − harga beli − biaya langsung transaksi), dijumlah per periode. Transaksi Royal Ispahan: Rp280.000 − Rp249.000 = Rp31.000; basis laporan dibulatkan konservatif Rp30.000 sehingga donasi Rp6.000.
+- Monaco Royale dan Dreamscape 100 ml yang rugi dipertahankan sebagai **subsidi silang/produk pemancing trafik** atas keputusan pemilik; bukan salah data harga.
+- Satu URL Shopee dipertahankan karena semua produk berada dalam satu listing bervarian untuk mengonsolidasikan rating. TikTok Shop tetap kosong karena menunggu konfirmasi TikTok.
+- Visual AI boleh digunakan selama tidak memalsukan atribut barang; bukti penyaluran donasi tetap harus asli.
+- Migrasi `202608040013_pembersihan_data_uji_dan_foto_decant.sql` akan: menyalin foto 10 ml ke Decant 1/2/5 ml, menghapus Produk uji dan `AfiliasiUji`, mencabut hak Admin uji2/uji3, memban akun uji, memutus sesi, serta memperjelas metode donasi Rp6.000.
 
-Halaman `/admin/entri-massal` menyediakan template `.xlsx` dengan sheet Petunjuk,
-Produk, dan Artikel. Admin mengunggah workbook untuk pratinjau kering per baris;
-file yang sama dibaca serta divalidasi ulang saat tombol impor ditekan. Tidak ada
-hidden payload data yang dipercaya oleh server.
-
-Aturan utama (KEP-050): create-only, maksimal 500 baris per sheet dan 5 MB,
-slug ganda/yang sudah ada ditolak tanpa overwrite, Artikel selalu menjadi draft,
-foto hanya URL HTTPS opsional, dan seluruh batch disimpan atomik lewat RPC
-`impor_massal_produk_artikel` dengan satu Log Audit.
-
-**Sudah lulus:** `npm test` (17/17), lint, TypeScript, `git diff --check`, dan build
-produksi. Route `/admin/entri-massal` serta `/admin/entri-massal/template` muncul
-di manifest build.
-
-**Blocker tunggal:** migrasi
-`supabase/migrations/202608040012_entri_massal_produk_artikel.sql` belum diterapkan
-ke Supabase hosted karena CLI/dashboard tidak login di mesin ini dan service-role
-tidak boleh dipakai untuk DDL. Sampai pemilik menjalankan SQL itu lewat SQL Editor,
-pratinjau bekerja tetapi penyimpanan batch akan gagal aman karena RPC belum ada.
-
-Workbook diperiksa sebagai ZIP sebelum ExcelJS membukanya: maksimal 100 entry,
-10 MB per entry, dan 25 MB total setelah ekstraksi. Nama entry traversal ditolak.
-Ini menutup risiko workbook kecil terkompresi yang mengembang berlebihan di RAM.
-
-## Analitik pengunjung Umami — aktif & terverifikasi
-
-Tracker Umami sudah hidup di Production. `/stats/script.js` merespons 200,
-Website ID cocok dengan database Neon, dan kunjungan nyata `/cerita` dari perangkat
-Android telah tercatat. Data uji Hermes sudah dihapus agar statistik tetap bersih.
-Analitik Klik-Keluar Admin tetap menjadi catatan resmi; Umami menjadi penyebut
-jumlah pengunjung dan sumber trafik. Event `klik-beli` masih perlu diuji melalui
-klik peramban sungguhan.
-
-## Pedoman agent — `AGENTS.md`
-
-`AGENTS.md` di root repo kini menjadi pedoman tunggal semua agent (Codex/ChatGPT,
-Hermes, Antigravity) dan wajib dibaca sebelum menulis kode. Isinya: bahasa,
-dokumen yang harus dibaca lebih dulu, pembagian kerja antar agent, konvensi
-penomoran KEP, Definition of Done, batas scope, pitfall git, dan daftar utang
-teknis. Codex CLI membacanya otomatis dari root repo, sehingga aturan tidak lagi
-bergantung pada salin-tempel manual `PROMPT_PEMBUKA_CODEX.txt` yang kini berstatus
-arsip. Branch wajib berawalan nama agent: `codex/...` atau `hermes/...`. Keputusan
-lengkap di KEP-049.
-
-Latar belakangnya adalah kegagalan nyata: modul Umami sudah selesai ditulis pada
-sesi sebelumnya, lolos build, tetapi tidak pernah di-commit dan tidak tercatat di
-dokumen mana pun. Agent berikutnya tidak punya cara membedakannya dari percobaan
-yang dibuang.
+**Verifikasi kode:** `npm test` 21/21, TypeScript, lint, dan build Next 16.3.0 lulus. Event Umami `klik-beli` menunggu uji akhir setelah deploy agar tidak mencemari analitik sebelum cleanup tersedia.
 
 ---
 
@@ -67,18 +29,18 @@ Instruksi pemilik pada 1 Agustus 2026 untuk mengerjakan rangkaian revisi SEO dip
 
 Fondasi SEO Artikel kini mencakup kolom database khusus, editor Markdown aman, panel metadata Admin, alt text, ISR lima menit, canonical, Open Graph, Twitter Card, sitemap, robots, optimasi gambar Supabase, serta JSON-LD `Article` dan `BreadcrumbList`. Artikel lama tetap memiliki fallback dari `bagian` dan artikel baru menyimpan Markdown mentah tanpa mengeksekusi HTML.
 
-Metadata beranda, Open Graph, dan Twitter Card kini menargetkan frasa “Decant Parfum Original untuk Mahasiswa” dengan deskripsi pilihan mulai 5 ml serta misi 20% laba untuk pendidikan. Istilah “laba” tetap merujuk keuntungan bersih sesuai BR-1. Katalog hosted kini memiliki Decant 1 ml dan 2 ml, sehingga frasa “mulai 5 ml” tidak lagi menggambarkan ukuran terkecil; naskah tetap menunggu keputusan eksplisit pemilik dan tidak diubah dalam batch data ini.
+Metadata beranda, Open Graph, dan Twitter Card menargetkan frasa “Decant Parfum Original untuk Mahasiswa” dengan deskripsi pilihan **mulai 1 ml** serta misi 20% laba bersih setiap transaksi untuk pendidikan. Klaim ukuran kini cocok dengan katalog hosted yang memiliki Decant 1 ml.
 
 M5 telah selesai sebagai landasan. Portal Afiliasi menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 M4 telah dikonfirmasi pemilik dan hasil teknis M5 beserta penyempurnaan formulir Produk, identitas visual, serta katalog awal sudah digabungkan ke `main`. Dokumentasi dua akun Admin uji tambahan dikerjakan pada branch `codex/m5-admin-uji-tambahan`. Portal Afiliasi kini menyediakan landing publik, pendaftaran Supabase Auth, login, dashboard, panduan resmi, materi promosi privat, leaderboard beralias, dan pengelolaan Admin.
 
 Schema M5 telah diterapkan pada Supabase hosted. Database memisahkan profil Afiliasi, tingkat bonus, laporan platform, hasil rekonsiliasi bonus, dan materi promosi; RLS membatasi setiap afiliasi pada profil serta bonus miliknya dan menjaga laporan/payout untuk Admin.
 
-Satu akun Afiliasi teknis beralias `AfiliasiUji` tersedia khusus untuk peninjauan M5. Supabase hosted tetap tidak memiliki laporan, bonus, payout, atau posisi leaderboard untuk akun tersebut. Saat mode Data Contoh aktif, aplikasi menggantinya dengan simulasi berlabel agar Dashboard, progres tingkat, riwayat, dan leaderboard dapat ditinjau tanpa dianggap sebagai aktivitas bisnis nyata. Akun ini wajib dihapus sebelum rilis publik M6.
+Akun Afiliasi teknis `AfiliasiUji` dan dua akun Admin uji dibersihkan oleh migrasi `202608040013`: profil afiliasi dihapus, hak `pengguna_admin` dicabut, Auth user diban permanen, sesi serta refresh token diputus. Record Auth sengaja tidak dihapus agar referensi Log Audit tetap utuh.
 
-Penyempurnaan pratinjau publik membuat `/temukan` dapat dicoba dengan Produk contoh melalui kuis manual maupun tautan “Coba contoh”. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Skenario cepat memakai `Fresh · Siang · Kuliah / Kerja` dan seluruh hasil tetap berlabel Data Contoh.
+Kuis `/temukan` bekerja pada Produk hosted. Jawaban dikirim sebagai parameter GET sehingga pemilihan, hasil, muat ulang, dan pengulangan tetap berfungsi tanpa bergantung penuh pada hidrasi JavaScript. Route ini dinamis karena bergantung query.
 
-Mode Data Contoh dapat dipakai pada Development, Vercel Preview, dan Vercel Production MVP ketika sakelar khusus aktif. Production ditujukan untuk peninjauan terbatas, seluruh simulasi tetap berlabel, dan perubahan ini tidak membuat data hosted.
+Mode Data Contoh **tidak lagi ada di runtime**. Sakelar `MODE_PRATINJAU_DATA_CONTOH`, dataset simulasi Produk/Artikel/donasi/afiliasi, dan komponen labelnya sudah dihapus dari kode. Fixture hanya boleh berada di `tests/`. Bila Supabase tidak tersedia, halaman publik fail closed dengan keadaan kosong atau galat, bukan data buatan.
 
 Peninjauan panel Produk menemukan bahwa penyimpanan tanpa foto sebenarnya berhasil, tetapi tidak memiliki indikator proses sehingga tampak gagal selama respons Vercel berlangsung. Batas unggahan Server Action juga masih 1 MB meskipun formulir menyatakan maksimal 5 MB. Perbaikan berada pada branch `codex/m5-perbaiki-formulir-produk`: batas muatan menjadi 6 MB untuk menampung foto 5 MB beserta data formulir, validasi file dijalankan sebelum mutasi, tombol mencegah kirim ganda, dan pesan galat dibuat lebih jelas.
 
@@ -215,7 +177,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 5. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
 6. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
 7. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
-8. Sebelum rilis publik, matikan Data Contoh, hapus akun `AfiliasiUji`, serta ganti kata sandi atau hapus seluruh akun Admin uji dan Admin utama sementara.
+8. Pemilik menerapkan migrasi `202608040013_pembersihan_data_uji_dan_foto_decant.sql` lewat SQL Editor Supabase, lalu mengganti kata sandi Admin utama sementara. Data Contoh dan akun uji sudah ditangani migrasi tersebut, tidak lagi manual.
 9. Setelah hasil ditinjau, pemilik menggabungkan pull request aktif ke `main`, lalu mengirim sitemap ke Google Search Console.
 
 ## Asumsi yang berlaku
@@ -258,10 +220,10 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
 - Login Admin lokal berhasil dipakai untuk pengujian Task 3; kata sandi tetap tidak disimpan dalam dokumentasi atau repository.
 - `NEXT_PUBLIC_URL_SITUS` wajib ditambahkan pada Vercel Production dan Preview sebelum deployment SEO ditinjau.
-- `npm audit --omit=dev` mencatat tiga kerentanan tingkat tinggi pada rantai Next.js 16.2.10, PostCSS, dan Sharp. Perbaikan memerlukan pembaruan framework di luar task SEO dan harus ditangani secara terpisah.
+- `npm audit` setelah kenaikan ke Next.js 16.3.0 mencatat **0 high dan 2 moderate**. Dua moderate berasal dari UUID transitif ExcelJS yang tidak dipanggil fitur mana pun; tidak ada perbaikan upstream yang tersedia tanpa mengganti ExcelJS.
 - Login dua akun Admin uji tambahan telah tervalidasi pada custom domain. Alamatnya memakai domain cadangan `example.com`, sehingga pemulihan atau undangan melalui email tidak diandalkan; pengelolaan kata sandi dilakukan langsung oleh pemilik dan nilainya tidak disimpan dalam dokumentasi atau repository.
-- Tiga dari 19 Produk masih memakai placeholder Krem karena Decant 1 ml, 2 ml, dan 5 ml belum memiliki foto; foto manual Decant 10 ml dipertahankan.
-- Metadata beranda masih menyebut “mulai 5 ml”, sedangkan katalog hosted kini memiliki ukuran 1 ml. Perubahan naskah SEO dicatat sebagai usulan dan menunggu konfirmasi pemilik.
+- Decant 1 ml, 2 ml, dan 5 ml memakai foto yang sama dengan 10 ml (KEP-051) setelah migrasi `202608040013` diterapkan; migrasi membatalkan diri jika foto 10 ml belum ada.
+- Naskah metadata sudah diselaraskan menjadi “mulai 1 ml” sesuai ukuran terkecil katalog hosted (KEP-051), sehingga klaim SEO tidak lagi bertentangan dengan data Produk.
 
 ---
 

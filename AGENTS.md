@@ -232,18 +232,12 @@ raksasa yang isinya cuma CRLF membuat review tidak mungkin.
 
 Baca `STATUS.md` untuk daftar terkini. Yang wajib beres **sebelum rilis publik**:
 
-- Hapus akun uji: `AfiliasiUji`, `admin.uji2@example.com`, `admin.uji3@example.com`.
-- Matikan mode Data Contoh (`MODE_PRATINJAU_DATA_CONTOH=false`) di Production.
-- `npm audit --omit=dev` melaporkan **3 kerentanan tingkat tinggi** di rantai
-  Next.js 16.2.10 / PostCSS / Sharp. Perlu pembaruan framework, ditangani terpisah.
-- Teks placeholder developer masih tayang di `app/(publik)/page.tsx`
-  (baris 82, 90, 202) padahal foto & tautan Shopee sudah terisi.
-- Metadata beranda masih menyebut "mulai 5 ml" padahal katalog sudah punya 1 ml.
-  Menunggu keputusan naskah dari pemilik.
-- Klausa "dilarang foto AI" di halaman `/afiliasi` sudah kedaluwarsa sejak
-  keputusan 3 Agustus 2026 — perlu disesuaikan.
-- `link_tiktok` masih kosong di seluruh produk; `link_shopee` memakai satu URL
-  yang sama untuk semua produk (bukan URL per SKU).
+- Terapkan migrasi pembersihan hosted terbaru sebelum menandai rilis selesai.
+- `npm audit --omit=dev` menyisakan 2 moderate transitif ExcelJS/UUID; jalur UUID
+  tidak dipakai fitur entri massal dan input XLSX sudah dibatasi.
+- `link_tiktok` menunggu konfirmasi TikTok. Satu URL Shopee adalah keputusan
+  strategi listing bervarian untuk mengonsolidasikan rating (KEP-051), bukan utang.
+- Rotasi password Neon tetap tanggung jawab pemilik dan sengaja di luar batch ini.
 
 ---
 

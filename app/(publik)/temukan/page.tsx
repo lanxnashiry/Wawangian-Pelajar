@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Jawab tiga pertanyaan ringan untuk menemukan karakter parfum yang sesuai dengan kegiatanmu.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 type Properti = {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -37,14 +37,13 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
     waktu: ambilNilaiAman(parameter.waktu, opsiWaktu),
     okasi: ambilNilaiAman(parameter.okasi, opsiOkasi),
   };
-  const memakaiDataContoh = daftarProduk.some((produk) => produk.sumberData === "contoh");
 
   return (
     <main className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-4xl">
           <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">
-            Temukan Wangimu {memakaiDataContoh ? "· Data Contoh" : ""}
+            Temukan Wangimu
           </p>
           <h1 className="mt-4 text-4xl leading-tight font-black tracking-[-0.045em] text-[#102A43] sm:text-6xl">
             Jawab tiga pertanyaan, temukan aroma yang terasa seperti kamu.
@@ -57,7 +56,6 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
           <KuisTemukanWangimu
             daftarProduk={daftarProduk}
             jawabanAwal={jawabanAwal}
-            memakaiDataContoh={memakaiDataContoh}
           />
         </div>
       </div>

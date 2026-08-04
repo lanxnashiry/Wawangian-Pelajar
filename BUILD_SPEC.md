@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 2.9
+- **Versi spesifikasi:** 3.0
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -37,7 +37,7 @@
 
 Website Wawangian Pelajar adalah **pusat brand (bukan tempat transaksi)** untuk sebuah bisnis parfum lokal yang memiliki misi sosial. Website menampilkan katalog produk, cerita brand, dan **halaman transparansi donasi** yang menjadi pembeda utama, lalu mengarahkan pembeli ke marketplace (Shopee & TikTok Shop) untuk bertransaksi.
 
-Tiga lini produk yang dijual: **parfum ori** (asli bermerek), **decant** (parfum asli dibagi ke botol kecil terjangkau), dan **parfum inspirasi** (racikan sendiri). Setiap pembelian menyisihkan 20% keuntungan bersih untuk pendidikan (pelajar, mahasiswa, guru, hingga lembaga) melalui program **Dana Cahaya Pendidikan**, yang dilaporkan secara transparan dan dapat diperiksa publik.
+Tiga lini produk yang dijual: **parfum ori** (asli bermerek), **decant** (parfum asli dibagi ke botol kecil terjangkau), dan **parfum inspirasi** (racikan sendiri). Setiap pembelian menyisihkan 20% laba bersih setiap transaksi untuk pendidikan (pelajar, mahasiswa, guru, hingga lembaga) melalui program **Dana Cahaya Pendidikan**, yang dilaporkan secara transparan dan dapat diperiksa publik.
 
 Website juga menjadi **portal afiliasi**: merekrut pelajar sebagai tenaga jual yang memanfaatkan program afiliasi bawaan (native) marketplace, sementara website menyediakan lapisan rekrutmen, panduan, materi promosi, komunitas, dan bonus.
 
@@ -155,7 +155,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 
 ## 7. Business Rules (Aturan Bisnis)
 
-**BR-1 — Anti-fabrikasi donasi (terkumpul).** Angka donasi "terkumpul" TIDAK boleh diketik bebas. Harus dihitung sistem = untung bersih periode (diinput admin dari rekap penjualan marketplace) × 20%. Wajib menyimpan catatan metode/sumber periode.
+**BR-1 — Anti-fabrikasi donasi (terkumpul).** Angka donasi "terkumpul" TIDAK boleh diketik bebas. Harus dihitung sistem = total laba bersih setiap transaksi pada periode (harga jual − harga beli − biaya langsung transaksi) × 20%. Wajib menyimpan catatan metode/sumber periode.
 
 **BR-2 — Anti-fabrikasi donasi (tersalurkan).** Entri penyaluran hanya tampil ke publik jika memiliki minimal 1 bukti (foto transfer/kuitansi) + nama penerima + tanggal. Tanpa bukti → status "draft", tidak tampil.
 
@@ -169,7 +169,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 
 **BR-7 — Bonus afiliasi (Path B).** Bonus top-up dihitung berbasis JUMLAH PENJUALAN PER PCS yang dikaitkan ke handle afiliasi (dari laporan platform yang diunggah admin). Dibayar manual oleh admin, dengan bukti transfer.
 
-**BR-8 — Aturan main afiliasi.** Afiliasi = individu. Dilarang mengklaim "didukung IPNU"/organisasi, dilarang banting harga, dilarang klaim palsu. Pelanggaran → dinonaktifkan admin.
+**BR-8 — Aturan main afiliasi.** Afiliasi = individu. Dilarang mengklaim "didukung IPNU"/organisasi, dilarang banting harga, dilarang klaim palsu. Visual AI **boleh** dipakai untuk konten promosi; yang dilarang adalah memalsukan atribut Produk (bentuk, ukuran, isi, kemasan, keaslian, harga, angka donasi) baik lewat visual AI maupun foto asli. Pelanggaran → dinonaktifkan admin.
 
 **BR-9 — Log audit wajib.** Semua aksi sensitif (ubah angka donasi, input penyaluran, ubah harga, payout, hapus) tercatat di Log Audit yang tidak bisa dihapus.
 
@@ -283,7 +283,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
 - **Input harga tanpa stepper** — formulir Admin menerima digit harga tanpa tombol panah naik/turun bawaan peramban. Nilai tetap wajib berupa bilangan bulat tidak negatif dan disimpan dalam satuan rupiah.
-- **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 5 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata tetap berarti keuntungan bersih sesuai BR-1.
+- **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 1 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata berarti laba bersih setiap transaksi sesuai BR-1, bukan laba/rugi perusahaan.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
 - **Kepercayaan terlihat**: angka donasi, bukti, dan transparansi mudah ditemukan.
 

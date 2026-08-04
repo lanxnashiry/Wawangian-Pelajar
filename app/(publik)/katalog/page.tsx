@@ -6,20 +6,19 @@ import { ambilDaftarProdukPublik } from "@/lib/data/publik";
 export const metadata: Metadata = {
   title: "Katalog",
   description:
-    "Jelajahi data contoh parfum ori, decant, dan racikan sendiri Wawangian Pelajar.",
+    "Jelajahi parfum ori dan decant Wawangian Pelajar dalam pilihan mulai 1 ml.",
 };
 
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export default async function HalamanKatalog() {
   const daftarProduk = await ambilDaftarProdukPublik();
-  const contoh = daftarProduk.some((produk) => produk.sumberData === "contoh");
   return (
     <main className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-3xl">
           <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">
-            {contoh ? "Fallback data contoh" : "Data katalog Supabase"}
+            Katalog Wawangian Pelajar
           </p>
           <h1 className="mt-4 text-4xl leading-tight font-black tracking-[-0.045em] text-[#102A43] sm:text-5xl">
             Temukan karakter wangi yang terasa seperti kamu.
