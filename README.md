@@ -8,11 +8,14 @@ Website ini adalah pusat brand, bukan tempat transaksi. Website menampilkan kata
 
 Sebelum mengubah kode, baca berurutan:
 
+0. `AGENTS.md` — **pedoman wajib semua agent** (Codex/ChatGPT, Hermes, Antigravity) dan pemilik saat menyunting manual: bahasa, konvensi, pembagian kerja, penomoran KEP, Definition of Done, dan batas scope.
 1. `BUILD_SPEC.md` — PRD dan sumber kebenaran utama.
 2. `ROADMAP.md` — milestone dan progres.
 3. `STATUS.md` — posisi pengerjaan terkini.
 4. `DECISIONS.md` — keputusan arsitektur dan produk.
 5. `CHANGELOG.md` — riwayat perubahan aplikasi.
+
+Repo adalah satu-satunya sumber kebenaran. Tidak ada agent yang mengingat sesi sebelumnya, sehingga pekerjaan yang tidak dicatat di dokumen di atas dianggap tidak pernah ada.
 
 ## Tumpukan Teknologi
 

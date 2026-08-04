@@ -102,6 +102,11 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Revisi judul dan deskripsi SEO beranda, Open Graph, serta Twitter Card
 - ✅ Perluasan katalog hosted menjadi 15 Produk Mykonos pada ukuran 100 ml, 50 ml, dan 15 ml
 - ✅ Penetapan harga Mykonos per ukuran dan penyederhanaan input harga Admin tanpa stepper
+- ✅ Penambahan empat Produk Decant Mykonos dan koreksi profil Monaco Royale sesuai sumber terbaru
+- ✅ Optimasi serta pemasangan foto utama untuk 15 Produk Mykonos tanpa menimpa foto Decant yang dikelola pemilik
+- ✅ Analitik pengunjung Umami terpasang aman-bawaan beserta proxy `/stats/*` dan event `klik-beli` (KEP-048)
+- ✅ `AGENTS.md` sebagai pedoman tunggal semua agent dan awalan branch penanda pengerja (KEP-049)
+- ⬜ Pemilik mendirikan instance Umami dan mengisi variabelnya di Vercel agar data mulai terkumpul
 - ⬜ Konten awal Artikel nyata dari pemilik
 - ⬜ Penonaktifan Data Contoh dan penghapusan akun `AfiliasiUji` sebelum rilis publik
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console

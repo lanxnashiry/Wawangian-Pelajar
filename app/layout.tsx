@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AnalitikUmami } from "@/components/analitik-umami";
 import "./globals.css";
 
 const urlSitus =
@@ -49,7 +50,10 @@ export default function TataLetakUtama({
 }>) {
   return (
     <html lang="id">
-      <body>{children}</body>
+      <body>
+        {children}
+        <AnalitikUmami />
+      </body>
     </html>
   );
 }

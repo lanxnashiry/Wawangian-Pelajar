@@ -2,6 +2,63 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-04] — Analitik pengunjung Umami dan pedoman agent
+
+### Ditambah
+
+- Komponen `components/analitik-umami.tsx` yang memasang tracker Umami (analitik pengunjung self-host) di `app/layout.tsx`. Komponen tidak merender apa pun bila `NEXT_PUBLIC_UMAMI_ID_SITUS` kosong, sehingga build dan deploy tetap jalan meski instance Umami belum berdiri.
+- Deklarasi tipe `types/umami.d.ts` untuk objek global `window.umami`.
+- Rewrite proxy `/stats/script.js` dan `/stats/api/send` di `next.config.ts` agar tracker dilayani lewat domain sendiri dan tidak diblokir pemblokir iklan. Tanpa `UMAMI_URL_INSTANCE`, tidak ada rewrite yang dibuat.
+- Event `klik-beli` pada `components/jembatan-marketplace.tsx` berisi marketplace tujuan dan nama produk, dikirim berdampingan dengan pencatatan klik-keluar yang sudah ada.
+- Tiga variabel opsional di `.env.example`: `NEXT_PUBLIC_UMAMI_ID_SITUS`, `UMAMI_URL_INSTANCE`, `NEXT_PUBLIC_UMAMI_URL_SKRIP`.
+- **`AGENTS.md` di root repo** sebagai pedoman wajib semua agent: bahasa, dokumen yang harus dibaca lebih dulu, pembagian kerja Codex dan Hermes, konvensi penomoran KEP, Definition of Done, batas scope, pitfall git, serta daftar utang teknis.
+- Berkas rencana `.hermes/plans/2026-08-01_092610-revisi-seo-form-artikel.md` mulai dilacak sebagai jejak serah-terima pekerjaan antar agent.
+
+### Catatan
+
+- Analitik Klik-Keluar di panel Admin tetap menjadi catatan resmi; Umami hanya pelengkap untuk mengukur jumlah pengunjung dan sumber trafik. Sebelumnya klik tercatat tanpa pembanding jumlah pengunjung, sehingga angka konversi tidak bisa dibaca.
+- Modul Umami sebenarnya sudah selesai ditulis pada sesi sebelumnya tetapi tidak pernah di-commit dan tidak tercatat di dokumen mana pun. Perilaku itulah yang kini dilarang oleh `AGENTS.md` Bagian 0.
+- Pencatatan dibatasi pada domain produksi melalui `data-domains`, sehingga kunjungan dari localhost dan Vercel Preview tidak mengotori data.
+- Pemilik masih perlu mendirikan instance Umami sendiri dan mengisi ketiga variabel di Vercel sebelum data mulai terkumpul.
+
+## [2026-08-03] — Foto utama Produk Mykonos
+
+### Ditambah
+
+- Sepuluh foto utama Mykonos terpilih untuk lima aroma pada kemasan 100 ml dan 50 ml.
+- Migrasi idempoten `202608030011_pasang_foto_produk_mykonos.sql` untuk memasang satu URL foto pada 15 Produk tanpa mengubah foto Decant milik pemilik.
+- Keterangan transparan pada detail Produk 15 ml bahwa visual memakai foto referensi kemasan 50 ml.
+
+### Diubah
+
+- Foto sumber JPEG, PNG, dan WebP dikonversi menjadi WebP teroptimasi berukuran sekitar 29–68 KB tanpa mengubah komposisi gambar.
+- Komponen foto Produk kembali memakai optimasi gambar Next.js untuk URL publik Supabase.
+
+### Catatan
+
+- Berkas dengan nama memuat “WP”, video, serta aset “monro” yang tidak memiliki pasangan Produk katalog tidak digunakan.
+- Produk 50 ml dan 15 ml memakai satu URL foto 50 ml yang sama untuk menghindari duplikasi Storage; aset 15 ml khusus tetap perlu menggantikannya ketika tersedia.
+- Foto Decant 10 ml yang diunggah manual oleh pemilik dipertahankan; Decant 1 ml, 2 ml, dan 5 ml tetap menampilkan placeholder.
+
+## [2026-08-03] — Produk Decant Mykonos
+
+### Ditambah
+
+- Empat Produk Decant Mykonos “Pilih Varian” pada ukuran 1 ml, 2 ml, 5 ml, dan 10 ml dengan harga masing-masing Rp19.000, Rp34.000, Rp69.000, dan Rp129.000.
+- Lima pilihan aroma beserta notes, karakter, kecocokan, serta nomor BPOM full bottle sumber pada setiap deskripsi Decant.
+- Migrasi idempoten `202608030010_tambah_decant_mykonos.sql` yang memvalidasi empat Produk Decant dan tiga profil Monaco Royale.
+
+### Diubah
+
+- Profil Monaco Royale ukuran 100 ml, 50 ml, dan 15 ml diselaraskan menjadi Pear/Melon/Green Notes, Soft Wood/Cedarwood, serta Moss/Caramel/Musk sesuai sumber 3 Agustus 2026.
+- Ringkasan, deskripsi, karakter, dan kecocokan Monaco diperbarui agar tidak lagi menyebut profil gourmand lama yang bertentangan.
+
+### Catatan
+
+- Keempat Decant memakai satu tautan Shopee dari sumber, tidak memiliki tautan TikTok Shop, dan belum memiliki foto.
+- API publik memuat 19 Produk aktif; keempat detail Decant merespons HTTP 200 dan menampilkan profil berlabel per varian.
+- Metadata beranda “mulai 5 ml” belum diubah meskipun ukuran terkecil kini 1 ml karena naskah SEO memerlukan konfirmasi pemilik.
+
 ## [2026-08-02] — Harga Produk per ukuran
 
 ### Diubah

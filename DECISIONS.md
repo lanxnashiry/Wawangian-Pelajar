@@ -263,6 +263,32 @@
 **Alasan:** Pemilik menetapkan harga khusus untuk setiap ukuran dan meminta pengisian harga tanpa kontrol kenaikan atau penurunan angka.
 **Konsekuensi:** Bagian harga pada KEP-044 digantikan oleh keputusan ini; profil aroma serta tautan Shopee tetap sama. Server tetap mengubah masukan menjadi angka dan menolak nilai yang bukan bilangan atau bernilai negatif. Perubahan harga tetap tercatat oleh Log Audit sesuai BR-9.
 
+### KEP-046 — Decant multi-aroma memakai satu Produk per ukuran
+**Tanggal:** 2026-08-03 · **Status:** Diterima
+**Keputusan:** Decant Mykonos ukuran 1 ml, 2 ml, 5 ml, dan 10 ml disimpan sebagai empat Produk terpisah. Setiap Produk memuat lima pilihan aroma dengan nama varian pada deskripsi serta setiap kelompok profil aroma; pemilihan varian tetap dilakukan pada halaman Shopee yang sama.
+**Alasan:** Sumber pemilik menetapkan empat ukuran sebagai empat Produk, sedangkan transaksi dan pilihan varian berlangsung di marketplace sesuai KEP-001. Awalan nama varian pada profil terstruktur mencegah gabungan notes terbaca sebagai satu formula parfum.
+**Konsekuensi:** Website tidak menambah pemilih varian atau checkout. Keempat Produk tidak memiliki foto sampai aset decant tersedia, tidak memiliki tautan TikTok Shop, dan menggunakan satu tautan Shopee dari sumber. Profil Monaco Royale pada ukuran 100 ml, 50 ml, dan 15 ml diselaraskan dengan sumber terbaru 3 Agustus 2026. Metadata beranda “mulai 5 ml” tidak diubah tanpa keputusan naskah baru meskipun katalog kini memiliki ukuran 1 ml.
+
+### KEP-047 — Foto katalog memakai aset bernama jelas dan referensi ukuran transparan
+**Tanggal:** 2026-08-03 · **Status:** Diterima
+**Keputusan:** Lima aroma Mykonos ukuran 100 ml memakai foto 100 ml yang namanya cocok, sedangkan ukuran 50 ml dan 15 ml memakai foto 50 ml yang sama. Berkas dengan nama memuat “WP”, video, serta nama yang tidak cocok dengan Produk tidak digunakan. Migrasi foto katalog tidak mengubah foto Produk Decant yang dikelola manual oleh pemilik.
+**Alasan:** Pemilik menyediakan dua foto terpilih per aroma dan meminta varian 15 ml memakai foto 50 ml sampai aset khusus tersedia. Satu URL bersama untuk 50 ml dan 15 ml menghindari duplikasi Storage.
+**Konsekuensi:** Foto dikonversi menjadi WebP ringan tanpa mengubah komposisinya. Detail Produk 15 ml wajib menjelaskan bahwa visual merupakan referensi kemasan 50 ml agar ukuran tidak disalahpahami; foto tersebut harus diganti ketika aset 15 ml tersedia. Foto Decant yang sudah diunggah pemilik dipertahankan dan Decant lain tetap memakai placeholder sampai pemilik mengunggah asetnya.
+
+---
+
+### KEP-048 — Analitik pengunjung memakai Umami self-host, di-proxy lewat domain sendiri
+**Tanggal:** 2026-08-04 · **Status:** Diterima
+**Keputusan:** Analitik pengunjung memakai **Umami self-host**, dipasang lewat komponen `components/analitik-umami.tsx` di `app/layout.tsx`. Skrip tracker dilayani melalui domain sendiri pada `/stats/script.js` dan `/stats/api/send` memakai `rewrites()` di `next.config.ts`. Tiga variabel lingkungan bersifat opsional: `NEXT_PUBLIC_UMAMI_ID_SITUS`, `UMAMI_URL_INSTANCE`, `NEXT_PUBLIC_UMAMI_URL_SKRIP`. Bila `NEXT_PUBLIC_UMAMI_ID_SITUS` kosong, komponen tidak merender apa pun dan tidak ada rewrite yang dibuat. Klik tombol beli mengirim event `klik-beli` berisi marketplace tujuan dan nama produk.
+**Alasan:** Modul Analitik Klik-Keluar yang sudah ada hanya mengukur langkah terakhir sehingga menghasilkan pembilang tanpa penyebut — lima klik tidak bisa dibedakan apakah berasal dari sepuluh pengunjung atau seribu, padahal kedua angka itu menuntut perbaikan yang berlawanan. Umami dipilih karena data tetap milik pemilik, ringan sehingga tidak melawan rencana perbaikan kecepatan halaman, dan tanpa cookie sehingga tidak memerlukan banner persetujuan. Proxy lewat domain sendiri dipakai agar tracker tidak diblokir pemblokir iklan.
+**Konsekuensi:** Analitik Klik-Keluar di panel Admin tetap menjadi catatan resmi; Umami hanya pelengkap untuk mengukur konversi dan sumber trafik. Pemilik wajib mendirikan instance Umami sendiri beserta beban perawatannya sebelum data mulai terkumpul; sampai itu terjadi, situs berjalan normal tanpa tracker. `data-domains` dibatasi pada domain produksi agar kunjungan dari localhost dan Vercel Preview tidak mengotori data. Tidak ada data pribadi pembeli yang dikumpulkan dan batas non-scope tetap terjaga.
+
+### KEP-049 — `AGENTS.md` menjadi pedoman tunggal agent, awalan branch menandai pengerjanya
+**Tanggal:** 2026-08-04 · **Status:** Diterima
+**Keputusan:** Pedoman kerja seluruh agent dipindahkan ke **`AGENTS.md` di root repo**, menggantikan peran `PROMPT_PEMBUKA_CODEX.txt` yang harus disalin-tempel manual dan tersimpan di folder dokumen yang sudah basi. Branch wajib berawalan nama agent: `codex/...` untuk Codex/ChatGPT, `hermes/...` untuk Hermes. `base` setiap PR wajib `main`. Penomoran KEP diambil setelah `git pull` dari nomor terakhir di `DECISIONS.md`; bila dua agent memakai nomor yang sama, yang di-merge belakangan menaikkan nomornya.
+**Alasan:** Tidak ada agent yang mengingat sesi sebelumnya, sehingga kesinambungan pekerjaan bergantung sepenuhnya pada dokumen di repo. Codex CLI membaca `AGENTS.md` dari root secara otomatis, sehingga aturan tidak lagi bergantung pada salin-tempel manual yang sudah terbukti gagal. Bukti kegagalannya: modul analitik Umami lengkap dan lolos build ditemukan menggantung di working tree tanpa satu pun catatan di `STATUS.md`, `CHANGELOG.md`, maupun `DECISIONS.md`, sehingga agent berikutnya tidak punya cara membedakannya dari percobaan yang dibuang. Awalan branch dipakai bukan untuk kredit, melainkan agar pemilik tahu harus bertanya ke agent mana ketika muncul bug.
+**Konsekuensi:** Semua agent membaca `AGENTS.md` lebih dulu sebelum menulis kode, lalu memperbarui `STATUS.md`, `CHANGELOG.md`, `ROADMAP.md`, dan `DECISIONS.md` pada commit yang sama dengan perubahan kode. `PROMPT_PEMBUKA_CODEX.txt` di folder dokumen menjadi arsip dan tidak lagi dipakai sebagai sumber aturan. Salinan dokumen tata kelola di `C:\Users\lanxn\Documents\Wawangian_Pelajar_Website\` tetap berstatus basi kecuali `MEMORY_BISNIS.md`. `AGENTS.md` juga memuat daftar utang teknis dan pitfall git yang sudah pernah terjadi, termasuk rantai PR yang tidak pernah sampai `main`.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
