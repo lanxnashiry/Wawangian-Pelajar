@@ -19,7 +19,7 @@ const alasanBerbeda = [
   {
     simbol: "✓",
     judul: "Sumber tepercaya",
-    deskripsi: "Produk ori dan decant akan dilengkapi informasi sumber yang jelas.",
+    deskripsi: "Produk ori dan decant dilengkapi informasi yang jelas untuk membantu memilih.",
   },
   {
     simbol: "20%",
@@ -110,8 +110,8 @@ export default async function Beranda() {
             </p>
             {!ringkasanDonasi.tersedia ? (
               <>
-                <h2 className="mt-2 text-2xl font-black sm:text-3xl">Data transparansi belum tersedia.</h2>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Angka tidak diganti perkiraan saat sumber data tidak dapat dibaca.</p>
+                <h2 className="mt-2 text-2xl font-black sm:text-3xl">Ringkasan transparansi belum dapat dimuat.</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Nilai tidak ditaksir. Silakan coba kembali setelah layanan tersedia.</p>
               </>
             ) : ringkasanDonasi.terkumpul === 0 ? (
               <>
@@ -119,8 +119,8 @@ export default async function Beranda() {
                   Perjalanan baru dimulai.
                 </h2>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">
-                  Belum ada angka yang dapat dilaporkan. Ketika data nyata tersedia,
-                  setiap rupiah akan dihitung dari sumber yang jelas dan dapat diperiksa.
+                  Belum ada nilai yang dapat dilaporkan. Setiap rupiah akan dicatat
+                  secara terbuka dan disertai bukti yang dapat diperiksa.
                 </p>
               </>
             ) : <><h2 className="mt-2 text-2xl font-black sm:text-3xl">{formatRupiah(ringkasanDonasi.terkumpul)} terkumpul.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-[#D9E1E8]">{formatRupiah(ringkasanDonasi.tersalurkan)} telah disalurkan dan {formatRupiah(ringkasanDonasi.saldoAmanah)} tetap tercatat sebagai saldo amanah.</p></>}
@@ -140,7 +140,7 @@ export default async function Beranda() {
             <TajukBagian
               label="Katalog produk"
               judul="Produk unggulan"
-              deskripsi="Kenali karakter aromanya dulu. Hanya produk aktif yang tampil ke publik."
+              deskripsi="Kenali karakter aromanya dan temukan pilihan yang paling sesuai untukmu."
             />
             <Link
               href="/katalog"
@@ -152,7 +152,7 @@ export default async function Beranda() {
           <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#E5F2EF] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-black text-[#102A43]">Belum yakin memilih aroma?</p>
-              <p className="mt-1 text-sm leading-6 text-[#282B2F]">Jawab lima pertanyaan ringan tanpa login dan lihat rekomendasi keluarga aroma berdasarkan profil katalog.</p>
+              <p className="mt-1 text-sm leading-6 text-[#282B2F]">Jawab lima pertanyaan ringan tanpa login dan lihat keluarga aroma yang paling mendekati seleramu.</p>
             </div>
             <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61]">
               Mulai kuis →
@@ -162,7 +162,7 @@ export default async function Beranda() {
             {produkUnggulan.map((produk) => (
               <KartuProduk key={produk.slug} produk={produk} />
             ))}
-          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-8 text-center text-sm text-[#282B2F]">Produk unggulan nyata belum ditambahkan.</p>}
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-8 text-center text-sm text-[#282B2F]">Produk unggulan akan segera hadir.</p>}
         </div>
       </section>
 
@@ -207,7 +207,7 @@ export default async function Beranda() {
             </h2>
             <p className="mt-5 text-base leading-7 text-[#282B2F]">
               Nama kami lahir dari semangat pelajar. Dampaknya belum kami besar-besarkan:
-              perjalanan ini baru dimulai, dan setiap cerita akan disertai sumber yang jelas.
+              perjalanan ini baru dimulai, dan setiap cerita akan disertai bukti yang dapat diperiksa.
             </p>
             <Link
               href={tautanCeritaMisi}
@@ -225,7 +225,7 @@ export default async function Beranda() {
             <TajukBagian
               label="Baca dan bagikan"
               judul="Cerita & edukasi terbaru"
-              deskripsi="Konten awal untuk membantu memilih aroma dan memahami misi kami."
+              deskripsi="Pilihan bacaan untuk membantu mengenali aroma dan memahami misi kami."
             />
             <Link
               href="/cerita"
@@ -238,7 +238,7 @@ export default async function Beranda() {
             {artikelTerbaru.map((artikel) => (
               <KartuArtikel key={artikel.slug} artikel={artikel} />
             ))}
-          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-[#FAF7F1] p-8 text-center text-sm text-[#282B2F]">Artikel terbit belum tersedia.</p>}
+          </div> : <p className="mt-8 rounded-3xl border border-dashed border-[#CFC3B2] bg-[#FAF7F1] p-8 text-center text-sm text-[#282B2F]">Cerita dan edukasi akan segera hadir.</p>}
         </div>
       </section>
 
@@ -252,8 +252,8 @@ export default async function Beranda() {
               Pelajar bisa belajar menjual, mendapat komisi, dan ikut membantu pendidikan.
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-7 text-[#d7efea]">
-              Komisi dasar akan ditangani langsung oleh TikTok Shop atau Shopee.
-              Portal afiliasi website dibangun pada M5.
+              Komisi dasar dibayar langsung oleh marketplace. Wawangian Pelajar
+              menyediakan panduan, materi promosi, komunitas, dan bonus tambahan.
             </p>
           </div>
           <Link

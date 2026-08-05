@@ -175,7 +175,7 @@ export function KuisTemukanWangimu({
           <span key={label} className="rounded-full bg-[#E5F2EF] px-3 py-2 text-xs font-bold text-[#0D5554]">{label}</span>
         ))}
       </div>
-      <p className="mt-5 max-w-3xl rounded-2xl bg-[#FFF9EA] p-5 text-sm leading-6 text-[#765B2B]">Urutan dihitung dari profil katalog dengan prioritas keluarga aroma, kesan, kegiatan, waktu/cuaca, lalu intensitas. Hasil merupakan panduan selera, bukan jaminan kecocokan mutlak.</p>
+      <p className="mt-5 max-w-3xl rounded-2xl bg-[#FFF9EA] p-5 text-sm leading-6 text-[#765B2B]">Urutan mengikuti pilihan keluarga aroma, kesan, kegiatan, waktu/cuaca, lalu intensitas. Hasil merupakan panduan selera, bukan jaminan kecocokan mutlak.</p>
 
       {hasil.length ? (
         <div className="mt-7 grid gap-5 lg:grid-cols-3">
@@ -201,7 +201,7 @@ export function KuisTemukanWangimu({
       ) : (
         <div className="mt-7 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-9 text-center">
           <h3 className="text-xl font-black text-[#102A43]">Rekomendasi belum tersedia</h3>
-          <p className="mt-2 text-sm leading-6 text-[#282B2F]">Profil Produk belum dapat dibaca. Coba kembali setelah data katalog tersedia.</p>
+          <p className="mt-2 text-sm leading-6 text-[#282B2F]">Pilihan aroma belum dapat dimuat. Silakan coba kembali beberapa saat lagi.</p>
         </div>
       )}
 
@@ -209,7 +209,7 @@ export function KuisTemukanWangimu({
         <aside className="mt-8 rounded-3xl bg-[#102A43] p-6 text-white sm:p-8">
           <p className="text-xs font-black tracking-[0.14em] text-[#D1B779] uppercase">Belum yakin membeli ukuran penuh?</p>
           <h3 className="mt-3 text-2xl font-black">Coba lewat decant.</h3>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Decant tidak memengaruhi peringkat karena satu produknya memuat beberapa pilihan aroma. Pilih ukurannya untuk mencoba hasil rekomendasimu.</p>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Decant memberi cara ringan untuk mencoba beberapa pilihan aroma. Pilih ukuran yang paling nyaman untukmu.</p>
           <div className="mt-5 flex flex-wrap gap-2">
             {produkDecant.map((produk) => (
               <Link key={produk.slug} href={`/produk/${produk.slug}`} className="rounded-full bg-white px-4 py-2.5 text-sm font-black text-[#102A43] hover:bg-[#F6EACD]">{produk.ukuran} · {formatRupiah(produk.harga)}</Link>

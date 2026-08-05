@@ -17,26 +17,26 @@ type ParameterHalaman = {
 
 const tujuanTindakan = {
   cerita_misi: {
-    label: "Cerita misi → transparansi",
+    label: "Dana Cahaya Pendidikan",
     judul: "Kepercayaan tumbuh dari bukti yang dapat diperiksa.",
     tautan: "/donasi",
     teksTautan: "Kenali Dana Cahaya Pendidikan →",
   },
   edukasi: {
-    label: "Edukasi → katalog",
+    label: "Pilihan aroma",
     judul: "Gunakan pengetahuan ini untuk mengenali pilihanmu.",
     tautan: "/katalog",
-    teksTautan: "Jelajahi katalog contoh →",
+    teksTautan: "Jelajahi pilihan aroma →",
   },
   tips: {
-    label: "Tips → katalog",
+    label: "Temukan wangimu",
     judul: "Kenali karakter aroma sebelum menentukan pilihan.",
-    tautan: "/katalog",
-    teksTautan: "Lihat profil aroma →",
+    tautan: "/temukan",
+    teksTautan: "Mulai Temukan Wangimu →",
   },
   komunitas: {
-    label: "Komunitas → afiliasi",
-    judul: "Ruang afiliasi pelajar sedang kami siapkan.",
+    label: "Program afiliasi",
+    judul: "Bagikan aroma favoritmu dan bertumbuh bersama komunitas.",
     tautan: "/afiliasi",
     teksTautan: "Pelajari program afiliasi →",
   },
@@ -134,16 +134,13 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
             {artikel.judul}
           </h1>
           <p className="mt-5 text-sm text-[#4A4D52]">
-            {artikel.tanggal} · {artikel.menitBaca} menit baca · {artikel.sumberData === "supabase" ? artikel.penulis : "Konten contoh M1"}
+            {artikel.tanggal} · {artikel.menitBaca} menit baca · {artikel.penulis?.trim() || "Wawangian Pelajar"}
           </p>
         </header>
 
         <div className="mt-9 overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-white p-3 shadow-sm sm:p-4">
           <VisualArtikel artikel={artikel} />
         </div>
-        <p className="mt-3 text-center text-xs leading-5 text-[#687078]">
-          {artikel.fotoUtama ? "Gambar dibaca dari penyimpanan resmi." : "Visual sementara; foto asli wajib digunakan untuk cerita dampak nyata."}
-        </p>
 
         <div className="mx-auto mt-10 max-w-3xl text-[17px] leading-8 text-[#282B2F]">
           {artikel.isiMarkdown ? (
@@ -165,10 +162,12 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
             ))
           )}
 
-          <div className="mt-10 border-t border-[#DED3C2] pt-7">
-            <p className="mb-4 text-sm font-black text-[#102A43]">Bagikan:</p>
-            {artikel.shareAktif !== false ? <TombolBagikan judul={artikel.judul} /> : <p className="text-sm text-[#4A4D52]">Tombol berbagi dinonaktifkan oleh Admin.</p>}
-          </div>
+          {artikel.shareAktif !== false ? (
+            <div className="mt-10 border-t border-[#DED3C2] pt-7">
+              <p className="mb-4 text-sm font-black text-[#102A43]">Bagikan:</p>
+              <TombolBagikan judul={artikel.judul} />
+            </div>
+          ) : null}
 
           <aside className="mt-10 rounded-3xl border border-[#E5D4B3] bg-[#FAF7F1] p-6">
             <p className="text-xs font-black tracking-[0.14em] text-[#C7A25A] uppercase">

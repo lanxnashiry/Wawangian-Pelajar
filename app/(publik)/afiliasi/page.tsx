@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Jadi Afiliasi" };
 
 const langkah = [
   ["01", "Daftar di sini", "Isi profil dan cantumkan minimal satu handle afiliasi TikTok Shop atau Shopee."],
-  ["02", "Admin memverifikasi", "Handle diperiksa agar laporan platform dapat dicocokkan dengan tepat."],
+  ["02", "Verifikasi akun", "Handle diperiksa agar hasil penjualan marketplace dapat dicocokkan dengan tepat."],
   ["03", "Promosikan dan bertumbuh", "Ambil produk di pusat afiliasi platform, lalu gunakan materi promosi yang tersedia."],
 ];
 
@@ -23,7 +23,7 @@ export default function HalamanAfiliasi() {
           <div>
             <p className="text-xs font-black tracking-[0.18em] text-[#D1B779] uppercase">Program Afiliasi Pelajar</p>
             <h1 className="mt-4 max-w-3xl text-4xl leading-tight font-black tracking-tight sm:text-5xl lg:text-6xl">Jual wangi dari HP-mu, bertumbuh sambil bantu pendidikan.</h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[#D9E1E8] sm:text-lg">Kamu berpromosi melalui program resmi TikTok Shop dan Shopee. Platform melacak serta membayar komisi dasar; kami menambahkan bonus per pcs setelah rekonsiliasi laporan.</p>
+            <p className="mt-6 max-w-2xl text-base leading-7 text-[#D9E1E8] sm:text-lg">Kamu berpromosi melalui program resmi TikTok Shop dan Shopee. Platform melacak serta membayar komisi dasar; kami menambahkan bonus per pcs dari hasil penjualan marketplace yang terverifikasi.</p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link href="/afiliasi/daftar" className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#087477] px-6 py-3 text-sm font-black text-white hover:bg-[#075E61]">Daftar jadi afiliasi →</Link>
               <Link href="/afiliasi/masuk" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-black text-white hover:bg-white/10">Sudah terdaftar? Masuk</Link>
@@ -33,7 +33,7 @@ export default function HalamanAfiliasi() {
             <p className="text-sm font-black text-[#D1B779]">Pemisahan yang jelas</p>
             <div className="mt-5 grid gap-3">
               <div className="rounded-2xl bg-white p-5 text-[#102A43]"><p className="text-xs font-black text-[#4A4D52] uppercase">Komisi dasar</p><p className="mt-2 text-lg font-black">Dikelola TikTok Shop / Shopee</p><p className="mt-2 text-sm leading-6 text-[#282B2F]">Nominal resmi dan pencairan diperiksa di dompet marketplace masing-masing.</p></div>
-              <div className="rounded-2xl border border-[#D1B779]/50 bg-[#FAF7F1] p-5 text-[#102A43]"><p className="text-xs font-black text-[#765B2B] uppercase">Bonus top-up</p><p className="mt-2 text-lg font-black">Dihitung Wawangian Pelajar per pcs</p><p className="mt-2 text-sm leading-6 text-[#282B2F]">Berdasarkan handle dan laporan platform yang diunggah Admin.</p></div>
+              <div className="rounded-2xl border border-[#D1B779]/50 bg-[#FAF7F1] p-5 text-[#102A43]"><p className="text-xs font-black text-[#765B2B] uppercase">Bonus top-up</p><p className="mt-2 text-lg font-black">Dihitung Wawangian Pelajar per pcs</p><p className="mt-2 text-sm leading-6 text-[#282B2F]">Berdasarkan handle dan hasil penjualan marketplace yang terverifikasi.</p></div>
             </div>
           </aside>
         </div>

@@ -24,8 +24,8 @@ export default async function HalamanDaftarCerita() {
             Kisah misi dan ilmu seputar wangi.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[#D9E1E8]">
-            Artikel awal berisi edukasi dan prinsip perjalanan brand. Cerita dampak
-            baru diterbitkan setelah memiliki bukti yang dapat diperiksa.
+            Temukan edukasi aroma dan prinsip perjalanan brand. Cerita dampak
+            diterbitkan setelah memiliki bukti yang dapat diperiksa.
           </p>
         </div>
       </section>
@@ -39,7 +39,7 @@ export default async function HalamanDaftarCerita() {
                 Ingin memahami misi kami lebih dulu?
               </h2>
               <p className="mt-2 text-sm leading-6 text-[#6D5426]">
-                Halaman transparansi lengkap dibangun pada M3 tanpa mengarang angka awal.
+                Lihat bagaimana Dana Cahaya Pendidikan dikelola dan disalurkan.
               </p>
             </div>
             <Link

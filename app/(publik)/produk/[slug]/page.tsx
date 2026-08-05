@@ -39,10 +39,6 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
 
   if (!produk) notFound();
 
-  const memakaiFotoReferensi50Ml =
-    produk.ukuran.replace(/\s+/g, "").toLowerCase() === "15ml" &&
-    produk.foto?.[0]?.toLowerCase().endsWith("-50ml.webp");
-
   const produkTerkait = daftarProduk
     .filter((item) => item.slug !== produk.slug)
     .sort((itemA, itemB) =>
@@ -75,17 +71,10 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
         </nav>
 
         <div className="mt-7 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-          <section aria-label="Foto utama produk" className="space-y-3">
+          <section aria-label="Foto utama produk">
             <div className="overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-white p-3 shadow-sm">
               <VisualProduk produk={produk} />
             </div>
-            <p className="text-xs leading-5 text-[#687078]">
-              {memakaiFotoReferensi50Ml
-                ? "Foto referensi menggunakan kemasan 50 ml; produk pada halaman ini tetap berukuran 15 ml."
-                : produk.foto?.[0]
-                ? "Foto utama produk dibaca dari penyimpanan resmi."
-                : "Foto utama belum tersedia; placeholder ditampilkan sementara."}
-            </p>
           </section>
 
           <section>
@@ -98,9 +87,6 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                   Racikan Sendiri
                 </span>
               ) : null}
-              <span className="rounded-full bg-[#F4EBDD] px-3 py-1.5 text-[#4A4D52]">
-                Data terverifikasi
-              </span>
             </div>
             <h1 className="mt-5 text-4xl leading-tight font-black tracking-[-0.05em] text-[#102A43] sm:text-5xl">
               {produk.nama}
@@ -129,18 +115,6 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                   </div>
                 ))}
               </dl>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {[...produk.profilAroma.karakter, ...produk.profilAroma.cocokUntuk].map(
-                  (item) => (
-                    <span
-                      key={item}
-                      className="rounded-full bg-[#F4EBDD] px-3 py-1.5 text-xs font-bold text-[#282B2F]"
-                    >
-                      {item}
-                    </span>
-                  ),
-                )}
-              </div>
             </div>
 
             <div className="mt-5 rounded-3xl border border-[#E5D4B3] bg-[#FAF7F1] p-5">
@@ -149,7 +123,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
               </p>
               <p className="mt-2 text-sm leading-6 text-[#6D5426]">
                 Setiap pembelian melalui marketplace menyisihkan 20% laba bersih setiap transaksi untuk
-                Dana Cahaya Pendidikan. Pelaporannya tetap dihitung dari sumber nyata.
+                Dana Cahaya Pendidikan. Pelaporannya disajikan secara terbuka dan dapat diperiksa.
               </p>
               <Link
                 href="/donasi"

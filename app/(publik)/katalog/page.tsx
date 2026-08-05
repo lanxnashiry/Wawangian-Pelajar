@@ -25,13 +25,13 @@ export default async function HalamanKatalog() {
           </h1>
           <p className="mt-5 text-base leading-7 text-[#282B2F]">
             Cari berdasarkan nama atau karakter aroma, lalu gunakan filter untuk
-            mempersempit pilihan. Hanya produk berstatus aktif yang ditampilkan.
+            mempersempit pilihanmu.
           </p>
         </div>
         <div className="mt-8 flex flex-col gap-4 rounded-3xl border border-[#B6DAD4] bg-[#E5F2EF] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div>
             <p className="font-black text-[#102A43]">Ingin rekomendasi yang lebih cepat?</p>
-            <p className="mt-1 text-sm leading-6 text-[#282B2F]">Temukan Wangimu mencocokkan karakter, waktu, dan kegiatan dengan data Produk.</p>
+            <p className="mt-1 text-sm leading-6 text-[#282B2F]">Temukan Wangimu mencocokkan karakter, waktu, dan kegiatan dengan pilihan aroma kami.</p>
           </div>
           <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61]">
             Coba kuis →

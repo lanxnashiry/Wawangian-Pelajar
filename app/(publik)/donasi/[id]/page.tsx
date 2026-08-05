@@ -16,7 +16,7 @@ export default async function DetailPenyaluran({ params }: Properti) {
       <article className="mx-auto w-full max-w-5xl">
         <Link href="/donasi" className="text-sm font-black text-[#087477] hover:underline">← Kembali ke transparansi</Link>
         <div className="mt-6 rounded-[2rem] bg-[#102A43] p-6 text-white sm:p-10">
-          <p className="text-xs font-black tracking-[0.16em] text-[#D1B779] uppercase">Bukti penyaluran terpublikasi</p>
+          <p className="text-xs font-black tracking-[0.16em] text-[#D1B779] uppercase">Bukti penyaluran</p>
           <h1 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">{penyaluran.penerimaNama}</h1>
           <div className="mt-5 flex flex-wrap gap-2 text-sm"><span className="rounded-full bg-white/10 px-4 py-2">{labelPenerimaDonasi[penyaluran.penerimaJenis]}</span><span className="rounded-full bg-white/10 px-4 py-2">{formatTanggalDonasi(penyaluran.tanggal)}</span></div>
           <p className="mt-7 text-3xl font-black text-[#D1B779]">{formatRupiah(penyaluran.jumlah)}</p>

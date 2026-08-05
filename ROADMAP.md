@@ -112,6 +112,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Runtime Data Contoh dihapus; pembersihan akun/data uji disiapkan dalam migrasi hosted
 - ✅ Revisi Temukan Wangimu: profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, migrasi hosted, dan tinjauan visual selesai
 - ✅ Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp disiapkan pada footer global
+- ✅ Teks publik dipoles menjadi bahasa komersial, footer kanal diringkas dengan ikon, dan data Karakter/Cocok untuk disembunyikan dari detail Produk
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---

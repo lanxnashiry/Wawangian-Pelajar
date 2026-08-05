@@ -36,12 +36,9 @@ export function KartuProduk({ produk }: { produk: Produk }) {
           {produk.ringkasan}
         </p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-          <div>
-            <p className="text-[10px] font-bold tracking-wide text-[#687078] uppercase">{produk.sumberData === "supabase" ? "Data terverifikasi" : "Data contoh"}</p>
-            <p className="mt-1 font-black text-[#102A43]">
-              {produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"}
-            </p>
-          </div>
+          <p className="font-black text-[#102A43]">
+            {produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"}
+          </p>
           <Link
             href={`/produk/${produk.slug}`}
             className="rounded-full border border-[#087477] px-4 py-2 text-sm font-bold text-[#087477] transition hover:bg-[#087477] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477]"

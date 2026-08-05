@@ -63,7 +63,7 @@ export function FormulirProduk({ produk, pesan, daftarProfil = [] }: Properti) {
             <input className={kelasInput} name={nama as string} required defaultValue={gabung(nilai as string[] | undefined)} placeholder="Pisahkan dengan koma" />
           </label>
         ))}
-        <p className="text-xs leading-5 text-[#087477] lg:col-span-2">Data bebas ini tetap tampil pada detail Produk. Untuk kategori Inspirasi/Signature, nama merek terkenal ditolak di klien dan database sesuai BR-4.</p>
+        <p className="text-xs leading-5 text-[#087477] lg:col-span-2">Data Karakter dan Cocok untuk dipakai secara internal oleh Temukan Wangimu dan tidak ditampilkan pada detail Produk. Untuk kategori Inspirasi/Signature, nama merek terkenal tetap ditolak sesuai BR-4.</p>
       </fieldset>
 
       <fieldset className="rounded-2xl border border-[#D7C794] bg-[#FFF9EA] p-5">

@@ -67,7 +67,7 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
             Jawab lima pertanyaan, temukan aroma yang terasa seperti kamu.
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#282B2F]">
-            Tanpa login dan tanpa menyimpan jawaban ke database. Rekomendasi dihitung dari profil baku keluarga aroma, lalu setiap hasil menampilkan pilihan ukuran yang tersedia dan dapat dibagikan lewat tautan.
+            Jawabanmu tetap privat. Kami mencocokkannya dengan karakter setiap keluarga aroma, lalu menampilkan pilihan ukuran yang tersedia.
           </p>
         </div>
         <div className="mt-10">
