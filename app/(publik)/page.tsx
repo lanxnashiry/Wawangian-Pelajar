@@ -152,7 +152,7 @@ export default async function Beranda() {
           <div className="mt-7 flex flex-col gap-4 rounded-3xl bg-[#E5F2EF] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-black text-[#102A43]">Belum yakin memilih aroma?</p>
-              <p className="mt-1 text-sm leading-6 text-[#282B2F]">Jawab tiga pertanyaan ringan tanpa login dan lihat rekomendasi berdasarkan data katalog.</p>
+              <p className="mt-1 text-sm leading-6 text-[#282B2F]">Jawab lima pertanyaan ringan tanpa login dan lihat rekomendasi keluarga aroma berdasarkan profil katalog.</p>
             </div>
             <Link href="/temukan" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white hover:bg-[#075E61]">
               Mulai kuis →

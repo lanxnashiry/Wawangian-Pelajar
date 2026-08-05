@@ -13,8 +13,8 @@ import {
 async function workbookUji() {
   const workbook = new ExcelJS.Workbook();
   const produk = workbook.addWorksheet("Produk");
-  produk.addRow(["nama", "slug", "kategori", "ukuran", "harga", "ringkasan", "deskripsi", "aroma_atas", "aroma_tengah", "aroma_dasar", "karakter", "cocok_untuk", "foto_url", "link_shopee", "link_tiktok", "unggulan", "tersedia", "aktif", "warna"]);
-  produk.addRow(["Produk A", "", "decant", "5 ml", 69000, "Ringkas", "Deskripsi", "Lemon", "Jasmine", "Musk", "fresh", "siang", "", "https://shopee.co.id/a", "", "tidak", "ya", "ya", "krem"]);
+  produk.addRow([...HEADER_PRODUK]);
+  produk.addRow(["Produk A", "", "decant", "5 ml", 69000, "Ringkas", "Deskripsi", "Lemon", "Jasmine", "Musk", "fresh", "siang", "", "", "https://shopee.co.id/a", "", "tidak", "ya", "ya", "krem"]);
   produk.addRow(["Produk Rusak", "", "salah", "", "abc"]);
 
   const artikel = workbook.addWorksheet("Artikel");
@@ -73,7 +73,8 @@ test("workbook dengan sheet atau kolom tambahan ditolak", async () => {
   kolomTambahan.addWorksheet("Produk").addRow([
     "nama", "slug", "kategori", "ukuran", "harga", "ringkasan", "deskripsi",
     "aroma_atas", "aroma_tengah", "aroma_dasar", "karakter", "cocok_untuk",
-    "foto_url", "link_shopee", "link_tiktok", "unggulan", "tersedia", "aktif", "warna", "kolom_liar",
+    "kode_profil_rekomendasi", "foto_url", "link_shopee", "link_tiktok",
+    "unggulan", "tersedia", "aktif", "warna", "kolom_liar",
   ]);
   const bufferKolomTambahan = Buffer.from(await kolomTambahan.xlsx.writeBuffer());
   await assert.rejects(

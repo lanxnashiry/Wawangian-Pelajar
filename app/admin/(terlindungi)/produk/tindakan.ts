@@ -18,6 +18,9 @@ export async function simpanProduk(formulir: FormData) {
   const tujuan = String(formulir.get("tujuan_kembali") ?? "/admin/produk");
   const nama = String(formulir.get("nama") ?? "").trim();
   const kategori = String(formulir.get("kategori") ?? "") as KategoriProduk;
+  const profilRekomendasiId = String(
+    formulir.get("profil_rekomendasi_id") ?? "",
+  ).trim();
   const aromaAtas = pisahkanDaftar(formulir.get("aroma_atas"));
   const aromaTengah = pisahkanDaftar(formulir.get("aroma_tengah"));
   const aromaDasar = pisahkanDaftar(formulir.get("aroma_dasar"));
@@ -29,6 +32,21 @@ export async function simpanProduk(formulir: FormData) {
   const harga = Number(nilaiHarga);
   if (!nama || !/^\d+$/.test(nilaiHarga) || !Number.isSafeInteger(harga)) {
     kembaliDenganPesan(tujuan, "Nama dan harga produk tidak valid.");
+  }
+
+  if (profilRekomendasiId) {
+    const { data: profil, error: galatProfil } = await supabase
+      .from("profil_rekomendasi")
+      .select("id")
+      .eq("id", profilRekomendasiId)
+      .eq("aktif", true)
+      .maybeSingle();
+    if (galatProfil || !profil) {
+      kembaliDenganPesan(
+        tujuan,
+        "Profil rekomendasi tidak tersedia atau sudah dinonaktifkan.",
+      );
+    }
   }
 
   const linkShopee = String(formulir.get("link_shopee") ?? "").trim();
@@ -81,6 +99,7 @@ export async function simpanProduk(formulir: FormData) {
     tersedia: formulir.get("tersedia") === "on",
     aktif: formulir.get("aktif") === "on",
     warna: String(formulir.get("warna") ?? "tosca") as Produk["warna"],
+    profil_rekomendasi_id: profilRekomendasiId || null,
   };
 
   const hasil = id
@@ -119,6 +138,7 @@ export async function simpanProduk(formulir: FormData) {
   revalidatePath(`/produk/${slug}`);
   revalidatePath("/admin");
   revalidatePath("/admin/produk");
+  revalidatePath("/admin/profil-rekomendasi");
   redirect(`/admin/produk/${hasil.data.id}?pesan=Produk+berhasil+disimpan`);
 }
 

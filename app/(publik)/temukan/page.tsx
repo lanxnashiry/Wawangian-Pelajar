@@ -2,15 +2,17 @@ import type { Metadata } from "next";
 import { KuisTemukanWangimu } from "@/components/kuis-temukan-wangimu";
 import { ambilDaftarProdukPublik } from "@/lib/data/publik";
 import {
-  opsiKarakter,
-  opsiOkasi,
-  opsiWaktu,
+  jawabanKuisKosong,
+  parameterJawabanKuis,
+  petakanJawabanKuisLama,
+  pertanyaanKuis,
+  type KunciJawaban,
   type JawabanKuis,
 } from "@/lib/kuis/rekomendasi";
 
 export const metadata: Metadata = {
   title: "Temukan Wangimu",
-  description: "Jawab tiga pertanyaan ringan untuk menemukan karakter parfum yang sesuai dengan kegiatanmu.",
+  description: "Jawab lima pertanyaan ringan untuk menemukan keluarga aroma dan pilihan ukuran yang paling mendekati seleramu.",
 };
 
 export const revalidate = 300;
@@ -21,10 +23,11 @@ type Properti = {
 
 function ambilNilaiAman(
   nilai: string | string[] | undefined,
-  daftar: Array<{ nilai: string }>,
+  kunci: KunciJawaban,
 ) {
   const kandidat = typeof nilai === "string" ? nilai : "";
-  return daftar.some((item) => item.nilai === kandidat) ? kandidat : "";
+  const pertanyaan = pertanyaanKuis.find((item) => item.kunci === kunci);
+  return pertanyaan?.opsi.some((item) => item.nilai === kandidat) ? kandidat : "";
 }
 
 export default async function HalamanTemukanWangimu({ searchParams }: Properti) {
@@ -32,11 +35,26 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
     searchParams,
     ambilDaftarProdukPublik(),
   ]);
-  const jawabanAwal: JawabanKuis = {
-    karakter: ambilNilaiAman(parameter.karakter, opsiKarakter),
-    waktu: ambilNilaiAman(parameter.waktu, opsiWaktu),
-    okasi: ambilNilaiAman(parameter.okasi, opsiOkasi),
+  const punyaParameterLama =
+    typeof parameter.karakter === "string" || typeof parameter.okasi === "string";
+  const punyaParameterBaru =
+    ["aroma", "kesan", "intensitas", "kegiatan"].some(
+      (kunci) => typeof parameter[kunci] === "string",
+    ) || (!punyaParameterLama && typeof parameter.waktu === "string");
+  const jawabanBaru: JawabanKuis = {
+    aroma: ambilNilaiAman(parameter.aroma, "aroma"),
+    kesan: ambilNilaiAman(parameter.kesan, "kesan"),
+    intensitas: ambilNilaiAman(parameter.intensitas, "intensitas"),
+    waktu: ambilNilaiAman(parameter.waktu, "waktu"),
+    kegiatan: ambilNilaiAman(parameter.kegiatan, "kegiatan"),
   };
+  const jawabanAwal = punyaParameterBaru
+    ? jawabanBaru
+    : petakanJawabanKuisLama({
+        karakter: typeof parameter.karakter === "string" ? parameter.karakter : undefined,
+        waktu: typeof parameter.waktu === "string" ? parameter.waktu : undefined,
+        okasi: typeof parameter.okasi === "string" ? parameter.okasi : undefined,
+      }) ?? jawabanKuisKosong;
 
   return (
     <main className="px-5 py-12 sm:px-8 sm:py-16 lg:px-10">
@@ -46,14 +64,15 @@ export default async function HalamanTemukanWangimu({ searchParams }: Properti) 
             Temukan Wangimu
           </p>
           <h1 className="mt-4 text-4xl leading-tight font-black tracking-[-0.045em] text-[#102A43] sm:text-6xl">
-            Jawab tiga pertanyaan, temukan aroma yang terasa seperti kamu.
+            Jawab lima pertanyaan, temukan aroma yang terasa seperti kamu.
           </h1>
           <p className="mt-5 max-w-3xl text-base leading-7 text-[#282B2F]">
-            Tanpa login dan tanpa menyimpan jawaban pribadi. Rekomendasi dihitung dari data karakter serta kegiatan pada katalog, lalu hasilnya dapat dibagikan lewat tautan.
+            Tanpa login dan tanpa menyimpan jawaban ke database. Rekomendasi dihitung dari profil baku keluarga aroma, lalu setiap hasil menampilkan pilihan ukuran yang tersedia dan dapat dibagikan lewat tautan.
           </p>
         </div>
         <div className="mt-10">
           <KuisTemukanWangimu
+            key={parameterJawabanKuis(jawabanAwal).toString()}
             daftarProduk={daftarProduk}
             jawabanAwal={jawabanAwal}
           />

@@ -76,7 +76,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
   /(publik)      # layout dan seluruh rute publik
     /katalog     # katalog dengan filter dan pencarian
     /produk      # detail produk berdasarkan slug
-    /temukan     # kuis karakter, waktu, okasi, dan hasil shareable M4
+    /temukan     # kuis lima tahap dan hasil per keluarga aroma
     /cerita      # daftar dan detail artikel
     /donasi      # transparansi dan detail bukti M3
     /afiliasi    # landing publik Portal Afiliasi M5
@@ -84,12 +84,11 @@ Server pengembangan tersedia di `http://localhost:3000`.
   /admin         # login dan seluruh pengelolaan M2–M5
   /layout.tsx    # tata letak global
 /components      # komponen antarmuka yang dapat digunakan ulang
-/data            # data contoh produk dan artikel M1
+/data            # tipe, label, dan konfigurasi publik
 /lib/supabase    # konfigurasi dan pembuat klien Supabase
 /lib/admin       # otorisasi dan validasi Admin
 /lib/afiliasi    # otorisasi, CSV, dan format Portal Afiliasi
-/lib/data        # repositori data publik Supabase + fallback berlabel
-/lib/pratinjau   # sakelar data contoh berlabel untuk peninjauan MVP
+/lib/data        # repositori data publik Supabase yang fail closed
 /lib/marketplace # validasi tujuan toko resmi M4
 /lib/kuis        # pemeringkatan rekomendasi Temukan Wangimu
 /supabase        # migrasi database dan contoh bootstrap Admin
@@ -101,8 +100,8 @@ Server pengembangan tersedia di `http://localhost:3000`.
 
 - `/` — Homepage lengkap.
 - `/katalog` — pencarian, filter, pengurutan, dan state kosong.
-- `/produk/[slug]` — detail produk contoh dan produk terkait.
-- `/temukan` — kuis tiga pertanyaan dan hasil rekomendasi yang dapat dibagikan.
+- `/produk/[slug]` — detail produk hosted dan produk terkait.
+- `/temukan` — kuis lima tahap, hasil keluarga aroma, pilihan ukuran, dan tautan yang dapat dibagikan.
 - `/cerita` — daftar artikel dan filter kategori.
 - `/cerita/[slug]` — isi artikel, share, dan CTA kontekstual.
 - `/donasi` — transparansi tiga angka, riwayat penyaluran, dan metode perhitungan M3.
@@ -115,7 +114,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 - `/afiliasi/materi` — materi promosi privat dengan tautan unduh sementara.
 - `/afiliasi/leaderboard` — peringkat bulanan beralias.
 
-Data M1 berada di `data/produk.ts` dan `data/artikel.ts`. Seluruh data tersebut adalah contoh, bukan data bisnis final.
+Data publik dibaca dari Supabase hosted. Bila sumber tidak tersedia, aplikasi menampilkan keadaan kosong atau galat yang jujur dan tidak memakai fallback Data Contoh.
 
 ## Variabel Lingkungan
 
@@ -129,33 +128,16 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=
 SUPABASE_SERVICE_ROLE_KEY=
 ADMIN_EMAIL=
 ADMIN_PASSWORD=
-MODE_PRATINJAU_DATA_CONTOH=false
 ```
 
 - `NEXT_PUBLIC_URL_SITUS` adalah URL kanonis tanpa garis miring akhir; dipakai untuk metadata, Open Graph, sitemap, robots, dan JSON-LD.
 - URL dan kunci publishable digunakan oleh klien browser serta server. Kunci anon lama tetap didukung untuk kompatibilitas.
 - `SUPABASE_SERVICE_ROLE_KEY` hanya boleh digunakan pada kode server untuk operasi admin.
 - `ADMIN_EMAIL` dan `ADMIN_PASSWORD` hanya dipakai sekali oleh skrip bootstrap Admin.
-- `MODE_PRATINJAU_DATA_CONTOH=true` mengisi Development, Vercel Preview, atau Vercel Production MVP dengan Produk, Artikel, simulasi Donasi, serta data portal akun `AfiliasiUji` yang seluruhnya berlabel.
 - Jangan pernah commit `.env.local` atau kunci rahasia ke GitHub.
-- Pasang kredensial Supabase melalui pengaturan Environment Variables di Vercel; gunakan sakelar data contoh hanya selama peninjauan MVP.
+- Pasang kredensial Supabase melalui pengaturan Environment Variables di Vercel.
 
 Halaman M0 dapat dijalankan dan dibangun tanpa kredensial. Fungsi Supabase akan memberikan galat berbahasa Indonesia bila dipanggil sebelum konfigurasi tersedia.
-
-### Mode pratinjau data contoh
-
-Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` ke `.env.local`, lalu jalankan `npm run dev`. Website publik akan memakai delapan Produk contoh, lima Artikel contoh, serta simulasi transparansi Donasi yang jumlahnya konsisten. Saat akun hosted beralias `AfiliasiUji` masuk, Dashboard dan Leaderboard juga menampilkan bonus top-up, tingkat, riwayat rekonsiliasi, dan peringkat contoh. Banner kuning menegaskan bahwa semua nilai hanya untuk pemeriksaan tampilan.
-
-Mode aktif di lingkungan mana pun hanya ketika sakelar bernilai `true`. Simulasi Afiliasi dikunci pada email dan alias akun uji agar akun lain selalu membaca data nyata. Mode ini tidak menulis Produk, Artikel, rekap, penyaluran, laporan Afiliasi, bonus, payout, atau bukti ke Supabase. Untuk memeriksa data nyata, ubah nilainya menjadi `false` atau hapus variabel tersebut. Sakelar wajib dimatikan sebelum rilis publik M6.
-
-Untuk menampilkan data contoh pada deployment Vercel selama peninjauan MVP:
-
-1. Buka **Project Settings → Environment Variables** pada proyek Vercel.
-2. Tambahkan `MODE_PRATINJAU_DATA_CONTOH` dengan nilai `true`.
-3. Pilih lingkungan **Preview** dan **Production** selama tahap MVP tertutup.
-4. Aktifkan **Vercel Authentication** pada Deployment Protection dan beri akses hanya kepada reviewer tepercaya.
-5. Lakukan redeploy karena perubahan variabel tidak diterapkan ke deployment yang sudah berjalan.
-6. Sebelum rilis publik M6, ubah nilai menjadi `false` pada Production dan redeploy.
 
 ## Mengaktifkan Supabase M2
 
@@ -186,6 +168,7 @@ Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:30
 - `/admin/masuk` — login satu peran Admin.
 - `/admin` — dasbor berbasis data Supabase.
 - `/admin/produk` — daftar, tambah, edit, unggah foto, dan nonaktifkan produk.
+- `/admin/profil-rekomendasi` — kelola keluarga aroma dan tag baku Temukan Wangimu.
 - `/admin/konten` — daftar, tambah, edit, terbitkan, dan hapus artikel.
 - `/admin/analitik` — ringkasan minat KlikKeluar dari Produk marketplace nyata.
 
@@ -205,11 +188,9 @@ Data bisnis tidak dibuat oleh migrasi. Admin memasukkan data nyata melalui panel
 
 ## Jembatan Marketplace dan Kuis M4
 
-Admin mengisi URL Produk melalui `/admin/produk`. Tautan wajib memakai HTTPS dan domain resmi Shopee atau TikTok. Pada halaman Produk, satu marketplace membuka tab langsung, sedangkan dua marketplace menampilkan dialog pilihan. Setiap klik Produk Supabase dikirim ke `/api/klik-keluar`; data contoh tidak dikirim ke analitik.
+Admin mengisi URL Produk melalui `/admin/produk`. Tautan wajib memakai HTTPS dan domain resmi Shopee atau TikTok. Pada halaman Produk, satu marketplace membuka tab langsung, sedangkan dua marketplace menampilkan dialog pilihan. Setiap klik Produk Supabase dikirim ke `/api/klik-keluar`.
 
-Rute `/temukan` mencocokkan tiga jawaban dengan data `karakter` dan `cocok_untuk` Produk. Hasil dapat dibagikan melalui URL seperti `/temukan?karakter=fresh&waktu=siang&okasi=kuliah-kerja` tanpa login atau penyimpanan jawaban baru.
-
-Saat mode data contoh aktif dan URL Produk asli belum tersedia, detail Produk hanya menampilkan simulasi dialog dengan pilihan nonaktif. Masukkan tautan Produk resmi melalui Admin untuk menguji pembukaan tab dan pencatatan KlikKeluar nyata.
+Rute `/temukan` memakai lima jawaban baku dan memberi hasil per keluarga aroma. Varian ukuran tampil di dalam satu kartu, sedangkan Decant multi-aroma menjadi CTA terpisah. URL baru berbentuk `/temukan?aroma=segar-akuatik&kesan=bersih-ringan&intensitas=sedang&waktu=siang-panas&kegiatan=kampus-kerja`; format lama tetap dipetakan tanpa menulis jawaban ke database.
 
 ## Mengaktifkan Supabase M5
 
@@ -260,7 +241,11 @@ Artikel lama tanpa `isi_markdown` tetap dirender melalui data `bagian`. Artikel 
 
 Admin dapat membuka `/admin/entri-massal`, mengunduh template `.xlsx`, mengisi sheet Produk dan/atau Artikel, lalu menjalankan pratinjau sebelum impor. Fitur bersifat create-only: tidak menimpa slug lama, seluruh Artikel menjadi draft, maksimal 500 baris per sheet dan 5 MB per workbook.
 
-Sebelum dipakai pada hosted, terapkan migrasi `supabase/migrations/202608040012_entri_massal_produk_artikel.sql` melalui Supabase SQL Editor.
+Sebelum dipakai pada hosted, terapkan migrasi `supabase/migrations/202608040012_entri_massal_produk_artikel.sql`, lalu `supabase/migrations/202608050014_profil_rekomendasi_temukan_wangimu.sql`. Kolom `kode_profil_rekomendasi` pada sheet Produk bersifat opsional, tetapi bila diisi harus merujuk profil aktif yang sudah dibuat melalui Admin.
+
+## Kanal Resmi
+
+Footer seluruh halaman menautkan Facebook, Instagram `@wawangianpelajar`, toko Shopee resmi, email `admin@wawangianpelajar.com`, dan WhatsApp `+62 851-7698-5756`. Tautan TikTok Shop tidak ditampilkan sampai pemilik memberikan URL resmi.
 
 ## Deploy ke Vercel
 
@@ -268,10 +253,9 @@ Sebelum dipakai pada hosted, terapkan migrasi `supabase/migrations/202608040012_
 2. Impor repository `lanxnashiry/Wawangian-Pelajar`.
 3. Pastikan Framework Preset terdeteksi sebagai **Next.js** dan Root Directory tetap di akar repository.
 4. Tambahkan variabel lingkungan Supabase untuk Development, Preview, dan Production.
-5. Tambahkan `MODE_PRATINJAU_DATA_CONTOH=true` untuk Preview dan Production selama peninjauan MVP tertutup.
-6. Jalankan deploy pertama.
-7. Setelah branch utama terhubung, push ke `main` akan memicu deployment produksi; branch pull request menghasilkan preview deployment.
-8. Lindungi Production dengan Vercel Authentication dan matikan mode contoh sebelum rilis publik M6.
+5. Jalankan deploy pertama.
+6. Setelah branch utama terhubung, push ke `main` akan memicu deployment produksi; branch pull request menghasilkan preview deployment.
+7. Lindungi Production dengan Vercel Authentication selama peninjauan tertutup bila diperlukan.
 
 Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js sudah mencukupi.
 
@@ -285,4 +269,4 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 
 ---
 
-M5 selesai secara teknis dan sudah digabungkan ke `main`; penyempurnaan Production MVP tetap berada pada tahap tinjauan. M6 tidak dimulai sebelum konfirmasi eksplisit.
+M6 aktif. Fondasi SEO, pembersihan runtime Data Contoh, entri massal, dan revisi Temukan Wangimu telah dibangun bertahap; konten awal serta konfirmasi rilis produksi tetap menunggu pemilik.

@@ -2,6 +2,32 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-05] — Revisi Temukan Wangimu dan kanal resmi
+
+### Ditambahkan
+
+- Profil rekomendasi baku dengan lima dimensi, RLS, Log Audit, pengelolaan Admin, serta relasi keluarga aroma pada Produk.
+- Kuis bertahap lima pertanyaan dengan 1.125 kombinasi tervalidasi, hasil per keluarga aroma, pilihan ukuran, alasan kecocokan, dan CTA Decant terpisah.
+- Dukungan `kode_profil_rekomendasi` pada pratinjau, validator, template, dan RPC entri massal.
+- Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp pada footer global.
+
+### Diubah
+
+- Rekomendasi tidak lagi mencocokkan teks bebas `karakter`/`cocok_untuk` atau mengulang satu aroma dalam beberapa ukuran.
+- Parameter hasil menjadi `aroma`, `kesan`, `intensitas`, `waktu`, dan `kegiatan`; tautan lama tetap dipetakan.
+- BUILD_SPEC naik dari 3.0 menjadi 3.1 dan dokumentasi runtime Data Contoh yang telah dihapus diselaraskan.
+
+### Diperbaiki
+
+- Empat dari 32 kombinasi lama yang kosong, dominasi Produk Decant, dan duplikasi varian ukuran pada hasil rekomendasi.
+- Placeholder Shopee/TikTok pada footer diganti dengan kanal yang sudah dikonfirmasi pemilik; TikTok tidak ditampilkan sampai tautan resmi tersedia.
+
+### Validasi
+
+- `npm test` 32/32, lint, TypeScript, dan build produksi lulus; seluruh 1.125 kombinasi kuis teruji.
+- Migrasi hosted berakhir dengan tepat 19 Produk, lima profil rekomendasi, 15 SKU tertaut, serta empat Decant tanpa profil.
+- Alur hasil baru, URL lama, footer resmi, dan tampilan 360px/1440px diperiksa melalui server lokal tanpa galat aplikasi.
+
 ## [2026-08-04] — Pembersihan penghalang rilis
 
 ### Diubah

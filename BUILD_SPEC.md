@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.0
+- **Versi spesifikasi:** 3.1
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -120,7 +120,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 | Homepage | `/` | Hero, banner misi, produk unggulan, kenapa beda, cerita misi, strip konten, ajakan afiliasi, bukti sosial, footer |
 | Katalog | `/katalog` | Grid produk + filter kategori + urutkan + pencarian |
 | Detail Produk | `/produk/[slug]` | Satu foto utama, profil aroma, harga, tombol beli, pesan misi, produk terkait |
-| Temukan Wangimu | `/temukan` | Kuis karakter aroma & okasi → rekomendasi produk |
+| Temukan Wangimu | `/temukan` | Kuis lima tahap → rekomendasi keluarga aroma + pilihan ukuran |
 | Transparansi Donasi | `/donasi` | 3 angka, riwayat penyaluran berbukti, metode |
 | Detail Penyaluran | `/donasi/[id]` | Bukti diperbesar + tautan cerita |
 | Daftar Konten | `/cerita` | Grid artikel + filter kategori |
@@ -261,7 +261,7 @@ Pengaturan { key, value }   // persentase_donasi, dll
 - Perhitungan donasi & bonus afiliasi = logika server (Next.js server actions / route handlers), bukan di sisi klien.
 - Bahasa: seluruh kode, komentar, penamaan variabel, dan pesan commit dalam **Bahasa Indonesia**.
 - Environment variable (kunci Supabase, dll) disimpan di `.env.local` dan Vercel — TIDAK di-commit ke repo.
-- Data contoh berlabel boleh diaktifkan melalui sakelar khusus pada pengembangan lokal, **Vercel Preview**, dan **Vercel Production MVP** yang aksesnya dibatasi untuk peninjauan. Mode tidak boleh melakukan mutasi ke Supabase, tidak boleh disajikan sebagai data bisnis nyata, dan wajib dimatikan sebelum rilis publik M6.
+- Runtime tidak memiliki sakelar Data Contoh. Supabase yang tidak tersedia harus menghasilkan keadaan kosong/galat yang jujur; fixture hanya boleh berada di pengujian otomatis.
 
 ---
 
@@ -312,8 +312,11 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 - Lini "inspirasi" menampilkan label "Racikan Sendiri".
 
 **AC-Temukan Wangimu:**
-- Kuis menghasilkan rekomendasi produk yang cocok berdasarkan data karakter/okasi.
-- Hasil dapat dibagikan (tautan/kartu shareable).
+- Kuis lima tahap memakai satu pilihan keluarga aroma, kesan, intensitas, waktu/cuaca, dan kegiatan.
+- Rekomendasi dihitung dari profil tag baku, menampilkan maksimal tiga keluarga aroma unik, dan tidak mengulang ukuran sebagai aroma terpisah.
+- Setiap hasil menampilkan pilihan ukuran aktif/tersedia; Decant multi-aroma tampil sebagai CTA terpisah dan tidak ikut peringkat.
+- Hasil dapat dimuat ulang serta dibagikan melalui parameter URL tanpa akun pembeli atau penyimpanan jawaban ke database.
+- URL kuis tiga pertanyaan lama tetap dipetakan agar tautan yang pernah dibagikan tidak langsung rusak.
 
 **AC-Jembatan Marketplace:**
 - Produk 1 marketplace → klik langsung membuka tab marketplace.
@@ -379,7 +382,7 @@ Tombol beli hybrid + popup + pencatatan KlikKeluar. Halaman kuis "Temukan Wangim
 Landing, pendaftaran (+handle marketplace), login afiliasi, dashboard, panduan, materi promosi, leaderboard. Admin: verifikasi + rekonsiliasi + bonus per pcs (BR-6, BR-7).
 
 **M6 — Poles & Rilis.**
-Optimasi kecepatan/gambar, aksesibilitas, efisiensi operasional Admin (termasuk entri massal), uji lintas perangkat, konten awal, rilis produksi.
+Optimasi kecepatan/gambar, aksesibilitas, efisiensi operasional Admin (termasuk entri massal dan profil rekomendasi), uji lintas perangkat, konten awal, rilis produksi.
 
 *(Fase lanjut di luar milestone ini: Sales Academy, notifikasi, loyalitas, peran granular.)*
 
@@ -453,4 +456,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v2.9 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v3.1 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

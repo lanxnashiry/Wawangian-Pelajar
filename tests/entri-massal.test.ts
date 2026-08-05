@@ -19,6 +19,7 @@ const produkSah = {
   aroma_dasar: "Musk",
   karakter: "fresh, clean",
   cocok_untuk: "siang, kuliah",
+  kode_profil_rekomendasi: "",
   foto_url: "https://contoh.test/foto.webp",
   link_shopee: "https://shopee.co.id/produk-uji",
   link_tiktok: "",
@@ -54,6 +55,15 @@ test("produk sah dinormalisasi dan slug dibuat otomatis", () => {
   assert.deepEqual(hasil.data?.aroma_atas, ["Bergamot", "Lemon"]);
   assert.equal(hasil.data?.aktif, true);
   assert.deepEqual(hasil.data?.foto, ["https://contoh.test/foto.webp"]);
+  assert.equal(hasil.data?.kode_profil_rekomendasi, null);
+});
+
+test("kode profil rekomendasi wajib memakai format slug", () => {
+  const hasil = validasiBarisProduk({
+    ...produkSah,
+    kode_profil_rekomendasi: "California Blue",
+  }, 4);
+  assert.match(hasil.galat.join(" "), /profil rekomendasi.*slug/i);
 });
 
 test("produk menolak harga desimal, kategori salah, dan URL marketplace palsu", () => {

@@ -2,11 +2,22 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 4 Agustus 2026
+**Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** pembersihan rilis sedang diverifikasi; kode siap, migrasi hosted menunggu penerapan.
+**Status milestone aktif:** revisi Temukan Wangimu selesai di kode dan Supabase hosted; tinjauan pemilik serta penggabungan PR menunggu.
 
-## Pembersihan rilis — keadaan terbaru
+## Revisi Temukan Wangimu — keadaan terbaru
+
+- Branch aktif `codex/m6-revisi-temukan-wangimu` menambahkan profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, dan kanal resmi pada footer.
+- Migrasi `202608050014_profil_rekomendasi_temukan_wangimu.sql` telah diterapkan pada Supabase hosted. Verifikasi akhir mencatat 19 Produk tetap utuh, lima profil tersedia, 15 SKU tertaut, dan empat Decant tidak tertaut.
+- Form Admin Produk dapat memilih profil, sedangkan `/admin/profil-rekomendasi` mengelola lima kelompok tag baku. Workbook menerima `kode_profil_rekomendasi` opsional dan menolak kode tidak aktif/tidak dikenal.
+- Seluruh 1.125 kombinasi jawaban menghasilkan tiga keluarga unik pada fixture pengujian; ukuran dikelompokkan dan Decant tidak pernah masuk peringkat.
+- Footer global menautkan Facebook, Instagram, toko Shopee, email, dan WhatsApp resmi. Placeholder TikTok dihapus sampai URL resmi tersedia.
+- Jawaban kuis hanya berada pada state/URL dan tidak ditulis ke Supabase. Runtime Data Contoh tetap tidak tersedia.
+
+**Validasi akhir:** `npm test` 32/32, lint, TypeScript, dan build produksi lulus. Alur hasil baru, URL lama, kanal resmi, serta tampilan 360px/1440px telah diperiksa melalui server lokal tanpa galat aplikasi.
+
+## Fondasi rilis sebelumnya
 
 - Entri massal Produk & Artikel sudah merged, migrasi RPC sudah diterapkan, dan alur Production berhasil mengimpor 1 Produk + 1 Artikel secara atomik. Artikel dipaksa draft; Log Audit batch tercatat.
 - Seluruh runtime **Data Contoh dihapus**. Produk, Artikel, donasi, bonus, dan leaderboard simulasi tidak lagi dapat tampil. Jika Supabase gagal, halaman publik fail closed dengan keadaan kosong/galat—bukan data buatan.
@@ -19,7 +30,7 @@
 - Visual AI boleh digunakan selama tidak memalsukan atribut barang; bukti penyaluran donasi tetap harus asli.
 - Migrasi `202608040013_pembersihan_data_uji_dan_foto_decant.sql` akan: menyalin foto 10 ml ke Decant 1/2/5 ml, menghapus Produk uji dan `AfiliasiUji`, mencabut hak Admin uji2/uji3, memban akun uji, memutus sesi, serta memperjelas metode donasi Rp6.000.
 
-**Verifikasi kode:** `npm test` 21/21, TypeScript, lint, dan build Next 16.3.0 lulus. Event Umami `klik-beli` menunggu uji akhir setelah deploy agar tidak mencemari analitik sebelum cleanup tersedia.
+**Verifikasi fondasi sebelumnya:** `npm test` 21/21, TypeScript, lint, dan build Next 16.3.0 lulus. Event Umami `klik-beli` menunggu uji akhir setelah deploy agar tidak mencemari analitik.
 
 ---
 
@@ -88,9 +99,21 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 10. ✅ Harga 15 Produk ditetapkan berdasarkan ukuran dan input harga Admin tidak lagi menampilkan stepper.
 11. ✅ Empat Produk Decant Mykonos ditambahkan dan profil tiga ukuran Monaco Royale diselaraskan dengan sumber 3 Agustus 2026.
 12. ✅ Sepuluh foto utama teroptimasi dipetakan ke 15 Produk Mykonos tanpa menimpa foto Decant milik pemilik.
+13. ✅ Profil rekomendasi baku, relasi varian, Admin, dukungan entri massal, dan migrasi hosted selesai.
+14. ✅ Kuis lima tahap, kompatibilitas URL lama, hasil keluarga aroma, pilihan ukuran, CTA Decant, dan tinjauan visual selesai.
+15. ✅ Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp dipasang pada footer global.
+16. ✅ Pengujian otomatis bertambah menjadi 32 dan mencakup seluruh 1.125 kombinasi kuis.
 
 ## Validasi yang sudah dilakukan
 
+- Migrasi `202608050014_profil_rekomendasi_temukan_wangimu.sql` berhasil diterapkan pada Supabase hosted dan menghasilkan tepat 19 Produk, lima profil rekomendasi, 15 SKU tertaut, serta empat Decant tanpa profil.
+- RLS tabel profil aktif dengan empat kebijakan untuk baca profil aktif dan pengelolaan khusus Admin.
+- Seluruh 1.125 kombinasi sah menghasilkan tiga keluarga aroma unik dan deterministik pada fixture; Decant serta ukuran ganda tidak pernah masuk peringkat.
+- URL lima parameter membuka hasil lengkap, URL lama `karakter`/`waktu`/`okasi` tetap dipetakan, dan URL parsial membuka pertanyaan pertama yang belum terjawab.
+- Hasil hosted menampilkan California Signature, California Blue, dan Monaco Royale sebagai tiga keluarga terdekat untuk skenario Segar/Akuatik; setiap keluarga memiliki pilihan 15/50/100 ml dan CTA Decant terpisah memuat 1/2/5/10 ml.
+- Footer lokal memuat Facebook, Instagram, toko Shopee, `mailto:admin@wawangianpelajar.com`, dan `wa.me/6285176985756` tanpa placeholder TikTok/Shopee lama.
+- Tampilan awal kuis pada 360px dan hasil tiga kolom pada 1440px tidak mengalami overflow horizontal atau galat konsol aplikasi.
+- `npm.cmd test` 32/32, `npm.cmd run lint`, `npx.cmd tsc --noEmit --incremental false`, dan `npm.cmd run build` lulus setelah migrasi hosted.
 - Migrasi `202608010007_m6_kolom_seo_artikel.sql` berhasil diterapkan pada Supabase hosted; lima kolom bertipe teks tersedia dan opsional.
 - Login Admin lokal berhasil membuat artikel teknis, mempertahankan `tanggal_terbit` saat judul diubah, lalu mengosongkannya saat status kembali menjadi draf.
 - Renderer Markdown menampilkan penekanan, tautan internal, daftar, H2/H3, dan tabel; artikel contoh lama tetap tampil melalui fallback `bagian`.
@@ -170,15 +193,9 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 
 ## Langkah berikutnya
 
-1. Pemilik menjalankan seluruh isi `supabase/migrations/202608040012_entri_massal_produk_artikel.sql` di Supabase SQL Editor; setelah itu Hermes memverifikasi fungsi dan transaksi rollback pada hosted.
-2. Pemilik meninjau halaman Entri Massal pada 360px serta 1440px, mengunduh template, dan mencoba pratinjau workbook tanpa menyimpan data.
-3. Pemilik meninjau halaman Artikel dan formulir Admin pada 360px serta 1440px melalui preview lokal.
-4. Pemilik meninjau formulir Produk, foto utama 15 Produk Mykonos, foto manual Decant 10 ml, tiga placeholder Decant, identitas visual resmi, dan akun Admin uji melalui Production serta pull request aktif.
-5. Pemilik menambahkan `NEXT_PUBLIC_URL_SITUS=https://www.wawangianpelajar.com` pada Vercel Preview dan Production sebelum redeploy.
-6. Pemilik memastikan custom domain Production dan Preview tercantum pada Redirect URLs Supabase.
-7. Pemilik menyediakan Konten awal Artikel, foto atau visual ilustrasi Produk terpilih, serta data bisnis Afiliasi nyata ketika sudah tersedia.
-8. Pemilik menerapkan migrasi `202608040013_pembersihan_data_uji_dan_foto_decant.sql` lewat SQL Editor Supabase, lalu mengganti kata sandi Admin utama sementara. Data Contoh dan akun uji sudah ditangani migrasi tersebut, tidak lagi manual.
-9. Setelah hasil ditinjau, pemilik menggabungkan pull request aktif ke `main`, lalu mengirim sitemap ke Google Search Console.
+1. Pemilik meninjau preview lokal dan draft PR M6. Jangan gabungkan ke `main` sebelum persetujuan eksplisit pemilik.
+2. Setelah disetujui, gabungkan branch ke `main`, tunggu deployment Vercel selesai, lalu lakukan smoke test Production.
+3. Pemilik menyediakan Konten awal Artikel serta data bisnis Afiliasi nyata ketika tersedia, lalu mengirim sitemap ke Google Search Console saat rilis disetujui.
 
 ## Asumsi yang berlaku
 
@@ -186,9 +203,11 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Minimal salah satu handle TikTok Shop atau Shopee wajib dan disimpan tanpa awalan `@` untuk pencocokan stabil.
 - Pendaftar berstatus `menunggu`; panduan, materi, dan leaderboard baru terbuka setelah Admin mengaktifkan profil.
 - Tarif bonus tidak diisi data contoh. Admin wajib menetapkan tingkat serta nilai bisnis nyata sebelum laporan dapat diproses.
-- Nilai bonus, tingkat, riwayat, dan peringkat contoh hanya dihitung dari berkas lokal ketika mode data contoh aktif untuk akun `AfiliasiUji`; nilai tersebut bukan tarif atau kewajiban bisnis.
-- Produk dan jawaban contoh pada `/temukan` hanya dipakai saat mode data contoh aktif, tidak disimpan sebagai jawaban pengguna, dan tidak membuat data Supabase.
-- Mode contoh boleh dipasang pada Vercel Production selama tahap MVP tertutup; seluruh reviewer harus memahami label simulasi dan sakelar wajib dimatikan sebelum rilis publik M6.
+- Runtime Data Contoh tidak boleh dihidupkan kembali; fixture hanya berada di `tests/`.
+- Lima jawaban `/temukan` tidak disimpan ke database. Parameter URL diperlukan agar hasil dapat dimuat ulang dan dibagikan.
+- Satu profil rekomendasi mewakili satu keluarga aroma dan boleh ditautkan ke beberapa ukuran. Decant multi-aroma sengaja tidak memiliki profil.
+- Tag intensitas adalah klasifikasi pengalaman aroma berdasarkan deskripsi hosted, bukan jaminan ketahanan, sillage, atau proyeksi.
+- Tautan kanal, email, dan nomor WhatsApp yang diberikan pemilik dianggap resmi serta boleh tampil publik.
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.
@@ -217,7 +236,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 
 - Custom domain Production aktif pada `https://www.wawangianpelajar.com`; domain tanpa `www` mengalihkan ke domain utama.
 - Redirect URL konfirmasi Afiliasi perlu dipastikan mencakup `https://www.wawangianpelajar.com/auth/konfirmasi`.
-- Data bisnis M5 di Supabase masih kosong secara sengaja; isi portal akun uji berasal dari simulasi lokal berlabel dan tidak membuat tingkat, laporan, bonus, materi, atau payout hosted.
+- Data bisnis M5 di Supabase masih kosong secara sengaja; runtime tidak menyediakan simulasi bonus, materi, payout, atau leaderboard.
 - Login Admin lokal berhasil dipakai untuk pengujian Task 3; kata sandi tetap tidak disimpan dalam dokumentasi atau repository.
 - `NEXT_PUBLIC_URL_SITUS` wajib ditambahkan pada Vercel Production dan Preview sebelum deployment SEO ditinjau.
 - `npm audit` setelah kenaikan ke Next.js 16.3.0 mencatat **0 high dan 2 moderate**. Dua moderate berasal dari UUID transitif ExcelJS yang tidak dipanggil fitur mana pun; tidak ada perbaikan upstream yang tersedia tanpa mengganti ExcelJS.

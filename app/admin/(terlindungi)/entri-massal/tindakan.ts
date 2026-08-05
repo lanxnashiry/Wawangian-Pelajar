@@ -27,19 +27,26 @@ async function prosesFile(formulir: FormData) {
   const awal = prosesBarisEntriMassal(workbook, new Set(), new Set());
   const kandidatProduk = awal.produk.flatMap((item) => item.data?.slug ? [item.data.slug] : []);
   const kandidatArtikel = awal.artikel.flatMap((item) => item.data?.slug ? [item.data.slug] : []);
-  const [produkAda, artikelAda] = await Promise.all([
+  const kandidatProfil = awal.produk.flatMap((item) =>
+    item.data?.kode_profil_rekomendasi ? [item.data.kode_profil_rekomendasi] : [],
+  );
+  const [produkAda, artikelAda, profilAda] = await Promise.all([
     kandidatProduk.length
       ? supabase.from("produk").select("slug").in("slug", kandidatProduk)
       : Promise.resolve({ data: [], error: null }),
     kandidatArtikel.length
       ? supabase.from("artikel").select("slug").in("slug", kandidatArtikel)
       : Promise.resolve({ data: [], error: null }),
+    kandidatProfil.length
+      ? supabase.from("profil_rekomendasi").select("kode").eq("aktif", true).in("kode", kandidatProfil)
+      : Promise.resolve({ data: [], error: null }),
   ]);
-  if (produkAda.error || artikelAda.error) throw new Error("Gagal memeriksa slug pada database.");
+  if (produkAda.error || artikelAda.error || profilAda.error) throw new Error("Gagal memeriksa slug atau profil rekomendasi pada database.");
   const hasil = prosesBarisEntriMassal(
     workbook,
     new Set((produkAda.data ?? []).map((item) => item.slug)),
     new Set((artikelAda.data ?? []).map((item) => item.slug)),
+    new Set((profilAda.data ?? []).map((item) => item.kode)),
   );
   return { supabase, hasil };
 }

@@ -2,12 +2,13 @@ import type { Produk } from "@/data/produk";
 import { simpanProduk } from "@/app/admin/(terlindungi)/produk/tindakan";
 import { TombolSimpanProduk } from "./tombol-simpan-produk";
 
-type Properti = { produk?: Produk; pesan?: string };
+type OpsiProfil = { id: string; kode: string; nama: string };
+type Properti = { produk?: Produk; pesan?: string; daftarProfil?: OpsiProfil[] };
 const kelasInput = "mt-2 min-h-11 w-full rounded-xl border border-[#CFC3B2] bg-white px-3 py-2 text-sm outline-none focus:border-[#087477] focus:ring-3 focus:ring-[#087477]/10";
 
 function gabung(nilai?: string[]) { return nilai?.join(", ") ?? ""; }
 
-export function FormulirProduk({ produk, pesan }: Properti) {
+export function FormulirProduk({ produk, pesan, daftarProfil = [] }: Properti) {
   return (
     <form action={simpanProduk} className="space-y-6" encType="multipart/form-data">
       <input type="hidden" name="id" value={produk?.id ?? ""} />
@@ -50,7 +51,7 @@ export function FormulirProduk({ produk, pesan }: Properti) {
       </div>
 
       <fieldset className="grid gap-5 rounded-2xl border border-[#CFE5E0] bg-[#E5F2EF] p-5 lg:grid-cols-2">
-        <legend className="px-2 font-black text-[#087477]">Profil aroma dan data kuis M4</legend>
+        <legend className="px-2 font-black text-[#087477]">Profil aroma Produk</legend>
         {[
           ["aroma_atas", "Aroma atas", produk?.profilAroma.atas],
           ["aroma_tengah", "Aroma tengah", produk?.profilAroma.tengah],
@@ -62,7 +63,24 @@ export function FormulirProduk({ produk, pesan }: Properti) {
             <input className={kelasInput} name={nama as string} required defaultValue={gabung(nilai as string[] | undefined)} placeholder="Pisahkan dengan koma" />
           </label>
         ))}
-        <p className="text-xs leading-5 text-[#087477] lg:col-span-2">Untuk kategori Inspirasi/Signature, nama merek terkenal ditolak di klien dan database sesuai BR-4.</p>
+        <p className="text-xs leading-5 text-[#087477] lg:col-span-2">Data bebas ini tetap tampil pada detail Produk. Untuk kategori Inspirasi/Signature, nama merek terkenal ditolak di klien dan database sesuai BR-4.</p>
+      </fieldset>
+
+      <fieldset className="rounded-2xl border border-[#D7C794] bg-[#FFF9EA] p-5">
+        <legend className="px-2 font-black text-[#765B2B]">Temukan Wangimu</legend>
+        <label className="block text-sm font-bold text-[#102A43]">Profil rekomendasi baku
+          <select
+            className={kelasInput}
+            name="profil_rekomendasi_id"
+            defaultValue={produk?.profilRekomendasi?.id ?? ""}
+          >
+            <option value="">Tidak ikut peringkat rekomendasi</option>
+            {daftarProfil.map((profil) => (
+              <option key={profil.id} value={profil.id}>{profil.nama} · {profil.kode}</option>
+            ))}
+          </select>
+        </label>
+        <p className="mt-3 text-xs leading-5 text-[#765B2B]">Pakai profil yang sama untuk seluruh ukuran aroma yang sama. Produk decant multi-varian dibiarkan tanpa profil dan ditampilkan sebagai pilihan mencoba.</p>
       </fieldset>
 
       <div className="grid gap-5 rounded-2xl border border-[#DED3C2] bg-white p-5 lg:grid-cols-2">
