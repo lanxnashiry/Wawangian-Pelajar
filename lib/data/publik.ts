@@ -1,9 +1,22 @@
 import { type Artikel, type BagianArtikel } from "@/data/artikel";
 import { type Produk } from "@/data/produk";
+import type { ProfilRekomendasi } from "@/data/profil-rekomendasi";
 import { konfigurasiSupabasePublikTersedia } from "@/lib/supabase/konfigurasi";
 import { buatKlienSupabasePublik } from "@/lib/supabase/klien-publik";
 
-type BarisProduk = {
+type BarisProfilRekomendasi = {
+  id: string;
+  kode: string;
+  nama: string;
+  tag_aroma: ProfilRekomendasi["tagAroma"];
+  tag_kesan: ProfilRekomendasi["tagKesan"];
+  tag_intensitas: ProfilRekomendasi["tagIntensitas"];
+  tag_waktu: ProfilRekomendasi["tagWaktu"];
+  tag_kegiatan: ProfilRekomendasi["tagKegiatan"];
+  aktif: boolean;
+};
+
+export type BarisProduk = {
   id: string;
   nama: string;
   slug: string;
@@ -24,6 +37,7 @@ type BarisProduk = {
   tersedia: boolean;
   aktif: boolean;
   warna: Produk["warna"];
+  profil_rekomendasi: BarisProfilRekomendasi | null;
 };
 
 type BarisArtikel = {
@@ -64,6 +78,19 @@ export function petakanProduk(baris: BarisProduk): Produk {
       karakter: baris.karakter,
       cocokUntuk: baris.cocok_untuk,
     },
+    profilRekomendasi: baris.profil_rekomendasi
+      ? {
+          id: baris.profil_rekomendasi.id,
+          kode: baris.profil_rekomendasi.kode,
+          nama: baris.profil_rekomendasi.nama,
+          tagAroma: baris.profil_rekomendasi.tag_aroma,
+          tagKesan: baris.profil_rekomendasi.tag_kesan,
+          tagIntensitas: baris.profil_rekomendasi.tag_intensitas,
+          tagWaktu: baris.profil_rekomendasi.tag_waktu,
+          tagKegiatan: baris.profil_rekomendasi.tag_kegiatan,
+          aktif: baris.profil_rekomendasi.aktif,
+        }
+      : undefined,
     foto: baris.foto,
     linkMarketplace: {
       shopee: baris.link_shopee ?? undefined,
@@ -111,7 +138,7 @@ export async function ambilDaftarProdukPublik(): Promise<Produk[]> {
   const supabase = buatKlienSupabasePublik();
   const { data, error } = await supabase
     .from("produk")
-    .select("*")
+    .select("*,profil_rekomendasi(*)")
     .eq("aktif", true)
     .order("unggulan", { ascending: false })
     .order("nama");

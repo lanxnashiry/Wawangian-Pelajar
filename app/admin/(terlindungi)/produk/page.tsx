@@ -14,7 +14,7 @@ export default async function DaftarProdukAdmin({ searchParams }: Properti) {
     <main className="p-5 sm:p-8 lg:p-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div><p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">Kelola data</p><h1 className="mt-3 text-3xl font-black text-[#102A43]">Produk</h1></div>
-        <div className="flex flex-wrap gap-3"><Link href="/admin/entri-massal" className="rounded-full border border-[#087477] px-5 py-3 text-sm font-black text-[#087477]">Entri massal</Link><Link href="/admin/produk/baru" className="rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white">+ Produk baru</Link></div>
+        <div className="flex flex-wrap gap-3"><Link href="/admin/profil-rekomendasi" className="rounded-full border border-[#C7A25A] px-5 py-3 text-sm font-black text-[#765B2B]">Profil rekomendasi</Link><Link href="/admin/entri-massal" className="rounded-full border border-[#087477] px-5 py-3 text-sm font-black text-[#087477]">Entri massal</Link><Link href="/admin/produk/baru" className="rounded-full bg-[#087477] px-5 py-3 text-sm font-black text-white">+ Produk baru</Link></div>
       </div>
       {pesan ? <p role="status" className="mt-5 rounded-2xl bg-[#E5F2EF] px-4 py-3 text-sm text-[#087477]">{pesan}</p> : null}
       {error ? <p className="mt-6 rounded-2xl bg-[#fff2f0] p-5 text-sm text-[#9e3024]">Schema produk belum siap: {error.message}</p> : produk?.length ? (

@@ -22,6 +22,7 @@ export function prosesBarisEntriMassal(
   masukan: MasukanProsesEntriMassal,
   slugProdukAda: Set<string>,
   slugArtikelAda: Set<string>,
+  kodeProfilAda?: Set<string>,
 ) {
   if (masukan.produk.length > 500 || masukan.artikel.length > 500) {
     throw new Error("Maksimal 500 baris per sheet.");
@@ -35,6 +36,16 @@ export function prosesBarisEntriMassal(
   for (const item of produk) {
     for (const pesan of duplikatProduk.get(item.baris) ?? []) tambahkanGalat(item, pesan);
     if (item.data && slugProdukAda.has(item.data.slug)) tambahkanGalat(item, "Slug produk sudah ada di database; impor tidak menimpa data.");
+    if (
+      kodeProfilAda &&
+      item.data?.kode_profil_rekomendasi &&
+      !kodeProfilAda.has(item.data.kode_profil_rekomendasi)
+    ) {
+      tambahkanGalat(
+        item,
+        "Kode profil rekomendasi tidak tersedia atau sedang nonaktif.",
+      );
+    }
   }
   for (const item of artikel) {
     for (const pesan of duplikatArtikel.get(item.baris) ?? []) tambahkanGalat(item, pesan);

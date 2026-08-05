@@ -40,7 +40,8 @@ export async function periksaKeamananArsipXlsx(buffer: Buffer) {
 export const HEADER_PRODUK = [
   "nama", "slug", "kategori", "ukuran", "harga", "ringkasan", "deskripsi",
   "aroma_atas", "aroma_tengah", "aroma_dasar", "karakter", "cocok_untuk",
-  "foto_url", "link_shopee", "link_tiktok", "unggulan", "tersedia", "aktif", "warna",
+  "kode_profil_rekomendasi", "foto_url", "link_shopee", "link_tiktok",
+  "unggulan", "tersedia", "aktif", "warna",
 ] as const;
 
 export const HEADER_ARTIKEL = [
@@ -131,6 +132,7 @@ export async function buatTemplateEntriMassal() {
     ["ENTRI MASSAL", "Isi sheet Produk dan/atau Artikel. Jangan mengubah nama sheet atau header baris pertama."],
     ["Batas", "Maksimal 500 baris per sheet dan ukuran berkas 5 MB."],
     ["Daftar", "Pisahkan aroma/karakter/cocok_untuk dengan koma."],
+    ["Profil rekomendasi", "Opsional. Isi kode profil aktif yang sudah dibuat Admin agar beberapa ukuran masuk satu keluarga hasil kuis."],
     ["Boolean", "Gunakan ya atau tidak."],
     ["Slug", "Boleh kosong; sistem membuat otomatis. Slug ganda atau yang sudah ada akan ditolak."],
     ["Artikel", "Semua artikel hasil impor selalu disimpan sebagai draft, walau kolom status berisi terbit."],
@@ -144,10 +146,10 @@ export async function buatTemplateEntriMassal() {
   produk.addRow([...HEADER_PRODUK]);
   gayaHeader(produk, HEADER_PRODUK.length);
   tambahValidasi(produk, 3, ["ori", "decant", "inspirasi", "signature"]);
-  tambahValidasi(produk, 16, ["ya", "tidak"]);
   tambahValidasi(produk, 17, ["ya", "tidak"]);
   tambahValidasi(produk, 18, ["ya", "tidak"]);
-  tambahValidasi(produk, 19, ["krem", "tosca", "emas", "navy", "merahMuda"]);
+  tambahValidasi(produk, 19, ["ya", "tidak"]);
+  tambahValidasi(produk, 20, ["krem", "tosca", "emas", "navy", "merahMuda"]);
 
   const artikel = workbook.addWorksheet("Artikel");
   artikel.addRow([...HEADER_ARTIKEL]);

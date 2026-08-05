@@ -6,6 +6,7 @@ const produk = {
   nama: "Produk Uji", slug: "produk-uji", kategori: "decant", ukuran: "5 ml", harga: "69000",
   ringkasan: "Ringkasan", deskripsi: "Deskripsi", aroma_atas: "Lemon", aroma_tengah: "Jasmine",
   aroma_dasar: "Musk", karakter: "fresh", cocok_untuk: "siang", foto_url: "",
+  kode_profil_rekomendasi: "",
   link_shopee: "", link_tiktok: "", unggulan: "tidak", tersedia: "ya", aktif: "ya", warna: "krem",
 };
 const artikel = {
@@ -40,4 +41,20 @@ test("proses menandai slug ganda antarbaris dan menghitung ringkasan", () => {
 test("batas 500 baris per sheet ditolak", () => {
   const banyak = Array.from({ length: 501 }, (_, i) => ({ baris: i + 2, nilai: { ...produk, slug: `produk-${i}` } }));
   assert.throws(() => prosesBarisEntriMassal({ produk: banyak, artikel: [] }, new Set(), new Set()), /500/);
+});
+
+test("proses menolak kode profil rekomendasi yang tidak tersedia", () => {
+  const hasil = prosesBarisEntriMassal({
+    produk: [{ baris: 2, nilai: { ...produk, kode_profil_rekomendasi: "tidak-ada" } }],
+    artikel: [],
+  }, new Set(), new Set(), new Set(["california-blue"]));
+  assert.match(hasil.produk[0].galat.join(" "), /profil rekomendasi/i);
+});
+
+test("proses menerima kode profil rekomendasi aktif", () => {
+  const hasil = prosesBarisEntriMassal({
+    produk: [{ baris: 2, nilai: { ...produk, kode_profil_rekomendasi: "california-blue" } }],
+    artikel: [],
+  }, new Set(), new Set(), new Set(["california-blue"]));
+  assert.equal(hasil.produk[0].galat.length, 0);
 });

@@ -1,3 +1,5 @@
+import type { ProfilRekomendasi } from "@/data/profil-rekomendasi";
+
 export type KategoriProduk = "ori" | "decant" | "inspirasi" | "signature";
 
 export type Produk = {
@@ -16,6 +18,7 @@ export type Produk = {
     karakter: string[];
     cocokUntuk: string[];
   };
+  profilRekomendasi?: ProfilRekomendasi;
   unggulan: boolean;
   tersedia: boolean;
   aktif?: boolean;

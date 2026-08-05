@@ -110,6 +110,8 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Umami aktif di Production dan mencatat kunjungan nyata
 - ⬜ Konten awal Artikel nyata dari pemilik
 - ✅ Runtime Data Contoh dihapus; pembersihan akun/data uji disiapkan dalam migrasi hosted
+- ✅ Revisi Temukan Wangimu: profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, migrasi hosted, dan tinjauan visual selesai
+- ✅ Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp disiapkan pada footer global
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---

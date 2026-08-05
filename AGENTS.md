@@ -122,7 +122,7 @@ bukan "nanti".
 kebetulan memakai nomor sama, yang di-merge belakangan **wajib** menaikkan
 nomornya saat menyelesaikan konflik — jangan digabung paksa.
 
-Nomor terpakai terakhir: **KEP-050**. Berikutnya `KEP-051`.
+Nomor terpakai terakhir: **KEP-053**. Berikutnya `KEP-054`.
 
 ---
 
@@ -237,9 +237,20 @@ Baca `STATUS.md` untuk daftar terkini. Yang wajib beres **sebelum rilis publik**
   tidak dipakai fitur entri massal dan input XLSX sudah dibatasi.
 - `link_tiktok` menunggu konfirmasi TikTok. Satu URL Shopee adalah keputusan
   strategi listing bervarian untuk mengonsolidasikan rating (KEP-051), bukan utang.
+- Terapkan migrasi profil rekomendasi M6 dan verifikasi 19 Produk sebelum merge rilis.
 - Rotasi password Neon tetap tanggung jawab pemilik dan sengaja di luar batch ini.
 
 ---
 
 *AGENTS.md — perbarui berkas ini kalau konvensi kerja berubah. Codex CLI membacanya
 otomatis dari root repo; agent lain wajib membacanya manual sebelum mulai.*
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

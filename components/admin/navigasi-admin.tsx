@@ -4,6 +4,7 @@ import { keluarAdmin } from "@/app/admin/masuk/tindakan";
 const menu = [
   { href: "/admin", label: "Dasbor" },
   { href: "/admin/produk", label: "Produk" },
+  { href: "/admin/profil-rekomendasi", label: "Profil Rekomendasi" },
   { href: "/admin/donasi", label: "Donasi" },
   { href: "/admin/afiliasi", label: "Afiliasi" },
   { href: "/admin/konten", label: "Konten" },

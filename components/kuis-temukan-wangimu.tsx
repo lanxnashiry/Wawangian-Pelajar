@@ -1,41 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import { KartuProduk } from "@/components/kartu-produk";
-import type { Produk } from "@/data/produk";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { formatRupiah, type Produk } from "@/data/produk";
+import { VisualProduk } from "@/components/visual-data";
 import {
+  ambilProdukDecant,
   jawabanKuisLengkap,
   labelJawabanKuis,
-  opsiKarakter,
-  opsiOkasi,
-  opsiWaktu,
+  parameterJawabanKuis,
+  pertanyaanKuis,
   rekomendasikanProduk,
   type JawabanKuis,
-  type OpsiKuis,
 } from "@/lib/kuis/rekomendasi";
 
-type KunciJawaban = keyof JawabanKuis;
-
-const pertanyaan: Array<{
-  kunci: KunciJawaban;
-  judul: string;
-  opsi: OpsiKuis[];
-}> = [
-  { kunci: "karakter", judul: "Kamu suka wangi seperti apa?", opsi: opsiKarakter },
-  { kunci: "waktu", judul: "Paling sering dipakai kapan?", opsi: opsiWaktu },
-  { kunci: "okasi", judul: "Untuk kegiatan apa?", opsi: opsiOkasi },
-];
-
-const jawabanContoh: JawabanKuis = {
-  karakter: "fresh",
-  waktu: "siang",
-  okasi: "kuliah-kerja",
-};
-
-const tautanJawabanContoh = `/temukan?${new URLSearchParams(
-  jawabanContoh,
-).toString()}#hasil-kuis`;
+function indeksPertanyaanAwal(jawaban: JawabanKuis) {
+  const indeks = pertanyaanKuis.findIndex((item) => !jawaban[item.kunci]);
+  return indeks === -1 ? pertanyaanKuis.length - 1 : indeks;
+}
 
 export function KuisTemukanWangimu({
   daftarProduk,
@@ -44,17 +27,66 @@ export function KuisTemukanWangimu({
   daftarProduk: Produk[];
   jawabanAwal: JawabanKuis;
 }) {
+  const router = useRouter();
+  const [jawaban, setJawaban] = useState(jawabanAwal);
+  const [langkah, setLangkah] = useState(() => indeksPertanyaanAwal(jawabanAwal));
+  const [hasilTerbuka, setHasilTerbuka] = useState(() => jawabanKuisLengkap(jawabanAwal));
   const [pesan, setPesan] = useState("");
-  const hasilTerbuka = jawabanKuisLengkap(jawabanAwal);
-  const hasil = rekomendasikanProduk(daftarProduk, jawabanAwal);
-  const labelJawaban = labelJawabanKuis(jawabanAwal);
+
+  const hasil = useMemo(
+    () => rekomendasikanProduk(daftarProduk, jawaban),
+    [daftarProduk, jawaban],
+  );
+  const produkDecant = useMemo(
+    () => ambilProdukDecant(daftarProduk),
+    [daftarProduk],
+  );
+  const labelJawaban = labelJawabanKuis(jawaban);
+  const pertanyaan = pertanyaanKuis[langkah];
+  const pilihanSaatIni = jawaban[pertanyaan.kunci];
+
+  function pilihJawaban(nilai: string) {
+    setJawaban((sebelumnya) => ({
+      ...sebelumnya,
+      [pertanyaan.kunci]: nilai,
+    }));
+    setPesan("");
+  }
+
+  function lanjutkan(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!pilihanSaatIni) {
+      setPesan("Pilih satu jawaban sebelum melanjutkan.");
+      return;
+    }
+    if (langkah < pertanyaanKuis.length - 1) {
+      setLangkah((nilai) => nilai + 1);
+      setPesan("");
+      return;
+    }
+    if (!jawabanKuisLengkap(jawaban)) {
+      setLangkah(indeksPertanyaanAwal(jawaban));
+      setPesan("Lengkapi semua jawaban untuk melihat rekomendasi.");
+      return;
+    }
+
+    const tujuan = `/temukan?${parameterJawabanKuis(jawaban).toString()}#hasil-kuis`;
+    setHasilTerbuka(true);
+    setPesan("");
+    router.push(tujuan, { scroll: false });
+    requestAnimationFrame(() => {
+      document.querySelector("#hasil-kuis")?.scrollIntoView({ behavior: "smooth" });
+    });
+  }
 
   async function bagikanHasil() {
-    const teks = `Wangiku: ${labelJawaban.karakter}, ${labelJawaban.waktu}, ${labelJawaban.okasi}.`;
+    const parameter = parameterJawabanKuis(jawaban).toString();
+    const url = `${window.location.origin}/temukan?${parameter}#hasil-kuis`;
+    const teks = `Wangiku: ${labelJawaban.aroma}, ${labelJawaban.kesan}, ${labelJawaban.intensitas}, ${labelJawaban.waktu}, dan ${labelJawaban.kegiatan}.`;
     const dataBagikan = {
       title: "Hasil Temukan Wangimu",
       text: `${teks} Lihat rekomendasinya di Wawangian Pelajar.`,
-      url: window.location.href,
+      url,
     };
 
     if (navigator.share) {
@@ -68,117 +100,130 @@ export function KuisTemukanWangimu({
     }
 
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(url);
       setPesan("Tautan hasil tersalin.");
     } catch {
       setPesan("Salin tautan hasil dari bilah alamat.");
     }
   }
 
-  return (
-    <div>
-      <form action="/temukan#hasil-kuis" method="get">
-        <div className="grid gap-4 lg:grid-cols-3">
-          {pertanyaan.map((item, indeks) => (
-            <fieldset
-              key={item.kunci}
-              className="rounded-3xl border border-[#DED3C2] bg-white p-5 shadow-sm sm:p-6"
-            >
-              <legend className="px-2 text-sm font-black text-[#102A43]">
-                {indeks + 1}. {item.judul}
-              </legend>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.opsi.map((opsi) => (
-                  <label key={opsi.nilai} className="cursor-pointer">
-                    <input
-                      type="radio"
-                      name={item.kunci}
-                      value={opsi.nilai}
-                      defaultChecked={jawabanAwal[item.kunci] === opsi.nilai}
-                      required
-                      className="peer sr-only"
-                    />
-                    <span className="block rounded-full border border-[#D9CEBF] bg-[#FAF7F1] px-4 py-2.5 text-sm font-bold text-[#282B2F] transition hover:border-[#087477] hover:text-[#087477] peer-checked:border-[#087477] peer-checked:bg-[#087477] peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-[#087477]">
-                      {opsi.label}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-          ))}
+  if (!hasilTerbuka) {
+    return (
+      <section aria-labelledby="judul-pertanyaan-kuis" className="mx-auto max-w-4xl rounded-[2rem] border border-[#DED3C2] bg-white p-5 shadow-xl shadow-[#102A43]/6 sm:p-8">
+        <div className="flex items-center justify-between gap-4">
+          <p className="text-xs font-black tracking-[0.14em] text-[#087477] uppercase">Langkah {langkah + 1} dari {pertanyaanKuis.length}</p>
+          <p className="text-xs font-bold text-[#687078]">{Math.round(((langkah + 1) / pertanyaanKuis.length) * 100)}%</p>
+        </div>
+        <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#E5F2EF]" aria-hidden="true">
+          <div className="h-full rounded-full bg-[#087477] transition-[width]" style={{ width: `${((langkah + 1) / pertanyaanKuis.length) * 100}%` }} />
         </div>
 
-        <div className="mt-6 flex flex-col items-center">
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-            <button
-              type="submit"
-              className="min-h-13 w-full rounded-full bg-[#087477] px-7 py-3 text-sm font-black text-white shadow-lg shadow-[#087477]/20 hover:bg-[#075E61] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477] sm:w-auto"
-            >
-              Lihat rekomendasi →
-            </button>
-            <Link
-              href={tautanJawabanContoh}
-              className="flex min-h-13 w-full items-center justify-center rounded-full border border-[#C7A25A] bg-[#F6EACD] px-7 py-3 text-sm font-black text-[#6D5426] hover:bg-[#EED9A7] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7A25A] sm:w-auto"
-            >
-              Rekomendasi cepat
-            </Link>
-          </div>
-        </div>
-      </form>
-
-      {hasilTerbuka ? (
-        <section id="hasil-kuis" className="mt-12 scroll-mt-28 border-t border-[#DED3C2] pt-12">
-          <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">
-            Rekomendasi untukmu
-          </p>
-          <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] text-[#102A43] sm:text-4xl">
-            {labelJawaban.karakter} · {labelJawaban.waktu} · {labelJawaban.okasi}
-          </h2>
-          <p className="mt-4 max-w-3xl rounded-2xl bg-[#E5F2EF] p-5 text-sm leading-6 text-[#0D5554]">
-            Produk diurutkan dari kecocokan data karakter aroma, waktu, dan kegiatan yang diisi pada Produk. Hasil ini adalah panduan selera, bukan klaim kecocokan mutlak.
-          </p>
-
-          {hasil.length ? (
-            <div className="mt-7 grid gap-5 md:grid-cols-3">
-              {hasil.map((item) => (
-                <div key={item.produk.slug} className="flex flex-col gap-3">
-                  <KartuProduk produk={item.produk} />
-                  <p className="rounded-2xl bg-white px-4 py-3 text-xs leading-5 text-[#282B2F]">
-                    <strong className="text-[#102A43]">Kenapa cocok:</strong>{" "}
-                    {item.alasan.join(", ")}.
-                  </p>
-                </div>
+        <form action="/temukan" method="get" onSubmit={lanjutkan} className="mt-8">
+          {Object.entries(jawaban)
+            .filter(([kunci, nilai]) => kunci !== pertanyaan.kunci && Boolean(nilai))
+            .map(([kunci, nilai]) => (
+              <input key={kunci} type="hidden" name={kunci} value={nilai} />
+            ))}
+          <fieldset>
+            <legend id="judul-pertanyaan-kuis" className="text-2xl leading-tight font-black tracking-[-0.03em] text-[#102A43] sm:text-3xl">{pertanyaan.judul}</legend>
+            <p className="mt-3 text-sm leading-6 text-[#4A4D52]">{pertanyaan.bantuan}</p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {pertanyaan.opsi.map((opsi) => (
+                <label key={opsi.nilai} className="cursor-pointer">
+                  <input
+                    type="radio"
+                    name={pertanyaan.kunci}
+                    value={opsi.nilai}
+                    checked={pilihanSaatIni === opsi.nilai}
+                    onChange={() => pilihJawaban(opsi.nilai)}
+                    className="peer sr-only"
+                  />
+                  <span className="block min-h-full rounded-2xl border border-[#DED3C2] bg-[#FAF7F1] p-4 transition hover:border-[#087477] peer-checked:border-[#087477] peer-checked:bg-[#E5F2EF] peer-focus-visible:outline-2 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-[#087477]">
+                    <strong className="block text-sm text-[#102A43]">{opsi.label}</strong>
+                    <span className="mt-1 block text-xs leading-5 text-[#4A4D52]">{opsi.deskripsi}</span>
+                  </span>
+                </label>
               ))}
             </div>
-          ) : (
-            <div className="mt-7 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-9 text-center">
-              <h3 className="text-xl font-black text-[#102A43]">Belum ada Produk yang cocok</h3>
-              <p className="mt-2 text-sm leading-6 text-[#282B2F]">
-                Data Produk untuk kombinasi ini belum tersedia. Coba pilihan lain.
-              </p>
-            </div>
-          )}
+          </fieldset>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
             <button
               type="button"
-              onClick={bagikanHasil}
-              className="min-h-12 rounded-full bg-[#C7A25A] px-6 py-3 text-sm font-black text-white hover:bg-[#9C7B3C] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#C7A25A]"
+              onClick={() => setLangkah((nilai) => Math.max(0, nilai - 1))}
+              disabled={langkah === 0}
+              className="min-h-12 rounded-full border border-[#CFC3B2] px-6 py-3 text-sm font-black text-[#102A43] disabled:cursor-not-allowed disabled:opacity-40"
             >
-              Bagikan hasil
+              ← Kembali
             </button>
-            <Link
-              href="/temukan"
-              className="min-h-12 rounded-full border border-[#CFC3B2] bg-white px-6 py-3 text-sm font-black text-[#102A43] hover:border-[#087477] hover:text-[#087477] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
-            >
-              Ulangi kuis
-            </Link>
+            <button type="submit" className="min-h-12 rounded-full bg-[#087477] px-7 py-3 text-sm font-black text-white shadow-lg shadow-[#087477]/20 hover:bg-[#075E61]">
+              {langkah === pertanyaanKuis.length - 1 ? "Lihat rekomendasi →" : "Lanjut →"}
+            </button>
           </div>
-          <p className="mt-3 min-h-5 text-sm text-[#4A4D52]" aria-live="polite">
-            {pesan}
-          </p>
-        </section>
+          <p className="mt-3 min-h-5 text-sm text-[#9e3024]" role="status">{pesan}</p>
+        </form>
+      </section>
+    );
+  }
+
+  return (
+    <section id="hasil-kuis" className="scroll-mt-28">
+      <p className="text-xs font-black tracking-[0.16em] text-[#087477] uppercase">Rekomendasi untukmu</p>
+      <h2 className="mt-3 text-3xl font-black tracking-[-0.04em] text-[#102A43] sm:text-4xl">Tiga aroma yang paling mendekati pilihanmu.</h2>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {Object.values(labelJawaban).map((label) => (
+          <span key={label} className="rounded-full bg-[#E5F2EF] px-3 py-2 text-xs font-bold text-[#0D5554]">{label}</span>
+        ))}
+      </div>
+      <p className="mt-5 max-w-3xl rounded-2xl bg-[#FFF9EA] p-5 text-sm leading-6 text-[#765B2B]">Urutan dihitung dari profil katalog dengan prioritas keluarga aroma, kesan, kegiatan, waktu/cuaca, lalu intensitas. Hasil merupakan panduan selera, bukan jaminan kecocokan mutlak.</p>
+
+      {hasil.length ? (
+        <div className="mt-7 grid gap-5 lg:grid-cols-3">
+          {hasil.map((item) => (
+            <article key={item.profil.id} className="overflow-hidden rounded-3xl border border-[#DED3C2] bg-white shadow-sm">
+              <VisualProduk produk={item.produkUtama} ringkas />
+              <div className="p-5">
+                <span className="rounded-full bg-[#F6EACD] px-3 py-1 text-[11px] font-black text-[#6D5426] uppercase">{item.tingkat}</span>
+                <h3 className="mt-4 text-xl font-black text-[#102A43]">{item.profil.nama}</h3>
+                <p className="mt-3 text-sm leading-6 text-[#282B2F]"><strong>Kenapa cocok:</strong> {item.alasan.length ? item.alasan.join(", ") : "profil katalog ini paling mendekati pilihan yang tersedia"}.</p>
+                <div className="mt-5 grid gap-2" aria-label={`Pilihan ukuran ${item.profil.nama}`}>
+                  {item.varian.map((produk) => (
+                    <Link key={produk.slug} href={`/produk/${produk.slug}`} className="flex min-h-11 items-center justify-between gap-3 rounded-xl border border-[#CFE5E0] bg-[#E5F2EF] px-4 py-2 text-sm font-bold text-[#0D5554] hover:border-[#087477]">
+                      <span>{produk.ukuran}</span>
+                      <span>{produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"} →</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-7 rounded-3xl border border-dashed border-[#CFC3B2] bg-white p-9 text-center">
+          <h3 className="text-xl font-black text-[#102A43]">Rekomendasi belum tersedia</h3>
+          <p className="mt-2 text-sm leading-6 text-[#282B2F]">Profil Produk belum dapat dibaca. Coba kembali setelah data katalog tersedia.</p>
+        </div>
+      )}
+
+      {produkDecant.length ? (
+        <aside className="mt-8 rounded-3xl bg-[#102A43] p-6 text-white sm:p-8">
+          <p className="text-xs font-black tracking-[0.14em] text-[#D1B779] uppercase">Belum yakin membeli ukuran penuh?</p>
+          <h3 className="mt-3 text-2xl font-black">Coba lewat decant.</h3>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#D9E1E8]">Decant tidak memengaruhi peringkat karena satu produknya memuat beberapa pilihan aroma. Pilih ukurannya untuk mencoba hasil rekomendasimu.</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {produkDecant.map((produk) => (
+              <Link key={produk.slug} href={`/produk/${produk.slug}`} className="rounded-full bg-white px-4 py-2.5 text-sm font-black text-[#102A43] hover:bg-[#F6EACD]">{produk.ukuran} · {formatRupiah(produk.harga)}</Link>
+            ))}
+          </div>
+        </aside>
       ) : null}
-    </div>
+
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <button type="button" onClick={bagikanHasil} className="min-h-12 rounded-full bg-[#C7A25A] px-6 py-3 text-sm font-black text-white hover:bg-[#9C7B3C]">Bagikan hasil</button>
+        <button type="button" onClick={() => { setHasilTerbuka(false); setLangkah(0); setPesan(""); }} className="min-h-12 rounded-full border border-[#087477] bg-[#E5F2EF] px-6 py-3 text-sm font-black text-[#087477]">Ubah jawaban</button>
+        <Link href="/temukan" className="flex min-h-12 items-center justify-center rounded-full border border-[#CFC3B2] bg-white px-6 py-3 text-sm font-black text-[#102A43] hover:border-[#087477] hover:text-[#087477]">Ulangi kuis</Link>
+      </div>
+      <p className="mt-3 min-h-5 text-sm text-[#4A4D52]" aria-live="polite">{pesan}</p>
+    </section>
   );
 }

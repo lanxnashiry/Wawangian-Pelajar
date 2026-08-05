@@ -15,6 +15,7 @@ export type ProdukImpor = {
   aroma_dasar: string[];
   karakter: string[];
   cocok_untuk: string[];
+  kode_profil_rekomendasi: string | null;
   foto: string[];
   link_shopee: string | null;
   link_tiktok: string | null;
@@ -136,6 +137,10 @@ export function validasiBarisProduk(baris: BarisMentah, nomorBaris: number): Has
   const aromaDasar = daftar(baris.aroma_dasar);
   const karakter = daftar(baris.karakter);
   const cocokUntuk = daftar(baris.cocok_untuk);
+  const kodeProfilRekomendasi = teks(baris.kode_profil_rekomendasi);
+  if (kodeProfilRekomendasi && !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(kodeProfilRekomendasi)) {
+    galat.push("Kode profil rekomendasi harus memakai format slug huruf kecil.");
+  }
   for (const [nilai, label] of [[aromaAtas, "Aroma atas"], [aromaTengah, "Aroma tengah"], [aromaDasar, "Aroma dasar"], [karakter, "Karakter"], [cocokUntuk, "Cocok untuk"]] as const) {
     if (!nilai.length) galat.push(`${label} wajib diisi.`);
   }
@@ -155,6 +160,7 @@ export function validasiBarisProduk(baris: BarisMentah, nomorBaris: number): Has
     nama, slug, kategori: kategori as ProdukImpor["kategori"], ukuran, harga,
     ringkasan, deskripsi, aroma_atas: aromaAtas, aroma_tengah: aromaTengah,
     aroma_dasar: aromaDasar, karakter, cocok_untuk: cocokUntuk,
+    kode_profil_rekomendasi: kodeProfilRekomendasi || null,
     foto: fotoUrl ? [fotoUrl] : [], link_shopee: linkShopee, link_tiktok: linkTiktok,
     unggulan: booleanEksplisit(baris.unggulan, "unggulan", galat, false),
     tersedia: booleanEksplisit(baris.tersedia, "tersedia", galat, true),
