@@ -4,15 +4,25 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** revisi Temukan Wangimu selesai di kode dan Supabase hosted; tinjauan pemilik serta penggabungan PR menunggu.
+**Status milestone aktif:** pemolesan teks komersial dan footer kanal resmi selesai di kode; validasi final, draft PR, serta tinjauan pemilik menunggu.
+
+## Pemolesan teks komersial — keadaan terbaru
+
+- Branch aktif `codex/m6-poles-teks-komersial` memisahkan bahasa publik dari catatan teknis tanpa mengubah data hosted, migrasi, tautan marketplace individual, atau algoritma rekomendasi.
+- Footer menampilkan Shopee, Instagram, Facebook, Email, dan WhatsApp sebagai tautan berikon dengan label ringkas. TikTok Shop tetap terlihat redup sebagai kanal mendatang, tetapi bukan tautan dan tidak dapat difokuskan atau diklik.
+- Detail seluruh 19 Produk hanya menampilkan Aroma Atas, Tengah, dan Dasar. Data Karakter serta Cocok untuk tetap tersimpan untuk Admin, entri massal, dan Temukan Wangimu.
+- Teks halaman publik Beranda, Katalog, Produk, Temukan, Dana Cahaya, Cerita, Artikel, dan Afiliasi sudah memakai bahasa pengunjung serta tidak menampilkan catatan milestone, database, Admin, placeholder, atau sumber data.
+- BUILD_SPEC naik ke 3.2. KEP-054 menggantikan kewajiban caption publik KEP-047, tetapi pemetaan foto 50 ml ke SKU 15 ml tetap dipertahankan sebagai data internal.
+
+**Validasi sesi:** 34 pengujian lulus; lint, TypeScript, dan build produksi lulus. Seluruh 19 halaman Produk serta rute publik utama diperiksa pada pratinjau lokal tanpa overflow, chip internal, atau caption teknis. Server lokal tetap berjalan pada port 3000 untuk peninjauan pemilik.
 
 ## Revisi Temukan Wangimu — keadaan terbaru
 
-- Branch aktif `codex/m6-revisi-temukan-wangimu` menambahkan profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, dan kanal resmi pada footer.
+- Revisi sebelumnya menambahkan profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, dan kanal resmi pada footer.
 - Migrasi `202608050014_profil_rekomendasi_temukan_wangimu.sql` telah diterapkan pada Supabase hosted. Verifikasi akhir mencatat 19 Produk tetap utuh, lima profil tersedia, 15 SKU tertaut, dan empat Decant tidak tertaut.
 - Form Admin Produk dapat memilih profil, sedangkan `/admin/profil-rekomendasi` mengelola lima kelompok tag baku. Workbook menerima `kode_profil_rekomendasi` opsional dan menolak kode tidak aktif/tidak dikenal.
 - Seluruh 1.125 kombinasi jawaban menghasilkan tiga keluarga unik pada fixture pengujian; ukuran dikelompokkan dan Decant tidak pernah masuk peringkat.
-- Footer global menautkan Facebook, Instagram, toko Shopee, email, dan WhatsApp resmi. Placeholder TikTok dihapus sampai URL resmi tersedia.
+- Footer global menautkan Facebook, Instagram, toko Shopee, email, dan WhatsApp resmi. TikTok Shop tampil nonaktif sampai URL resmi tersedia.
 - Jawaban kuis hanya berada pada state/URL dan tidak ditulis ke Supabase. Runtime Data Contoh tetap tidak tersedia.
 
 **Validasi akhir:** `npm test` 32/32, lint, TypeScript, dan build produksi lulus. Alur hasil baru, URL lama, kanal resmi, serta tampilan 360px/1440px telah diperiksa melalui server lokal tanpa galat aplikasi.
@@ -103,9 +113,15 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 14. ✅ Kuis lima tahap, kompatibilitas URL lama, hasil keluarga aroma, pilihan ukuran, CTA Decant, dan tinjauan visual selesai.
 15. ✅ Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp dipasang pada footer global.
 16. ✅ Pengujian otomatis bertambah menjadi 32 dan mencakup seluruh 1.125 kombinasi kuis.
+17. ✅ Teks publik dipoles menjadi bahasa komersial, footer kanal resmi diringkas dengan ikon, dan Karakter/Cocok untuk dijaga sebagai data internal.
 
 ## Validasi yang sudah dilakukan
 
+- Pengujian otomatis menjadi 34 dan mencakup penjaga teks publik serta perilaku TikTok Shop nonaktif.
+- Seluruh 19 halaman Produk merespons dengan tiga lapisan notes, tombol Shopee, nol chip profil, nol caption teknis, dan tanpa overflow horizontal pada pemeriksaan desktop; sampel 15/50/100 ml serta Decant juga diperiksa pada 360px.
+- Beranda, Katalog, Temukan, Dana Cahaya, Cerita, detail Artikel, dan Afiliasi publik diperiksa pada 360px dan 1440px tanpa istilah implementasi yang dilarang atau overflow horizontal.
+- Footer memuat lima kanal aktif dengan URL yang benar dan atribut keamanan, sedangkan TikTok Shop tidak memiliki `href`, fokus keyboard, atau aksi klik.
+- Kuis Temukan Wangimu tetap memakai 1.125 kombinasi dan pengelompokan keluarga aroma yang sama; perubahan sesi ini hanya menyentuh teks pengunjung.
 - Migrasi `202608050014_profil_rekomendasi_temukan_wangimu.sql` berhasil diterapkan pada Supabase hosted dan menghasilkan tepat 19 Produk, lima profil rekomendasi, 15 SKU tertaut, serta empat Decant tanpa profil.
 - RLS tabel profil aktif dengan empat kebijakan untuk baca profil aktif dan pengelolaan khusus Admin.
 - Seluruh 1.125 kombinasi sah menghasilkan tiga keluarga aroma unik dan deterministik pada fixture; Decant serta ukuran ganda tidak pernah masuk peringkat.
@@ -208,6 +224,7 @@ Dua akun Admin teknis tambahan, `admin.uji2@example.com` dan `admin.uji3@example
 - Satu profil rekomendasi mewakili satu keluarga aroma dan boleh ditautkan ke beberapa ukuran. Decant multi-aroma sengaja tidak memiliki profil.
 - Tag intensitas adalah klasifikasi pengalaman aroma berdasarkan deskripsi hosted, bukan jaminan ketahanan, sillage, atau proyeksi.
 - Tautan kanal, email, dan nomor WhatsApp yang diberikan pemilik dianggap resmi serta boleh tampil publik.
+- Nilai `tiktokShop: null` berarti kanal hanya menjadi penanda mendatang dan tidak boleh menghasilkan tautan atau aksi sampai URL resmi diberikan.
 - CSV M5 sengaja hanya membutuhkan `handle` dan `jumlah_pcs`; website tidak menyimpan, menghitung, atau membayar komisi dasar marketplace.
 - Laporan, materi, dan bukti bonus disimpan pada bucket privat. Materi diberikan lewat URL bertanda tangan yang berlaku 10 menit.
 - Leaderboard hanya menampilkan alias dan jumlah pcs bulan berjalan; identitas, WhatsApp, email, dan handle tidak dipublikasikan.

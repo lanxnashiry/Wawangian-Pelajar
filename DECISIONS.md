@@ -313,6 +313,12 @@
 **Alasan:** Pengunjung mencari karakter wanginya lebih dulu, bukan SKU ukuran. Lima tahap memberi konteks tambahan dengan bahasa awam, sedangkan hasil per keluarga menghilangkan duplikasi. Decant yang menggabungkan lima varian tidak dapat dinilai sebagai satu formula tanpa menyesatkan.
 **Konsekuensi:** Seluruh 1.125 kombinasi pilihan wajib menghasilkan satu sampai tiga keluarga unik selama profil aktif tersedia. Tidak ada jawaban yang ditulis ke Supabase. Bila data gagal dibaca, halaman fail closed. Tag intensitas adalah klasifikasi pengalaman aroma, bukan janji ketahanan atau proyeksi.
 
+### KEP-054 — Teks publik komersial dipisahkan dari data internal dan kanal mendatang
+**Tanggal:** 2026-08-05 · **Status:** Diterima
+**Keputusan:** Halaman publik memakai bahasa pengunjung tanpa label sumber data, catatan milestone, istilah database, atau keterangan penyimpanan. Detail Produk hanya menampilkan notes Atas, Tengah, dan Dasar; `karakter` serta `cocok_untuk` tetap menjadi data internal untuk pengelolaan dan Temukan Wangimu. Footer menampilkan nama kanal dengan ikon kecil. TikTok Shop disimpan sebagai `null` dan tampil redup tanpa tautan, fokus keyboard, atau aksi klik sampai URL resmi tersedia.
+**Alasan:** Catatan implementasi mengganggu tampilan komersial dan membingungkan pengunjung, sedangkan karakter serta kecocokan masih dibutuhkan untuk rekomendasi. Kanal yang belum siap perlu dapat dikenali tanpa memberi kesan bahwa tautannya sudah berfungsi.
+**Konsekuensi:** Kewajiban caption publik foto 15 ml pada KEP-047 digantikan oleh keputusan ini; pemetaan foto 50 ml ke Produk 15 ml tetap dipertahankan sampai aset khusus tersedia. Data Produk, field Admin, entri massal, relasi rekomendasi, dan database tidak berubah. Penambahan URL TikTok Shop memerlukan perubahan konfigurasi kanal resmi, bukan migrasi.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

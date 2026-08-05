@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.1
+- **Versi spesifikasi:** 3.2
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -119,7 +119,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 |---|---|---|
 | Homepage | `/` | Hero, banner misi, produk unggulan, kenapa beda, cerita misi, strip konten, ajakan afiliasi, bukti sosial, footer |
 | Katalog | `/katalog` | Grid produk + filter kategori + urutkan + pencarian |
-| Detail Produk | `/produk/[slug]` | Satu foto utama, profil aroma, harga, tombol beli, pesan misi, produk terkait |
+| Detail Produk | `/produk/[slug]` | Satu foto utama, tiga lapisan notes aroma, harga, tombol beli, pesan misi, produk terkait |
 | Temukan Wangimu | `/temukan` | Kuis lima tahap → rekomendasi keluarga aroma + pilihan ukuran |
 | Transparansi Donasi | `/donasi` | 3 angka, riwayat penyaluran berbukti, metode |
 | Detail Penyaluran | `/donasi/[id]` | Bukti diperbesar + tautan cerita |
@@ -282,6 +282,8 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
 - **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
+- **Data internal tidak menjadi catatan publik** — detail Produk menampilkan notes Atas, Tengah, dan Dasar. Karakter serta kecocokan tetap disimpan untuk pengelolaan dan rekomendasi, tetapi tidak ditampilkan sebagai chip. Label sumber data, caption penyimpanan, dan catatan implementasi tidak ditampilkan kepada pengunjung.
+- **Kanal resmi ringkas** — footer memakai nama kanal dan ikon kecil. Kanal yang sudah memiliki URL dapat dibuka, sedangkan TikTok Shop tampil redup tanpa tautan sampai toko siap.
 - **Input harga tanpa stepper** — formulir Admin menerima digit harga tanpa tombol panah naik/turun bawaan peramban. Nilai tetap wajib berupa bilangan bulat tidak negatif dan disimpan dalam satuan rupiah.
 - **Metadata beranda berorientasi pencarian** — judul utama menargetkan “Decant Parfum Original untuk Mahasiswa”, sedangkan deskripsi merangkum pilihan mulai 1 ml dan misi 20% laba untuk pendidikan. Istilah “laba” pada metadata berarti laba bersih setiap transaksi sesuai BR-1, bukan laba/rugi perusahaan.
 - **Cerita dulu, jualan kemudian**: elemen misi tampil dekat elemen produk.
@@ -308,7 +310,7 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 **AC-Katalog & Produk:**
 - Filter kategori & pencarian mengembalikan hasil yang benar; state kosong menampilkan "segera hadir"/"tidak ditemukan".
 - Detail Produk menampilkan maksimal satu foto utama tanpa thumbnail galeri buatan; unggahan baru melalui Admin menjadi foto utama pengganti.
-- Detail produk menampilkan profil aroma lengkap & tombol beli sesuai jumlah marketplace aktif.
+- Detail Produk menampilkan notes Atas, Tengah, dan Dasar serta tombol beli sesuai jumlah marketplace aktif; Karakter dan Cocok untuk tetap menjadi data internal.
 - Lini "inspirasi" menampilkan label "Racikan Sendiri".
 
 **AC-Temukan Wangimu:**
@@ -456,4 +458,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v3.1 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v3.2 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

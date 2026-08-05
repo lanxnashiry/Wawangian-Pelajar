@@ -49,6 +49,6 @@ export async function daftarAfiliasi(formulir: FormData) {
   });
 
   if (error) kembali(error.message.includes("duplicate") ? "Email, alias, atau handle sudah digunakan." : error.message);
-  if (data.session) redirect("/afiliasi/dashboard?pesan=Pendaftaran+terkirim+dan+menunggu+verifikasi+Admin");
-  redirect("/afiliasi/masuk?pesan=Periksa+email+untuk+mengonfirmasi+akun,+lalu+masuk.+Pendaftaran+tetap+menunggu+verifikasi+Admin");
+  if (data.session) redirect("/afiliasi/dashboard?pesan=Pendaftaran+terkirim+dan+menunggu+verifikasi+akun");
+  redirect("/afiliasi/masuk?pesan=Periksa+email+untuk+mengonfirmasi+akun,+lalu+masuk.+Pendaftaran+tetap+menunggu+verifikasi+akun");
 }

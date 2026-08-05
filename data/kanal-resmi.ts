@@ -3,6 +3,7 @@ export const kanalResmi = {
   instagram: "https://www.instagram.com/wawangianpelajar",
   shopee:
     "https://shopee.co.id/rc_8sgjecg?categoryId=100630&entryPoint=ShopByPDP&itemId=50414917543",
+  tiktokShop: null,
   email: "mailto:admin@wawangianpelajar.com",
   whatsapp: "https://wa.me/6285176985756",
 } as const;

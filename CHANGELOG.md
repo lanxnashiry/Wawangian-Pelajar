@@ -2,6 +2,34 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-05] — Pemolesan teks komersial dan footer kanal resmi
+
+### Ditambahkan
+
+- Ikon monokrom kecil untuk Shopee, TikTok Shop, Instagram, Facebook, Email, dan WhatsApp pada footer.
+- Status TikTok Shop nonaktif tanpa tautan, fokus keyboard, atau aksi klik sampai toko siap.
+- Pengujian otomatis untuk mencegah catatan implementasi, caption teknis, label sumber data, dan chip internal kembali tampil pada halaman publik.
+
+### Diubah
+
+- Footer memakai label kanal ringkas dalam dua kolom Belanja serta Ikuti & Hubungi.
+- Teks Beranda, Katalog, Temukan Wangimu, Dana Cahaya Pendidikan, Cerita, Artikel, dan Afiliasi diselaraskan menjadi bahasa pengunjung.
+- Detail Produk hanya menampilkan notes Atas, Tengah, dan Dasar; Karakter serta Cocok untuk tetap tersimpan untuk pengelolaan dan rekomendasi.
+- Alt foto Produk disederhanakan menjadi “Foto produk [nama]”, sedangkan Artikel tanpa gambar memakai judulnya sebagai keterangan visual.
+- BUILD_SPEC naik dari 3.1 menjadi 3.2 dan KEP-054 menggantikan kewajiban caption publik pada KEP-047 tanpa mengubah pemetaan foto.
+
+### Dihapus
+
+- Label “Data terverifikasi” atau “Data contoh”, caption penyimpanan/foto referensi, catatan milestone, pesan Admin, dan istilah implementasi lain dari antarmuka publik.
+- Kalimat identitas palet dari footer serta chip Karakter/Cocok untuk dari detail Produk.
+
+### Validasi
+
+- `npm.cmd test` 34/34, lint, TypeScript, dan build produksi lulus.
+- Seluruh 19 halaman Produk mempertahankan tiga lapisan notes dan tombol Shopee tanpa chip internal atau caption teknis.
+- Beranda, Katalog, detail Produk, Decant, Temukan, Dana Cahaya, Cerita, Artikel, dan Afiliasi publik diperiksa pada 360px serta 1440px tanpa overflow horizontal.
+- Footer aktif memiliki URL serta atribut keamanan yang benar; TikTok Shop tidak memiliki tautan, fokus keyboard, atau aksi klik.
+
 ## [2026-08-05] — Revisi Temukan Wangimu dan kanal resmi
 
 ### Ditambahkan
