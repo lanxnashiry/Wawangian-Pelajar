@@ -331,6 +331,12 @@
 **Alasan:** Empat Produk Decant hosted sudah menunjuk satu PNG 2,20 MB yang sama, tetapi visualnya memuat atribut ukuran vial yang tidak sesuai. Visual katalog deterministik 46 KB mengurangi sumber sebesar 97,9% tanpa mengarang bentuk barang. Internal link kontekstual menghubungkan trafik Artikel ke kuis dan Produk tanpa menyunting konten hosted atau menjejalkan tautan ke paragraf.
 **Konsekuensi:** Database dan objek Storage tidak diubah; foto non-Decant tetap memakai data hosted. Nama serta karakter ringkas varian harus mengikuti data Produk production. Transaksi dan pilihan varian tetap diselesaikan di listing Shopee.
 
+### KEP-057 — Produk memakai galeri empat foto dan identitas visual terbaru
+**Tanggal:** 2026-08-08 · **Status:** Diterima
+**Keputusan:** Setiap Produk dapat memiliki maksimal empat foto. Detail Produk memakai galeri `object-contain`, thumbnail horizontal, tombol sebelumnya/berikutnya, dan status posisi accessible tanpa autoplay atau dependency carousel. Foto pertama menjadi gambar utama kartu/SEO. Admin dapat menambah foto, menghapus, dan menjadikan foto utama. Identitas terbaru WAWANGIAN PELAJAR — FRAGRANCE HOME dipakai sebagai monogram header, logo penuh footer, favicon, dan Open Graph.
+**Alasan:** `object-cover` memotong botol/kemasan dan terasa seperti zoom, sedangkan galeri empat foto cukup untuk memperlihatkan Produk tanpa membuat halaman ramai. Logo penuh tidak terbaca pada header 70 px, sehingga header memakai monogram terbaru dengan nama brand teks, sementara footer menampilkan lockup lengkap.
+**Konsekuensi:** Schema `foto text[]` yang sudah ada dipakai tanpa migrasi. Upload dibatasi empat foto dan 5 MB per foto. Kegagalan upload membersihkan berkas baru serta mempertahankan foto lama; URL tersembunyi wajib berasal dari Produk yang sedang diedit. Objek Storage yang dilepas hanya dihapus bila tidak dipakai Produk lain. Visual Decant lokal menjadi fallback saat tidak ada foto Admin, bukan override permanen.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

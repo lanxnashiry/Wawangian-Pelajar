@@ -36,7 +36,9 @@ export const labelKategori: Record<KategoriProduk, string> = {
 };
 
 export function ambilFotoProduk(kategori: KategoriProduk, foto: string[]) {
-  return kategori === "decant" ? ["/produk-decant-mykonos.webp"] : foto;
+  return kategori === "decant" && foto.length === 0
+    ? ["/produk-decant-mykonos.webp"]
+    : foto.slice(0, 4);
 }
 
 export function selaraskanRingkasanProduk(

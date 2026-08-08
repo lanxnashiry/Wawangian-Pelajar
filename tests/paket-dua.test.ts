@@ -3,9 +3,13 @@ import { readFileSync, statSync } from "node:fs";
 import test from "node:test";
 import { ambilFotoProduk, selaraskanRingkasanProduk } from "../data/produk.ts";
 
-test("Produk Decant memakai satu aset WebP terkompresi", () => {
+test("Produk Decant memakai foto Admin dan fallback WebP saat galeri kosong", () => {
   assert.deepEqual(
-    ambilFotoProduk("decant", ["https://example.com/foto-besar.png"]),
+    ambilFotoProduk("decant", ["https://example.com/foto-admin.webp"]),
+    ["https://example.com/foto-admin.webp"],
+  );
+  assert.deepEqual(
+    ambilFotoProduk("decant", []),
     ["/produk-decant-mykonos.webp"],
   );
 

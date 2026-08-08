@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.4
+- **Versi spesifikasi:** 3.5
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -108,7 +108,7 @@ Ajakan afiliasi (Homepage/Konten) → Landing "Jadi Afiliasi" → Pendaftaran (s
 Homepage/footer → "Lihat bukti transparansi" → Halaman Donasi (3 angka: terkumpul/tersalurkan/saldo amanah) → buka detail penyaluran (bukti transfer + penerima) → baca "Bagaimana angka dihitung" → klik "Baca cerita lengkap" → artikel Cerita Misi (Modul Konten).
 
 ### Flow D — Admin (operasional rutin)
-Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter/okasi untuk kuis, link marketplace) → Rekap Penjualan→Donasi (input untung + metode, sistem hitung 20%) → input Penyaluran + unggah bukti → publikasikan + tulis cerita dampak → Afiliasi (verifikasi handle, unggah laporan marketplace, sistem cocokkan & hitung bonus per pcs, payout) → Konten (tulis artikel) → semua aksi sensitif tercatat di Log Audit.
+Login → Dasbor → kelola Produk (galeri maksimal empat foto, profil aroma, data karakter/lokasi untuk kuis, link marketplace) → Rekap Penjualan→Donasi (input untung + metode, sistem hitung 20%) → input Penyaluran + unggah bukti → publikasikan + tulis cerita dampak → Afiliasi (verifikasi handle, unggah laporan marketplace, sistem cocokkan & hitung bonus per pcs, payout) → Konten (tulis artikel) → semua aksi sensitif tercatat di Log Audit.
 
 ---
 
@@ -119,7 +119,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 |---|---|---|
 | Homepage | `/` | Hero, banner misi, produk unggulan, kenapa beda, cerita misi, strip konten, ajakan afiliasi, bukti sosial, footer |
 | Katalog | `/katalog` | Grid produk + filter kategori + urutkan + pencarian |
-| Detail Produk | `/produk/[slug]` | Satu foto utama, harga, nilai per ml khusus Decant, CTA marketplace ganda, WhatsApp sekunder, deskripsi, tiga lapisan notes aroma, pesan misi, produk terkait |
+| Detail Produk | `/produk/[slug]` | Galeri maksimal empat foto utuh, harga, nilai per ml khusus Decant, CTA marketplace ganda, WhatsApp sekunder, deskripsi, tiga lapisan notes aroma, pesan misi, produk terkait |
 | Temukan Wangimu | `/temukan` | Kuis lima tahap → rekomendasi keluarga aroma + pilihan ukuran |
 | Transparansi Donasi | `/donasi` | 3 angka, riwayat penyaluran berbukti, metode |
 | Detail Penyaluran | `/donasi/[id]` | Bukti diperbesar + tautan cerita |
@@ -281,7 +281,7 @@ Komposisi acuan: sekitar 65% Warm Cream/Off-White, 20% Deep Navy, 10% Premium Te
 - **Mobile-first**: rancang untuk layar HP dulu, lalu lebarkan ke desktop.
 - **Ringan & cepat**: optimalkan gambar, hindari animasi berat, hemat kuota.
 - **Visual Produk dapat memakai AI secara terkendali** — foto asli tetap diutamakan, tetapi gambar hasil AI atau penyempurnaan AI boleh dipakai untuk menambah dan mempercantik visual katalog. Gambar wajib diberi penanda “Visual ilustrasi” bila tidak menggambarkan foto Produk nyata secara langsung, serta tidak boleh memalsukan bentuk, ukuran, isi, warna, kemasan, manfaat, sertifikasi, dukungan pihak lain, atau kondisi Produk.
-- **Satu foto utama per Produk** — formulir Admin hanya menerima satu unggahan dan unggahan baru menggantikan foto utama lama. Detail Produk tidak menampilkan galeri atau thumbnail “Tampak depan”, “Detail botol”, dan “Kemasan” yang tidak memiliki sumber foto tersendiri.
+- **Galeri maksimal empat foto per Produk** — foto pertama menjadi gambar utama untuk kartu/SEO. Detail memakai `object-contain`, thumbnail horizontal, dan tombol sebelumnya/berikutnya tanpa autoplay atau library carousel. Admin dapat menambah, menghapus, dan menjadikan foto utama; penghapusan objek Storage hanya dilakukan bila URL tidak dipakai Produk lain.
 - **Data internal tidak menjadi catatan publik** — detail Produk menampilkan notes Atas, Tengah, dan Dasar. Karakter serta kecocokan tetap disimpan untuk pengelolaan dan rekomendasi, tetapi tidak ditampilkan sebagai chip. Label sumber data, caption penyimpanan, dan catatan implementasi tidak ditampilkan kepada pengunjung.
 - **Kanal resmi ringkas** — footer memakai nama kanal dan ikon kecil. Kanal yang sudah memiliki URL dapat dibuka, sedangkan TikTok Shop tampil redup tanpa tautan sampai toko siap.
 - **Input harga tanpa stepper** — formulir Admin menerima digit harga tanpa tombol panah naik/turun bawaan peramban. Nilai tetap wajib berupa bilangan bulat tidak negatif dan disimpan dalam satuan rupiah.
@@ -309,7 +309,7 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 
 **AC-Katalog & Produk:**
 - Filter kategori & pencarian mengembalikan hasil yang benar; state kosong menampilkan "segera hadir"/"tidak ditemukan".
-- Detail Produk menampilkan maksimal satu foto utama tanpa thumbnail galeri buatan; unggahan baru melalui Admin menjadi foto utama pengganti.
+- Detail Produk menampilkan satu sampai empat foto melalui galeri accessible; gambar utuh memakai `object-contain`, foto pertama menjadi utama, dan tampilan satu foto tetap bekerja tanpa kontrol yang tidak perlu.
 - Detail Produk menampilkan harga dan ringkasan sebelum CTA marketplace pertama; CTA marketplace kedua berada setelah profil aroma serta pesan misi agar pembeli cepat maupun pembaca detail sama-sama terlayani.
 - WhatsApp menjadi CTA sekunder berisi pesan otomatis nama dan ukuran Produk; transaksi tetap berlangsung di marketplace.
 - Produk Decant menampilkan harga per ml yang dihitung deterministik dari harga ÷ ukuran dan label nilai faktual. Harga coret/diskon semu dilarang; harga pembanding hanya boleh tampil untuk promo nyata yang memiliki periode serta harga normal yang dapat dibuktikan.

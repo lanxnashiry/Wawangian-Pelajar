@@ -7,7 +7,7 @@ export function VisualProduk({ produk, ringkas = false }: { produk: Produk; ring
   const sumber = produk.foto?.[0];
   if (!sumber) return <PlaceholderVisual warna={produk.warna} ringkas={ringkas}/>;
 
-  return <div className={`relative overflow-hidden bg-white ${ringkas ? "aspect-[4/3]" : "aspect-square"}`}><Image src={sumber} alt={`Foto produk ${produk.nama}`} fill sizes={ringkas ? "(max-width: 768px) 50vw, 25vw" : "(max-width: 1024px) 100vw, 50vw"} loading={ringkas ? "lazy" : "eager"} className="object-cover"/></div>;
+  return <div className={`relative overflow-hidden bg-[#FAF7F1] ${ringkas ? "aspect-[4/3]" : "aspect-square"}`}><Image src={sumber} alt={`Foto produk ${produk.nama}`} fill sizes={ringkas ? "(max-width: 768px) 50vw, 25vw" : "(max-width: 1024px) 100vw, 50vw"} loading={ringkas ? "lazy" : "eager"} className="object-contain p-3 sm:p-4"/></div>;
 }
 
 export function VisualArtikel({ artikel, ringkas = false }: { artikel: Artikel; ringkas?: boolean }) {

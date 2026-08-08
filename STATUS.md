@@ -4,7 +4,19 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Paket 2 optimasi ringan selesai di kode; validasi penuh dan tinjauan pemilik berlangsung.
+**Status milestone aktif:** galeri Produk dan identitas visual terbaru selesai di kode; quality gate final serta deployment berlangsung.
+
+## Galeri Produk dan identitas visual — keadaan terbaru
+
+- Detail Produk mendukung maksimal empat foto dengan `object-contain`, thumbnail horizontal, tombol sebelumnya/berikutnya, dan status posisi accessible tanpa autoplay atau library carousel.
+- Kartu Katalog/Temukan juga memakai `object-contain`, sehingga botol dan kemasan terlihat utuh tanpa crop/zoom agresif.
+- Admin dapat menambah beberapa foto, menghapus, dan menjadikan foto utama. Upload dibatasi empat total serta 5 MB per foto; rollback membersihkan berkas baru bila gagal dan foto lama tetap aman.
+- URL foto dari hidden input hanya diterima bila sudah dimiliki Produk. Objek Storage hanya dihapus jika tidak dipakai Produk lain.
+- Visual Decant lokal menjadi fallback ketika galeri hosted kosong; foto Admin mengalahkan fallback.
+- Logo terbaru diturunkan langsung dari aset pemilik: monogram untuk header/login, lockup penuh untuk footer, ikon 512, dan OG 1200×630. QA visual lulus; header tidak memakai lockup penuh karena tagline tidak terbaca pada tinggi 70 px.
+- Tidak ada migrasi database karena `foto text[]` sudah mendukung banyak foto. BUILD_SPEC naik ke 3.5 dan KEP-057 mengunci perilaku.
+
+**Verifikasi akhir:** `npm test` 52/52, TypeScript, lint, build produksi, dan `git diff --check` lulus. Render lokal membuktikan Produk satu-foto tampil utuh tanpa kontrol panah kosong, kartu/detail bebas crop, serta logo terbaru tampil pada header, footer, login, favicon, dan metadata. Seluruh turunan logo lulus QA visual.
 
 ## Paket 2 optimasi ringan — keadaan terbaru
 

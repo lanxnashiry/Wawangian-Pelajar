@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "/og-wawangian-pelajar.png",
         width: 1200,
         height: 630,
-        alt: "Wawangian Pelajar",
+        alt: "WAWANGIAN PELAJAR — FRAGRANCE HOME",
       },
     ],
   },

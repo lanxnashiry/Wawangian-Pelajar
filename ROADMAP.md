@@ -115,6 +115,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Teks publik dipoles menjadi bahasa komersial, footer kanal diringkas dengan ikon, dan data Karakter/Cocok untuk disembunyikan dari detail Produk
 - ✅ Optimasi konversi Detail Produk: CTA marketplace ganda, WhatsApp sekunder, dan nilai per ml Decant tanpa diskon semu
 - ✅ Paket optimasi ringan: aset Decant WebP tunggal, ringkasan enam varian, dan internal link Artikel ke kuis/katalog/Decant
+- ✅ Galeri maksimal empat foto, tampilan Produk utuh, pengelolaan foto Admin aman, dan identitas visual terbaru
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---
