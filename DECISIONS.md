@@ -325,6 +325,12 @@
 **Alasan:** CTA ganda menjaga tombol pembelian cepat terlihat ketika deskripsi panjang tanpa memakai sticky bar yang mengganggu estetika. Harga per ml membantu membandingkan ukuran Decant secara jujur, sedangkan harga coret buatan akan bertentangan dengan kewajiban informasi harga yang benar dan positioning transparansi brand.
 **Konsekuensi:** Tidak ada perubahan database atau checkout internal. Harga pembanding hanya boleh ditambahkan kelak untuk promo nyata dengan harga normal, periode, serta sinkronisasi marketplace yang dapat dibuktikan. Semua hitungan nilai per ml memakai kode deterministik, bukan teks Admin atau AI.
 
+### KEP-056 — Paket optimasi ringan memakai aset Decant faktual dan jalur Artikel
+**Tanggal:** 2026-08-08 · **Status:** Diterima
+**Keputusan:** Semua Produk Decant memakai satu visual katalog WebP lokal yang memuat enam varian aktif dan ukuran 1/2/5/10 ml. Detail Decant merangkum keenam varian tanpa selector checkout. Setiap Artikel memberi jalur ke Temukan Wangimu dan jalur kedua ke Decant 5 ml untuk kategori edukasi atau Katalog untuk kategori lain.
+**Alasan:** Empat Produk Decant hosted sudah menunjuk satu PNG 2,20 MB yang sama, tetapi visualnya memuat atribut ukuran vial yang tidak sesuai. Visual katalog deterministik 46 KB mengurangi sumber sebesar 97,9% tanpa mengarang bentuk barang. Internal link kontekstual menghubungkan trafik Artikel ke kuis dan Produk tanpa menyunting konten hosted atau menjejalkan tautan ke paragraf.
+**Konsekuensi:** Database dan objek Storage tidak diubah; foto non-Decant tetap memakai data hosted. Nama serta karakter ringkas varian harus mengikuti data Produk production. Transaksi dan pilihan varian tetap diselesaikan di listing Shopee.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

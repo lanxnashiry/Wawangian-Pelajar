@@ -1,5 +1,9 @@
 import { type Artikel, type BagianArtikel } from "@/data/artikel";
-import { type Produk } from "@/data/produk";
+import {
+  ambilFotoProduk,
+  selaraskanRingkasanProduk,
+  type Produk,
+} from "@/data/produk";
 import type { ProfilRekomendasi } from "@/data/profil-rekomendasi";
 import { konfigurasiSupabasePublikTersedia } from "@/lib/supabase/konfigurasi";
 import { buatKlienSupabasePublik } from "@/lib/supabase/klien-publik";
@@ -69,7 +73,7 @@ export function petakanProduk(baris: BarisProduk): Produk {
     kategori: baris.kategori,
     ukuran: baris.ukuran,
     harga: Number(baris.harga),
-    ringkasan: baris.ringkasan,
+    ringkasan: selaraskanRingkasanProduk(baris.kategori, baris.ringkasan),
     deskripsi: baris.deskripsi,
     profilAroma: {
       atas: baris.aroma_atas,
@@ -91,7 +95,7 @@ export function petakanProduk(baris: BarisProduk): Produk {
           aktif: baris.profil_rekomendasi.aktif,
         }
       : undefined,
-    foto: baris.foto,
+    foto: ambilFotoProduk(baris.kategori, baris.foto),
     linkMarketplace: {
       shopee: baris.link_shopee ?? undefined,
       tiktok: baris.link_tiktok ?? undefined,

@@ -35,6 +35,19 @@ export const labelKategori: Record<KategoriProduk, string> = {
   signature: "Signature",
 };
 
+export function ambilFotoProduk(kategori: KategoriProduk, foto: string[]) {
+  return kategori === "decant" ? ["/produk-decant-mykonos.webp"] : foto;
+}
+
+export function selaraskanRingkasanProduk(
+  kategori: KategoriProduk,
+  ringkasan: string,
+) {
+  return kategori === "decant"
+    ? ringkasan.replace(/lima varian/gi, "enam varian")
+    : ringkasan;
+}
+
 export function formatRupiah(nilai: number) {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",

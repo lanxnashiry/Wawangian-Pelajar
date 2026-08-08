@@ -4,7 +4,17 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** optimasi konversi Detail Produk selesai di kode; validasi penuh dan tinjauan pemilik berlangsung.
+**Status milestone aktif:** Paket 2 optimasi ringan selesai di kode; validasi penuh dan tinjauan pemilik berlangsung.
+
+## Paket 2 optimasi ringan — keadaan terbaru
+
+- Empat Produk Decant hosted sudah menunjuk satu URL PNG 2,20 MB yang sama. Antarmuka kini mengoverride semuanya ke satu visual katalog WebP lokal 46 KB (hemat 97,9%); database dan Storage tidak diubah.
+- Visual katalog deterministik menampilkan enam varian production—California Blue, California Signature, Dreamscape, Glitch, Monaco Royale, dan Royal Ispahan—serta ukuran 1/2/5/10 ml tanpa menggambarkan botol atau volume palsu.
+- Detail Decant merangkum keenam varian dan menjelaskan bahwa pilihan dilakukan di Shopee, tanpa selector checkout.
+- Semua Artikel mendapat internal link ke Temukan Wangimu; Artikel edukasi juga menuju Decant 5 ml, sedangkan kategori lain menuju Katalog.
+- BUILD_SPEC naik ke 3.4 dan keputusan dicatat sebagai KEP-056.
+
+**Verifikasi akhir:** `npm test` 45/45, TypeScript, lint, build produksi, dan `git diff --check` lulus. Render lokal membuktikan WebP/ringkasan enam varian hanya berlaku pada Decant, foto Ori tetap dari hosted, dan jalur Artikel sesuai kategori.
 
 ## Optimasi konversi Detail Produk — keadaan terbaru
 
