@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-08] — Paket 2 optimasi aset dan internal link
+
+### Ditambahkan
+
+- Satu visual katalog WebP lokal 46 KB untuk seluruh Produk Decant, berisi enam varian aktif dan empat ukuran tanpa atribut fisik palsu.
+- Ringkasan enam varian pada Detail Decant beserta keterangan bahwa pilihan dilakukan di Shopee.
+- Internal link Artikel menuju Temukan Wangimu dan jalur kedua menuju Decant 5 ml atau Katalog sesuai kategori.
+- Lima pengujian untuk override foto Decant, batas 200 KB, isolasi foto non-Decant, penyelarasan enam varian, ringkasan varian, dan jalur Artikel.
+
+### Diubah
+
+- Foto Decant publik beralih dari satu PNG hosted 2,20 MB ke satu WebP lokal 46 KB (hemat 97,9%) tanpa mengubah database atau Storage.
+- BUILD_SPEC naik dari 3.3 menjadi 3.4; KEP-056 mencatat batas aset faktual dan internal link kontekstual.
+
+### Validasi
+
+- `npm test` 45/45, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- Render lokal mengonfirmasi WebP/ringkasan enam varian hanya pada Decant, foto Ori tetap hosted, serta jalur Artikel mengikuti kategori.
+
 ## [2026-08-05] — CTA ganda dan nilai Decant faktual
 
 ### Ditambahkan

@@ -183,6 +183,30 @@ export default async function HalamanArtikel({ params }: ParameterHalaman) {
               {tindakan.teksTautan}
             </Link>
           </aside>
+
+          <nav aria-label="Lanjutkan dari artikel" className="mt-5 grid gap-3 sm:grid-cols-2">
+            <Link
+              href="/temukan"
+              className="rounded-2xl border border-[#CFE5E0] bg-[#E5F2EF] p-5 text-sm font-black text-[#0D5554] hover:border-[#087477]"
+            >
+              Temukan aroma yang cocok →
+            </Link>
+            {artikel.kategori === "edukasi" ? (
+              <Link
+                href="/produk/decant-mykonos-original-5ml-pilih-varian"
+                className="rounded-2xl border border-[#DED3C2] bg-white p-5 text-sm font-black text-[#102A43] hover:border-[#087477]"
+              >
+                Coba lewat Decant 5 ml →
+              </Link>
+            ) : (
+              <Link
+                href="/katalog"
+                className="rounded-2xl border border-[#DED3C2] bg-white p-5 text-sm font-black text-[#102A43] hover:border-[#087477]"
+              >
+                Lihat seluruh katalog →
+              </Link>
+            )}
+          </nav>
         </div>
       </article>
 

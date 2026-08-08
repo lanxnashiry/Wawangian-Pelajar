@@ -17,6 +17,15 @@ type ParameterHalaman = {
   params: Promise<{ slug: string }>;
 };
 
+const varianDecant = [
+  ["California Blue", "Buah segar dan akuatik"],
+  ["California Signature", "Sitrus, akuatik, dan kayu"],
+  ["Dreamscape", "Buah tropis dan praline manis"],
+  ["Glitch", "Sitrus segar, aromatik, dan kayu"],
+  ["Monaco Royale", "Buah, hijau, dan kayu lembut"],
+  ["Royal Ispahan", "Mawar, buah, dan lembut creamy"],
+] as const;
+
 export const revalidate = 300;
 
 export async function generateMetadata({
@@ -137,6 +146,23 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
                 {produk.deskripsi}
               </p>
             </div>
+
+            {produk.kategori === "decant" ? (
+              <section className="mt-5 rounded-3xl border border-[#CFE5E0] bg-[#E5F2EF] p-5 sm:p-6">
+                <h2 className="text-xl font-black text-[#102A43]">Pilih aroma favoritmu</h2>
+                <p className="mt-2 text-sm leading-6 text-[#4A4D52]">
+                  Pilihan aroma dilakukan di Shopee setelah kamu menekan tombol beli.
+                </p>
+                <ul className="mt-4 grid gap-2 text-sm sm:grid-cols-2">
+                  {varianDecant.map(([nama, karakter]) => (
+                    <li key={nama} className="rounded-2xl bg-white px-4 py-3">
+                      <strong className="block text-[#102A43]">{nama}</strong>
+                      <span className="mt-1 block text-xs text-[#4A4D52]">{karakter}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
 
             <div className="mt-5 rounded-3xl border border-[#DED3C2] bg-white p-5 sm:p-6">
               <h2 className="text-xl font-black text-[#102A43]">Profil aroma</h2>

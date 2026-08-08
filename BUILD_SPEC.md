@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.3
+- **Versi spesifikasi:** 3.4
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -314,6 +314,8 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 - WhatsApp menjadi CTA sekunder berisi pesan otomatis nama dan ukuran Produk; transaksi tetap berlangsung di marketplace.
 - Produk Decant menampilkan harga per ml yang dihitung deterministik dari harga ÷ ukuran dan label nilai faktual. Harga coret/diskon semu dilarang; harga pembanding hanya boleh tampil untuk promo nyata yang memiliki periode serta harga normal yang dapat dibuktikan.
 - Detail Produk menampilkan notes Atas, Tengah, dan Dasar; Karakter dan Cocok untuk tetap menjadi data internal.
+- Semua Produk Decant memakai satu aset WebP lokal terkompresi; detail Decant merangkum enam varian aktif dan menjelaskan bahwa pilihan dilakukan di Shopee tanpa membuat selector checkout.
+- Artikel menyediakan internal link ke Temukan Wangimu serta jalur kedua: Artikel edukasi ke Decant 5 ml, kategori lain ke Katalog.
 - Lini "inspirasi" menampilkan label "Racikan Sendiri".
 
 **AC-Temukan Wangimu:**
