@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.2
+- **Versi spesifikasi:** 3.3
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -119,7 +119,7 @@ Login → Dasbor → kelola Produk (satu foto utama, profil aroma, data karakter
 |---|---|---|
 | Homepage | `/` | Hero, banner misi, produk unggulan, kenapa beda, cerita misi, strip konten, ajakan afiliasi, bukti sosial, footer |
 | Katalog | `/katalog` | Grid produk + filter kategori + urutkan + pencarian |
-| Detail Produk | `/produk/[slug]` | Satu foto utama, tiga lapisan notes aroma, harga, tombol beli, pesan misi, produk terkait |
+| Detail Produk | `/produk/[slug]` | Satu foto utama, harga, nilai per ml khusus Decant, CTA marketplace ganda, WhatsApp sekunder, deskripsi, tiga lapisan notes aroma, pesan misi, produk terkait |
 | Temukan Wangimu | `/temukan` | Kuis lima tahap → rekomendasi keluarga aroma + pilihan ukuran |
 | Transparansi Donasi | `/donasi` | 3 angka, riwayat penyaluran berbukti, metode |
 | Detail Penyaluran | `/donasi/[id]` | Bukti diperbesar + tautan cerita |
@@ -310,7 +310,10 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 **AC-Katalog & Produk:**
 - Filter kategori & pencarian mengembalikan hasil yang benar; state kosong menampilkan "segera hadir"/"tidak ditemukan".
 - Detail Produk menampilkan maksimal satu foto utama tanpa thumbnail galeri buatan; unggahan baru melalui Admin menjadi foto utama pengganti.
-- Detail Produk menampilkan notes Atas, Tengah, dan Dasar serta tombol beli sesuai jumlah marketplace aktif; Karakter dan Cocok untuk tetap menjadi data internal.
+- Detail Produk menampilkan harga dan ringkasan sebelum CTA marketplace pertama; CTA marketplace kedua berada setelah profil aroma serta pesan misi agar pembeli cepat maupun pembaca detail sama-sama terlayani.
+- WhatsApp menjadi CTA sekunder berisi pesan otomatis nama dan ukuran Produk; transaksi tetap berlangsung di marketplace.
+- Produk Decant menampilkan harga per ml yang dihitung deterministik dari harga ÷ ukuran dan label nilai faktual. Harga coret/diskon semu dilarang; harga pembanding hanya boleh tampil untuk promo nyata yang memiliki periode serta harga normal yang dapat dibuktikan.
+- Detail Produk menampilkan notes Atas, Tengah, dan Dasar; Karakter dan Cocok untuk tetap menjadi data internal.
 - Lini "inspirasi" menampilkan label "Racikan Sendiri".
 
 **AC-Temukan Wangimu:**

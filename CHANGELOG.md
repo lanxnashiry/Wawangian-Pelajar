@@ -2,6 +2,25 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-05] — CTA ganda dan nilai Decant faktual
+
+### Ditambahkan
+
+- CTA marketplace pertama setelah harga/ringkasan dan CTA kedua setelah profil aroma/pesan misi.
+- CTA WhatsApp sekunder dengan pesan otomatis nama serta ukuran Produk.
+- Harga per ml dan label nilai faktual pada kartu serta detail Produk Decant.
+- Pengujian deterministik untuk nilai Decant dan penjaga agar harga coret/diskon semu tidak masuk antarmuka publik.
+
+### Diubah
+
+- Deskripsi panjang dipindahkan ke blok “Tentang produk” setelah CTA pertama agar pembeli cepat segera melihat tombol beli.
+- BUILD_SPEC naik dari 3.2 menjadi 3.3; KEP-055 mengunci CTA ganda dan melarang harga pembanding tanpa promo nyata.
+
+### Validasi
+
+- `npm test` 40/40, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- Render lokal mengonfirmasi nilai per ml hanya tampil pada Decant, CTA WhatsApp/Tentang Produk tampil pada Decant dan Ori, serta tidak ada harga coret.
+
 ## [2026-08-05] — Pemolesan teks komersial dan footer kanal resmi
 
 ### Ditambahkan

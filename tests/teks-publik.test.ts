@@ -53,3 +53,23 @@ test("detail Produk hanya menampilkan tiga lapisan aroma", () => {
   assert.doesNotMatch(sumberDetailProduk, /profilAroma\.cocokUntuk/);
   assert.match(sumberVisualProduk, /Foto produk \$\{produk\.nama\}/);
 });
+
+test("detail Produk menyediakan CTA ganda dan WhatsApp sekunder", () => {
+  const sumberDetailProduk = bacaSumber("../app/(publik)/produk/[slug]/page.tsx");
+
+  assert.equal((sumberDetailProduk.match(/<JembatanMarketplace/g) ?? []).length, 2);
+  assert.match(sumberDetailProduk, /Tanya lewat WhatsApp/);
+  assert.match(sumberDetailProduk, /encodeURIComponent/);
+  assert.match(sumberDetailProduk, /kanalResmi\.whatsapp/);
+});
+
+test("harga Decant menampilkan nilai per ml tanpa harga coret palsu", () => {
+  const sumberKartu = bacaSumber("../components/kartu-produk.tsx");
+  const sumberDetail = bacaSumber("../app/(publik)/produk/[slug]/page.tsx");
+  const gabungan = `${sumberKartu}\n${sumberDetail}`;
+
+  assert.match(sumberKartu, /ambilNilaiDecant/);
+  assert.match(sumberDetail, /ambilNilaiDecant/);
+  assert.match(gabungan, /\/ml/);
+  assert.doesNotMatch(gabungan, /<del|line-through|hargaCoret|harga_coret/);
+});

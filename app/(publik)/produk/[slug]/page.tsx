@@ -6,9 +6,11 @@ import { JembatanMarketplace } from "@/components/jembatan-marketplace";
 import { VisualProduk } from "@/components/visual-data";
 import { SkemaProduk } from "@/components/skema-produk";
 import {
+  ambilNilaiDecant,
   formatRupiah,
   labelKategori,
 } from "@/data/produk";
+import { kanalResmi } from "@/data/kanal-resmi";
 import { ambilDaftarProdukPublik, ambilProdukPublik } from "@/lib/data/publik";
 
 type ParameterHalaman = {
@@ -38,6 +40,12 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
   ]);
 
   if (!produk) notFound();
+
+  const nilaiDecant = ambilNilaiDecant(produk);
+  const pesanWhatsApp = encodeURIComponent(
+    `Halo, saya sedang melihat ${produk.nama} ukuran ${produk.ukuran} di website Wawangian Pelajar. Saya ingin bertanya tentang produk ini.`,
+  );
+  const tautanWhatsApp = `${kanalResmi.whatsapp}?text=${pesanWhatsApp}`;
 
   const produkTerkait = daftarProduk
     .filter((item) => item.slug !== produk.slug)
@@ -94,11 +102,43 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
             <p className="mt-4 text-2xl font-black text-[#087477]">
               {produk.harga ? formatRupiah(produk.harga) : "Segera hadir"}
             </p>
-            <p className="mt-5 whitespace-pre-line text-base leading-7 text-[#282B2F]">
-              {produk.deskripsi}
+            {nilaiDecant ? (
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
+                <span className="font-bold text-[#4A4D52]">
+                  {formatRupiah(nilaiDecant.hargaPerMl)}/ml
+                </span>
+                <span className="rounded-full bg-[#E5F2EF] px-3 py-1 text-xs font-black text-[#0D5554]">
+                  {nilaiDecant.label}
+                </span>
+              </div>
+            ) : null}
+            <p className="mt-5 text-base leading-7 text-[#282B2F]">
+              {produk.ringkasan}
             </p>
 
+            <JembatanMarketplace
+              produkId={produk.id}
+              namaProduk={produk.nama}
+              tersedia={produk.tersedia}
+              linkMarketplace={produk.linkMarketplace}
+            />
+            <a
+              href={tautanWhatsApp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-full border border-[#087477] px-6 py-3 text-sm font-black text-[#087477] transition hover:bg-[#E5F2EF] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#087477]"
+            >
+              Tanya lewat WhatsApp
+            </a>
+
             <div className="mt-8 rounded-3xl border border-[#DED3C2] bg-white p-5 sm:p-6">
+              <h2 className="text-xl font-black text-[#102A43]">Tentang produk</h2>
+              <p className="mt-4 whitespace-pre-line text-sm leading-7 text-[#282B2F]">
+                {produk.deskripsi}
+              </p>
+            </div>
+
+            <div className="mt-5 rounded-3xl border border-[#DED3C2] bg-white p-5 sm:p-6">
               <h2 className="text-xl font-black text-[#102A43]">Profil aroma</h2>
               <dl className="mt-5 grid gap-4 text-sm">
                 {[
