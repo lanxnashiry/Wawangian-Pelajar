@@ -173,16 +173,13 @@ export function FooterUtama() {
     <footer className="border-t border-[#28455A] bg-[#102A43] text-white">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.75fr_1fr] lg:px-10">
         <div className="max-w-sm">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo-wawangian-pelajar-simbol.webp"
-              alt="Logo Wawangian Pelajar"
-              width={72}
-              height={72}
-              className="rounded-2xl"
-            />
-            <p className="text-lg font-black">Wawangian Pelajar</p>
-          </div>
+          <Image
+            src="/logo-wawangian-pelajar-penuh.webp"
+            alt="WAWANGIAN PELAJAR — FRAGRANCE HOME"
+            width={300}
+            height={208}
+            className="h-auto w-full max-w-[260px] rounded-2xl bg-white"
+          />
           <p className="mt-4 text-sm leading-6 text-[#D9E1E8]">
             Wangi yang berpihak pada pendidikan. Belanja dilakukan melalui
             marketplace resmi, bukan di website ini.

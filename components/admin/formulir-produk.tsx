@@ -1,6 +1,7 @@
 import type { Produk } from "@/data/produk";
 import { simpanProduk } from "@/app/admin/(terlindungi)/produk/tindakan";
 import { TombolSimpanProduk } from "./tombol-simpan-produk";
+import { PengelolaFotoProduk } from "./pengelola-foto-produk";
 
 type OpsiProfil = { id: string; kode: string; nama: string };
 type Properti = { produk?: Produk; pesan?: string; daftarProfil?: OpsiProfil[] };
@@ -12,7 +13,7 @@ export function FormulirProduk({ produk, pesan, daftarProfil = [] }: Properti) {
   return (
     <form action={simpanProduk} className="space-y-6" encType="multipart/form-data">
       <input type="hidden" name="id" value={produk?.id ?? ""} />
-      <input type="hidden" name="foto_tersimpan" value={JSON.stringify(produk?.foto?.slice(0, 1) ?? [])} />
+
       <input type="hidden" name="tujuan_kembali" value={produk?.id ? `/admin/produk/${produk.id}` : "/admin/produk/baru"} />
       {pesan ? <p role="alert" className="rounded-2xl border border-[#efc9c3] bg-[#fff2f0] px-4 py-3 text-sm text-[#9e3024]">{pesan}</p> : null}
 
@@ -84,11 +85,8 @@ export function FormulirProduk({ produk, pesan, daftarProfil = [] }: Properti) {
       </fieldset>
 
       <div className="grid gap-5 rounded-2xl border border-[#DED3C2] bg-white p-5 lg:grid-cols-2">
-        <label className="text-sm font-bold text-[#102A43]">Foto utama produk
-          <input className={kelasInput} name="foto" type="file" accept="image/jpeg,image/png,image/webp" />
-          <span className="mt-2 block text-xs font-normal text-[#4A4D52]">JPEG/PNG/WebP, maksimal 5 MB. Unggahan baru menggantikan foto utama lama. Visual ilustrasi wajib mengikuti KEP-036.</span>
-        </label>
-        <div className="space-y-4">
+        <PengelolaFotoProduk fotoAwal={produk?.foto} />
+        <div className="space-y-4 lg:col-span-2">
           <label className="block text-sm font-bold text-[#102A43]">Link Shopee
             <input className={kelasInput} name="link_shopee" type="url" defaultValue={produk?.linkMarketplace?.shopee} placeholder="https://shopee.co.id/..." />
           </label>

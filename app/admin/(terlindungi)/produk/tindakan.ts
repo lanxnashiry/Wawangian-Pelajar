@@ -6,6 +6,10 @@ import type { KategoriProduk, Produk } from "@/data/produk";
 import { wajibAdmin } from "@/lib/admin/otorisasi";
 import { buatSlug, periksaProfilAroma, pisahkanDaftar } from "@/lib/admin/validasi-produk";
 import { pesanGalatTautanMarketplace } from "@/lib/marketplace/tautan";
+import {
+  ambilLokasiFotoProduk,
+  susunFotoProduk,
+} from "@/lib/admin/foto-produk";
 
 function kembaliDenganPesan(tujuan: string, pesan: string): never {
   const aman = tujuan.startsWith("/admin/produk") ? tujuan : "/admin/produk";
@@ -56,14 +60,23 @@ export async function simpanProduk(formulir: FormData) {
     pesanGalatTautanMarketplace("tiktok", linkTiktok);
   if (galatTautan) kembaliDenganPesan(tujuan, galatTautan);
 
-  const foto = formulir.get("foto");
+  const fotoBaru = formulir
+    .getAll("foto")
+    .filter((nilai): nilai is File => nilai instanceof File && nilai.size > 0);
+  if (fotoBaru.length > 4) {
+    kembaliDenganPesan(tujuan, "Maksimal 4 foto dapat dipilih sekaligus.");
+  }
   if (
-    foto instanceof File &&
-    foto.size > 0 &&
-    (foto.size > 5 * 1024 * 1024 ||
-      !["image/jpeg", "image/png", "image/webp"].includes(foto.type))
+    fotoBaru.some(
+      (foto) =>
+        foto.size > 5 * 1024 * 1024 ||
+        !["image/jpeg", "image/png", "image/webp"].includes(foto.type),
+    )
   ) {
-    kembaliDenganPesan(tujuan, "Foto harus berformat JPEG, PNG, atau WebP dan berukuran maksimal 5 MB.");
+    kembaliDenganPesan(
+      tujuan,
+      "Setiap foto harus berformat JPEG, PNG, atau WebP dan berukuran maksimal 5 MB.",
+    );
   }
 
   let fotoTersimpan: string[] = [];
@@ -72,10 +85,22 @@ export async function simpanProduk(formulir: FormData) {
     fotoTersimpan = Array.isArray(hasilFotoTersimpan)
       ? hasilFotoTersimpan
           .filter((nilai): nilai is string => typeof nilai === "string")
-          .slice(0, 1)
+          .slice(0, 4)
       : [];
   } catch {
     fotoTersimpan = [];
+  }
+
+  const { data: produkSebelumnya } = id
+    ? await supabase.from("produk").select("foto").eq("id", id).maybeSingle()
+    : { data: null };
+  const fotoSebelumnya = Array.isArray(produkSebelumnya?.foto)
+    ? produkSebelumnya.foto.filter((nilai): nilai is string => typeof nilai === "string")
+    : [];
+  fotoTersimpan = fotoTersimpan.filter((url) => fotoSebelumnya.includes(url));
+
+  if (fotoTersimpan.length + fotoBaru.length > 4) {
+    kembaliDenganPesan(tujuan, "Jumlah foto tersimpan dan foto baru tidak boleh melebihi 4.");
   }
 
   const slug = buatSlug(String(formulir.get("slug") ?? "") || nama);
@@ -92,7 +117,7 @@ export async function simpanProduk(formulir: FormData) {
     aroma_dasar: aromaDasar,
     karakter,
     cocok_untuk: pisahkanDaftar(formulir.get("cocok_untuk")),
-    foto: fotoTersimpan,
+    foto: fotoBaru.length > 0 ? fotoSebelumnya : fotoTersimpan,
     link_shopee: linkShopee || null,
     link_tiktok: linkTiktok || null,
     unggulan: formulir.get("unggulan") === "on",
@@ -114,22 +139,63 @@ export async function simpanProduk(formulir: FormData) {
     );
   }
 
-  if (foto instanceof File && foto.size > 0) {
-    const ekstensi = foto.name.split(".").pop()?.toLowerCase() || "jpg";
-    const lokasi = `${hasil.data.id}/${crypto.randomUUID()}.${ekstensi}`;
-    const unggah = await supabase.storage.from("produk").upload(lokasi, foto, { contentType: foto.type });
-    if (unggah.error) kembaliDenganPesan(`/admin/produk/${hasil.data.id}`, `Produk tersimpan, tetapi foto gagal diunggah: ${unggah.error.message}`);
-    const { data: url } = supabase.storage.from("produk").getPublicUrl(lokasi);
-    const pembaruanFoto = await supabase
+  const urlFotoBaru: string[] = [];
+  const lokasiFotoBaru: string[] = [];
+  const ekstensiPerTipe: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+  };
+  for (const foto of fotoBaru) {
+    const lokasi = `${hasil.data.id}/${crypto.randomUUID()}.${ekstensiPerTipe[foto.type]}`;
+    const unggah = await supabase.storage
       .from("produk")
-      .update({ foto: [url.publicUrl] })
-      .eq("id", hasil.data.id);
-    if (pembaruanFoto.error) {
+      .upload(lokasi, foto, { contentType: foto.type });
+    if (unggah.error) {
+      if (lokasiFotoBaru.length > 0) {
+        await supabase.storage.from("produk").remove(lokasiFotoBaru);
+      }
       kembaliDenganPesan(
         `/admin/produk/${hasil.data.id}`,
-        "Produk dan berkas foto tersimpan, tetapi tautan foto gagal dipasang. Coba simpan ulang.",
+        `Produk tersimpan, tetapi foto gagal diunggah: ${unggah.error.message}`,
       );
     }
+    lokasiFotoBaru.push(lokasi);
+    const { data: url } = supabase.storage.from("produk").getPublicUrl(lokasi);
+    urlFotoBaru.push(url.publicUrl);
+  }
+
+  const fotoAkhir = susunFotoProduk(fotoTersimpan, urlFotoBaru);
+  const pembaruanFoto = await supabase
+    .from("produk")
+    .update({ foto: fotoAkhir })
+    .eq("id", hasil.data.id);
+  if (pembaruanFoto.error) {
+    if (lokasiFotoBaru.length > 0) {
+      await supabase.storage.from("produk").remove(lokasiFotoBaru);
+    }
+    kembaliDenganPesan(
+      `/admin/produk/${hasil.data.id}`,
+      "Produk tersimpan, tetapi galeri foto gagal diperbarui. Foto lama tetap aman.",
+    );
+  }
+
+  const kandidatFotoDihapus = fotoSebelumnya.filter(
+    (url) => !fotoAkhir.includes(url),
+  );
+  const lokasiFotoDihapus: string[] = [];
+  for (const url of kandidatFotoDihapus) {
+    const lokasi = ambilLokasiFotoProduk(url);
+    if (!lokasi) continue;
+    const { count } = await supabase
+      .from("produk")
+      .select("id", { count: "exact", head: true })
+      .neq("id", hasil.data.id)
+      .contains("foto", [url]);
+    if ((count ?? 0) === 0) lokasiFotoDihapus.push(lokasi);
+  }
+  if (lokasiFotoDihapus.length > 0) {
+    await supabase.storage.from("produk").remove(lokasiFotoDihapus);
   }
 
   revalidatePath("/");

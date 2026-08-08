@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KartuProduk } from "@/components/kartu-produk";
 import { JembatanMarketplace } from "@/components/jembatan-marketplace";
-import { VisualProduk } from "@/components/visual-data";
+import { GaleriProduk } from "@/components/galeri-produk";
 import { SkemaProduk } from "@/components/skema-produk";
 import {
   ambilNilaiDecant,
@@ -90,7 +90,7 @@ export default async function HalamanDetailProduk({ params }: ParameterHalaman) 
         <div className="mt-7 grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
           <section aria-label="Foto utama produk">
             <div className="overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-white p-3 shadow-sm">
-              <VisualProduk produk={produk} />
+              <GaleriProduk produk={produk} />
             </div>
           </section>
 

@@ -2,6 +2,34 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-08] — Galeri Produk dan identitas visual terbaru
+
+### Ditambahkan
+
+- Galeri Produk maksimal empat foto dengan thumbnail, tombol sebelumnya/berikutnya, indikator posisi, dan navigasi keyboard.
+- Pengelola foto Admin untuk multi-upload, hapus, dan jadikan utama.
+- Helper validasi urutan foto serta ekstraksi lokasi Storage project sendiri.
+- Turunan logo terbaru untuk monogram header, lockup penuh footer, favicon, dan Open Graph.
+- Tujuh pengujian galeri, keamanan foto, fallback Decant, object-contain, Admin, dan aset logo.
+
+### Diubah
+
+- Foto Produk pada kartu dan detail memakai `object-contain`, bukan `object-cover`.
+- Visual Decant lokal menjadi fallback saat galeri kosong, bukan override permanen.
+- BUILD_SPEC naik dari 3.4 menjadi 3.5; KEP-057 menggantikan kebijakan satu foto KEP-054/versi lama.
+
+### Keamanan data
+
+- Hidden URL hanya diterima bila sudah dimiliki Produk; total foto dan ukuran/MIME divalidasi server.
+- Upload parsial gagal membersihkan berkas baru dan tidak menghapus foto lama.
+- Objek Storage yang dilepas hanya dihapus bila tidak direferensikan Produk lain.
+
+### Validasi
+
+- `npm test` 52/52, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- Render lokal mengonfirmasi Produk satu-foto tampil utuh tanpa kontrol panah kosong; kartu/detail bebas crop dan identitas terbaru muncul di seluruh permukaan terkait.
+- Monogram, lockup footer, favicon, dan Open Graph lulus QA visual pada rasio pemakaiannya.
+
 ## [2026-08-08] — Paket 2 optimasi aset dan internal link
 
 ### Ditambahkan
