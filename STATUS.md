@@ -4,7 +4,16 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** pemolesan teks komersial dan footer kanal resmi selesai di kode; validasi final, draft PR, serta tinjauan pemilik menunggu.
+**Status milestone aktif:** optimasi konversi Detail Produk selesai di kode; validasi penuh dan tinjauan pemilik berlangsung.
+
+## Optimasi konversi Detail Produk — keadaan terbaru
+
+- CTA marketplace pertama berada setelah harga dan ringkasan agar pembeli cepat tidak perlu melewati deskripsi panjang; CTA kedua tetap setelah profil aroma serta pesan misi.
+- WhatsApp menjadi CTA sekunder dengan pesan otomatis nama serta ukuran Produk. Checkout tetap hanya di marketplace.
+- Kartu dan Detail Produk Decant menampilkan harga per ml yang dihitung deterministik dan label nilai faktual; tidak ada harga coret atau diskon semu.
+- Tidak ada perubahan database, harga aktif, tautan marketplace, atau data Produk. BUILD_SPEC naik ke 3.3 dan keputusan dicatat sebagai KEP-055.
+
+**Verifikasi akhir:** `npm test` 40/40, TypeScript, lint, build produksi, dan `git diff --check` lulus. Render lokal membuktikan nilai per ml hanya muncul pada Decant, WhatsApp/Tentang Produk tampil pada Decant maupun Ori, dan tidak ada harga coret.
 
 ## Pemolesan teks komersial — keadaan terbaru
 

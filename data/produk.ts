@@ -42,3 +42,23 @@ export function formatRupiah(nilai: number) {
     maximumFractionDigits: 0,
   }).format(nilai);
 }
+
+export function ambilNilaiDecant(produk: Produk) {
+  if (produk.kategori !== "decant" || produk.harga <= 0) return undefined;
+
+  const ukuranMl = Number.parseFloat(produk.ukuran.replace(/\s*ml\s*$/i, ""));
+  if (!Number.isFinite(ukuranMl) || ukuranMl <= 0) return undefined;
+
+  const label = ukuranMl === 1
+    ? "Paling ringan untuk mencoba"
+    : ukuranMl === 10
+      ? "Paling hemat per ml"
+      : ukuranMl === 5
+        ? "Seimbang untuk mencoba lebih lama"
+        : "Praktis untuk beberapa kali pemakaian";
+
+  return {
+    hargaPerMl: Math.round(produk.harga / ukuranMl),
+    label,
+  };
+}

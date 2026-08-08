@@ -319,6 +319,12 @@
 **Alasan:** Catatan implementasi mengganggu tampilan komersial dan membingungkan pengunjung, sedangkan karakter serta kecocokan masih dibutuhkan untuk rekomendasi. Kanal yang belum siap perlu dapat dikenali tanpa memberi kesan bahwa tautannya sudah berfungsi.
 **Konsekuensi:** Kewajiban caption publik foto 15 ml pada KEP-047 digantikan oleh keputusan ini; pemetaan foto 50 ml ke Produk 15 ml tetap dipertahankan sampai aset khusus tersedia. Data Produk, field Admin, entri massal, relasi rekomendasi, dan database tidak berubah. Penambahan URL TikTok Shop memerlukan perubahan konfigurasi kanal resmi, bukan migrasi.
 
+### KEP-055 — Detail Produk memakai CTA ganda dan nilai Decant faktual
+**Tanggal:** 2026-08-05 · **Status:** Diterima
+**Keputusan:** Detail Produk menempatkan CTA marketplace pertama setelah harga serta ringkasan dan CTA kedua setelah profil aroma serta pesan misi. WhatsApp menjadi CTA sekunder dengan pesan otomatis nama dan ukuran Produk. Kartu dan Detail Produk Decant menampilkan harga per ml yang dihitung dari harga aktif dibagi ukuran serta label nilai faktual; tidak ada harga coret atau diskon semu.
+**Alasan:** CTA ganda menjaga tombol pembelian cepat terlihat ketika deskripsi panjang tanpa memakai sticky bar yang mengganggu estetika. Harga per ml membantu membandingkan ukuran Decant secara jujur, sedangkan harga coret buatan akan bertentangan dengan kewajiban informasi harga yang benar dan positioning transparansi brand.
+**Konsekuensi:** Tidak ada perubahan database atau checkout internal. Harga pembanding hanya boleh ditambahkan kelak untuk promo nyata dengan harga normal, periode, serta sinkronisasi marketplace yang dapat dibuktikan. Semua hitungan nilai per ml memakai kode deterministik, bukan teks Admin atau AI.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

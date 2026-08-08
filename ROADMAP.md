@@ -113,6 +113,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Revisi Temukan Wangimu: profil rekomendasi baku, kuis lima tahap, hasil per keluarga aroma, pilihan ukuran, CTA Decant, migrasi hosted, dan tinjauan visual selesai
 - ✅ Kanal resmi Facebook, Instagram, Shopee, email, dan WhatsApp disiapkan pada footer global
 - ✅ Teks publik dipoles menjadi bahasa komersial, footer kanal diringkas dengan ikon, dan data Karakter/Cocok untuk disembunyikan dari detail Produk
+- ✅ Optimasi konversi Detail Produk: CTA marketplace ganda, WhatsApp sekunder, dan nilai per ml Decant tanpa diskon semu
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---

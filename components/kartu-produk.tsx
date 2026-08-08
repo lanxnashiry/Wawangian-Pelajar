@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {
+  ambilNilaiDecant,
   formatRupiah,
   labelKategori,
   type Produk,
@@ -7,6 +8,8 @@ import {
 import { VisualProduk } from "./visual-data";
 
 export function KartuProduk({ produk }: { produk: Produk }) {
+  const nilaiDecant = ambilNilaiDecant(produk);
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[#DED3C2] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#102A43]/8">
       <Link
@@ -36,9 +39,16 @@ export function KartuProduk({ produk }: { produk: Produk }) {
           {produk.ringkasan}
         </p>
         <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-          <p className="font-black text-[#102A43]">
-            {produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"}
-          </p>
+          <div>
+            <p className="font-black text-[#102A43]">
+              {produk.harga > 0 ? formatRupiah(produk.harga) : "Segera hadir"}
+            </p>
+            {nilaiDecant ? (
+              <p className="mt-1 text-xs font-bold text-[#687078]">
+                {formatRupiah(nilaiDecant.hargaPerMl)}/ml
+              </p>
+            ) : null}
+          </div>
           <Link
             href={`/produk/${produk.slug}`}
             className="rounded-full border border-[#087477] px-4 py-2 text-sm font-bold text-[#087477] transition hover:bg-[#087477] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087477]"

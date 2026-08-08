@@ -53,7 +53,7 @@ Urutan ini bukan saran. Baca semuanya:
    Memuat Business Rules **BR-1 s/d BR-11** dan daftar batas scope.
 2. **`ROADMAP.md`** — milestone mana yang berstatus AKTIF. Sekarang: **M6 (Poles & Rilis)**.
 3. **`STATUS.md`** — posisi pekerjaan terakhir, task aktif, langkah berikutnya, asumsi.
-4. **`DECISIONS.md`** — semua keputusan **KEP-001 s/d KEP-054**. Patuhi; jangan
+4. **`DECISIONS.md`** — semua keputusan **KEP-001 s/d KEP-055**. Patuhi; jangan
    buka ulang keputusan lama dari nol.
 5. **`CHANGELOG.md`** — riwayat bertanggal perubahan aplikasi.
 6. **`README.md`** — setup, perintah, struktur folder.
@@ -122,7 +122,7 @@ bukan "nanti".
 kebetulan memakai nomor sama, yang di-merge belakangan **wajib** menaikkan
 nomornya saat menyelesaikan konflik — jangan digabung paksa.
 
-Nomor terpakai terakhir: **KEP-054**. Berikutnya `KEP-055`.
+Nomor terpakai terakhir: **KEP-055**. Berikutnya `KEP-056`.
 
 ---
 
