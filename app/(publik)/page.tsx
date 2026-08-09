@@ -101,7 +101,7 @@ export default async function Beranda() {
                   className="object-contain"
                 />
               </div>
-              <div className="absolute right-7 bottom-7 left-7 rounded-2xl bg-white/90 p-4 shadow-lg backdrop-blur sm:right-10 sm:bottom-10 sm:left-10">
+              <div className="mt-3 rounded-2xl bg-white p-4 shadow-sm sm:mt-4">
                 <p className="text-xs font-black tracking-wide text-[#C7A25A] uppercase">
                   Dana Cahaya Pendidikan
                 </p>
