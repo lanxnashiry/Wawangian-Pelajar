@@ -1,8 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { KartuArtikel } from "@/components/kartu-artikel";
 import { KartuProduk } from "@/components/kartu-produk";
 import { PlaceholderVisual } from "@/components/placeholder-visual";
-import { VisualArtikel, VisualProduk } from "@/components/visual-data";
+import { VisualArtikel } from "@/components/visual-data";
 import { TajukBagian } from "@/components/tajuk-bagian";
 import { ambilDaftarArtikelPublik, ambilDaftarProdukPublik } from "@/lib/data/publik";
 import { ambilRingkasanDonasiPublik } from "@/lib/data/donasi";
@@ -17,17 +18,20 @@ type Ulasan = {
 const ulasan: Ulasan[] = [];
 const alasanBerbeda = [
   {
-    simbol: "✓",
+    gambar: "/prinsip-sumber-tepercaya.webp",
+    alt: "Dokumen terverifikasi dengan perisai dan tanda centang",
     judul: "Sumber tepercaya",
     deskripsi: "Produk ori dan decant dilengkapi informasi yang jelas untuk membantu memilih.",
   },
   {
-    simbol: "20%",
+    gambar: "/prinsip-untuk-pendidikan.webp",
+    alt: "Buku, hati, dan toga sebagai simbol kepedulian pada pendidikan",
     judul: "Untuk pendidikan",
     deskripsi: "Komitmen donasi dihitung dari laba bersih setiap transaksi, bukan angka bebas.",
   },
   {
-    simbol: "Rp",
+    gambar: "/prinsip-pilihan-terjangkau.webp",
+    alt: "Label harga terverifikasi dengan koin",
     judul: "Pilihan terjangkau",
     deskripsi: "Pilihan decant membantu pelajar mengenal aroma dengan lebih ringan.",
   },
@@ -41,7 +45,6 @@ export default async function Beranda() {
   ]);
   const produkUnggulan = daftarProduk.filter((produk) => produk.unggulan);
   const artikelTerbaru = daftarArtikel.slice(0, 3);
-  const produkHero = produkUnggulan[0] ?? daftarProduk[0];
   const artikelCerita = daftarArtikel.find((artikel) => artikel.kategori === "cerita_misi") ?? artikelTerbaru[0];
   const tautanCeritaMisi = daftarArtikel.some((artikel) => artikel.slug === "berawal-dari-pelajar") ? "/cerita/berawal-dari-pelajar" : "/cerita";
 
@@ -88,7 +91,16 @@ export default async function Beranda() {
             <div className="absolute -top-10 -right-12 h-36 w-36 rounded-full bg-[#D1B779]/25 blur-2xl" />
             <div className="absolute -bottom-8 -left-10 h-40 w-40 rounded-full bg-[#087477]/15 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-[#F4EBDD] p-3 shadow-2xl shadow-[#102A43]/12 sm:p-5">
-              {produkHero ? <VisualProduk produk={produkHero} /> : <PlaceholderVisual judul="Wawangian Pelajar" warna="tosca" />}
+              <div className="relative aspect-square overflow-hidden rounded-[1.4rem] bg-[#102A43]">
+                <Image
+                  src="/beranda-koleksi-wawangian.webp"
+                  alt="Koleksi parfum Wawangian Pelajar"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 560px, 90vw"
+                  className="object-contain"
+                />
+              </div>
               <div className="absolute right-7 bottom-7 left-7 rounded-2xl bg-white/90 p-4 shadow-lg backdrop-blur sm:right-10 sm:bottom-10 sm:left-10">
                 <p className="text-xs font-black tracking-wide text-[#C7A25A] uppercase">
                   Dana Cahaya Pendidikan
@@ -180,9 +192,15 @@ export default async function Beranda() {
                 key={alasan.judul}
                 className="rounded-3xl border border-[#DED3C2] bg-[#FAF7F1] p-6 text-center"
               >
-                <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E5F2EF] text-sm font-black text-[#087477]">
-                  {alasan.simbol}
-                </span>
+                <div className="relative mx-auto aspect-[3/2] w-full overflow-hidden rounded-2xl bg-[#05070A]">
+                  <Image
+                    src={alasan.gambar}
+                    alt={alasan.alt}
+                    fill
+                    sizes="(min-width: 768px) 30vw, 90vw"
+                    className="object-contain"
+                  />
+                </div>
                 <h3 className="mt-5 text-xl font-black text-[#102A43]">
                   {alasan.judul}
                 </h3>

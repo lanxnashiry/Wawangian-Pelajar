@@ -4,7 +4,16 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** lima SKU Mykonos, lima koreksi harga, dan migrasi cleanup sudah diterapkan serta terverifikasi di production.
+**Status milestone aktif:** visual utama dan Prinsip Kami homepage selesai di kode; validasi final dan deployment berlangsung.
+
+## Visual homepage kiriman pemilik — keadaan terbaru
+
+- Hero memakai visual koleksi parfum WebP 196 KB dengan `object-contain`; visual ini promosi umum, bukan foto SKU atau bukti stok.
+- Prinsip Kami memakai tiga visual WebP: dokumen terverifikasi 19 KB, pendidikan 14 KB, dan harga terverifikasi 25 KB.
+- Semua visual memiliki alt deskriptif, rasio konsisten, dan tersimpan permanen di `public/`.
+- BUILD_SPEC naik ke 3.7 dan KEP-059 mengunci pemakaian visual.
+
+**Verifikasi akhir kode:** `npm test` 58/58, TypeScript, lint, build produksi, dan `git diff --check` lulus. QA visual preview mengikuti sebelum merge.
 
 ## Lima SKU Mykonos dan koreksi harga — keadaan terbaru
 
