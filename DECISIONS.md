@@ -337,6 +337,12 @@
 **Alasan:** `object-cover` memotong botol/kemasan dan terasa seperti zoom, sedangkan galeri empat foto cukup untuk memperlihatkan Produk tanpa membuat halaman ramai. Logo penuh tidak terbaca pada header 70 px, sehingga header memakai monogram terbaru dengan nama brand teks, sementara footer menampilkan lockup lengkap.
 **Konsekuensi:** Schema `foto text[]` yang sudah ada dipakai tanpa migrasi. Upload dibatasi empat foto dan 5 MB per foto. Kegagalan upload membersihkan berkas baru serta mempertahankan foto lama; URL tersembunyi wajib berasal dari Produk yang sedang diedit. Objek Storage yang dilepas hanya dihapus bila tidak dipakai Produk lain. Visual Decant lokal menjadi fallback saat tidak ada foto Admin, bukan override permanen.
 
+### KEP-058 — Lima SKU Mykonos baru dan koreksi harga memakai sumber resmi
+**Tanggal:** 2026-08-09 · **Status:** Diterima
+**Keputusan:** Tambahkan Invade 50 ml, Reflection 50 ml, Reflection Elixir 50 ml, Conquer 100 ml, dan Penthouse 50 ml sebagai Produk Ori dengan foto kosong. Nama Conquer mengikuti nama resmi Mykonos, bukan sebutan Conqueror. Harga pemilik diterapkan persis pada lima Produk lama. Notes, BPOM, ringkasan, dan profil Temukan Wangimu diturunkan konservatif dari `officialmykonos.com`; Invade memakai kanal resmi regional `mykonos.com.my` karena halaman Indonesia tidak tersedia.
+**Alasan:** Katalog perlu mengikuti SKU dan harga nyata pemilik tanpa mengarang aroma atau klaim performa. Produk aktif perlu memiliki profil rekomendasi agar tidak hilang dari Temukan Wangimu. Foto sengaja kosong sampai aset yang sesuai tersedia.
+**Konsekuensi:** Migrasi `202608090015_tambah_lima_produk_dan_harga.sql` bersifat idempotent dan menjaga tepat lima Produk baru serta lima harga target. Katalog menjadi 27 Produk aktif setelah migrasi diterapkan. Tautan Shopee memakai listing bersama Produk Ori yang sudah ada; foto dapat ditambahkan kemudian lewat Admin.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
