@@ -343,6 +343,12 @@
 **Alasan:** Katalog perlu mengikuti SKU dan harga nyata pemilik tanpa mengarang aroma atau klaim performa. Produk aktif perlu memiliki profil rekomendasi agar tidak hilang dari Temukan Wangimu. Foto sengaja kosong sampai aset yang sesuai tersedia.
 **Konsekuensi:** Migrasi `202608090015_tambah_lima_produk_dan_harga.sql` bersifat idempotent dan menjaga tepat lima Produk baru serta lima harga target. Katalog menjadi 27 Produk aktif setelah migrasi diterapkan. Tautan Shopee memakai listing bersama Produk Ori yang sudah ada; foto dapat ditambahkan kemudian lewat Admin.
 
+### KEP-059 — Homepage memakai visual kiriman pemilik
+**Tanggal:** 2026-08-09 · **Status:** Diterima
+**Keputusan:** Hero homepage memakai visual koleksi parfum kiriman pemilik. Tiga kartu Prinsip Kami memakai visual dokumen terverifikasi, pendidikan, dan harga terverifikasi sesuai makna masing-masing. Semua aset dikompres menjadi WebP, memakai `object-contain`, alt deskriptif, dan tidak menggantikan foto SKU.
+**Alasan:** Visual baru memperkuat identitas navy–teal–emas serta menjelaskan prinsip secara lebih cepat daripada simbol teks kecil. Visual koleksi bersifat promosi umum, bukan bukti stok atau representasi presisi setiap Produk.
+**Konsekuensi:** Hero tidak lagi bergantung pada Produk unggulan pertama. Gambar koleksi tidak boleh dipakai sebagai foto Produk atau bukti barang. Empat aset sumber disalin dari cache unggahan ke repository agar permanen.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

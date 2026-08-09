@@ -117,6 +117,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Paket optimasi ringan: aset Decant WebP tunggal, ringkasan enam varian, dan internal link Artikel ke kuis/katalog/Decant
 - ✅ Galeri maksimal empat foto, tampilan Produk utuh, pengelolaan foto Admin aman, dan identitas visual terbaru
 - ✅ Migrasi lima Produk Mykonos baru, lima perubahan harga, dan lima profil Temukan Wangimu disiapkan dari sumber resmi
+- ✅ Foto utama homepage dan tiga visual Prinsip Kami memakai aset kiriman pemilik yang dioptimalkan
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---

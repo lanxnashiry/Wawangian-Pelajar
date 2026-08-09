@@ -2,6 +2,19 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-09] — Visual homepage kiriman pemilik
+
+### Diubah
+
+- Hero homepage memakai visual koleksi parfum kiriman pemilik, bukan Produk unggulan pertama.
+- Tiga simbol teks Prinsip Kami diganti visual dokumen terverifikasi, pendidikan, dan harga terverifikasi.
+- Empat sumber PNG 4,5 MB dioptimalkan menjadi WebP total sekitar 254 KB tanpa mengubah komposisi.
+- BUILD_SPEC naik ke 3.7 dan KEP-059 mengunci pemakaian visual sebagai promosi umum, bukan foto SKU.
+
+### Validasi
+
+- `npm test` 58/58, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+
 ## [2026-08-09] — Lima SKU Mykonos dan lima koreksi harga
 
 ### Ditambahkan
