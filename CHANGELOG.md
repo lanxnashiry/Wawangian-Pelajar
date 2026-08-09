@@ -18,7 +18,9 @@
 ### Validasi
 
 - `npm test` 56/56, TypeScript, lint, build produksi, dan `git diff --check` lulus.
-- Database production belum diubah karena CLI belum linked, service-role kosong, dan tidak ada sesi Dashboard Supabase aktif.
+- Supabase CLI diinisialisasi dan di-link ke project Wawangian; histori 13 migrasi lama direkonsiliasi sebagai applied.
+- Migrasi cleanup `0013` dan Produk/harga `0015` berhasil diterapkan; histori lokal/remote 15/15 sejajar dan dry-run menyatakan up to date.
+- REST production membuktikan 27 Produk aktif, foto lima SKU baru kosong, lima harga target benar, dan lima profil Temukan Wangimu terpasang.
 
 ## [2026-08-08] — Galeri Produk dan identitas visual terbaru
 
