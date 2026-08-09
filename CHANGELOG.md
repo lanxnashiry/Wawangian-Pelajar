@@ -13,7 +13,8 @@
 
 ### Validasi
 
-- `npm test` 58/58, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, Vercel production, QA desktop, dan QA mobile 390 px lulus.
+- Panel Dana Cahaya dipindahkan ke bawah foto setelah QA menemukan overlay menutupi baris bawah koleksi.
 
 ## [2026-08-09] — Lima SKU Mykonos dan lima koreksi harga
 

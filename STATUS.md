@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** visual utama dan Prinsip Kami homepage selesai di kode; validasi final dan deployment berlangsung.
+**Status milestone aktif:** visual utama dan Prinsip Kami homepage sudah aktif serta terverifikasi di production.
 
 ## Visual homepage kiriman pemilik — keadaan terbaru
 
@@ -13,7 +13,7 @@
 - Semua visual memiliki alt deskriptif, rasio konsisten, dan tersimpan permanen di `public/`.
 - BUILD_SPEC naik ke 3.7 dan KEP-059 mengunci pemakaian visual.
 
-**Verifikasi akhir kode:** `npm test` 58/58, TypeScript, lint, build produksi, dan `git diff --check` lulus. QA visual preview mengikuti sebelum merge.
+**Verifikasi akhir:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, Vercel production, QA desktop, dan QA mobile 390 px lulus. Panel misi dipindahkan ke bawah foto agar tidak menutupi koleksi.
 
 ## Lima SKU Mykonos dan koreksi harga — keadaan terbaru
 
