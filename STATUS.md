@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** migrasi lima SKU Mykonos dan lima koreksi harga selesai di kode; penerapan database production menunggu akses pemilik.
+**Status milestone aktif:** lima SKU Mykonos, lima koreksi harga, dan migrasi cleanup sudah diterapkan serta terverifikasi di production.
 
 ## Lima SKU Mykonos dan koreksi harga — keadaan terbaru
 
@@ -13,9 +13,9 @@
 - Lima harga lama disiapkan: Glitch 100 ml, Monaco Royale 100 ml, dan Dreamscape 100 ml menjadi Rp548.000; Glitch 50 ml Rp319.000; Dreamscape 50 ml Rp298.000.
 - Notes/BPOM berasal dari `officialmykonos.com`; Invade memakai `mykonos.com.my/product/invade`. Tidak ada klaim performa yang ditambahkan.
 - Lima profil Temukan Wangimu baru disiapkan agar SKU aktif ikut rekomendasi. Migrasi idempotent `202608090015` memiliki penjaga tepat lima Produk dan lima harga.
-- Supabase CLI belum linked, service-role lokal kosong, dan tidak ada sesi Dashboard Supabase aktif; database production belum diubah.
+- Supabase CLI sudah login/link ke project `jttepaxwjmmopflpgbac`. Histori 13 migrasi hosted lama direkonsiliasi sebagai applied; migrasi cleanup `0013` dan Produk/harga `0015` diterapkan lewat `db push --include-all`.
 
-**Verifikasi akhir kode:** `npm test` 56/56, TypeScript, lint, build produksi, dan `git diff --check` lulus. Penerapan serta verifikasi production tetap menunggu akses Supabase.
+**Verifikasi akhir:** `npm test` 56/56, TypeScript, lint, build produksi, dan `git diff --check` lulus. Migration history lokal/remote 15/15 sejajar dan dry-run menyatakan database up to date. REST production membuktikan 27 Produk aktif, lima Produk baru tanpa foto, lima harga target benar, dan lima profil rekomendasi terpasang.
 
 ## Galeri Produk dan identitas visual — keadaan terbaru
 
