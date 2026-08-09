@@ -4,7 +4,18 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** galeri Produk dan identitas visual terbaru selesai di kode; quality gate final serta deployment berlangsung.
+**Status milestone aktif:** migrasi lima SKU Mykonos dan lima koreksi harga selesai di kode; penerapan database production menunggu akses pemilik.
+
+## Lima SKU Mykonos dan koreksi harga — keadaan terbaru
+
+- Lima Produk Ori baru disiapkan dengan foto kosong: Invade 50 ml Rp319.000, Reflection 50 ml Rp319.000, Reflection Elixir 50 ml Rp319.000, Conquer 100 ml Rp548.000, dan Penthouse 50 ml Rp319.000.
+- Nama `Conquer` mengikuti katalog resmi Mykonos; `Conqueror` tidak dipakai karena bukan nama SKU resmi.
+- Lima harga lama disiapkan: Glitch 100 ml, Monaco Royale 100 ml, dan Dreamscape 100 ml menjadi Rp548.000; Glitch 50 ml Rp319.000; Dreamscape 50 ml Rp298.000.
+- Notes/BPOM berasal dari `officialmykonos.com`; Invade memakai `mykonos.com.my/product/invade`. Tidak ada klaim performa yang ditambahkan.
+- Lima profil Temukan Wangimu baru disiapkan agar SKU aktif ikut rekomendasi. Migrasi idempotent `202608090015` memiliki penjaga tepat lima Produk dan lima harga.
+- Supabase CLI belum linked, service-role lokal kosong, dan tidak ada sesi Dashboard Supabase aktif; database production belum diubah.
+
+**Verifikasi akhir kode:** `npm test` 56/56, TypeScript, lint, build produksi, dan `git diff --check` lulus. Penerapan serta verifikasi production tetap menunggu akses Supabase.
 
 ## Galeri Produk dan identitas visual — keadaan terbaru
 

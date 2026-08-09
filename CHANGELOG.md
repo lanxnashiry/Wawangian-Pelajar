@@ -2,6 +2,24 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-09] — Lima SKU Mykonos dan lima koreksi harga
+
+### Ditambahkan
+
+- Migrasi idempotent `202608090015` untuk Invade 50 ml, Reflection 50 ml, Reflection Elixir 50 ml, Conquer 100 ml, dan Penthouse 50 ml dengan foto kosong.
+- Lima profil Temukan Wangimu yang diturunkan konservatif dari notes resmi.
+- Empat pengujian kontrak migrasi: Produk/harga/foto, koreksi harga, sumber resmi/tanpa klaim performa, dan nama resmi Conquer.
+
+### Diubah
+
+- Harga Glitch 100 ml, Monaco Royale 100 ml, Dreamscape 100 ml, Glitch 50 ml, dan Dreamscape 50 ml mengikuti keputusan pemilik.
+- BUILD_SPEC naik ke 3.6 dan KEP-058 mengunci sumber data serta penamaan SKU.
+
+### Validasi
+
+- `npm test` 56/56, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- Database production belum diubah karena CLI belum linked, service-role kosong, dan tidak ada sesi Dashboard Supabase aktif.
+
 ## [2026-08-08] — Galeri Produk dan identitas visual terbaru
 
 ### Ditambahkan
