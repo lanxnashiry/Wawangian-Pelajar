@@ -28,7 +28,7 @@ export function SkemaArtikel({ artikel }: { artikel: Artikel }) {
       name: "Wawangian Pelajar",
       logo: {
         "@type": "ImageObject",
-        url: `${urlSitus}/ikon-wawangian-pelajar-2026.png`,
+        url: `${urlSitus}/logo-wawangian-pelajar-resmi.png`,
       },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": alamatArtikel },

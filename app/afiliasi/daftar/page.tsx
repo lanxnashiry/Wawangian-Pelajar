@@ -12,7 +12,7 @@ export default async function HalamanDaftarAfiliasi({ searchParams }: { searchPa
   return (
     <main className="bg-[#F4EBDD] px-5 py-10 sm:px-8 sm:py-14">
       <section className="mx-auto w-full max-w-2xl rounded-[2rem] border border-[#DED3C2] bg-white p-6 shadow-xl shadow-[#102A43]/8 sm:p-8">
-        <Link href="/" className="inline-flex items-center gap-3 font-black text-[#102A43]"><Image src="/ikon-wawangian-pelajar-2026.png" alt="Monogram WAWANGIAN PELAJAR" width={48} height={48} className="rounded-xl" /> Wawangian Pelajar</Link>
+        <Link href="/" className="inline-flex items-center gap-3 font-black text-[#102A43]"><Image src="/logo-wawangian-pelajar-resmi.png" alt="Monogram WAWANGIAN PELAJAR" width={48} height={48} className="rounded-xl" /> Wawangian Pelajar</Link>
         <p className="mt-8 text-xs font-black tracking-[0.16em] text-[#087477] uppercase">Pendaftaran individu</p>
         <h1 className="mt-3 text-3xl font-black tracking-tight text-[#102A43] sm:text-4xl">Daftar Afiliasi Pelajar</h1>
         <p className="mt-3 text-sm leading-6 text-[#282B2F]">Handle marketplace adalah kunci pencocokan laporan penjualan untuk bonus. Minimal satu handle wajib diisi.</p>

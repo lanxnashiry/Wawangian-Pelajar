@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import test from "node:test";
 import {
@@ -85,20 +86,22 @@ test("Admin mendukung maksimal empat foto, urutan utama, dan penghapusan", () =>
   assert.match(tindakan, /\.remove\(lokasiFotoDihapus\)/);
 });
 
-test("aset logo terbaru tersedia dan digunakan pada navigasi, footer, ikon, dan OG", () => {
-  const aset = [
-    "../public/logo-wawangian-pelajar-horizontal.webp",
-    "../public/logo-wawangian-pelajar-penuh.webp",
-    "../public/ikon-wawangian-pelajar-2026.png",
-    "../public/og-wawangian-pelajar.png",
-  ];
-  for (const jalur of aset) {
-    const url = new URL(jalur, import.meta.url);
-    assert.ok(existsSync(url), `${jalur} belum tersedia`);
-    assert.ok(statSync(url).size > 1_000, `${jalur} tampak kosong`);
-  }
+test("seluruh permukaan memakai satu logo asli tanpa edit", () => {
+  const url = new URL("../public/logo-wawangian-pelajar-resmi.png", import.meta.url);
+  assert.ok(existsSync(url));
+  assert.equal(statSync(url).size, 1_265_733);
+  assert.equal(
+    createHash("sha256").update(readFileSync(url)).digest("hex"),
+    "06bc362ff15041486c74a1bb9a97c2a4956b4535353dc4cdb18ff863b52ce08b",
+  );
 
-  assert.match(baca("../components/navigasi-utama.tsx"), /logo-wawangian-pelajar-simbol\.webp/);
-  assert.match(baca("../components/footer-utama.tsx"), /logo-wawangian-pelajar-penuh\.webp/);
+  for (const jalur of [
+    "../components/navigasi-utama.tsx",
+    "../components/footer-utama.tsx",
+    "../app/layout.tsx",
+    "../components/skema-artikel.tsx",
+  ]) {
+    assert.match(baca(jalur), /logo-wawangian-pelajar-resmi\.png/);
+  }
   assert.match(baca("../app/layout.tsx"), /WAWANGIAN PELAJAR — FRAGRANCE HOME/);
 });

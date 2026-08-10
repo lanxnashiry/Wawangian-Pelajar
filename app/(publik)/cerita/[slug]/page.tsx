@@ -55,7 +55,7 @@ export async function generateMetadata({
   const judulMeta = artikel.metaJudul?.trim() || artikel.judul;
   const deskripsiMeta = artikel.metaDeskripsi?.trim() || artikel.cuplikan;
   const jalur = `/cerita/${artikel.slug}`;
-  const gambar = artikel.fotoUtama ?? "/og-wawangian-pelajar.png";
+  const gambar = artikel.fotoUtama ?? "/logo-wawangian-pelajar-resmi.png";
 
   return {
     title: judulMeta,

@@ -2,6 +2,19 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-09] — Logo asli tanpa edit
+
+### Diubah
+
+- PNG kiriman pemilik disalin byte-for-byte sebagai satu master dan dipakai langsung di seluruh permukaan identitas.
+- Seluruh crop, sharpen, resize aset, compositing, dan turunan sebelumnya tidak lagi direferensikan.
+- Test mengunci ukuran 1.265.733 byte dan SHA-256 sumber resmi.
+- BUILD_SPEC naik ke 3.9 dan KEP-061 menggantikan cara implementasi KEP-060.
+
+### Validasi
+
+- `npm test` 58/58, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+
 ## [2026-08-09] — Identitas logo gelap terbaru
 
 ### Diubah

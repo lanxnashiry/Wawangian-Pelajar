@@ -18,7 +18,7 @@ export default async function HalamanUndanganAdmin({ searchParams }: PropertiHal
     <main className="flex min-h-svh items-center justify-center bg-[#F4EBDD] px-5 py-12">
       <div className="w-full max-w-md rounded-[2rem] border border-[#DED3C2] bg-white p-6 shadow-xl shadow-[#102A43]/8 sm:p-8">
         <Link href="/" className="inline-flex items-center gap-3 font-black text-[#102A43]">
-          <Image src="/ikon-wawangian-pelajar-2026.png" alt="Monogram WAWANGIAN PELAJAR" width={48} height={48} className="rounded-xl" />
+          <Image src="/logo-wawangian-pelajar-resmi.png" alt="Monogram WAWANGIAN PELAJAR" width={48} height={48} className="rounded-xl" />
           Wawangian Pelajar
         </Link>
         <p className="mt-8 text-xs font-black tracking-[0.16em] text-[#087477] uppercase">

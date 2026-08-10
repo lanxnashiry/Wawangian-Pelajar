@@ -14,8 +14,8 @@ export const metadata: Metadata = {
   description:
     "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
   icons: {
-    icon: "/ikon-wawangian-pelajar-2026.png",
-    apple: "/ikon-wawangian-pelajar-2026.png",
+    icon: "/logo-wawangian-pelajar-resmi.png",
+    apple: "/logo-wawangian-pelajar-resmi.png",
   },
   openGraph: {
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
       "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
     images: [
       {
-        url: "/og-wawangian-pelajar.png",
+        url: "/logo-wawangian-pelajar-resmi.png",
         width: 1200,
         height: 630,
         alt: "WAWANGIAN PELAJAR — FRAGRANCE HOME",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Wawangian Pelajar — Decant Parfum Original untuk Mahasiswa",
     description:
       "Decant parfum original dan parfum inspirasi mulai 1 ml, buat mahasiswa yang mau coba banyak wangi tanpa beli botol penuh. 20% laba untuk pendidikan.",
-    images: ["/og-wawangian-pelajar.png"],
+    images: ["/logo-wawangian-pelajar-resmi.png"],
   },
 };
 

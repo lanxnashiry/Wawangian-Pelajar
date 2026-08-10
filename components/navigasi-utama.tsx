@@ -52,12 +52,12 @@ export function NavigasiUtama() {
           onClick={() => setMenuTerbuka(false)}
         >
           <Image
-            src="/logo-wawangian-pelajar-simbol.webp"
+            src="/logo-wawangian-pelajar-resmi.png"
             alt="Monogram WAWANGIAN PELAJAR"
-            width={79}
+            width={72}
             height={48}
             priority
-            className="h-12 w-auto"
+            className="h-12 w-[72px] object-contain"
           />
           <span className="truncate text-base font-black tracking-tight text-[#102A43] sm:text-lg">
             Wawangian Pelajar
