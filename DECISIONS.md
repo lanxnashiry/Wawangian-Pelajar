@@ -349,6 +349,12 @@
 **Alasan:** Visual baru memperkuat identitas navy–teal–emas serta menjelaskan prinsip secara lebih cepat daripada simbol teks kecil. Visual koleksi bersifat promosi umum, bukan bukti stok atau representasi presisi setiap Produk.
 **Konsekuensi:** Hero tidak lagi bergantung pada Produk unggulan pertama. Gambar koleksi tidak boleh dipakai sebagai foto Produk atau bukti barang. Empat aset sumber disalin dari cache unggahan ke repository agar permanen.
 
+### KEP-060 — Identitas gelap terbaru menggantikan seluruh turunan logo web
+**Tanggal:** 2026-08-09 · **Status:** Diterima
+**Keputusan:** Artwork gelap WP dengan wordmark WAWANGIAN PELAJAR dan tagline FRAGRANCE HOME menjadi identitas terbaru. Satu sumber raster diturunkan menjadi monogram header, logo penuh footer, ikon persegi, dan OG 1200×630; nama file lama dipertahankan agar seluruh permukaan berubah konsisten.
+**Alasan:** Pemilik memilih desain ini sebagai logo terbaru. Crop terpisah diperlukan karena satu komposisi 3:2 tidak cocok langsung untuk header, favicon, footer, dan OG.
+**Konsekuensi:** Monogram header tidak memuat wordmark; footer mempertahankan logo lengkap; icon memakai monogram dalam safe area; OG memakai contain tanpa crop. Wordmark gelap berkontras rendah adalah keterbatasan sumber yang diterima sementara; master vektor/transparan tetap menjadi upgrade bila tersedia.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

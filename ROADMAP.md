@@ -118,6 +118,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Galeri maksimal empat foto, tampilan Produk utuh, pengelolaan foto Admin aman, dan identitas visual terbaru
 - ✅ Migrasi lima Produk Mykonos baru, lima perubahan harga, dan lima profil Temukan Wangimu disiapkan dari sumber resmi
 - ✅ Foto utama homepage dan tiga visual Prinsip Kami memakai aset kiriman pemilik yang dioptimalkan
+- ✅ Identitas gelap terbaru diterapkan ke monogram header/login, footer, favicon, dan Open Graph
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 
 ---
