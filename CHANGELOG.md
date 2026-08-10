@@ -12,7 +12,8 @@
 
 ### Validasi
 
-- `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, dan QA turunan logo lulus.
+- `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, QA turunan, Vercel production, dan QA header nyata lulus.
+- Monogram dipertajam dan diperbesar menjadi 48 px; footer diperlebar 320 px serta melepas latar putih warisan logo lama.
 
 ## [2026-08-09] — Visual homepage kiriman pemilik
 
