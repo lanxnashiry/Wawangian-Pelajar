@@ -2,6 +2,18 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-09] — Identitas logo gelap terbaru
+
+### Diubah
+
+- Sumber logo gelap kiriman pemilik diturunkan menjadi monogram header, logo penuh footer, icon 512×512, dan OG 1200×630.
+- Nama aset lama dipertahankan agar seluruh permukaan web berubah tanpa duplikasi kode.
+- BUILD_SPEC naik ke 3.8 dan KEP-060 mencatat keterbatasan wordmark gelap serta upgrade vektor berikutnya.
+
+### Validasi
+
+- `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, dan QA turunan logo lulus.
+
 ## [2026-08-09] — Visual homepage kiriman pemilik
 
 ### Diubah

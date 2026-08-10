@@ -4,7 +4,16 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** visual utama dan Prinsip Kami homepage sudah aktif serta terverifikasi di production.
+**Status milestone aktif:** turunan logo gelap terbaru selesai di kode; QA tampilan nyata dan deployment berlangsung.
+
+## Identitas logo gelap terbaru — keadaan terbaru
+
+- Artwork 1536×1024 diturunkan menjadi monogram header 1090×665, logo penuh footer 1456×885, icon 512×512, dan OG 1200×630.
+- Turunan mempertahankan semua bentuk tanpa crop; icon/OG memakai safe area dan latar gelap.
+- Nama aset lama dipertahankan sehingga header, login/Admin/Afiliasi, footer, metadata, favicon, dan schema Artikel berubah serempak.
+- Wordmark navy berkontras rendah pada artwork gelap adalah keterbatasan sumber yang diterima sementara; master vektor/transparan tetap upgrade berikutnya.
+
+**Verifikasi kode:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, dan QA turunan logo lulus. QA ukuran nyata production mengikuti sebelum merge.
 
 ## Visual homepage kiriman pemilik — keadaan terbaru
 
