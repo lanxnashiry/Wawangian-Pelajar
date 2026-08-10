@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** turunan logo gelap terbaru selesai di kode; QA tampilan nyata dan deployment berlangsung.
+**Status milestone aktif:** identitas logo gelap terbaru sudah aktif di production; konteks header/footer sudah disesuaikan.
 
 ## Identitas logo gelap terbaru — keadaan terbaru
 
@@ -13,7 +13,7 @@
 - Nama aset lama dipertahankan sehingga header, login/Admin/Afiliasi, footer, metadata, favicon, dan schema Artikel berubah serempak.
 - Wordmark navy berkontras rendah pada artwork gelap adalah keterbatasan sumber yang diterima sementara; master vektor/transparan tetap upgrade berikutnya.
 
-**Verifikasi kode:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, dan QA turunan logo lulus. QA ukuran nyata production mengikuti sebelum merge.
+**Verifikasi akhir:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, QA turunan, Vercel production, dan QA header nyata lulus. Monogram dibuat lebih ketat/tajam dan tampil 48 px; footer tampil 320 px tanpa latar putih. Efek glow tetap lebih lembut daripada logo flat—master vector/flat diperlukan bila pemilik menghendaki ketajaman favicon/header maksimal.
 
 ## Visual homepage kiriman pemilik — keadaan terbaru
 
