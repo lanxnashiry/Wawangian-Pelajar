@@ -174,11 +174,11 @@ export function FooterUtama() {
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_0.75fr_1fr] lg:px-10">
         <div className="max-w-sm">
           <Image
-            src="/logo-wawangian-pelajar-penuh.webp"
+            src="/logo-wawangian-pelajar-resmi.png"
             alt="WAWANGIAN PELAJAR — FRAGRANCE HOME"
             width={320}
-            height={195}
-            className="h-auto w-full max-w-[320px] rounded-2xl"
+            height={213}
+            className="h-auto w-full max-w-[320px] object-contain"
           />
           <p className="mt-4 text-sm leading-6 text-[#D9E1E8]">
             Wangi yang berpihak pada pendidikan. Belanja dilakukan melalui

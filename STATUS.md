@@ -4,16 +4,16 @@
 
 **Terakhir diperbarui:** 5 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** identitas logo gelap terbaru sudah aktif di production; konteks header/footer sudah disesuaikan.
+**Status milestone aktif:** logo PNG asli tanpa edit selesai di kode; deployment dan verifikasi production berlangsung.
 
 ## Identitas logo gelap terbaru — keadaan terbaru
 
-- Artwork 1536×1024 diturunkan menjadi monogram header 1090×665, logo penuh footer 1456×885, icon 512×512, dan OG 1200×630.
-- Turunan mempertahankan semua bentuk tanpa crop; icon/OG memakai safe area dan latar gelap.
-- Nama aset lama dipertahankan sehingga header, login/Admin/Afiliasi, footer, metadata, favicon, dan schema Artikel berubah serempak.
-- Wordmark navy berkontras rendah pada artwork gelap adalah keterbatasan sumber yang diterima sementara; master vektor/transparan tetap upgrade berikutnya.
+- File asli 1536×1024 disalin byte-for-byte sebagai `logo-wawangian-pelajar-resmi.png`; ukuran 1.265.733 byte dan SHA-256 `06bc362ff15041486c74a1bb9a97c2a4956b4535353dc4cdb18ff863b52ce08b`.
+- Header, login/Admin/Afiliasi, footer, metadata icon, schema Artikel, fallback OG Artikel, dan OG situs menunjuk satu file yang sama.
+- Tidak ada crop, sharpen, resize aset, recolor, compositing, atau turunan logo. Layout hanya memakai `object-contain`.
+- KEP-061 menggantikan cara implementasi KEP-060 setelah pemilik menolak hasil olahan logo.
 
-**Verifikasi akhir:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, QA turunan, Vercel production, dan QA header nyata lulus. Monogram dibuat lebih ketat/tajam dan tampil 48 px; footer tampil 320 px tanpa latar putih. Efek glow tetap lebih lembut daripada logo flat—master vector/flat diperlukan bila pemilik menghendaki ketajaman favicon/header maksimal.
+**Verifikasi kode:** `npm test` 58/58, TypeScript, lint, build produksi, `git diff --check`, dan penguncian hash file asli lulus. Verifikasi production mengikuti setelah deployment.
 
 ## Visual homepage kiriman pemilik — keadaan terbaru
 

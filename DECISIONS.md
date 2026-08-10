@@ -355,6 +355,12 @@
 **Alasan:** Pemilik memilih desain ini sebagai logo terbaru. Crop terpisah diperlukan karena satu komposisi 3:2 tidak cocok langsung untuk header, favicon, footer, dan OG.
 **Konsekuensi:** Monogram header tidak memuat wordmark; footer mempertahankan logo lengkap; icon memakai monogram dalam safe area; OG memakai contain tanpa crop. Wordmark gelap berkontras rendah adalah keterbatasan sumber yang diterima sementara; master vektor/transparan tetap menjadi upgrade bila tersedia.
 
+### KEP-061 — Seluruh permukaan memakai PNG asli tanpa pengolahan visual
+**Tanggal:** 2026-08-09 · **Status:** Diterima; menggantikan cara implementasi KEP-060
+**Keputusan:** File PNG kiriman pemilik dipasang byte-for-byte sebagai satu master `logo-wawangian-pelajar-resmi.png`. Header, login/Admin/Afiliasi, footer, metadata icon, schema Artikel, fallback OG Artikel, serta OG situs menunjuk file yang sama dengan `object-contain`. Tidak ada crop, sharpen, resize aset, recolor, compositing, atau turunan visual.
+**Alasan:** Pengolahan crop/sharpen sebelumnya mengubah tampilan logo dan dinilai pemilik menjadi jelek. Kesetiaan pada artwork asli lebih penting daripada optimasi bentuk per konteks.
+**Konsekuensi:** SHA-256 master dikunci lewat test ke `06bc362ff15041486c74a1bb9a97c2a4956b4535353dc4cdb18ff863b52ce08b`. Pada area kecil, seluruh komposisi 3:2 akan tampak kecil; itu diterima agar artwork tidak diubah.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
