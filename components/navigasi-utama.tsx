@@ -54,10 +54,10 @@ export function NavigasiUtama() {
           <Image
             src="/logo-wawangian-pelajar-simbol.webp"
             alt="Monogram WAWANGIAN PELAJAR"
-            width={54}
-            height={36}
+            width={79}
+            height={48}
             priority
-            className="h-9 w-auto"
+            className="h-12 w-auto"
           />
           <span className="truncate text-base font-black tracking-tight text-[#102A43] sm:text-lg">
             Wawangian Pelajar

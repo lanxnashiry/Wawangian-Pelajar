@@ -176,9 +176,9 @@ export function FooterUtama() {
           <Image
             src="/logo-wawangian-pelajar-penuh.webp"
             alt="WAWANGIAN PELAJAR — FRAGRANCE HOME"
-            width={300}
-            height={208}
-            className="h-auto w-full max-w-[260px] rounded-2xl bg-white"
+            width={320}
+            height={195}
+            className="h-auto w-full max-w-[320px] rounded-2xl"
           />
           <p className="mt-4 text-sm leading-6 text-[#D9E1E8]">
             Wangi yang berpihak pada pendidikan. Belanja dilakukan melalui
