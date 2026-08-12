@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 3.9
+- **Versi spesifikasi:** 4.0
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -389,7 +389,7 @@ Tombol beli hybrid + popup + pencatatan KlikKeluar. Halaman kuis "Temukan Wangim
 Landing, pendaftaran (+handle marketplace), login afiliasi, dashboard, panduan, materi promosi, leaderboard. Admin: verifikasi + rekonsiliasi + bonus per pcs (BR-6, BR-7).
 
 **M6 — Poles & Rilis.**
-Optimasi kecepatan/gambar, aksesibilitas, efisiensi operasional Admin (termasuk entri massal dan profil rekomendasi), uji lintas perangkat, konten awal, rilis produksi.
+Optimasi kecepatan/gambar, aksesibilitas, efisiensi operasional Admin (termasuk entri massal dan profil rekomendasi), uji lintas perangkat, konten awal, rilis produksi. Katalog Decant mencakup pilihan 3 ml seharga Rp45.000 dengan foto yang sama seperti ukuran Decant lain dan posisi “Paling Direkomendasikan”.
 
 *(Fase lanjut di luar milestone ini: Sales Academy, notifikasi, loyalitas, peran granular.)*
 
@@ -463,4 +463,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v3.2 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v4.0 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

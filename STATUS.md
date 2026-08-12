@@ -2,9 +2,21 @@
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 
-**Terakhir diperbarui:** 5 Agustus 2026
+**Terakhir diperbarui:** 10 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** logo PNG asli tanpa edit selesai di kode; deployment dan verifikasi production berlangsung.
+**Status milestone aktif:** Decant Mykonos 3 ml telah diterapkan ke database hosted; validasi kode dan dokumentasi akhir berlangsung.
+
+## Decant Mykonos 3 ml — keadaan terbaru
+
+- Produk `decant-mykonos-original-3ml-pilih-varian` aktif dengan harga Rp45.000 dan label **Paling Direkomendasikan**.
+- Profil enam varian disalin dari Decant 2 ml; galeri disalin dari Decant 10 ml sesuai instruksi pemilik.
+- Deskripsi menekankan beberapa kali pemakaian tanpa menjamin jumlah semprotan, serta menyatakan produk Decant bukan full bottle.
+- Migrasi idempotent `202608100016_tambah_decant_mykonos_3ml.sql` sudah diterapkan ke Supabase hosted.
+- REST production membuktikan satu baris 3 ml, satu foto, harga/slug/flags tepat, total **28 Produk aktif dan lima Decant**.
+- Asumsi scope: task ini hanya menambah 3 ml; Decant 1 ml dan 10 ml belum dihapus. Restrukturisasi ukuran lain serta sinkronisasi listing marketplace adalah task terpisah.
+- BUILD_SPEC naik ke 4.0 dan keputusan dicatat sebagai KEP-062.
+
+**Verifikasi akhir:** test baru mengikuti RED→GREEN; `npm test` 61/61, TypeScript, lint, build produksi, dan `git diff --check` lulus. Histori migrasi lokal/remote 16/16 sejajar dan dry-run menyatakan database up to date.
 
 ## Identitas logo gelap terbaru — keadaan terbaru
 
