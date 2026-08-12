@@ -2,6 +2,18 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-10] — Decant Mykonos 3 ml
+
+### Ditambahkan
+
+- Produk Decant Mykonos Original 3 ml seharga Rp45.000 sebagai pilihan Paling Direkomendasikan.
+- Migrasi idempotent `202608100016` menyalin profil enam varian dari Decant 2 ml dan galeri dari Decant 10 ml.
+- Tiga pengujian kontrak untuk harga/slug, pemakaian foto yang sama, serta deskripsi tanpa jaminan jumlah semprotan.
+
+### Validasi
+
+- Migrasi diterapkan ke Supabase hosted; REST membuktikan 28 Produk aktif, lima Decant, satu galeri, dan data 3 ml yang tepat.
+
 ## [2026-08-09] — Logo asli tanpa edit
 
 ### Diubah

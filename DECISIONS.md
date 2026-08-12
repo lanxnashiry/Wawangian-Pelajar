@@ -361,6 +361,12 @@
 **Alasan:** Pengolahan crop/sharpen sebelumnya mengubah tampilan logo dan dinilai pemilik menjadi jelek. Kesetiaan pada artwork asli lebih penting daripada optimasi bentuk per konteks.
 **Konsekuensi:** SHA-256 master dikunci lewat test ke `06bc362ff15041486c74a1bb9a97c2a4956b4535353dc4cdb18ff863b52ce08b`. Pada area kecil, seluruh komposisi 3:2 akan tampak kecil; itu diterima agar artwork tidak diubah.
 
+### KEP-062 — Decant 3 ml menjadi pilihan paling direkomendasikan
+**Tanggal:** 2026-08-10 · **Status:** Diterima
+**Keputusan:** Tambahkan Decant Mykonos Original 3 ml seharga Rp45.000. Produk memakai profil enam varian yang sama dengan Decant lain dan menyalin galeri Decant 10 ml. Ringkasan memosisikan 3 ml sebagai “Paling Direkomendasikan” tanpa harga coret atau klaim jumlah semprotan.
+**Alasan:** Ukuran 3 ml menyeimbangkan komitmen harga dan kecukupan pemakaian bagi pembeli yang masih mengeksplorasi aroma. Pemakaian galeri yang sama mengikuti instruksi pemilik dan menjaga konsistensi lini Decant.
+**Konsekuensi:** Katalog hosted menjadi 28 Produk aktif dan lima Decant. Produk 1/2/5/10 ml tidak dihapus dalam task ini. Perubahan ukuran Decant lain dan sinkronisasi listing marketplace dikerjakan terpisah bila diputuskan pemilik. BUILD_SPEC naik ke 4.0.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*
