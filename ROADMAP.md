@@ -119,6 +119,7 @@ Revisi requirement 31 Juli 2026 mengizinkan gambar hasil AI atau penyempurnaan A
 - ✅ Migrasi lima Produk Mykonos baru, lima perubahan harga, dan lima profil Temukan Wangimu disiapkan dari sumber resmi
 - ✅ Foto utama homepage dan tiga visual Prinsip Kami memakai aset kiriman pemilik yang dioptimalkan
 - ✅ Logo PNG asli kiriman pemilik ditempel tanpa edit ke seluruh permukaan identitas
+- ✅ Simpan Produk/Artikel berhasil kembali ke halaman daftar Admin masing-masing
 - ✅ Decant Mykonos 3 ml Rp45.000 ditambahkan sebagai pilihan Paling Direkomendasikan dengan galeri yang sama
 - ⬜ Rilis produksi dan pengiriman sitemap ke Google Search Console
 

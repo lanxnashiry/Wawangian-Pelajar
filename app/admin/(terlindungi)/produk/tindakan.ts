@@ -205,7 +205,7 @@ export async function simpanProduk(formulir: FormData) {
   revalidatePath("/admin");
   revalidatePath("/admin/produk");
   revalidatePath("/admin/profil-rekomendasi");
-  redirect(`/admin/produk/${hasil.data.id}?pesan=Produk+berhasil+disimpan`);
+  redirect("/admin/produk?pesan=Produk+berhasil+disimpan");
 }
 
 export async function nonaktifkanProduk(formulir: FormData) {

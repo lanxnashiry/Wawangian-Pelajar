@@ -2,6 +2,19 @@
 
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
+## [2026-08-10] — Redirect simpan Admin kembali ke daftar
+
+### Diubah
+
+- Simpan Produk yang sukses diarahkan ke daftar `/admin/produk`.
+- Simpan Artikel yang sukses diarahkan ke daftar `/admin/konten`.
+- Jalur validasi/upload gagal tetap kembali ke form terkait.
+
+### Validasi
+
+- Test regresi RED→GREEN untuk kedua redirect.
+- `npm test` 63/63, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+
 ## [2026-08-10] — Decant Mykonos 3 ml
 
 ### Ditambahkan
