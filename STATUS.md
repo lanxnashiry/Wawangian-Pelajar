@@ -4,7 +4,7 @@
 
 **Terakhir diperbarui:** 10 Agustus 2026
 **Milestone aktif:** M6 — Poles & Rilis
-**Status milestone aktif:** Decant 3 ml sudah hosted; redirect sukses form Produk/Artikel kembali ke daftar selesai di kode dan menunggu deployment.
+**Status milestone aktif:** Decant 3 ml sudah hosted; redirect sukses form Produk/Artikel kembali ke daftar sudah aktif di production.
 
 ## Redirect simpan Admin — keadaan terbaru
 
@@ -13,7 +13,7 @@
 - Jalur gagal tetap kembali ke form terkait agar pengguna dapat memperbaiki data/foto.
 - Test regresi RED→GREEN ditambahkan untuk kedua alur.
 
-**Verifikasi kode:** `npm test` 63/63, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+**Verifikasi akhir:** `npm test` 63/63, TypeScript, lint, build produksi, `git diff --check`, Vercel Preview, dan Vercel Production lulus.
 
 ## Decant Mykonos 3 ml — keadaan terbaru
 
