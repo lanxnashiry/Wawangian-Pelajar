@@ -13,7 +13,7 @@
 ### Validasi
 
 - Test regresi RED→GREEN untuk kedua redirect.
-- `npm test` 63/63, TypeScript, lint, build produksi, dan `git diff --check` lulus.
+- `npm test` 63/63, TypeScript, lint, build produksi, `git diff --check`, Vercel Preview, dan Vercel Production lulus.
 
 ## [2026-08-10] — Decant Mykonos 3 ml
 
