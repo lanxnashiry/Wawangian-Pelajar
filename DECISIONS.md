@@ -367,6 +367,12 @@
 **Alasan:** Ukuran 3 ml menyeimbangkan komitmen harga dan kecukupan pemakaian bagi pembeli yang masih mengeksplorasi aroma. Pemakaian galeri yang sama mengikuti instruksi pemilik dan menjaga konsistensi lini Decant.
 **Konsekuensi:** Katalog hosted menjadi 28 Produk aktif dan lima Decant. Produk 1/2/5/10 ml tidak dihapus dalam task ini. Perubahan ukuran Decant lain dan sinkronisasi listing marketplace dikerjakan terpisah bila diputuskan pemilik. BUILD_SPEC naik ke 4.0.
 
+### KEP-063 — Simpan Admin kembali ke daftar setelah sukses
+**Tanggal:** 2026-08-10 · **Status:** Diterima
+**Keputusan:** Setelah Produk berhasil dibuat atau diperbarui, Admin diarahkan ke `/admin/produk`. Setelah Artikel berhasil dibuat atau diperbarui, Admin diarahkan ke `/admin/konten`. Pesan sukses tetap dibawa melalui query `pesan`.
+**Alasan:** Setelah penyimpanan selesai, pekerjaan berikutnya umumnya memeriksa atau mengelola daftar, bukan tetap berada di form edit yang sama.
+**Konsekuensi:** Redirect hanya berubah pada penyimpanan yang sepenuhnya sukses. Validasi gagal, upload foto gagal, atau pembaruan galeri gagal tetap kembali ke form terkait agar pesan dan konteks perbaikan tidak hilang.
+
 ---
 
 *DECISIONS.md — tambahkan KEP-XXX baru setiap ada keputusan. Jangan hapus yang lama.*

@@ -75,7 +75,7 @@ export async function simpanArtikel(formulir: FormData) {
   }
 
   revalidatePath("/"); revalidatePath("/cerita"); revalidatePath("/admin"); revalidatePath("/admin/konten");
-  redirect(`/admin/konten/${hasil.data.id}?pesan=Artikel+berhasil+disimpan`);
+  redirect("/admin/konten?pesan=Artikel+berhasil+disimpan");
 }
 
 export async function hapusArtikel(formulir: FormData) {
