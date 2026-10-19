@@ -1,0 +1,1 @@
+export default function TidakAda(){return <main className="mx-auto max-w-xl px-5 py-20"><h1 className="text-3xl font-black">Kode batch belum ditemukan</h1><p className="mt-3">Periksa penulisan atau hubungi WP.</p></main>}

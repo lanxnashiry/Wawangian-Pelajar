@@ -20,6 +20,7 @@ type TautanKanal = {
 
 const tautanJelajah = [
   { label: "Katalog", href: "/katalog" },
+  { label: "Cek Batch", href: "/cek-batch" },
   { label: "Temukan Wangimu", href: "/temukan" },
   { label: "Transparansi Donasi", href: "/donasi" },
   { label: "Cerita & Edukasi", href: "/cerita" },
