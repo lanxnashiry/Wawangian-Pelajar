@@ -46,6 +46,12 @@ test("UI tidak menerima snapshot nama tersembunyi dan QR tidak memakai HTML ment
   assert.match(form, /name=["']konfirmasi_terbit["']/);
   const tindakan = baca("app/admin/(terlindungi)/batch/tindakan.ts");
   assert.match(tindakan, /konfirmasiTerbit/);
+  assert.match(tindakan, /p_konfirmasi_terbit: konfirmasiTerbit/);
+  assert.match(sql, /p_konfirmasi_terbit boolean/);
+  assert.match(sql, /Konfirmasi penerbitan wajib/);
+  const cekBatch = baca("app/(publik)/cek-batch/page.tsx");
+  assert.match(cekBatch, /kodeBatchValid/);
+  assert.match(cekBatch, /maxLength=\{40\}/);
   assert.doesNotMatch(qr, /dangerouslySetInnerHTML/);
   assert.match(qr, /force-dynamic/);
   assert.match(qr, /noStore\(\)/);

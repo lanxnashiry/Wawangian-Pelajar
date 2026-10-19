@@ -66,6 +66,7 @@ export async function simpanBatch(form: FormData) {
     p_status: statusTujuan,
     p_versi: Number(form.get("versi") ?? 1),
     p_alasan: alasan,
+    p_konfirmasi_terbit: konfirmasiTerbit,
   });
   if (error) {
     const pesan = error.code === "40001" ? "Konflik versi. Muat ulang data."

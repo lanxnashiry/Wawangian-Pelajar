@@ -62,7 +62,8 @@ create or replace function public.simpan_batch(
   p_publik text,
   p_status text,
   p_versi integer,
-  p_alasan text default null
+  p_alasan text default null,
+  p_konfirmasi_terbit boolean default false
 )
 returns public.batch_produksi
 language plpgsql security definer set search_path = ''
@@ -120,6 +121,9 @@ begin
     if p_status not in ('draft', 'diedarkan') then
       raise exception 'Status awal tidak valid.' using errcode = '22023';
     end if;
+    if p_status = 'diedarkan' and p_konfirmasi_terbit is not true then
+      raise exception 'Konfirmasi penerbitan wajib.' using errcode = '22023';
+    end if;
     insert into public.batch_produksi(
       kode_batch, produk_id, nama_varian, tanggal_produksi, kode_formula,
       catatan_internal, keterangan_publik, status, diterbitkan_pada
@@ -141,6 +145,9 @@ begin
        or lama.status = 'diedarkan' and p_status not in ('diedarkan', 'ditarik', 'nonaktif')
        or lama.status in ('ditarik', 'nonaktif') and p_status not in (lama.status, 'diedarkan') then
       raise exception 'Transisi status tidak diizinkan.' using errcode = '22023';
+    end if;
+    if lama.status = 'draft' and p_status = 'diedarkan' and p_konfirmasi_terbit is not true then
+      raise exception 'Konfirmasi penerbitan wajib.' using errcode = '22023';
     end if;
     if lama.status <> p_status and lama.status <> 'draft' and coalesce(trim(p_alasan), '') = '' then
       raise exception 'Alasan perubahan status wajib.' using errcode = '22023';
@@ -173,5 +180,5 @@ begin
   return baru;
 end
 $$;
-revoke all on function public.simpan_batch(uuid,text,uuid,text,text,text,text,text,integer,text) from public;
-grant execute on function public.simpan_batch(uuid,text,uuid,text,text,text,text,text,integer,text) to authenticated;
+revoke all on function public.simpan_batch(uuid,text,uuid,text,text,text,text,text,integer,text,boolean) from public;
+grant execute on function public.simpan_batch(uuid,text,uuid,text,text,text,text,text,integer,text,boolean) to authenticated;
