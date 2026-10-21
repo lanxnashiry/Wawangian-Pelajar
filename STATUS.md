@@ -1,9 +1,10 @@
 # STATUS.md — Posisi Terkini Pengerjaan
 
-## Posisi 18 Oktober 2026
-- Modul Batch Produksi dan QR telah diimplementasikan pada branch `hermes/m6-modul-batch-qr`; migrasi belum diterapkan ke hosted.
-- Asumsi: hanya Produk kategori Inspirasi/Signature dipilih sebagai varian racikan; origin QR berasal dari `NEXT_PUBLIC_URL_SITUS`.
-- Blocker rilis: rate limit lookup membutuhkan fasilitas hosting bersama; uji scan stiker fisik dan integrasi RLS hosted menunggu persetujuan/deployment pemilik.
+## Posisi 19 Oktober 2026
+- Modul Batch Produksi dan QR aktif di production melalui PR #43; migrasi `202610180017` sudah diterapkan dan histori lokal/remote 17/17 sejajar.
+- Pilihan Batch mengambil 23 Produk aktif kategori Ori. Listing Decant multi-varian tidak dipakai sebagai identitas Batch.
+- Verifikasi hosted: lookup anon bekerja; SELECT tabel mentah dan RPC mutasi anon ditolak `401/42501`; `/cek-batch` HTTP 200 + noindex; kode tak ada 404 netral + noindex; Admin terlindungi login.
+- Sisa uji operasional: cetak label ukuran nyata dan scan pada beberapa HP/kondisi cahaya. Rate limit bersama belum tersedia dan tetap dicatat sebagai batas hosting MVP.
 
 > Dokumen ini selalu mencerminkan kondisi terkini. Riwayat lengkap perubahan tersedia di `CHANGELOG.md`.
 

@@ -6,6 +6,11 @@
 - Pencatatan Batch Produksi terproteksi dengan audit atomik, konflik versi, RLS, lookup publik terbatas, QR SVG/PNG, dan cetak label.
 - Halaman publik Cek Batch serta detail batch tanpa cache dan tanpa indeks mesin pencari.
 
+### Production
+- PR #43 merged; migrasi `202610180017` diterapkan dan lokal/remote 17/17 sejajar.
+- Dropdown Batch mengambil 23 Produk Ori aktif; listing Decant multi-varian dikecualikan.
+- Lookup anon lulus; tabel mentah dan mutasi anon ditolak; deployment production commit `07d1029` sukses.
+
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
 ## [2026-08-10] — Redirect simpan Admin kembali ke daftar
