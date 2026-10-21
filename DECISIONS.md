@@ -1,5 +1,15 @@
 # DECISIONS.md — Catatan Keputusan (ADR Ringkas)
 
+### KEP-064 — Identitas dan QR Batch Produksi
+
+**Tanggal:** 18 Oktober 2026 · **Status:** Diterima
+
+**Keputusan:** Satu kode dan QR stabil mewakili satu varian dalam satu proses pencampuran. Identitas dikunci setelah pertama diterbitkan; perubahan status tetap memakai URL yang sama.
+
+**Alasan:** Label yang sudah beredar harus tetap dapat diperiksa dan audit tidak boleh terputus.
+
+**Konsekuensi:** Koreksi identitas dilakukan dengan menonaktifkan batch lama dan membuat batch pengganti, bukan mendaur ulang kode.
+
 > Semua keputusan penting proyek + alasannya. Format: ADR (Architecture Decision Record) ringkas.
 > Aturan: selalu TAMBAH (append) keputusan baru, jangan hapus yang lama. Agent membaca ini sebelum bekerja.
 

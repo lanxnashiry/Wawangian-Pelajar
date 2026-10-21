@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 4.1
+- **Versi spesifikasi:** 4.2
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -196,6 +196,13 @@ Produk {
 
 KlikKeluar { id, produk_id, marketplace_tujuan, waktu }   // analitik
 
+BatchProduksi {
+  id, kode_batch:unik, produk_id, nama_varian:snapshot_produk,
+  tanggal_produksi:date, kode_formula?, status(draft|diedarkan|ditarik|nonaktif),
+  catatan_internal?, keterangan_publik?, diterbitkan_pada?, dibuat_oleh,
+  dibuat_pada, diperbarui_pada, versi
+}
+
 DonasiTerkumpul {
   id, periode_mulai, periode_selesai,
   sumber (shopee|tiktok|gabungan),
@@ -348,6 +355,11 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 - Halaman Artikel memiliki satu H1, canonical URL, metadata pencarian opsional, Open Graph, Twitter Card, dan schema `Article` serta `BreadcrumbList`.
 - Sitemap memuat Artikel terbit dan robots memblokir rute Admin, autentikasi, serta API dari indeks.
 
+**AC-Batch Produksi:**
+- RPC mengambil snapshot nama dari Produk aktif kategori Inspirasi/Signature; request tidak dapat menetapkan nama bebas.
+- Tanggal wajib tanggal kalender nyata; status hanya mengikuti state machine dan perubahan status diaudit atomik.
+- Lookup membedakan format salah, tidak ditemukan, dan gangguan layanan; QR SVG/PNG deterministik dapat diunduh tanpa HTML mentah.
+
 **AC-Admin:**
 - Validasi anti-brand-asli menolak input nama merek terkenal di aroma inspirasi.
 - Input harga Produk tidak menampilkan tombol panah naik/turun, hanya menerima digit, dan tetap divalidasi sebagai bilangan bulat tidak negatif oleh server.
@@ -463,4 +475,4 @@ Setelah menyelesaikan task, Agent memperbarui dokumen berikut **sesuai pemicunya
 
 ---
 
-*BUILD_SPEC.md v4.0 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*
+*BUILD_SPEC.md v4.2 — Website Wawangian Pelajar. Sumber kebenaran utama. Dibaca bersama ROADMAP.md, STATUS.md, DECISIONS.md, CHANGELOG.md, README.md.*

@@ -1,5 +1,7 @@
 ﻿# ROADMAP.md — Website Wawangian Pelajar
 
+> Progres M6 (18 Oktober 2026): ✅ implementasi lokal Modul Batch Produksi dan QR; ⬜ migrasi hosted dan uji cetak fisik setelah izin pemilik.
+
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.
 

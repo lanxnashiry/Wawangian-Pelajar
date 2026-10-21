@@ -1,0 +1,1 @@
+"use client";export default function Galat({reset}:{reset:()=>void}){return <main className="mx-auto max-w-xl px-5 py-20"><h1 className="text-3xl font-black">Pengecekan sementara tidak tersedia</h1><p className="mt-3">Silakan coba lagi.</p><button onClick={reset} className="mt-6 rounded-full bg-[#087477] px-6 py-3 text-white">Coba lagi</button></main>}

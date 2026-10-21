@@ -1,5 +1,11 @@
 # CHANGELOG.md — Riwayat Perubahan Aplikasi
 
+## [2026-10-18] — Modul Batch Produksi dan QR
+
+### Ditambah
+- Pencatatan Batch Produksi terproteksi dengan audit atomik, konflik versi, RLS, lookup publik terbatas, QR SVG/PNG, dan cetak label.
+- Halaman publik Cek Batch serta detail batch tanpa cache dan tanpa indeks mesin pencari.
+
 > Catatan bertanggal semua perubahan aplikasi. Riwayat lama tidak boleh dihapus.
 
 ## [2026-08-10] — Redirect simpan Admin kembali ke daftar

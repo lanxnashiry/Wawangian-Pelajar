@@ -102,6 +102,7 @@ Server pengembangan tersedia di `http://localhost:3000`.
 - `/katalog` — pencarian, filter, pengurutan, dan state kosong.
 - `/produk/[slug]` — detail produk hosted dan produk terkait.
 - `/temukan` — kuis lima tahap, hasil keluarga aroma, pilihan ukuran, dan tautan yang dapat dibagikan.
+- `/cek-batch` dan `/batch/[kode_batch]` — pemeriksaan catatan batch publik tanpa data internal.
 - `/cerita` — daftar artikel dan filter kategori.
 - `/cerita/[slug]` — isi artikel, share, dan CTA kontekstual.
 - `/donasi` — transparansi tiga angka, riwayat penyaluran, dan metode perhitungan M3.
@@ -168,6 +169,7 @@ Untuk aktivasi lokal, `Site URL` Supabase Auth diarahkan ke `http://localhost:30
 - `/admin/masuk` — login satu peran Admin.
 - `/admin` — dasbor berbasis data Supabase.
 - `/admin/produk` — daftar, tambah, edit, unggah foto, dan nonaktifkan produk.
+- `/admin/batch` — kelola draft, status, audit, QR, dan cetak Batch Produksi.
 - `/admin/profil-rekomendasi` — kelola keluarga aroma dan tag baku Temukan Wangimu.
 - `/admin/konten` — daftar, tambah, edit, terbitkan, dan hapus artikel.
 - `/admin/analitik` — ringkasan minat KlikKeluar dari Produk marketplace nyata.
