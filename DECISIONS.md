@@ -1,5 +1,15 @@
 # DECISIONS.md — Catatan Keputusan (ADR Ringkas)
 
+### KEP-065 — Kode Batch dibuat otomatis
+
+**Tanggal:** 21 Oktober 2026 · **Status:** Diterima
+
+**Keputusan:** Kode Batch tidak lagi diketik Admin. Server membentuk `KODE FORMULA-KODE VARIAN-YYYYMMDD-NN` dari kode formula, varian Produk, tanggal produksi, dan urutan pencampuran. Kode formula wajib untuk batch baru. Pilihan varian Batch memakai Produk racikan WP (Signature/Inspirasi).
+
+**Alasan:** Pemilik ingin kode konsisten tanpa salah ketik; urutan mencegah bentrok bila varian dan formula yang sama diracik lebih dari sekali dalam sehari.
+
+**Konsekuensi:** Kode terbit tetap dikunci sesuai KEP-064. Draft memperoleh kode baru hanya saat komponen identitasnya berubah. Kode varian Produk tanpa isian memakai inisial nama.
+
 ### KEP-064 — Identitas dan QR Batch Produksi
 
 **Tanggal:** 18 Oktober 2026 · **Status:** Diterima

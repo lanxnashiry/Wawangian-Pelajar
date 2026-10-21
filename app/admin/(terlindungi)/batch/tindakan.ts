@@ -9,7 +9,7 @@ const STATUS: readonly StatusBatch[] = ["draft", "diedarkan", "ditarik", "nonakt
 
 function urlKembali(id: string, form: FormData, pesan: string) {
   const query = new URLSearchParams({ pesan });
-  for (const nama of ["kode_batch", "produk_id", "tanggal_produksi", "kode_formula", "catatan_internal", "keterangan_publik", "status_tujuan", "alasan_status"]) {
+  for (const nama of ["produk_id", "tanggal_produksi", "kode_formula", "catatan_internal", "keterangan_publik", "status_tujuan", "alasan_status"]) {
     const nilai = String(form.get(nama) ?? "");
     if (nilai && nilai.length <= 2000) query.set(nama, nilai);
   }
@@ -20,7 +20,6 @@ export async function simpanBatch(form: FormData) {
   const { supabase } = await wajibAdmin();
   const id = String(form.get("id") ?? "");
   const data = {
-    kodeBatch: String(form.get("kode_batch") ?? ""),
     produkId: String(form.get("produk_id") ?? ""),
     tanggalProduksi: String(form.get("tanggal_produksi") ?? ""),
     kodeFormula: String(form.get("kode_formula") ?? ""),
@@ -55,9 +54,10 @@ export async function simpanBatch(form: FormData) {
     redirect(urlKembali(id, form, "Status awal tidak valid."));
   }
 
-  const { error } = await supabase.rpc("simpan_batch", {
+  // Kode batch dibuat RPC dari formula, varian, tanggal, dan urutan; p_kode diabaikan server.
+  const { data: tersimpan, error } = await supabase.rpc("simpan_batch", {
     p_id: id || null,
-    p_kode: normalisasiKodeBatch(data.kodeBatch),
+    p_kode: "",
     p_produk: data.produkId,
     p_tanggal: data.tanggalProduksi,
     p_formula: data.kodeFormula,
@@ -70,11 +70,13 @@ export async function simpanBatch(form: FormData) {
   });
   if (error) {
     const pesan = error.code === "40001" ? "Konflik versi. Muat ulang data."
-      : error.code === "23505" ? "Kode batch sudah dipakai."
+      : error.code === "23505" ? "Kode batch bentrok saat dibuat. Simpan ulang."
+      : error.code === "22023" && /formula|urutan/i.test(error.message) ? error.message
       : "Batch gagal disimpan. Periksa data dan coba lagi.";
     redirect(urlKembali(id, form, pesan));
   }
+  const kode = normalisasiKodeBatch(String(tersimpan?.kode_batch ?? ""));
   revalidatePath("/admin/batch");
-  revalidatePath(`/batch/${normalisasiKodeBatch(data.kodeBatch)}`);
-  redirect("/admin/batch?pesan=Batch+berhasil+disimpan");
+  if (kode) revalidatePath(`/batch/${kode}`);
+  redirect(`/admin/batch?pesan=${encodeURIComponent(`Batch ${kode} berhasil disimpan`)}`);
 }

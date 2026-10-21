@@ -7,7 +7,7 @@
 - **Produk:** Website resmi Wawangian Pelajar — brand parfum lokal bermisi pendidikan
 - **Tagline:** "Wangi yang berpihak pada pendidikan"
 - **Program donasi:** Dana Cahaya Pendidikan
-- **Versi spesifikasi:** 4.2
+- **Versi spesifikasi:** 4.3
 - **Bahasa proyek:** Seluruh kode, komentar, dan dokumen menggunakan Bahasa Indonesia
 - **Repositori:** GitHub
 - **Agent pengerjaan:** Codex (utama), Antigravity (cadangan)
@@ -197,8 +197,8 @@ Produk {
 KlikKeluar { id, produk_id, marketplace_tujuan, waktu }   // analitik
 
 BatchProduksi {
-  id, kode_batch:unik, produk_id, nama_varian:snapshot_produk,
-  tanggal_produksi:date, kode_formula?, status(draft|diedarkan|ditarik|nonaktif),
+  id, kode_batch:unik_otomatis, produk_id, nama_varian:snapshot_produk,
+  tanggal_produksi:date, kode_formula (wajib untuk batch baru), status(draft|diedarkan|ditarik|nonaktif),
   catatan_internal?, keterangan_publik?, diterbitkan_pada?, dibuat_oleh,
   dibuat_pada, diperbarui_pada, versi
 }
@@ -357,6 +357,8 @@ Kriteria yang harus terpenuhi agar fitur dianggap diterima. Format: diuji per fi
 
 **AC-Batch Produksi:**
 - RPC mengambil snapshot nama dari Produk aktif kategori Inspirasi/Signature; request tidak dapat menetapkan nama bebas.
+- Kode Batch dibuat server, tidak diketik: `KODE FORMULA-KODE VARIAN-YYYYMMDD-NN` (contoh `AV-T03-MC-20261021-01`). Kode varian dari `produk.kode_varian` (MC/AC/SC/FB) atau inisial nama. Urutan NN memisahkan pencampuran dengan formula, varian, dan tanggal sama; simpan bersamaan tidak mendapat nomor sama.
+- Draft membuat kode baru hanya bila formula, varian, atau tanggal berubah; setelah terbit, kode dan ketiga komponennya dikunci.
 - Tanggal wajib tanggal kalender nyata; status hanya mengikuti state machine dan perubahan status diaudit atomik.
 - Lookup membedakan format salah, tidak ditemukan, dan gangguan layanan; QR SVG/PNG deterministik dapat diunduh tanpa HTML mentah.
 

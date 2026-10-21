@@ -1,5 +1,14 @@
 # CHANGELOG.md — Riwayat Perubahan Aplikasi
 
+## [2026-10-21] — Kode Batch otomatis
+
+### Diubah
+- Kode Batch dibuat otomatis dari kode formula, kode varian, tanggal produksi, dan urutan (`AV-T03-MC-20261021-01`); Admin tidak lagi mengetik kode.
+- Kode formula wajib untuk batch baru; pilihan varian Batch memakai Produk Signature/Inspirasi aktif.
+
+### Ditambah
+- Kolom `produk.kode_varian` dengan isian MC, AC, SC, dan FB untuk empat racikan WP; migrasi `202610210018`.
+
 ## [2026-10-18] — Modul Batch Produksi dan QR
 
 ### Ditambah
