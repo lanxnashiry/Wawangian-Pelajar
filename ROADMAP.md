@@ -1,6 +1,6 @@
 ﻿# ROADMAP.md — Website Wawangian Pelajar
 
-> Progres M6 (19 Oktober 2026): ✅ Modul Batch Produksi dan QR aktif di production; ✅ migrasi hosted/RLS/RPC terverifikasi; ⬜ uji cetak label fisik dan scan multi-HP.
+> Progres M6 (21 Oktober 2026): ✅ Kode Batch otomatis (KEP-065); ✅ Modul Batch Produksi dan QR aktif di production; ✅ migrasi hosted/RLS/RPC terverifikasi; ⬜ uji cetak label fisik dan scan multi-HP.
 
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.
 > Aturan: milestone dikerjakan BERURUTAN. Jangan mulai milestone berikutnya sebelum yang aktif berstatus SELESAI.

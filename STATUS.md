@@ -1,5 +1,12 @@
 # STATUS.md — Posisi Terkini Pengerjaan
 
+## Posisi 21 Oktober 2026 — Kode Batch otomatis
+- Kode Batch dibuat server dengan format `KODE FORMULA-KODE VARIAN-YYYYMMDD-NN`, contoh `AV-T03-MC-20261021-01`; kolom kode di form hanya tampilan.
+- Migrasi `202610210018` menambah `produk.kode_varian` (MC Main Character, AC Afterclass, SC Secret Crush, FB First Bell), fungsi pembuat kode dengan advisory lock, dan RPC `simpan_batch` baru dengan signature sama.
+- Pilihan varian Batch kembali ke Produk Signature/Inspirasi aktif, sesuai empat racikan WP yang kini tersedia. RPC production sebelumnya memakai filter Ori; migrasi ini menyelaraskannya dengan kode repo.
+- Kode formula wajib untuk batch baru. Batch production saat implementasi: 0, jadi tidak ada kode lama yang berubah.
+- Asumsi: urutan maksimal 99 per formula+varian+tanggal; Produk tanpa `kode_varian` memakai inisial nama.
+
 ## Posisi 19 Oktober 2026
 - Modul Batch Produksi dan QR aktif di production melalui PR #43; migrasi `202610180017` sudah diterapkan dan histori lokal/remote 17/17 sejajar.
 - Pilihan Batch mengambil 23 Produk aktif kategori Ori. Listing Decant multi-varian tidak dipakai sebagai identitas Batch.

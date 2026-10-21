@@ -1,14 +1,19 @@
 export type StatusBatch = "draft" | "diedarkan" | "ditarik" | "nonaktif";
 export type MasukanBatch = {
-  kodeBatch: string;
   produkId: string;
   tanggalProduksi: string;
-  kodeFormula?: string;
+  kodeFormula: string;
   catatanInternal?: string;
   keteranganPublik?: string;
 };
 
 const POLA_KODE = /^[A-Z0-9]+(?:-[A-Z0-9]+)*$/;
+
+// Kode batch dibuat server (RPC simpan_batch): <FORMULA>-<VARIAN>-<YYYYMMDD>-<NN>.
+export function kodeFormulaValid(nilai: string) {
+  const kode = nilai.trim().toUpperCase();
+  return kode.length >= 1 && kode.length <= 20 && POLA_KODE.test(kode);
+}
 const TRANSISI: Record<StatusBatch, readonly StatusBatch[]> = {
   draft: ["diedarkan"],
   diedarkan: ["ditarik", "nonaktif"],
@@ -42,10 +47,9 @@ export function validasiBatch(
   hariJakarta = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(new Date()),
 ) {
   const galat: Partial<Record<keyof MasukanBatch, string>> = {};
-  if (!kodeBatchValid(data.kodeBatch)) galat.kodeBatch = "Kode batch harus 3–40 karakter ASCII, huruf/angka dengan tanda hubung antarsegmen.";
   if (!data.produkId.trim()) galat.produkId = "Varian wajib dipilih.";
   if (!tanggalKalenderValid(data.tanggalProduksi) || data.tanggalProduksi > hariJakarta) galat.tanggalProduksi = "Tanggal produksi wajib valid dan tidak boleh melewati hari ini di Jakarta.";
-  if ((data.kodeFormula?.trim().length ?? 0) > 100) galat.kodeFormula = "Kode formula maksimal 100 karakter.";
+  if (!kodeFormulaValid(data.kodeFormula)) galat.kodeFormula = "Kode formula wajib, maksimal 20 karakter huruf/angka dengan tanda hubung, misalnya AV-T03.";
   if ((data.catatanInternal?.trim().length ?? 0) > 2000) galat.catatanInternal = "Catatan internal maksimal 2.000 karakter.";
   if ((data.keteranganPublik?.trim().length ?? 0) > 500) galat.keteranganPublik = "Keterangan publik maksimal 500 karakter.";
   return galat;

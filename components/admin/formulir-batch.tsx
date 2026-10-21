@@ -19,11 +19,11 @@ export function FormulirBatch({ batch, produk, pesan, masukan = {} }: {
     <input type="hidden" name="versi" value={batch?.versi ?? 1}/>
     {pesan && <p role="alert" className="rounded-xl bg-[#fff2f0] p-4 text-[#9e3024]">{pesan}</p>}
     <div className="grid gap-5 rounded-2xl bg-white p-6 lg:grid-cols-2">
-      <label className="font-bold">Kode Batch *<input className={kelas} name="kode_batch" required pattern="[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*" minLength={3} maxLength={40} defaultValue={nilai("kode_batch", batch?.kode_batch)}/></label>
+      <div><p className="font-bold">Kode Batch</p><p className={`${kelas} min-h-12 bg-[#F4EBDD] font-mono`} aria-live="polite">{batch?.kode_batch ?? "Dibuat otomatis saat disimpan"}</p><p className="mt-1 text-sm">Format: KODE FORMULA-KODE VARIAN-TANGGAL-URUTAN, misalnya AV-T03-MC-20261021-01. Tidak dapat diketik manual.</p></div>
       <label className="font-bold">Varian *<select className={kelas} name="produk_id" required defaultValue={produkTerpilih}><option value="">Pilih produk</option>{produk.map((item) => <option key={item.id} value={item.id}>{item.nama}</option>)}</select></label>
       <div><p className="font-bold">Nama publik</p><p className={`${kelas} min-h-12 bg-[#F4EBDD]`} aria-live="polite">{nama}</p><p className="mt-1 text-sm">Disalin otomatis oleh server dari Produk, bukan dari isian formulir.</p></div>
       <label className="font-bold">Tanggal produksi *<input className={kelas} type="date" name="tanggal_produksi" required defaultValue={nilai("tanggal_produksi", batch?.tanggal_produksi)}/></label>
-      <label className="font-bold">Kode formula<input className={kelas} name="kode_formula" maxLength={100} defaultValue={nilai("kode_formula", batch?.kode_formula)}/></label>
+      <label className="font-bold">Kode formula *<input className={kelas} name="kode_formula" required pattern="[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*" maxLength={20} placeholder="AV-T03" defaultValue={nilai("kode_formula", batch?.kode_formula)}/></label>
       <label className="font-bold">Status tujuan<select className={kelas} name="status_tujuan" defaultValue={nilai("status_tujuan", batch?.status ?? "diedarkan")}>
         {!batch && <><option value="draft">Draft</option><option value="diedarkan">Diedarkan</option></>}
         {batch?.status === "draft" && <><option value="draft">Draft</option><option value="diedarkan">Diedarkan</option></>}
