@@ -21,7 +21,12 @@ test("state machine menolak transisi arbitrer dan mewajibkan alasan", () => {
 test("RPC adalah trust boundary dan snapshot nama berasal dari Produk relevan", () => {
   assert.doesNotMatch(sql, /p_nama\s+text/i);
   assert.match(sql, /from public\.produk where id = p_produk/i);
-  assert.match(sql, /produk\.aktif is not true or produk\.kategori not in \('inspirasi', 'signature'\)/i);
+  assert.match(sql, /produk\.aktif is not true or produk\.kategori <> 'ori'/i);
+  const baru = baca("app/admin/(terlindungi)/batch/baru/page.tsx");
+  const detail = baca("app/admin/(terlindungi)/batch/[id]/page.tsx");
+  assert.match(baru, /\.eq\("kategori", "ori"\)/);
+  assert.match(detail, /\.eq\("kategori", "ori"\)/);
+  assert.doesNotMatch(baru, /inspirasi|signature|decant/);
   assert.match(sql, /nama_varian[\s\S]*produk\.nama|produk\.nama[\s\S]*nama_varian/i);
   assert.doesNotMatch(sql, /trim\(produk\.nama\) <> lama\.nama_varian/i);
   assert.match(sql, /nama_varian = case when lama\.status = 'draft'[\s\S]*else lama\.nama_varian/i);

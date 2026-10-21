@@ -115,8 +115,8 @@ begin
   end if;
 
   if p_id is null then
-    if produk.aktif is not true or produk.kategori not in ('inspirasi', 'signature') then
-      raise exception 'Varian Produk tidak aktif atau bukan racikan WP.' using errcode = '22023';
+    if produk.aktif is not true or produk.kategori <> 'ori' then
+      raise exception 'Varian wajib memakai Produk Ori aktif dengan identitas tunggal.' using errcode = '22023';
     end if;
     if p_status not in ('draft', 'diedarkan') then
       raise exception 'Status awal tidak valid.' using errcode = '22023';
@@ -137,6 +137,9 @@ begin
     select * into lama from public.batch_produksi where id = p_id for update;
     if not found then raise exception 'Batch tidak ditemukan.' using errcode = 'P0002'; end if;
     if lama.versi <> p_versi then raise exception 'Konflik versi. Muat ulang data.' using errcode = '40001'; end if;
+    if lama.status = 'draft' and (produk.aktif is not true or produk.kategori <> 'ori') then
+      raise exception 'Varian wajib memakai Produk Ori aktif dengan identitas tunggal.' using errcode = '22023';
+    end if;
     if lama.status <> 'draft' and (
       kode <> lama.kode_batch or p_produk <> lama.produk_id
       or tanggal <> lama.tanggal_produksi
