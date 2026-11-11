@@ -1,5 +1,10 @@
 # CHANGELOG.md — Riwayat Perubahan Aplikasi
 
+## Halaman hasil scan QR Batch — belum dirilis
+- Nama snapshot menjadi judul; penarikan/nonaktif mendapat instruksi berbeda tanpa pesan sukses.
+- Tanggal Indonesia, bantuan WhatsApp kontekstual/fallback resmi, input lookup dipertahankan, dan disclaimer QR per batch.
+- Validasi proyeksi publik serta penyaringan Umami untuk URL/referrer Batch; tanpa dependency/migrasi/data uji hosted.
+
 ## [2026-10-21] — Kode Batch otomatis
 
 ### Diubah

@@ -272,3 +272,7 @@ Proyek tidak memerlukan `vercel.json` pada M0 karena konfigurasi standar Next.js
 ---
 
 M6 aktif. Fondasi SEO, pembersihan runtime Data Contoh, entri massal, dan revisi Temukan Wangimu telah dibangun bertahap; konten awal serta konfirmasi rilis produksi tetap menunggu pemilik.
+
+## Uji hasil scan tanpa database
+
+Setelah `npm run build`, jalankan `node --require ./tests/batch-layanan-fixture.cjs node_modules/next/dist/bin/next start --port 3108`. Preload ini hanya untuk proses uji lokal dan memblokir akses Supabase selain RPC fixture read-only. Jangan pasang pada Vercel/production. Kode fixture: `UJI-EDAR`, `UJI-TARIK`, `UJI-NONAKTIF`, `UJI-GALAT`, `UJI-RUSAK`; kode lain menghasilkan tidak ditemukan. Tes render terisolasi dijalankan melalui `npm test`.

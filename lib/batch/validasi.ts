@@ -66,6 +66,52 @@ export function statusBatchPublik(status: Exclude<StatusBatch, "draft">) {
   return { label: status === "diedarkan" ? "Diedarkan" : status === "ditarik" ? "Ditarik" : "Nonaktif", bahaya: status !== "diedarkan" };
 }
 
+export function presentasiStatusBatch(status: unknown) {
+  switch (status) {
+    case "diedarkan": return { heading: "Batch terdaftar di Wawangian Pelajar", instruksi: "Kode pada kemasan ini cocok dengan catatan batch produksi kami.", label: "Diedarkan", tingkat: "sukses" } as const;
+    case "ditarik": return { heading: "Batch ini sedang ditarik dari peredaran", instruksi: "Hentikan penggunaan dan hubungi Wawangian Pelajar untuk petunjuk penanganan.", label: "Ditarik dari peredaran", tingkat: "bahaya" } as const;
+    case "nonaktif": return { heading: "Catatan batch ini dinonaktifkan", instruksi: "Hubungi Wawangian Pelajar untuk memastikan informasi batch pada kemasan ini.", label: "Nonaktif", tingkat: "peringatan" } as const;
+    default: return null;
+  }
+}
+
+export function formatTanggalBatch(nilai: unknown) {
+  if (typeof nilai !== "string" || !tanggalKalenderValid(nilai)) return null;
+  const [tahun, bulan, hari] = nilai.split("-").map(Number);
+  return new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(Date.UTC(tahun, bulan - 1, hari)));
+}
+
+export type BatchPublik = {
+  kode_batch: string;
+  nama_varian: string;
+  tanggal_produksi: string;
+  status: "diedarkan" | "ditarik" | "nonaktif";
+  keterangan_publik: string | null;
+};
+
+export function bacaBatchPublik(nilai: unknown, kode: string): BatchPublik | null {
+  if (!nilai || typeof nilai !== "object") return null;
+  const data = nilai as Record<string, unknown>;
+  if (data.kode_batch !== kode || !kodeBatchValid(kode)
+    || typeof data.nama_varian !== "string" || !data.nama_varian.trim()
+    || !formatTanggalBatch(data.tanggal_produksi) || !presentasiStatusBatch(data.status)
+    || (data.keterangan_publik !== null && typeof data.keterangan_publik !== "string")) return null;
+  // Whitelist RPC: jangan membawa field internal tambahan ke presentasi.
+  return { kode_batch: kode, nama_varian: data.nama_varian, tanggal_produksi: data.tanggal_produksi as string, status: data.status as BatchPublik["status"], keterangan_publik: data.keterangan_publik as string | null };
+}
+
+export function buatKontakBatch(kanal: { whatsapp?: string | null; email?: string | null }, pesan: string) {
+  try {
+    const url = new URL(kanal.whatsapp ?? "");
+    if (url.protocol === "https:" && url.hostname === "wa.me" && /^\/[0-9]+$/.test(url.pathname) && !url.username && !url.password && !url.port) {
+      url.searchParams.set("text", pesan);
+      return { url: url.toString(), label: "Hubungi Wawangian Pelajar" };
+    }
+  } catch { /* Kanal kosong/rusak memakai kontak resmi alternatif. */ }
+  if (kanal.email && /^mailto:[^\s?@]+@[^\s?@]+\.[^\s?@]+$/.test(kanal.email)) return { url: kanal.email, label: "Hubungi Wawangian Pelajar" };
+  return null;
+}
+
 export function buatUrlBatch(origin: string, kode: string) {
   const url = new URL(origin);
   if (url.protocol !== "https:" || url.hostname === "localhost" || !kodeBatchValid(kode)) throw new Error("Origin produksi wajib HTTPS dan kode batch wajib valid.");

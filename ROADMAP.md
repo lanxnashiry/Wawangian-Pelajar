@@ -1,5 +1,7 @@
 ﻿# ROADMAP.md — Website Wawangian Pelajar
 
+> Hasil scan QR Batch: implementasi dan uji lokal selesai; Preview/tinjauan pemilik sebelum merge production. Uji cetakan multi-HP masih terbuka.
+
 > Progres M6 (21 Oktober 2026): ✅ Kode Batch otomatis (KEP-065); ✅ Modul Batch Produksi dan QR aktif di production; ✅ migrasi hosted/RLS/RPC terverifikasi; ⬜ uji cetak label fisik dan scan multi-HP.
 
 > Peta jalan milestone. Agent membaca dokumen ini untuk tahu **milestone mana yang aktif** dan **apa yang berikutnya**.

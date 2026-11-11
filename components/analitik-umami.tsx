@@ -22,6 +22,7 @@ export function AnalitikUmami() {
 
   return (
     <Script
+      data-before-send="saringAnalitikBatch"
       defer
       src={urlSkrip}
       data-website-id={idSitus}
@@ -29,5 +30,6 @@ export function AnalitikUmami() {
       data-do-not-track="true"
       strategy="afterInteractive"
     />
+
   );
 }

@@ -1,5 +1,15 @@
 # DECISIONS.md — Catatan Keputusan (ADR Ringkas)
 
+### KEP-066 — Presentasi hasil scan QR per batch
+
+**Status:** Implementasi untuk tinjauan Preview, belum rilis production.
+
+**Keputusan:** Mengikuti PRD halaman hasil scan: snapshot nama menjadi identitas utama; status diedarkan, ditarik, dan nonaktif berbeda; QR tidak mengklaim autentikasi botol individual. Tanggal kalender diformat Indonesia, proyeksi rusak gagal tertutup, bantuan memakai kanal resmi.
+
+**Alasan:** Pembeli perlu memahami tindakan berikutnya tanpa klaim keaslian yang melampaui kemampuan QR satu batch.
+
+**Konsekuensi:** URL/identifier, RPC dan database tetap. Umami menyaring URL/referrer Batch dan lookup, termasuk navigasi SPA. Merge production menunggu persetujuan sesuai PRD.
+
 ### KEP-065 — Kode Batch dibuat otomatis
 
 **Tanggal:** 21 Oktober 2026 · **Status:** Diterima
