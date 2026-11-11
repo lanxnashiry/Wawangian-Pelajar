@@ -1,5 +1,11 @@
 # STATUS.md — Posisi Terkini Pengerjaan
 
+## Hasil scan QR Batch — implementasi untuk Preview
+- PRD `PRD_Halaman_Hasil_Scan_QR_Batch_WP.md` diterapkan: snapshot nama, status berbeda, tanggal Indonesia, bantuan kontak, lookup mempertahankan input, serta batas verifikasi QR per batch.
+- Data publik rusak gagal tertutup; Umami menyaring path/referrer Batch termasuk navigasi SPA. Tidak ada migrasi, perubahan generator QR, atau mutasi data produksi.
+- Validasi: 85 test, TypeScript, lint, build; browser fixture 360/1440 px dan zoom 200%, 404/500 dan no-store pada build lokal.
+- Menunggu PR/Preview dan tinjauan pemilik; belum merge/deploy production. Uji fisik Android/iPhone dan pembaca layar manusia belum dilakukan.
+
 ## Posisi 21 Oktober 2026 — Kode Batch otomatis
 - Kode Batch dibuat server dengan format `KODE FORMULA-KODE VARIAN-YYYYMMDD-NN`, contoh `AV-T03-MC-20261021-01`; kolom kode di form hanya tampilan.
 - Migrasi `202610210018` menambah `produk.kode_varian` (MC Main Character, AC Afterclass, SC Secret Crush, FB First Bell), fungsi pembuat kode dengan advisory lock, dan RPC `simpan_batch` baru dengan signature sama.

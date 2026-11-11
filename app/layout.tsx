@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { AnalitikUmami } from "@/components/analitik-umami";
 import "./globals.css";
 
@@ -51,6 +52,7 @@ export default function TataLetakUtama({
   return (
     <html lang="id">
       <body>
+        <Script src="/privasi-analitik.js" strategy="beforeInteractive" />
         {children}
         <AnalitikUmami />
       </body>
