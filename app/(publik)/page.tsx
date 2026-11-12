@@ -91,10 +91,10 @@ export default async function Beranda() {
             <div className="absolute -top-10 -right-12 h-36 w-36 rounded-full bg-[#D1B779]/25 blur-2xl" />
             <div className="absolute -bottom-8 -left-10 h-40 w-40 rounded-full bg-[#087477]/15 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-[#DED3C2] bg-[#F4EBDD] p-3 shadow-2xl shadow-[#102A43]/12 sm:p-5">
-              <div className="relative aspect-square overflow-hidden rounded-[1.4rem] bg-[#102A43]">
+              <div className="relative aspect-video overflow-hidden rounded-[1.4rem] bg-[#F4EBDD]">
                 <Image
-                  src="/beranda-koleksi-wawangian.webp"
-                  alt="Koleksi parfum Wawangian Pelajar"
+                  src="/beranda-signature-kampus.webp"
+                  alt="Ilustrasi koleksi Signature Wawangian Pelajar di suasana kampus"
                   fill
                   priority
                   sizes="(min-width: 1024px) 560px, 90vw"

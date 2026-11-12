@@ -5,7 +5,7 @@ import test from "node:test";
 const sumber = readFileSync(new URL("../app/(publik)/page.tsx", import.meta.url), "utf8");
 
 const aset = [
-  "beranda-koleksi-wawangian.webp",
+  "beranda-signature-kampus.webp",
   "prinsip-sumber-tepercaya.webp",
   "prinsip-untuk-pendidikan.webp",
   "prinsip-pilihan-terjangkau.webp",
@@ -19,7 +19,12 @@ test("homepage memakai visual kiriman pemilik pada hero dan tiga prinsip", () =>
 });
 
 test("visual homepage memiliki alt deskriptif dan tidak menggantikan foto Produk", () => {
-  assert.match(sumber, /alt="Koleksi parfum Wawangian Pelajar"/);
+  assert.match(sumber, /alt="Ilustrasi koleksi Signature Wawangian Pelajar di suasana kampus"/);
   assert.match(sumber, /alt=\{alasan\.alt\}/);
   assert.doesNotMatch(sumber, /VisualProduk produk=\{produkHero\}/);
+});
+
+test("hero mempertahankan rasio landscape dan komposisi utuh", () => {
+  assert.match(sumber, /aspect-video/);
+  assert.match(sumber, /object-contain/);
 });
