@@ -25,7 +25,7 @@ const alasanBerbeda = [
   },
   {
     gambar: "/prinsip-untuk-pendidikan.webp",
-    alt: "Buku, hati, dan toga sebagai simbol kepedulian pada pendidikan",
+    alt: "Tumpukan buku, tunas tanaman, dan topi toga sebagai simbol pendidikan yang bertumbuh",
     judul: "Untuk pendidikan",
     deskripsi: "Komitmen donasi dihitung dari laba bersih setiap transaksi, bukan angka bebas.",
   },
